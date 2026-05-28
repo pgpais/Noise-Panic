@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://1oxb3rpa36t"]
+
+[ext_resource type="Script" uid="uid://bflwx6cwjj1ft" path="res://menus/MainMenu.cs" id="1_y8e4h"]
+[ext_resource type="PackedScene" uid="uid://cwo4jb3vh35id" path="res://levels/lobby.tscn" id="2_2d4ws"]
+[ext_resource type="PackedScene" uid="uid://bxrf0ayypynhp" path="res://core/networking/networking.tscn" id="2_hl3ms"]
+
+[node name="Menu" type="Control" unique_id=1135982483]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_y8e4h")
+lobbyScene = ExtResource("2_2d4ws")
+
+[node name="Networking" parent="." unique_id=1557535012 instance=ExtResource("2_hl3ms")]
+layout_mode = 1

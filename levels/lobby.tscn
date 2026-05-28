@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://cwo4jb3vh35id"]
+
+[ext_resource type="Script" uid="uid://0k13edbpdde5" path="res://levels/Lobby.cs" id="1_dxlos"]
+[ext_resource type="PackedScene" uid="uid://5wiwhftgaawa" path="res://gameplay/actors/player/player.tscn" id="2_doeiq"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_5h46i"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_arc7w"]
+size = Vector2(50, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dxlos"]
+size = Vector3(50, 0.001, 50)
+
+[node name="Lobby" type="Node3D" unique_id=954981151 node_paths=PackedStringArray("spawnPos")]
+script = ExtResource("1_dxlos")
+spawnPos = NodePath("PlayerSpawnPoint")
+playerScene = ExtResource("2_doeiq")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=156097673]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1329043612]
+mesh = SubResource("PlaneMesh_arc7w")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1931856980]
+shape = SubResource("BoxShape3D_dxlos")
+
+[node name="PlayerSpawnPoint" type="Marker3D" parent="." unique_id=1524352124]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 1, 8)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=165574689]
+transform = Transform3D(0.1569344, 0.48261186, -0.8616597, 0, 0.87247044, 0.48866692, 0.987609, -0.07668865, 0.13692062, 0, 9.731221, 0)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1138672703]
+transform = Transform3D(1, 0, 0, 0, 0.7984643, 0.60204214, 0, -0.60204214, 0.7984643, 0, 2.885, 2.5)
+top_level = true
+
+[node name="PhantomCameraHost" type="Node" parent="Camera3D" unique_id=1054332899]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("5_5h46i")

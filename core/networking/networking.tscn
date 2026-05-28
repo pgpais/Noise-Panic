@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://bxrf0ayypynhp"]
+
+[ext_resource type="Script" uid="uid://dtraf8b1qere2" path="res://core/networking/NetworkingMenu.cs" id="1_5kwko"]
+
+[node name="NetworkingMenu" type="Control" unique_id=1557535012 node_paths=PackedStringArray("hostButtonLocal", "IpLocal", "PortLocal", "joinButtonLocal", "hostButtonSteam", "joinInfoSteam", "joinButtonSteam")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5kwko")
+hostButtonLocal = NodePath("PanelContainer/VBoxContainer/TabContainer/Local/HostLocal")
+IpLocal = NodePath("PanelContainer/VBoxContainer/TabContainer/Local/HBoxContainer/IpLocal")
+PortLocal = NodePath("PanelContainer/VBoxContainer/TabContainer/Local/HBoxContainer/PortLocal")
+joinButtonLocal = NodePath("PanelContainer/VBoxContainer/TabContainer/Local/JoinLocal")
+hostButtonSteam = NodePath("PanelContainer/VBoxContainer/TabContainer/Steam/HostSteam")
+joinInfoSteam = NodePath("PanelContainer/VBoxContainer/TabContainer/Steam/LobbyIdSteam")
+joinButtonSteam = NodePath("PanelContainer/VBoxContainer/TabContainer/Steam/JoinSteam")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=863665461]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -92.0
+offset_top = -105.0
+offset_right = 92.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1492604397]
+layout_mode = 2
+
+[node name="TabContainer" type="TabContainer" parent="PanelContainer/VBoxContainer" unique_id=1910843948]
+layout_mode = 2
+current_tab = 0
+
+[node name="Steam" type="VBoxContainer" parent="PanelContainer/VBoxContainer/TabContainer" unique_id=1230128159]
+layout_mode = 2
+size_flags_horizontal = 3
+metadata/_tab_index = 0
+
+[node name="HostSteam" type="Button" parent="PanelContainer/VBoxContainer/TabContainer/Steam" unique_id=895074989]
+layout_mode = 2
+text = "Host Steam"
+
+[node name="LobbyIdSteam" type="LineEdit" parent="PanelContainer/VBoxContainer/TabContainer/Steam" unique_id=1510083420]
+layout_mode = 2
+placeholder_text = "Lobby Id"
+
+[node name="JoinSteam" type="Button" parent="PanelContainer/VBoxContainer/TabContainer/Steam" unique_id=1388813859]
+layout_mode = 2
+text = "Join Steam"
+
+[node name="Local" type="VBoxContainer" parent="PanelContainer/VBoxContainer/TabContainer" unique_id=172823639]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+metadata/_tab_index = 1
+
+[node name="HostLocal" type="Button" parent="PanelContainer/VBoxContainer/TabContainer/Local" unique_id=630211200]
+layout_mode = 2
+text = "Host Local"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/TabContainer/Local" unique_id=1742262324]
+layout_mode = 2
+
+[node name="IpLocal" type="LineEdit" parent="PanelContainer/VBoxContainer/TabContainer/Local/HBoxContainer" unique_id=893619201]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Host's Ip"
+
+[node name="PortLocal" type="LineEdit" parent="PanelContainer/VBoxContainer/TabContainer/Local/HBoxContainer" unique_id=251440751]
+layout_mode = 2
+placeholder_text = "Port"
+
+[node name="JoinLocal" type="Button" parent="PanelContainer/VBoxContainer/TabContainer/Local" unique_id=59323221]
+layout_mode = 2
+text = "Join Local"
