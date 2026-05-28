@@ -1,7 +1,9 @@
 using Godot;
 using PhantomCamera;
 
-public partial class Player : CharacterBody3D
+namespace WeWereDumb.Gameplay.Actors;
+
+public partial class Player : Actor
 {
 	PhantomCamera3D cam;
 

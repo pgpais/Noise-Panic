@@ -1,10 +1,11 @@
 using Godot;
+using WeWereDumb.Gameplay.Interaction;
 
 [GlobalClass]
 public partial class PlayerCharacterInput : Node
 {
 	[Export] CharacterController controller;
-	// [Export] Interactor interactor;
+	[Export] Interactor interactor;
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
@@ -12,15 +13,15 @@ public partial class PlayerCharacterInput : Node
 		if (!IsMultiplayerAuthority()) return;
 		HandleMovementInput();
 
-		// if (Input.IsActionJustPressed("interact"))
-		// {
-		// 	interactor.StartInteracting();
-		// }
+		if (Input.IsActionJustPressed("interact"))
+		{
+			interactor.StartInteracting();
+		}
 
-		// if (Input.IsActionJustPressed("ui_cancel"))
-		// {
-		// 	interactor.StopInteracting();
-		// }
+		if (Input.IsActionJustPressed("ui_cancel"))
+		{
+			interactor.StopInteracting();
+		}
 	}
 
 	private void HandleMovementInput()
