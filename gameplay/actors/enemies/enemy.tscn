@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://ds4f3k4yc0ma6"]
+
+[ext_resource type="PackedScene" uid="uid://vwx0rglinq0y" path="res://gameplay/actors/actor.tscn" id="1_mgh73"]
+[ext_resource type="Script" uid="uid://dycl50odn06iq" path="res://gameplay/actors/enemies/Enemy.cs" id="2_xndlq"]
+[ext_resource type="Script" uid="uid://bhsoqgg220w7f" path="res://gameplay/combat/HealthComponent.cs" id="3_45p3m"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_xndlq"]
+radius = 0.25
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_45p3m"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mgh73"]
+radius = 0.25
+height = 1.0
+
+[node name="Enemy" unique_id=1748184085 node_paths=PackedStringArray("health", "controller") instance=ExtResource("1_mgh73")]
+script = ExtResource("2_xndlq")
+health = NodePath("Components/HealthComponent")
+controller = NodePath("Components/CharacterController")
+
+[node name="MeshInstance3D" parent="." index="0" unique_id=41721404]
+mesh = SubResource("CapsuleMesh_xndlq")
+surface_material_override/0 = SubResource("StandardMaterial3D_45p3m")
+
+[node name="CollisionShape3D" parent="." index="1" unique_id=1622523065]
+shape = SubResource("CapsuleShape3D_mgh73")
+
+[node name="CharacterController" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="0" unique_id=2102656381]
+Speed = 2.5
+
+[node name="HealthComponent" type="Node" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="1" unique_id=1095575229]
+script = ExtResource("3_45p3m")
+metadata/_custom_type_script = "uid://bhsoqgg220w7f"

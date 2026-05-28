@@ -22,7 +22,7 @@ buffer_length = 0.1
 
 [sub_resource type="AudioStreamOpus" id="AudioStreamOpus_5myso"]
 
-[node name="Player" unique_id=1748184085 instance=ExtResource("1_5p43v")]
+[node name="Player" unique_id=1748184085 groups=["players"] instance=ExtResource("1_5p43v")]
 script = ExtResource("2_ddyh4")
 
 [node name="PlayerCharacterInput" type="Node" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="1" unique_id=1807945806 node_paths=PackedStringArray("controller", "interactor")]
@@ -39,13 +39,19 @@ metadata/_custom_type_script = "uid://dreeunpbb837k"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Components/Interactor" index="0" unique_id=1342794626]
 shape = SubResource("CylinderShape3D_3canv")
 
-[node name="PhantomCamera3D" type="Node3D" parent="." index="3" unique_id=30133293]
-transform = Transform3D(1, 0, 0, 0, 0.7984643, 0.60204214, 0, -0.60204214, 0.7984643, 0, 1.885, 2.5)
+[node name="PhantomCamera3D" type="Node3D" parent="." index="3" unique_id=30133293 node_paths=PackedStringArray("follow_target", "look_at_target")]
+transform = Transform3D(1, 0, 0, 0, 0.7984643, 0.60204214, 0, -0.60204214, 0.7984643, 0, 3.885, 4.5)
 script = ExtResource("4_gdo0n")
 follow_mode = 6
+follow_target = NodePath("..")
 look_at_mode = 2
+look_at_target = NodePath("..")
 tween_resource = SubResource("Resource_5myso")
-follow_offset = Vector3(0, 1.885, 1.5)
+follow_offset = Vector3(0, 2, 2)
+look_at_offset = Vector3(0, 1, 0)
+align_transform_with_view = Callable()
+align_position_with_view = Callable()
+align_rotation_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="VoiceStreamOutputPlayer3D" type="AudioStreamPlayer3D" parent="." index="4" unique_id=1396259304]
