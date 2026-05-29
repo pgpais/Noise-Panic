@@ -5,16 +5,15 @@ namespace WeWereDumb.Gameplay.Actors;
 
 public partial class Player : Actor
 {
-	PhantomCamera3D cam;
+	[Export] Node3D phantomcamera3d;
+	PhantomCamera3D pcam;
 
 	public override void _Ready()
 	{
-		cam = GetNode<Node3D>("PhantomCamera3D").AsPhantomCamera3D();
+		pcam = phantomcamera3d.AsPhantomCamera3D();
 		if (IsMultiplayerAuthority())
 		{
-			cam.FollowTarget = this;
-			cam.LookAtTarget = this;
-			cam.Priority = 1;
+			pcam.Priority = 1;
 		}
 	}
 }

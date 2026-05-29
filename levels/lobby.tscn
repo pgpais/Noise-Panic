@@ -43,7 +43,7 @@ shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1138672703]
 physics_interpolation_mode = 1
-transform = Transform3D(1, 0, 0, 0, 0.9486833, 0.31622785, 0, -0.31622785, 0.9486833, 0, 3, 3)
+transform = Transform3D(1, 0, 0, 0, 0.9863939, -0.16439898, 0, 0.16439898, 0.9863939, 0, 0.90000004, 6)
 environment = SubResource("Environment_5h46i")
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D" unique_id=1054332899]

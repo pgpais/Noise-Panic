@@ -7,6 +7,7 @@ public partial class CharacterController : Node
 
 	public bool MovementEnabled { get; set; } = true;
 	public Vector2 MovInput { get; set; } = Vector2.Zero;
+	float targetYRotation;
 
 	CharacterBody3D _body;
 
@@ -26,6 +27,22 @@ public partial class CharacterController : Node
 		}
 
 		MovInput = Vector2.Zero;
+	}
+
+	public void Rotate(float angleRads)
+	{
+		GD.Print("Rotating by " + angleRads);
+		float targetRotation = _body.Rotation.Y + angleRads;
+		Tween t = GetTree().CreateTween();
+		t.SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Linear);
+		t.TweenMethod(Callable.From((float x) => SetYRotation(x)), _body.Rotation.Y, targetRotation, 0.1f);
+	}
+
+	private void SetYRotation(float angleRads)
+	{
+		var rotation = _body.Rotation;
+		rotation.Y = angleRads;
+		_body.Rotation = rotation;
 	}
 
 	private void HandleMovement(double delta)
