@@ -47,12 +47,12 @@ metadata/_custom_type_script = "uid://dueyxdwc85adk"
 shape = SubResource("CapsuleShape3D_mgh73")
 
 [node name="Sprite3D" type="Sprite3D" parent="." index="3" unique_id=1782822136]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 billboard = 1
 texture = SubResource("ViewportTexture_gefjq")
 
 [node name="SubViewport" type="SubViewport" parent="Sprite3D" index="0" unique_id=343879193]
-size = Vector2i(59, 10)
+size = Vector2i(150, 15)
 
 [node name="HealthBar" parent="Sprite3D/SubViewport" index="0" unique_id=1176962998 node_paths=PackedStringArray("healthComponent") instance=ExtResource("4_gefjq")]
 healthComponent = NodePath("../../../Components/HealthComponent")

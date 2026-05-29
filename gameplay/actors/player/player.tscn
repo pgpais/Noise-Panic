@@ -67,6 +67,7 @@ shape = SubResource("CapsuleShape3D_5y3ih")
 
 [node name="Hurtbox" type="Area3D" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="4" unique_id=225836392]
 script = ExtResource("6_fbwt1")
+damage = 40
 metadata/_custom_type_script = "uid://b3s5mo3k2nfjg"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Components/Hurtbox" index="0" unique_id=756587483]
@@ -84,10 +85,10 @@ autoplay = true
 bus = &"Voice"
 
 [node name="CameraAnchor" type="Node3D" parent="." index="4" unique_id=124411788]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 4)
 
 [node name="PhantomCamera3D" type="Node3D" parent="CameraAnchor" index="0" unique_id=30133293 node_paths=PackedStringArray("follow_target", "look_at_target")]
-transform = Transform3D(1, 0, 0, 0, 0.97014153, 0.2425354, 0, -0.2425354, 0.97014153, 0, 2, 4)
+transform = Transform3D(1, 0, 0, 0, 0.49613777, 0.86824125, 0, -0.86824125, 0.49613777, 0, 8, 4)
 top_level = true
 script = ExtResource("4_gdo0n")
 follow_mode = 1
