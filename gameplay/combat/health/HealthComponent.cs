@@ -19,6 +19,8 @@ public partial class HealthComponent : Node
 	public void TakeDamage(int damage)
 	{
 		CurrentHealth -= damage;
+		EmitSignal(SignalName.HealthChanged, CurrentHealth);
+
 		if (CurrentHealth <= 0)
 		{
 			Die();
@@ -28,6 +30,13 @@ public partial class HealthComponent : Node
 	public void Heal(int amount)
 	{
 		CurrentHealth += amount;
+
+		if (CurrentHealth > MaxHealth)
+		{
+			CurrentHealth = MaxHealth;
+		}
+
+		EmitSignal(SignalName.HealthChanged, CurrentHealth);
 	}
 
 	public void Reset()

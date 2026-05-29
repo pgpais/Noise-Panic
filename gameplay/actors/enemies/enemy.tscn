@@ -2,7 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://vwx0rglinq0y" path="res://gameplay/actors/actor.tscn" id="1_mgh73"]
 [ext_resource type="Script" uid="uid://dycl50odn06iq" path="res://gameplay/actors/enemies/Enemy.cs" id="2_xndlq"]
-[ext_resource type="Script" uid="uid://bhsoqgg220w7f" path="res://gameplay/combat/HealthComponent.cs" id="3_45p3m"]
+[ext_resource type="Script" uid="uid://bhsoqgg220w7f" path="res://gameplay/combat/health/HealthComponent.cs" id="3_45p3m"]
+[ext_resource type="PackedScene" uid="uid://cpetvmxskelxq" path="res://gameplay/combat/health/ui/health_bar.tscn" id="4_gefjq"]
+[ext_resource type="Script" uid="uid://dueyxdwc85adk" path="res://gameplay/combat/Hitbox.cs" id="4_wn54x"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_xndlq"]
 radius = 0.25
@@ -14,6 +16,9 @@ albedo_color = Color(1, 0, 0, 1)
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mgh73"]
 radius = 0.25
 height = 1.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_gefjq"]
+viewport_path = NodePath("Sprite3D/SubViewport")
 
 [node name="Enemy" unique_id=1748184085 node_paths=PackedStringArray("health", "controller") instance=ExtResource("1_mgh73")]
 script = ExtResource("2_xndlq")
@@ -33,3 +38,23 @@ Speed = 2.5
 [node name="HealthComponent" type="Node" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="1" unique_id=1095575229]
 script = ExtResource("3_45p3m")
 metadata/_custom_type_script = "uid://bhsoqgg220w7f"
+
+[node name="Hitbox" type="Area3D" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="2" unique_id=653123947]
+script = ExtResource("4_wn54x")
+metadata/_custom_type_script = "uid://dueyxdwc85adk"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Components/Hitbox" index="0" unique_id=880271277]
+shape = SubResource("CapsuleShape3D_mgh73")
+
+[node name="Sprite3D" type="Sprite3D" parent="." index="3" unique_id=1782822136]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_gefjq")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite3D" index="0" unique_id=343879193]
+size = Vector2i(59, 10)
+
+[node name="HealthBar" parent="Sprite3D/SubViewport" index="0" unique_id=1176962998 node_paths=PackedStringArray("healthComponent") instance=ExtResource("4_gefjq")]
+healthComponent = NodePath("../../../Components/HealthComponent")
+
+[connection signal="HitTaken" from="Components/Hitbox" to="Components/HealthComponent" method="TakeDamage"]
