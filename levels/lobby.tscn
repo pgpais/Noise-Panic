@@ -5,12 +5,14 @@
 [ext_resource type="Script" uid="uid://b2kjvnq7hq67u" path="res://gameplay/actors/enemies/EnemyController.cs" id="4_n1gxf"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_5h46i"]
 [ext_resource type="PackedScene" uid="uid://ds4f3k4yc0ma6" path="res://gameplay/actors/enemies/enemy.tscn" id="5_63tst"]
+[ext_resource type="Script" uid="uid://dote0e123yk63" path="res://gameplay/enemy_spawning/EnemySpawner.cs" id="6_3ohsu"]
+[ext_resource type="Script" uid="uid://usjo7r6fhi6r" path="res://gameplay/enemy_spawning/EnemySpawnController.cs" id="6_5h46i"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_arc7w"]
-size = Vector2(50, 50)
+size = Vector2(500, 500)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dxlos"]
-size = Vector3(50, 0.001, 50)
+size = Vector3(500, 0.001, 500)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_63tst"]
 
@@ -20,6 +22,13 @@ sky_material = SubResource("ProceduralSkyMaterial_63tst")
 [sub_resource type="Environment" id="Environment_5h46i"]
 background_mode = 2
 sky = SubResource("Sky_3ohsu")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ohsu"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5h46i"]
+material = SubResource("StandardMaterial3D_3ohsu")
+size = Vector3(0.2, 0.2, 0.2)
 
 [node name="Lobby" type="Node3D" unique_id=954981151 node_paths=PackedStringArray("spawnPos")]
 script = ExtResource("1_dxlos")
@@ -58,3 +67,43 @@ script = ExtResource("4_n1gxf")
 
 [node name="Enemy" parent="." unique_id=1748184085 instance=ExtResource("5_63tst")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0.5, -13)
+
+[node name="SpawnController" type="Node3D" parent="." unique_id=1934995528 node_paths=PackedStringArray("Spawners")]
+script = ExtResource("6_5h46i")
+Spawners = [NodePath("EnemySpawner"), NodePath("EnemySpawner2"), NodePath("EnemySpawner3"), NodePath("EnemySpawner4"), NodePath("EnemySpawner5")]
+spawnTimer = 1.0
+
+[node name="EnemySpawner" type="MeshInstance3D" parent="SpawnController" unique_id=756112243]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0.120987654, -14)
+mesh = SubResource("BoxMesh_5h46i")
+script = ExtResource("6_3ohsu")
+automaticSpawn = true
+enemyScene = ExtResource("5_63tst")
+
+[node name="EnemySpawner2" type="MeshInstance3D" parent="SpawnController" unique_id=1870685914]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0.120987654, -14)
+mesh = SubResource("BoxMesh_5h46i")
+script = ExtResource("6_3ohsu")
+automaticSpawn = true
+enemyScene = ExtResource("5_63tst")
+
+[node name="EnemySpawner3" type="MeshInstance3D" parent="SpawnController" unique_id=1830065108]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 0.120987654, -19)
+mesh = SubResource("BoxMesh_5h46i")
+script = ExtResource("6_3ohsu")
+automaticSpawn = true
+enemyScene = ExtResource("5_63tst")
+
+[node name="EnemySpawner4" type="MeshInstance3D" parent="SpawnController" unique_id=68489295]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0.120987654, -18)
+mesh = SubResource("BoxMesh_5h46i")
+script = ExtResource("6_3ohsu")
+automaticSpawn = true
+enemyScene = ExtResource("5_63tst")
+
+[node name="EnemySpawner5" type="MeshInstance3D" parent="SpawnController" unique_id=566864949]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0.120987654, -10)
+mesh = SubResource("BoxMesh_5h46i")
+script = ExtResource("6_3ohsu")
+automaticSpawn = true
+enemyScene = ExtResource("5_63tst")

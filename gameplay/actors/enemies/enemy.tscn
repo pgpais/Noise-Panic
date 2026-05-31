@@ -21,6 +21,7 @@ height = 1.0
 viewport_path = NodePath("Sprite3D/SubViewport")
 
 [node name="Enemy" unique_id=1748184085 node_paths=PackedStringArray("health", "controller") instance=ExtResource("1_mgh73")]
+collision_layer = 2
 script = ExtResource("2_xndlq")
 health = NodePath("Components/HealthComponent")
 controller = NodePath("Components/CharacterController")
