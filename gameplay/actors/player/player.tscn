@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_3canv"]
 [ext_resource type="Script" uid="uid://b3s5mo3k2nfjg" path="res://gameplay/combat/Hurtbox.cs" id="6_fbwt1"]
 [ext_resource type="Script" uid="uid://cew6vps4wkxbk" path="res://gameplay/voice/networked_voice_controller.gd" id="6_gdo0n"]
+[ext_resource type="PackedScene" uid="uid://cnumeaa05hn82" path="res://gameplay/actors/player/model/Main_Character.blend" id="10_fbwt1"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_3canv"]
 size = Vector3(0.43, 0.28, 0.37)
@@ -39,7 +40,13 @@ script = ExtResource("5_3canv")
 script = ExtResource("2_ddyh4")
 phantomcamera3d = NodePath("CameraAnchor/PhantomCamera3D")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D" parent_id_path=PackedInt32Array(41721404) index="0" unique_id=1070607480]
+[node name="Main_Character" parent="." index="0" unique_id=1722957160 instance=ExtResource("10_fbwt1")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, -0.8579986, 0)
+
+[node name="MeshInstance3D" parent="." index="1" unique_id=41721404]
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D" index="0" unique_id=1070607480]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.31018203)
 mesh = SubResource("BoxMesh_3canv")
 surface_material_override/0 = SubResource("StandardMaterial3D_5myso")
@@ -73,7 +80,7 @@ metadata/_custom_type_script = "uid://b3s5mo3k2nfjg"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Components/Hurtbox" index="0" unique_id=756587483]
 shape = SubResource("CapsuleShape3D_1meb4")
 
-[node name="VoiceStreamOutputPlayer3D" type="AudioStreamPlayer3D" parent="." index="3" unique_id=1396259304]
+[node name="VoiceStreamOutputPlayer3D" type="AudioStreamPlayer3D" parent="." index="4" unique_id=1396259304]
 stream = SubResource("AudioStreamGenerator_3canv")
 autoplay = true
 bus = &"Voice"
@@ -84,7 +91,7 @@ stream = SubResource("AudioStreamOpus_5myso")
 autoplay = true
 bus = &"Voice"
 
-[node name="CameraAnchor" type="Node3D" parent="." index="4" unique_id=124411788]
+[node name="CameraAnchor" type="Node3D" parent="." index="5" unique_id=124411788]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 4)
 
 [node name="PhantomCamera3D" type="Node3D" parent="CameraAnchor" index="0" unique_id=30133293 node_paths=PackedStringArray("follow_target", "look_at_target")]
