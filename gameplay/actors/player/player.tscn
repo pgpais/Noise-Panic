@@ -3,13 +3,13 @@
 [ext_resource type="PackedScene" uid="uid://vwx0rglinq0y" path="res://gameplay/actors/actor.tscn" id="1_5p43v"]
 [ext_resource type="Script" uid="uid://br80xryr5l8d0" path="res://gameplay/actors/player/Player.cs" id="2_ddyh4"]
 [ext_resource type="Script" uid="uid://cmi2g3whgv6wt" path="res://gameplay/input/PlayerCharacterInput.cs" id="2_jftto"]
+[ext_resource type="PackedScene" uid="uid://cpckvel110ocl" path="res://gameplay/actors/player/main_character.tscn" id="3_fbwt1"]
 [ext_resource type="Script" uid="uid://dreeunpbb837k" path="res://gameplay/interaction/Interactor.cs" id="4_3canv"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="4_gdo0n"]
 [ext_resource type="Script" uid="uid://dueyxdwc85adk" path="res://gameplay/combat/Hitbox.cs" id="5_1meb4"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_3canv"]
 [ext_resource type="Script" uid="uid://b3s5mo3k2nfjg" path="res://gameplay/combat/Hurtbox.cs" id="6_fbwt1"]
 [ext_resource type="Script" uid="uid://cew6vps4wkxbk" path="res://gameplay/voice/networked_voice_controller.gd" id="6_gdo0n"]
-[ext_resource type="PackedScene" uid="uid://cnumeaa05hn82" path="res://gameplay/actors/player/model/Main_Character.blend" id="10_fbwt1"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_3canv"]
 size = Vector3(0.43, 0.28, 0.37)
@@ -40,7 +40,7 @@ script = ExtResource("5_3canv")
 script = ExtResource("2_ddyh4")
 phantomcamera3d = NodePath("CameraAnchor/PhantomCamera3D")
 
-[node name="Main_Character" parent="." index="0" unique_id=1722957160 instance=ExtResource("10_fbwt1")]
+[node name="Main_Character2" parent="." index="0" unique_id=1366362755 instance=ExtResource("3_fbwt1")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, -0.8579986, 0)
 
 [node name="MeshInstance3D" parent="." index="1" unique_id=41721404]

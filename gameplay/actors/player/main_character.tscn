@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cpckvel110ocl"]
+
+[ext_resource type="PackedScene" uid="uid://cnumeaa05hn82" path="res://gameplay/actors/player/model/Main_Character.blend" id="1_l8eew"]
+[ext_resource type="Shader" uid="uid://dg3amo6jwypv8" path="res://gameplay/actors/player/model/Character_Face.tres" id="2_s4rvo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ivuq3"]
+render_priority = 0
+shader = ExtResource("2_s4rvo")
+
+[node name="Main_Character" unique_id=1366362755 instance=ExtResource("1_l8eew")]
+
+[node name="player-character" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(1428710461) index="1" unique_id=2137368133]
+material_overlay = SubResource("ShaderMaterial_ivuq3")

@@ -1,0 +1,12 @@
+[gd_resource type="VisualShader" format=3 uid="uid://dg3amo6jwypv8"]
+
+[ext_resource type="Texture2D" uid="uid://d3fxvx4elu5oq" path="res://gameplay/actors/player/model/textures/player-character-face06.png" id="1_ffma1"]
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_5bl8u"]
+expanded_output_ports = [0]
+texture = ExtResource("1_ffma1")
+
+[resource]
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_5bl8u")
+nodes/fragment/2/position = Vector2(-200, 200)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 0, 2, 4, 0, 1, 2, 0, 0, 5)
