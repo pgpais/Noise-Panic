@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://jfiqceeq0sbh"]
 
 [ext_resource type="Script" uid="uid://b0nnxh5anynfp" path="res://gameplay/combat/projectiles/Projectile.cs" id="1_3jh82"]
+[ext_resource type="Script" uid="uid://b3s5mo3k2nfjg" path="res://gameplay/combat/Hurtbox.cs" id="2_g3gji"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oo4fg"]
 albedo_color = Color(1, 1, 0, 1)
@@ -13,14 +14,27 @@ height = 0.2
 [sub_resource type="SphereShape3D" id="SphereShape3D_3jh82"]
 radius = 0.1
 
-[node name="ProtoProjectile" type="RigidBody3D" unique_id=1452483818]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_g3gji"]
+radius = 0.1
+
+[node name="ProtoProjectile" type="RigidBody3D" unique_id=1452483818 node_paths=PackedStringArray("hurtbox")]
 collision_layer = 0
 collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource("1_3jh82")
+hurtbox = NodePath("Hurtbox")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1618312033]
 mesh = SubResource("SphereMesh_oo4fg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2107723925]
 shape = SubResource("SphereShape3D_3jh82")
+
+[node name="Hurtbox" type="Area3D" parent="." unique_id=667936574]
+collision_mask = 2
+script = ExtResource("2_g3gji")
+damage = 30
+metadata/_custom_type_script = "uid://b3s5mo3k2nfjg"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=131729340]
+shape = SubResource("CylinderShape3D_g3gji")
