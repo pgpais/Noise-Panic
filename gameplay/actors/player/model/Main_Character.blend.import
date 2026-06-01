@@ -39,7 +39,7 @@ materials/extract_format=2
 materials/extract_path=""
 _subresources={
 "animations": {
-"Iddle": {
+"GunHold": {
 "save_to_file/enabled": false,
 "save_to_file/fallback_path": "",
 "save_to_file/keep_custom_tracks": "",
@@ -4150,6 +4150,28 @@ _subresources={
 "slice_99/save_to_file/path": "",
 "slice_99/start_frame": 0,
 "slices/amount": 0
+}
+},
+"materials": {
+"Color-Primary": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://gameplay/actors/player/model/Color-Primary.material",
+"use_external/path": "uid://crl01hedtxl21"
+},
+"Color-Screen": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://gameplay/actors/player/model/Color-Screen.material",
+"use_external/path": "uid://ci5dedrs4kjon"
+},
+"Color-Secondary": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://gameplay/actors/player/model/Color-Secondary.material",
+"use_external/path": "uid://gctjs4h3bqpy"
+},
+"Metal": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://gameplay/actors/player/model/Metal.material",
+"use_external/path": "uid://bmwt32ou1qhq1"
 }
 }
 }

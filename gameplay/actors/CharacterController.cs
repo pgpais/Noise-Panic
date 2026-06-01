@@ -3,7 +3,7 @@ using Godot;
 [GlobalClass]
 public partial class CharacterController : Node
 {
-	[Export] AnimationPlayer animationPlayer;
+	[Export] AnimationTree animationTree;
 	[Export] Node3D cameraAnchor;
 	[Export] public float Speed { get; private set; }
 
@@ -65,20 +65,17 @@ public partial class CharacterController : Node
 		{
 			velocity.X = direction.X * Speed;
 			velocity.Z = direction.Z * Speed;
-			if (animationPlayer != null)
-			{
-
-				animationPlayer.Play("Running");
-			}
 		}
 		else
 		{
 			velocity.X = Mathf.MoveToward(_body.Velocity.X, 0, Speed);
 			velocity.Z = Mathf.MoveToward(_body.Velocity.Z, 0, Speed);
-			if (animationPlayer != null)
-			{
-				animationPlayer.Play("Idle");
-			}
+		}
+
+		if (animationTree != null)
+		{
+			var velocity2D = new Vector2(velocity.X, velocity.Z);
+			animationTree.Set("parameters/MovementBlendSpace2D/blend_position", velocity2D / Speed);
 		}
 
 		_body.Velocity = velocity;
