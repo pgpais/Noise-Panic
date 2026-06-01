@@ -42,6 +42,7 @@ public partial class HealthComponent : Node
 	public void Reset()
 	{
 		CurrentHealth = MaxHealth;
+		EmitSignal(SignalName.HealthChanged, CurrentHealth);
 	}
 
 	public void Die()

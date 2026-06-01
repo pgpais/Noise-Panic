@@ -68,7 +68,7 @@ public class ObjectPool<T> : ObjectPool where T : Node, IPooledObject
         InactiveObjects.RemoveAt(0);
         ActiveObjects.Add(instance);
 
-        PrintPoolInfo();
+        // PrintPoolInfo();
 
         return instance as T;
     }
@@ -90,7 +90,7 @@ public class ObjectPool<T> : ObjectPool where T : Node, IPooledObject
         ActiveObjects.Remove(instance);
         InactiveObjects.Add(instance);
 
-        PrintPoolInfo();
+        // PrintPoolInfo();
     }
 
 
