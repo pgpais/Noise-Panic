@@ -22,7 +22,7 @@ public partial class Gun : Node3D
 	public void Shoot()
 	{
 		var bullet = ObjectPooler.Instance.RequestObject<Projectile>(poolName);
-		GetTree().CurrentScene.AddChild(bullet);
+		GetTree().CurrentScene.AddChild(bullet, true);
 		bullet.GlobalPosition = shootingPoint.GlobalPosition;
 		bullet.GlobalRotation = shootingPoint.GlobalRotation;
 		bullet.ApplyCentralImpulse(-shootingPoint.GlobalTransform.Basis.Z * shootingForce);

@@ -12,6 +12,8 @@ public abstract class ObjectPool
     public int CurrentSize { get; protected set; }
     public bool AutoExpand { get; protected set; }
 
+    protected Node hiddenNode = new Node();
+
     protected List<IPooledObject> ActiveObjects;
     protected List<IPooledObject> InactiveObjects;
 
@@ -75,16 +77,14 @@ public class ObjectPool<T> : ObjectPool where T : Node, IPooledObject
 
     public void ReturnTypedObject(T instance)
     {
-        if (!ActiveObjects.Contains(instance))
-        {
-            GD.PushError($"Object not in pool {Name}");
-        }
-
         var parent = instance.GetParent();
-        // Remove from tree, use call deferred
         if (parent != null)
         {
-            parent.CallDeferred("remove_child", instance); //TODO: Might be a way to improve
+            parent.CallDeferred(Node.MethodName.RemoveChild, instance);
+        }
+        else
+        {
+            GD.PushError($"Returned object {instance.Name} has no parent for pool {Name}");
         }
 
         ActiveObjects.Remove(instance);
