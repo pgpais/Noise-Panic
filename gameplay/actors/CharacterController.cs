@@ -77,7 +77,7 @@ public partial class CharacterController : Node
 			velocity.Z = Mathf.MoveToward(_body.Velocity.Z, 0, Speed);
 			if (animationPlayer != null)
 			{
-				animationPlayer.Play("Iddle"); //TODO: fix typo
+				animationPlayer.Play("Idle");
 			}
 		}
 

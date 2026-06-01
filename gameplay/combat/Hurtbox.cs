@@ -3,6 +3,8 @@ using Godot;
 [GlobalClass]
 public partial class Hurtbox : Area3D
 {
+	[Signal] public delegate void HitEventHandler(Hitbox hitbox);
+
 	[Export] int damage = 2;
 
 	// Called when the node enters the scene tree for the first time.
@@ -15,7 +17,8 @@ public partial class Hurtbox : Area3D
 	{
 		if (area is Hitbox hitbox)
 		{
-			hitbox.TakeHit(damage);
+			hitbox.TakeHit(damage); //TODO: maybe should be handled by signal listener?
+			EmitSignal(SignalName.Hit, hitbox);
 		}
 	}
 }
