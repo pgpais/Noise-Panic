@@ -31,12 +31,12 @@ public partial class PlayerCharacterInput : Node
 
 		if (Input.IsActionJustPressed("turn_left"))
 		{
-			controller.Rotate(Mathf.Pi / 2);
+			controller.RotateCamera(Mathf.Pi / 2);
 		}
 
 		if (Input.IsActionJustPressed("turn_right"))
 		{
-			controller.Rotate(-Mathf.Pi / 2);
+			controller.RotateCamera(-Mathf.Pi / 2);
 		}
 	}
 }

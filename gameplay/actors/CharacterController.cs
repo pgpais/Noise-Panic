@@ -3,6 +3,8 @@ using Godot;
 [GlobalClass]
 public partial class CharacterController : Node
 {
+	[Export] AnimationPlayer animationPlayer;
+	[Export] Node3D cameraAnchor;
 	[Export] public float Speed { get; private set; }
 
 	public bool MovementEnabled { get; set; } = true;
@@ -29,20 +31,20 @@ public partial class CharacterController : Node
 		MovInput = Vector2.Zero;
 	}
 
-	public void Rotate(float angleRads)
+	public void RotateCamera(float angleRads)
 	{
 		GD.Print("Rotating by " + angleRads);
-		float targetRotation = _body.Rotation.Y + angleRads;
+		float targetRotation = cameraAnchor.Rotation.Y + angleRads;
 		Tween t = GetTree().CreateTween();
 		t.SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Linear);
-		t.TweenMethod(Callable.From((float x) => SetYRotation(x)), _body.Rotation.Y, targetRotation, 0.1f);
+		t.TweenMethod(Callable.From((float x) => SetCameraYRotation(x)), cameraAnchor.Rotation.Y, targetRotation, 0.1f);
 	}
 
-	private void SetYRotation(float angleRads)
+	private void SetCameraYRotation(float angleRads)
 	{
 		var rotation = _body.Rotation;
 		rotation.Y = angleRads;
-		_body.Rotation = rotation;
+		cameraAnchor.Rotation = rotation;
 	}
 
 	private void HandleMovement(double delta)
@@ -63,11 +65,20 @@ public partial class CharacterController : Node
 		{
 			velocity.X = direction.X * Speed;
 			velocity.Z = direction.Z * Speed;
+			if (animationPlayer != null)
+			{
+
+				animationPlayer.Play("Running");
+			}
 		}
 		else
 		{
 			velocity.X = Mathf.MoveToward(_body.Velocity.X, 0, Speed);
 			velocity.Z = Mathf.MoveToward(_body.Velocity.Z, 0, Speed);
+			if (animationPlayer != null)
+			{
+				animationPlayer.Play("Iddle"); //TODO: fix typo
+			}
 		}
 
 		_body.Velocity = velocity;

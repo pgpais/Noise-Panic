@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://jfiqceeq0sbh"]
+
+[ext_resource type="Script" uid="uid://b0nnxh5anynfp" path="res://gameplay/combat/projectiles/Projectile.cs" id="1_3jh82"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oo4fg"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_oo4fg"]
+material = SubResource("StandardMaterial3D_oo4fg")
+radius = 0.1
+height = 0.2
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3jh82"]
+radius = 0.1
+
+[node name="ProtoProjectile" type="RigidBody3D" unique_id=1452483818]
+collision_layer = 0
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_3jh82")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1618312033]
+mesh = SubResource("SphereMesh_oo4fg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2107723925]
+shape = SubResource("SphereShape3D_3jh82")
