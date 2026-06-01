@@ -43,7 +43,7 @@ public partial class EnemySpawner : Node3D
 	public void Spawn()
 	{
 		var enemy = enemyScene.Instantiate<Node3D>();
-		enemy.GlobalPosition = GlobalPosition;
 		GetTree().CurrentScene.AddChild(enemy);
+		enemy.GlobalPosition = GlobalPosition;
 	}
 }
