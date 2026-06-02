@@ -38,7 +38,6 @@ namespace WeWereDumb.Gameplay.Combat.Projectiles
         private void OnHit(Hitbox hitbox)
         {
             //TODO: maybe deal damage?
-            GD.Print($"Projectile {Name} hit {hitbox.Name}");
             Despawn();
         }
 

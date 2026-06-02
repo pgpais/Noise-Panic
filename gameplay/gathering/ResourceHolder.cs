@@ -23,12 +23,18 @@ namespace WeWereDumb.Gameplay.Gathering
             resource.GlobalRotation = holdingPoint.GlobalRotation;
         }
 
-        public void DropResource(Vector3 position, Vector3 rotation)
+        public bool HasResource() => resource != null;
+
+        public GameResource DropResource()
         {
+            if (resource == null) return null;
+
+            var droppedResource = resource;
+
             holdingPoint.RemoveChild(resource);
-            resource.GlobalPosition = position;
-            resource.GlobalRotation = rotation;
             resource = null;
+
+            return droppedResource;
         }
     }
 }

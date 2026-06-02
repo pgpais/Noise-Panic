@@ -49,7 +49,6 @@ public partial class Enemy : Actor, IPooledObject
     public void SetPool(ObjectPool pool)
     {
         this.pool = pool;
-        GD.Print($"Enemy {Name} set to pool {pool.Name}");
     }
 
     public ObjectPool GetPool()
