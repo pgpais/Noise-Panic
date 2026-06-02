@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://d0lgmybq66eko"]
+
+[ext_resource type="Script" uid="uid://82rjl262yx3b" path="res://gameplay/resources/GameResource.cs" id="1_o08cq"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_iyhq6"]
+inner_radius = 0.1
+outer_radius = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o08cq"]
+albedo_color = Color(0, 0.24705882, 1, 1)
+emission = Color(0, 0.24705882, 1, 1)
+emission_energy_multiplier = 3.93
+
+[node name="ProtoGameResource" type="Node3D" unique_id=1129125321]
+script = ExtResource("1_o08cq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=736483202]
+mesh = SubResource("TorusMesh_iyhq6")
+surface_material_override/0 = SubResource("StandardMaterial3D_o08cq")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1086706957]
+light_color = Color(0, 0.24705882, 1, 1)

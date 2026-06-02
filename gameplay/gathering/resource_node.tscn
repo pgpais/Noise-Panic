@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://dj5q8quo7at0g"]
+
+[ext_resource type="Script" uid="uid://dr4gtwpmendl1" path="res://gameplay/gathering/ResourceNode.cs" id="1_1h077"]
+[ext_resource type="Resource" uid="uid://cprfup0nq3d6w" path="res://gameplay/resources/data/proto_resource.tres" id="2_nc1g0"]
+[ext_resource type="Script" uid="uid://cjmhgkfia23v3" path="res://gameplay/interaction/Interactable.cs" id="3_odwat"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_fj1tp"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7i7hg"]
+albedo_color = Color(0.6182147, 0.39626086, 0.20962751, 1)
+metallic_specular = 0.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6htc0"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[node name="ResourceNode" type="StaticBody3D" unique_id=1238149726 node_paths=PackedStringArray("interactable")]
+script = ExtResource("1_1h077")
+resource = ExtResource("2_nc1g0")
+interactable = NodePath("Interactable")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1746989765]
+mesh = SubResource("BoxMesh_fj1tp")
+surface_material_override/0 = SubResource("StandardMaterial3D_7i7hg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=480094098]
+shape = SubResource("BoxShape3D_6htc0")
+
+[node name="Interactable" type="Area3D" parent="." unique_id=1257296088]
+script = ExtResource("3_odwat")
+metadata/_custom_type_script = "uid://cjmhgkfia23v3"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable" unique_id=1501017062]
+shape = SubResource("BoxShape3D_6htc0")

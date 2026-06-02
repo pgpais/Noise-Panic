@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://ds4f3k4yc0ma6" path="res://gameplay/actors/enemies/enemy.tscn" id="5_63tst"]
 [ext_resource type="Script" uid="uid://dote0e123yk63" path="res://gameplay/enemy_spawning/EnemySpawner.cs" id="6_3ohsu"]
 [ext_resource type="Script" uid="uid://usjo7r6fhi6r" path="res://gameplay/enemy_spawning/EnemySpawnController.cs" id="6_5h46i"]
+[ext_resource type="PackedScene" uid="uid://dj5q8quo7at0g" path="res://gameplay/gathering/resource_node.tscn" id="8_gyuag"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5h46i"]
 albedo_color = Color(0.28118682, 0.28118688, 0.28118682, 1)
@@ -109,3 +110,6 @@ mesh = SubResource("BoxMesh_5h46i")
 script = ExtResource("6_3ohsu")
 automaticSpawn = true
 enemyScene = ExtResource("5_63tst")
+
+[node name="ResourceNode" parent="." unique_id=1238149726 instance=ExtResource("8_gyuag")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7)
