@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dw46qc0a7drf0"]
+
+[ext_resource type="Script" uid="uid://b8v0ftq08efe1" path="res://gameplay/combat/weapons/Gun.cs" id="1_j8ww3"]
+[ext_resource type="PackedScene" uid="uid://jfiqceeq0sbh" path="res://gameplay/combat/projectiles/proto_projectile.tscn" id="2_faoct"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_fbwt1"]
+size = Vector3(0.05, 0.1, 0.47)
+
+[node name="Gun" type="Node3D" unique_id=1731575199 node_paths=PackedStringArray("shootingPoint")]
+transform = Transform3D(0.9953868, 0.09533706, -0.010807276, 0.00833375, -0.19811845, -0.98014265, -0.09558509, 0.975531, -0.1979989, 0, 0, 0)
+script = ExtResource("1_j8ww3")
+shootingPoint = NodePath("")
+bulletPrefab = ExtResource("2_faoct")
+
+[node name="GunModel" type="MeshInstance3D" parent="." unique_id=1629087048]
+mesh = SubResource("BoxMesh_fbwt1")
