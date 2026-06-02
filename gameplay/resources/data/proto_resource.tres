@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="GameResourceData" format=3 uid="uid://cprfup0nq3d6w"]
+
+[ext_resource type="Script" uid="uid://wqkdvif3cick" path="res://gameplay/resources/GameResourceData.cs" id="1_eqvm7"]
+[ext_resource type="PackedScene" uid="uid://d0lgmybq66eko" path="res://gameplay/resources/scenes/GameResource.tscn" id="1_r5db6"]
+
+[resource]
+script = ExtResource("1_eqvm7")
+Name = "Proto"
+Description = "proto"
+Scene = ExtResource("1_r5db6")
+metadata/_custom_type_script = "uid://wqkdvif3cick"
