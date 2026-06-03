@@ -18,6 +18,7 @@ namespace WeWereDumb.Gameplay.Input
         public override void _Process(double delta)
         {
             base._Process(delta);
+            if (!IsMultiplayerAuthority()) return;
 
             HandleMouseAiming();
 

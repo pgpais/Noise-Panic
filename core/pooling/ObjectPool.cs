@@ -12,26 +12,27 @@ public abstract class ObjectPool
     public int CurrentSize { get; protected set; }
     public bool AutoExpand { get; protected set; }
 
-    protected Node hiddenNode = new Node();
+    protected Node pooledObjectsParent;
 
-    protected List<IPooledObject> ActiveObjects;
-    protected List<IPooledObject> InactiveObjects;
-
-    public abstract Node GetObject();
+    public abstract Node RetrieveObject();
     public abstract void ReturnObject(Node instance);
 }
 
 public class ObjectPool<T> : ObjectPool where T : Node, IPooledObject
 {
+    protected List<T> ActiveObjects;
+    protected List<T> InactiveObjects;
 
-    public ObjectPool(string name, PackedScene scene, int size = 10, bool autoExpand = true)
+    public ObjectPool(string name, PackedScene scene, Node pooledObjectsParent, int size = 10, bool autoExpand = true)
     {
         Name = name;
         Scene = scene;
         StartingSize = size;
         AutoExpand = autoExpand;
-        ActiveObjects = new List<IPooledObject>(StartingSize);
-        InactiveObjects = new List<IPooledObject>(StartingSize);
+        this.pooledObjectsParent = pooledObjectsParent;
+
+        ActiveObjects = new List<T>(StartingSize);
+        InactiveObjects = new List<T>(StartingSize);
         for (int i = 0; i < StartingSize; i++)
         {
             CreateNewObject();
@@ -42,6 +43,9 @@ public class ObjectPool<T> : ObjectPool where T : Node, IPooledObject
     {
         var instance = Scene.Instantiate<T>();
         instance.SetPool(this);
+        pooledObjectsParent.AddChild(instance, true);
+
+        instance.OnDespawn();
 
         InactiveObjects.Add(instance);
         CurrentSize++;
@@ -49,7 +53,9 @@ public class ObjectPool<T> : ObjectPool where T : Node, IPooledObject
         return instance;
     }
 
-    public T GetTypedObject()
+    public override Node RetrieveObject() => RetrieveTypedObject();
+
+    public T RetrieveTypedObject()
     {
         bool hasInactiveObject = InactiveObjects.Count > 0;
         if (!hasInactiveObject)
@@ -66,9 +72,10 @@ public class ObjectPool<T> : ObjectPool where T : Node, IPooledObject
 
         var instance = InactiveObjects[0];
 
-
         InactiveObjects.RemoveAt(0);
         ActiveObjects.Add(instance);
+
+        instance.OnSpawn();
 
         // PrintPoolInfo();
 
@@ -77,18 +84,10 @@ public class ObjectPool<T> : ObjectPool where T : Node, IPooledObject
 
     public void ReturnTypedObject(T instance)
     {
-        var parent = instance.GetParent();
-        if (parent != null)
-        {
-            parent.CallDeferred(Node.MethodName.RemoveChild, instance);
-        }
-        else
-        {
-            GD.PushError($"Returned object {instance.Name} has no parent for pool {Name}");
-        }
-
         ActiveObjects.Remove(instance);
         InactiveObjects.Add(instance);
+
+        instance.OnDespawn();
 
         // PrintPoolInfo();
     }
@@ -104,7 +103,6 @@ public class ObjectPool<T> : ObjectPool where T : Node, IPooledObject
         ReturnTypedObject(typed);
     }
 
-    public override Node GetObject() => GetTypedObject();
 
     public void PrintPoolInfo()
     {

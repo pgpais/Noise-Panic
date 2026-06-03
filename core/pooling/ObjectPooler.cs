@@ -9,6 +9,8 @@ public partial class ObjectPooler : Node
 
 	Dictionary<string, ObjectPool> Pools;
 
+	private Node3D pooledObjectsParent;
+
 	public override void _Ready()
 	{
 		if (Instance == null)
@@ -22,12 +24,18 @@ public partial class ObjectPooler : Node
 		}
 
 		Pools = new Dictionary<string, ObjectPool>();
+
+		pooledObjectsParent = new Node3D
+		{
+			Name = "PooledObjectsParent"
+		};
+		AddChild(pooledObjectsParent, true);
 	}
 
 	public T RequestObject<T>(string poolName) where T : Node, IPooledObject
 	{
 		if (Pools.TryGetValue(poolName, out var pool))
-			return pool.GetObject() as T;
+			return pool.RetrieveObject() as T;
 		return null;
 	}
 
@@ -42,6 +50,6 @@ public partial class ObjectPooler : Node
 	public void CreatePool<T>(string poolName, PackedScene scene, int size = 10, bool autoExpand = true) where T : Node, IPooledObject
 	{
 		if (Pools.ContainsKey(poolName)) return;
-		Pools[poolName] = new ObjectPool<T>(poolName, scene, size, autoExpand);
+		Pools[poolName] = new ObjectPool<T>(poolName, scene, pooledObjectsParent, size, autoExpand);
 	}
 }

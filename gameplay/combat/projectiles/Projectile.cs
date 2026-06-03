@@ -10,29 +10,23 @@ namespace WeWereDumb.Gameplay.Combat.Projectiles
         [Export] Hurtbox hurtbox;
 
         private ObjectPool pool;
-        SceneTreeTimer timer;
+        Timer timer;
 
-
-        public override void _EnterTree()
+        public Projectile()
         {
-            base._EnterTree();
-            timer = GetTree().CreateTimer(timeToLive);
-            timer.Timeout += Despawn;
-            Show();
+            timer = new Timer
+            {
+                WaitTime = timeToLive,
+                OneShot = true,
+                Autostart = true
+            };
+
+            AddChild(timer);
         }
 
         public override void _Ready()
         {
             hurtbox.Hit += OnHit;
-        }
-
-        public override void _ExitTree()
-        {
-            base._ExitTree();
-            // stop timer
-            timer.Timeout -= Despawn;
-            CallDeferred(MethodName.ResetPhysics);
-            Hide();
         }
 
         private void OnHit(Hitbox hitbox)
@@ -43,7 +37,7 @@ namespace WeWereDumb.Gameplay.Combat.Projectiles
 
         private void Despawn()
         {
-            ObjectPooler.Instance.ReturnObject(pool.Name, this);
+            ObjectPooler.Instance.CallDeferred(ObjectPooler.MethodName.ReturnObject, pool.Name, this);
         }
 
         public void SetPool(ObjectPool pool)
@@ -60,6 +54,29 @@ namespace WeWereDumb.Gameplay.Combat.Projectiles
         {
             LinearVelocity = Vector3.Zero;
             AngularVelocity = Vector3.Zero;
+        }
+
+        public void OnSpawn()
+        {
+            ProcessMode = ProcessModeEnum.Inherit;
+            Show();
+
+            timer.Autostart = true;
+            timer.Timeout += Despawn;
+        }
+
+        public void OnDespawn()
+        {
+            ProcessMode = ProcessModeEnum.Disabled;
+            Hide();
+
+            if (timer.IsConnected(Timer.SignalName.Timeout, Callable.From(Despawn)))
+            {
+                timer.Timeout -= Despawn;
+            }
+            if (timer.IsStopped()) timer.Stop();
+
+            CallDeferred(MethodName.ResetPhysics);
         }
     }
 }

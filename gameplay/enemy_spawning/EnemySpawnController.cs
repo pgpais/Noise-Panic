@@ -6,6 +6,7 @@ namespace WeWereDumb.Gameplay.EnemySpawning
 {
     public partial class EnemySpawnController : Node
     {
+        [Export] Node spawnPath;
         [Export] Array<EnemySpawner> Spawners;
         [Export] float spawnTimer = 3f;
 
@@ -17,6 +18,9 @@ namespace WeWereDumb.Gameplay.EnemySpawning
             {
                 spawner.DisableAutomaticSpawn();
             }
+
+            if (!IsMultiplayerAuthority()) return;
+
             timer = new Timer
             {
                 WaitTime = spawnTimer,
@@ -34,8 +38,18 @@ namespace WeWereDumb.Gameplay.EnemySpawning
 
         private void Spawn()
         {
+            if (!IsMultiplayerAuthority()) return;
+
             int index = GD.RandRange(0, Spawners.Count - 1);
-            Spawners[index].Spawn();
+
+            var enemy = Spawners[index].Spawn();
+            Rpc(MethodName.SyncSpawn, index, enemy.Name);
+        }
+
+        [Rpc(MultiplayerApi.RpcMode.Authority)]
+        private void SyncSpawn(int index, string name)
+        {
+            Spawners[index].Spawn(name: name);
         }
     }
 }

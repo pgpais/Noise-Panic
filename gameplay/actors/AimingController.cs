@@ -12,6 +12,14 @@ namespace WeWereDumb.Gameplay.Actors
             Vector3 leveledTargetPos = new Vector3(target.X, aimPivot.GlobalPosition.Y, target.Z);
 
             aimPivot.LookAt(leveledTargetPos, Vector3.Up);
+
+            Rpc(MethodName.SyncRotation, aimPivot.Rotation);
+        }
+
+        [Rpc(MultiplayerApi.RpcMode.Authority)]
+        private void SyncRotation(Vector3 rotation)
+        {
+            aimPivot.Rotation = rotation;
         }
     }
 }

@@ -13,22 +13,36 @@ public partial class HealthComponent : Node
 
 	public override void _Ready()
 	{
-		CurrentHealth = MaxHealth;
+		Reset();
 	}
 
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer)]
 	public void TakeDamage(int damage)
 	{
-		CurrentHealth -= damage;
-		EmitSignal(SignalName.HealthChanged, CurrentHealth);
+		if (!IsMultiplayerAuthority()) Rpc(MethodName.TakeDamage, damage);
 
-		if (CurrentHealth <= 0)
+		// Damage is applied on all instances
+		CurrentHealth -= damage;
+
+		if (IsMultiplayerAuthority())
 		{
-			Die();
+			// Authority holds ground truth
+			Rpc(MethodName.SyncHealth, CurrentHealth);
+
+			if (CurrentHealth <= 0)
+			{
+				Rpc(MethodName.Die);
+			}
+
 		}
 	}
 
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer)]
 	public void Heal(int amount)
 	{
+		if (!IsMultiplayerAuthority()) Rpc(MethodName.Heal, amount);
+
+		// Healing is applied on all instances
 		CurrentHealth += amount;
 
 		if (CurrentHealth > MaxHealth)
@@ -36,7 +50,11 @@ public partial class HealthComponent : Node
 			CurrentHealth = MaxHealth;
 		}
 
-		EmitSignal(SignalName.HealthChanged, CurrentHealth);
+		if (IsMultiplayerAuthority())
+		{
+			// Authority holds ground truth
+			Rpc(MethodName.SyncHealth, CurrentHealth);
+		}
 	}
 
 	public void Reset()
@@ -45,9 +63,27 @@ public partial class HealthComponent : Node
 		EmitSignal(SignalName.HealthChanged, CurrentHealth);
 	}
 
+	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = true)]
 	public void Die()
 	{
 		CurrentHealth = 0;
+
+		PlayDeathFeedback();
+
 		EmitSignal(SignalName.HealthDepleted);
+	}
+
+	private void PlayDeathFeedback()
+	{
+
+	}
+
+	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = true)]
+	private void SyncHealth(int health)
+	{
+		CurrentHealth = health;
+		EmitSignal(SignalName.HealthChanged, CurrentHealth);
+
+
 	}
 }

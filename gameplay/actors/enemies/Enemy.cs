@@ -14,31 +14,24 @@ public partial class Enemy : Actor, IPooledObject
 
     ObjectPool pool;
 
-    public override void _EnterTree()
-    {
-        base._EnterTree();
-
-        health.Reset();
-        enemies.Add(this);
-    }
-
     public override void _Ready()
     {
         base._Ready();
 
-        health.HealthDepleted += Despawn;
+        health.HealthDepleted += OnHealthDepleted;
+    }
+
+    private void OnHealthDepleted()
+    {
+        if (!IsMultiplayerAuthority()) return;
+
+        Rpc(MethodName.Die);
     }
 
     private void Despawn()
     {
+        //TODO:
         ObjectPooler.Instance.ReturnObject(pool.Name, this);
-    }
-
-    public override void _ExitTree()
-    {
-        base._ExitTree();
-
-        enemies.Remove(this);
     }
 
     public void MoveTowards(Vector2 moveDir)
@@ -54,5 +47,28 @@ public partial class Enemy : Actor, IPooledObject
     public ObjectPool GetPool()
     {
         return pool;
+    }
+
+    [Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = true)]
+    private void Die()
+    {
+        CallDeferred(MethodName.Despawn);
+    }
+
+    public void OnSpawn()
+    {
+        ProcessMode = ProcessModeEnum.Inherit;
+        Show();
+
+        health.Reset();
+        enemies.Add(this);
+    }
+
+    public void OnDespawn()
+    {
+        ProcessMode = ProcessModeEnum.Disabled;
+        Hide();
+
+        enemies.Remove(this);
     }
 }

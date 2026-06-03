@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using WeWereDumb.Core.Pooling;
 using WeWereDumb.Gameplay.Combat.Projectiles;
@@ -21,10 +22,27 @@ public partial class Gun : Node3D
 
 	public void Shoot()
 	{
+		SpawnBullet(shootingPoint.GlobalPosition, shootingPoint.GlobalRotation);
+
+		Rpc(MethodName.SyncShoot, shootingPoint.GlobalPosition, shootingPoint.GlobalRotation);
+	}
+
+	[Rpc(MultiplayerApi.RpcMode.Authority)]
+	private void SyncShoot(Vector3 position, Vector3 rotation)
+	{
+		SpawnBullet(position, rotation);
+	}
+
+	private void SpawnBullet(Vector3 position, Vector3 rotation)
+	{
 		var bullet = ObjectPooler.Instance.RequestObject<Projectile>(poolName);
-		GetTree().CurrentScene.AddChild(bullet, true);
-		bullet.GlobalPosition = shootingPoint.GlobalPosition;
-		bullet.GlobalRotation = shootingPoint.GlobalRotation;
+		bullet.GlobalPosition = position;
+		bullet.GlobalRotation = rotation;
 		bullet.ApplyCentralImpulse(-shootingPoint.GlobalTransform.Basis.Z * shootingForce);
+	}
+
+	public void Reload()
+	{
+		throw new NotImplementedException();
 	}
 }

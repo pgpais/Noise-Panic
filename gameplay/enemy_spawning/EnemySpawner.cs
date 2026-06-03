@@ -45,10 +45,16 @@ public partial class EnemySpawner : Node3D
 		Spawn();
 	}
 
-	public void Spawn()
+	public Enemy Spawn(string name = null, Node parent = null)
 	{
 		var enemy = ObjectPooler.Instance.RequestObject<Enemy>(poolName);
-		GetTree().CurrentScene.AddChild(enemy);
 		enemy.GlobalPosition = GlobalPosition;
+
+		if (name != null)
+		{
+			enemy.Name = name;
+		}
+
+		return enemy;
 	}
 }

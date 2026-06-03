@@ -1,5 +1,8 @@
+using System;
+using System.Linq;
 using Godot;
 using Godot.Collections;
+using WeWereDumb.Gameplay.Actors;
 
 /// <summary>
 /// The Lobby class is responsible for managing the lobby scene.
@@ -11,8 +14,12 @@ public partial class Lobby : Node3D
 
 	[Export] Node3D spawnPos;
 	[Export] PackedScene playerScene;
+	[Export] Array<PlayerDetectionArea> playerDetectionAreas;
+
+	[Export] PackedScene gameScene;
 
 	Array<Node> lobbyPlayers = new Array<Node>();
+	Array<Player> readyPlayers = new Array<Player>();
 
 	public override void _Ready()
 	{
@@ -22,6 +29,12 @@ public partial class Lobby : Node3D
 		GD.Print(Multiplayer.GetUniqueId() + ": " + "Lobby ready");
 
 		NetworkManager.Instance.ClientConnected += OnPlayerJoined;
+
+		foreach (var area in playerDetectionAreas)
+		{
+			area.PlayerEnteredArea += OnPlayerReady;
+			area.PlayerExitedArea += OnPlayerUnready;
+		}
 	}
 
 	private void SpawnLocalPlayer()
@@ -60,14 +73,39 @@ public partial class Lobby : Node3D
 		}
 	}
 
+	public void OnPlayerReady(Player player)
+	{
+		readyPlayers.Add(player);
+		var peerCount = Multiplayer.GetPeers().Count() + 1;
+		if (readyPlayers.Count == peerCount)
+		{
+			if (Multiplayer.IsServer())
+			{
+				RequestStartGame();
+			}
+		}
+	}
+
+	private void OnPlayerUnready(Player player)
+	{
+		readyPlayers.Remove(player);
+	}
+
 	public void RequestStartGame()
 	{
 		if (Multiplayer.IsServer())
 		{
-			Rpc(MethodName.FreePlayers);
+			// Rpc(MethodName.FreePlayers);
 			GD.Print(Multiplayer.GetUniqueId() + ": " + "Starting game");
+			Rpc(MethodName.SyncGameStart);
 			EmitSignal(SignalName.GameStartRequest);
 		}
+	}
+
+	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = true)]
+	private void SyncGameStart()
+	{
+		GetTree().CallDeferred(SceneTree.MethodName.ChangeSceneToPacked, gameScene);
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = true)]
@@ -75,7 +113,7 @@ public partial class Lobby : Node3D
 	{
 		foreach (var player in lobbyPlayers)
 		{
-			player.QueueFree();
+			player.CallDeferred(MethodName.QueueFree);
 		}
 	}
 }

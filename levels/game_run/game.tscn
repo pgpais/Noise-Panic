@@ -1,0 +1,166 @@
+[gd_scene format=3 uid="uid://cwo4jb3vh35id"]
+
+[ext_resource type="Script" uid="uid://blly41s47kv0g" path="res://levels/game_run/GameRun.cs" id="1_o3kko"]
+[ext_resource type="PackedScene" uid="uid://5wiwhftgaawa" path="res://gameplay/actors/player/player.tscn" id="2_0uhwm"]
+[ext_resource type="PackedScene" uid="uid://bdclfkico1hbu" path="res://gameplay/actors/Spaceship/Model/Spaceship.blend" id="2_vsqw0"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="3_0uhwm"]
+[ext_resource type="Script" uid="uid://b2kjvnq7hq67u" path="res://gameplay/actors/enemies/EnemyController.cs" id="4_wajde"]
+[ext_resource type="Script" uid="uid://usjo7r6fhi6r" path="res://gameplay/enemy_spawning/EnemySpawnController.cs" id="5_3s4pm"]
+[ext_resource type="Script" uid="uid://dote0e123yk63" path="res://gameplay/enemy_spawning/EnemySpawner.cs" id="6_oei0w"]
+[ext_resource type="PackedScene" uid="uid://ds4f3k4yc0ma6" path="res://gameplay/actors/enemies/enemy.tscn" id="7_onwmp"]
+[ext_resource type="PackedScene" uid="uid://dj5q8quo7at0g" path="res://gameplay/gathering/resource_node.tscn" id="8_sy2v3"]
+[ext_resource type="Script" uid="uid://b8kyh4bqnu6ud" path="res://gameplay/extracting/ExtractionZone.cs" id="9_a31k0"]
+[ext_resource type="Script" uid="uid://cjmhgkfia23v3" path="res://gameplay/interaction/Interactable.cs" id="10_2khdt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5h46i"]
+albedo_color = Color(0.28118682, 0.28118688, 0.28118682, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_arc7w"]
+material = SubResource("StandardMaterial3D_5h46i")
+size = Vector2(500, 500)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dxlos"]
+size = Vector3(500, 0.001, 500)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_63tst"]
+
+[sub_resource type="Sky" id="Sky_3ohsu"]
+sky_material = SubResource("ProceduralSkyMaterial_63tst")
+
+[sub_resource type="Environment" id="Environment_5h46i"]
+background_mode = 2
+sky = SubResource("Sky_3ohsu")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ohsu"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5h46i"]
+material = SubResource("StandardMaterial3D_3ohsu")
+size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_7i7hg"]
+data = PackedVector3Array(-3.741455, -1.7533569, -3.7607422, -3.741455, 1.7, -3.223755, -3.741455, -1.7533569, -3.223755, -3.741455, -1.7533569, -3.7607422, -3.741455, -1.7533569, -3.223755, 3.741455, -1.7533569, -3.7607422, -3.741455, -1.7533569, -3.7607422, 3.741455, -1.7533569, -3.7607422, -3.741455, 1.7533569, -3.7607422, -3.741455, -1.7533569, 3.223755, -3.741455, 1.7, 3.7540283, -3.741455, -1.7533569, 3.7607422, -3.741455, -1.7533569, 3.223755, -3.741455, -1.7533569, 3.7607422, 3.5802002, -1.7533569, 3.223755, -3.741455, -1.7533569, -3.7607422, -3.741455, 1.7533569, -3.7607422, -3.741455, 1.7, -3.7540283, -3.741455, -1.7533569, -3.7607422, -3.741455, 1.7, -3.7540283, -3.741455, 1.7, -3.223755, -3.741455, 1.7533569, -3.7607422, -3.741455, 1.7533569, -3.7540283, -3.741455, 1.7, -3.7540283, -3.741455, 1.7533569, -3.7607422, 3.741455, 1.7533569, -3.7607422, -3.741455, 1.7533569, -3.7540283, -3.741455, -1.7533569, 3.223755, -3.741455, 1.7, 3.223755, -3.741455, 1.7, 3.7540283, -3.741455, -1.7533569, 3.7607422, -3.741455, 1.7, 3.7540283, -3.741455, 1.7533569, 3.7540283, -3.741455, -1.7533569, 3.7607422, -3.741455, 1.7533569, 3.7540283, -3.741455, 1.7533569, 3.7607422, -3.741455, -1.7533569, 3.7607422, -3.741455, 1.7533569, 3.7607422, 3.741455, 1.7533569, 3.7607422, -3.741455, 1.7533569, 3.7607422, -3.741455, 1.7533569, 3.7540283, 3.741455, 1.7533569, 3.7540283, -3.741455, -1.7533569, -3.223755, 3.5802002, -1.7533569, -3.223755, 3.741455, -1.7533569, -3.7607422, 3.741455, -1.7533569, -3.7607422, 3.5802002, -1.7533569, -3.223755, 3.741455, -1.7533569, 3.7607422, 3.741455, -1.7533569, -3.7607422, 3.741455, -1.7533569, 3.7607422, 3.741455, 1.7, -3.7540283, -3.741455, -1.7533569, 3.7607422, 3.741455, -1.7533569, 3.7607422, 3.5802002, -1.7533569, 3.223755, -3.741455, -1.7533569, 3.7607422, 3.741455, 1.7533569, 3.7607422, 3.741455, -1.7533569, 3.7607422, 3.5802002, -1.7533569, -3.223755, 3.5802002, -1.7533569, 3.223755, 3.741455, -1.7533569, 3.7607422, -3.741455, 1.7533569, -3.7607422, 3.741455, -1.7533569, -3.7607422, 3.741455, 1.7533569, -3.7607422, 3.741455, 1.7533569, -3.7607422, 3.741455, 1.7533569, -3.7540283, -3.741455, 1.7533569, -3.7540283, 3.741455, -1.7533569, -3.7607422, 3.741455, 1.7, -3.7540283, 3.741455, 1.7533569, -3.7540283, 3.741455, -1.7533569, -3.7607422, 3.741455, 1.7533569, -3.7540283, 3.741455, 1.7533569, -3.7607422, -3.741455, 1.7533569, 3.7607422, 3.741455, 1.7533569, 3.7540283, 3.741455, 1.7533569, 3.7607422, 3.741455, -1.7533569, 3.7607422, 3.741455, 1.7, 3.7540283, 3.741455, 1.7, -3.7540283, 3.741455, -1.7533569, 3.7607422, 3.741455, 1.7533569, 3.7607422, 3.741455, 1.7, 3.7540283, 3.741455, 1.7533569, 3.7607422, 3.741455, 1.7533569, 3.7540283, 3.741455, 1.7, 3.7540283, -3.741455, -1.7533569, 3.223755, 3.5802002, -1.7533569, 3.223755, -3.741455, 1.7, 3.223755, -3.741455, -1.7533569, -3.223755, -3.741455, 1.7, -3.223755, 3.5802002, 1.7, -3.223755, -3.741455, -1.7533569, -3.223755, 3.5802002, 1.7, -3.223755, 3.5802002, -1.7533569, -3.223755, 3.5802002, -1.7533569, -3.223755, 3.5802002, 1.7, 3.223755, 3.5802002, -1.7533569, 3.223755, 3.5802002, -1.7533569, -3.223755, 3.5802002, 1.7, -3.223755, 3.5802002, 1.7, 3.223755, 3.5802002, -1.7533569, 3.223755, 3.5802002, 1.7, 3.223755, -3.741455, 1.7, 3.223755, -3.744629, 1.7, -3.7540283, -3.741455, 1.7, -3.7540283, -3.741455, 1.7533569, -3.7540283, -3.744629, 1.7, -3.7540283, -3.741455, 1.7, -3.223755, -3.741455, 1.7, -3.7540283, -3.744629, 1.7, -3.7540283, -3.741455, 1.7533569, -3.7540283, -3.744629, 2.1000001, -3.7540283, -3.744629, 1.7, -3.7540283, -3.741455, 1.7, 3.223755, -3.741455, 1.7, -3.223755, -3.744629, 1.7, -3.7540283, -3.744629, 2.1000001, -3.7540283, -3.744629, 1.7, 3.7540283, -3.744629, 2.1000001, -3.7540283, -3.741455, 1.7533569, -3.7540283, 3.744629, 2.1000001, -3.7540283, 3.5802002, 1.7, -3.223755, -3.741455, 1.7, -3.223755, -3.741455, 1.7, 3.223755, -3.744629, 1.7, -3.7540283, -3.741455, 1.7, 3.7540283, -3.741455, 1.7, 3.223755, -3.744629, 1.7, -3.7540283, -3.744629, 1.7, 3.7540283, -3.741455, 1.7, 3.7540283, -3.744629, 1.7, 3.7540283, -3.744629, 2.1000001, -3.7540283, -3.744629, 2.1000001, 3.7540283, -3.744629, 1.7, 3.7540283, -3.741455, 1.7533569, 3.7540283, -3.741455, 1.7, 3.7540283, -3.744629, 1.7, 3.7540283, -3.744629, 2.1000001, 3.7540283, -3.741455, 1.7533569, 3.7540283, -3.744629, 2.1000001, -3.7540283, 3.744629, 2.1000001, 3.7540283, -3.744629, 2.1000001, 3.7540283, -3.744629, 2.1000001, 3.7540283, 3.741455, 1.7533569, 3.7540283, -3.741455, 1.7533569, 3.7540283, 3.744629, 2.1000001, -3.7540283, -3.741455, 1.7533569, -3.7540283, 3.741455, 1.7533569, -3.7540283, -3.744629, 2.1000001, -3.7540283, 3.744629, 2.1000001, -3.7540283, 3.744629, 2.1000001, 3.7540283, 3.744629, 1.7, -3.7540283, 3.741455, 1.7533569, -3.7540283, 3.741455, 1.7, -3.7540283, 3.744629, 1.7, -3.7540283, 3.744629, 2.1000001, -3.7540283, 3.741455, 1.7533569, -3.7540283, 3.744629, 1.7, -3.7540283, 3.741455, 1.7, -3.7540283, 3.744629, 1.7, 3.7540283, 3.744629, 1.7, -3.7540283, 3.744629, 2.1000001, 3.7540283, 3.744629, 2.1000001, -3.7540283, 3.5802002, 1.7, -3.223755, -3.741455, 1.7, 3.223755, 3.5802002, 1.7, 3.223755, -3.744629, 2.1000001, 3.7540283, 3.744629, 2.1000001, 3.7540283, 3.741455, 1.7533569, 3.7540283, 3.744629, 1.7, 3.7540283, 3.741455, 1.7, -3.7540283, 3.741455, 1.7, 3.7540283, 3.744629, 1.7, -3.7540283, 3.744629, 1.7, 3.7540283, 3.744629, 2.1000001, 3.7540283, 3.744629, 1.7, 3.7540283, 3.741455, 1.7, 3.7540283, 3.744629, 2.1000001, 3.7540283, 3.744629, 2.1000001, 3.7540283, 3.741455, 1.7, 3.7540283, 3.741455, 1.7533569, 3.7540283)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ymuiv"]
+size = Vector3(7.1, 3.9, 6.5)
+
+[node name="Game" type="Node3D" unique_id=954981151 node_paths=PackedStringArray("spawnPoint")]
+script = ExtResource("1_o3kko")
+playerScene = ExtResource("2_0uhwm")
+spawnPoint = NodePath("PlayerSpawnPoint")
+
+[node name="Spaceship" parent="." unique_id=1642621029 instance=ExtResource("2_vsqw0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 96.905334, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=156097673]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1329043612]
+mesh = SubResource("PlaneMesh_arc7w")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1931856980]
+shape = SubResource("BoxShape3D_dxlos")
+
+[node name="PlayerSpawnPoint" type="Marker3D" parent="." unique_id=1524352124]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 9)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=165574689]
+transform = Transform3D(0.117118545, 0.9409032, -0.3177808, -0.10445886, 0.32987908, 0.9382261, 0.987609, -0.07668865, 0.13692063, 0, 9.731221, 0)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1138672703]
+physics_interpolation_mode = 1
+transform = Transform3D(1, 0, 0, 0, 0.49613875, 0.8682433, 0, -0.8682433, 0.49613875, 0, 8, 4)
+top_level = true
+environment = SubResource("Environment_5h46i")
+
+[node name="PhantomCameraHost" type="Node" parent="Camera3D" unique_id=1054332899]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("3_0uhwm")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=61211832]
+
+[node name="EnemyController" type="Node" parent="." unique_id=1632773806]
+script = ExtResource("4_wajde")
+
+[node name="SpawnController" type="Node3D" parent="." unique_id=1934995528 node_paths=PackedStringArray("spawnPath", "Spawners")]
+script = ExtResource("5_3s4pm")
+spawnPath = NodePath("../Enemies")
+Spawners = [NodePath("EnemySpawner"), NodePath("EnemySpawner2"), NodePath("EnemySpawner3"), NodePath("EnemySpawner4"), NodePath("EnemySpawner5")]
+spawnTimer = 5.0
+
+[node name="EnemySpawner" type="MeshInstance3D" parent="SpawnController" unique_id=756112243]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0.120987654, -14)
+mesh = SubResource("BoxMesh_5h46i")
+script = ExtResource("6_oei0w")
+automaticSpawn = true
+enemyScene = ExtResource("7_onwmp")
+
+[node name="EnemySpawner2" type="MeshInstance3D" parent="SpawnController" unique_id=1870685914]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0.120987654, -14)
+mesh = SubResource("BoxMesh_5h46i")
+script = ExtResource("6_oei0w")
+automaticSpawn = true
+enemyScene = ExtResource("7_onwmp")
+
+[node name="EnemySpawner3" type="MeshInstance3D" parent="SpawnController" unique_id=1830065108]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 0.120987654, -19)
+mesh = SubResource("BoxMesh_5h46i")
+script = ExtResource("6_oei0w")
+automaticSpawn = true
+enemyScene = ExtResource("7_onwmp")
+
+[node name="EnemySpawner4" type="MeshInstance3D" parent="SpawnController" unique_id=68489295]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0.120987654, -18)
+mesh = SubResource("BoxMesh_5h46i")
+script = ExtResource("6_oei0w")
+automaticSpawn = true
+enemyScene = ExtResource("7_onwmp")
+
+[node name="EnemySpawner5" type="MeshInstance3D" parent="SpawnController" unique_id=566864949]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0.120987654, -10)
+mesh = SubResource("BoxMesh_5h46i")
+script = ExtResource("6_oei0w")
+automaticSpawn = true
+enemyScene = ExtResource("7_onwmp")
+
+[node name="ResourceNode" parent="." unique_id=1238149726 instance=ExtResource("8_sy2v3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7)
+
+[node name="ExtractionZone" type="StaticBody3D" parent="." unique_id=2106124962 node_paths=PackedStringArray("interactable")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.242014, 2.2, 0)
+script = ExtResource("9_a31k0")
+interactable = NodePath("Interactable")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="ExtractionZone" unique_id=1801613258]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4595337, 0)
+size = Vector3(7.48291, 3.5067139, 7.5214844)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="ExtractionZone/CSGBox3D" unique_id=1010753083]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08062744, -0.20892334, 0)
+operation = 2
+size = Vector3(7.3216553, 4.0079346, 6.44751)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="ExtractionZone/CSGBox3D" unique_id=455694805]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9000001, 0)
+visible = false
+size = Vector3(7.489258, 0.4, 7.5080566)
+
+[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="ExtractionZone" unique_id=694462303]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4595337, 0)
+shape = SubResource("ConcavePolygonShape3D_7i7hg")
+
+[node name="Interactable" type="Area3D" parent="ExtractionZone" unique_id=983700401]
+script = ExtResource("10_2khdt")
+metadata/_custom_type_script = "uid://cjmhgkfia23v3"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ExtractionZone/Interactable" unique_id=1659654516]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_ymuiv")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="ExtractionZone" unique_id=699257743]
+light_color = Color(0.28627452, 1, 0.14117648, 1)
+omni_range = 5.4140034
+omni_attenuation = 0.33
+
+[node name="Enemies" type="Node3D" parent="." unique_id=269402511]

@@ -6,5 +6,8 @@ namespace WeWereDumb.Core.Pooling
     {
         void SetPool(ObjectPool pool);
         ObjectPool GetPool();
+
+        void OnSpawn();
+        void OnDespawn();
     }
 }
