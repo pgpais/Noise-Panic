@@ -35,6 +35,12 @@ project/assembly_name="We Were Dumb"
 
 enabled=PackedStringArray("res://addons/godotsteam/plugin.cfg", "res://addons/phantom_camera/plugin.cfg")
 
+[file_customization]
+
+folder_colors={
+"res://gameplay/actors/player/model/textures/": "red"
+}
+
 [global_group]
 
 players=""

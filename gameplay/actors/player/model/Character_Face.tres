@@ -1,12 +1,49 @@
 [gd_resource type="VisualShader" format=3 uid="uid://dg3amo6jwypv8"]
 
-[ext_resource type="Texture2D" uid="uid://d3fxvx4elu5oq" path="res://gameplay/actors/player/model/textures/player-character-face06.png" id="1_ffma1"]
+[ext_resource type="Texture2D" uid="uid://fhabhmbukn8g" path="res://gameplay/actors/player/model/textures/player-character-body.png" id="2_2ul13"]
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_ffma1"]
+default_input_values = [0, Quaternion(0, 0, 0, 0), 1, Quaternion(0, 0, 0, 0)]
+op_type = 2
+operator = 2
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_5bl8u"]
 expanded_output_ports = [0]
-texture = ExtResource("1_ffma1")
+source = 5
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_ffma1"]
+input_name = "uv2"
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_5bl8u"]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_2ul13"]
+expanded_output_ports = [0]
+texture = ExtResource("2_2ul13")
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_ffma1"]
+parameter_name = "FaceTexture"
+texture_type = 1
+color_default = 2
+texture_repeat = 2
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_ffma1"]
 
 [resource]
+nodes/fragment/0/position = Vector2(620, 160)
 nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_5bl8u")
-nodes/fragment/2/position = Vector2(-200, 200)
-nodes/fragment/connections = PackedInt32Array(2, 0, 0, 0, 2, 4, 0, 1, 2, 0, 0, 5)
+nodes/fragment/2/position = Vector2(-240, 80)
+nodes/fragment/3/node = SubResource("VisualShaderNodeInput_ffma1")
+nodes/fragment/3/position = Vector2(-640, 20)
+nodes/fragment/4/node = SubResource("VisualShaderNodeInput_5bl8u")
+nodes/fragment/4/position = Vector2(-900, 540)
+nodes/fragment/5/node = SubResource("VisualShaderNodeTexture_2ul13")
+nodes/fragment/5/position = Vector2(-240, 460)
+nodes/fragment/8/node = SubResource("VisualShaderNodeTexture2DParameter_ffma1")
+nodes/fragment/8/position = Vector2(-920, 180)
+nodes/fragment/9/node = SubResource("VisualShaderNodeFloatOp_ffma1")
+nodes/fragment/9/position = Vector2(20, 380)
+nodes/fragment/10/node = SubResource("VisualShaderNodeVectorOp_ffma1")
+nodes/fragment/10/position = Vector2(260, 420)
+nodes/fragment/connections = PackedInt32Array(3, 0, 2, 0, 4, 0, 5, 0, 2, 0, 0, 5, 8, 0, 2, 2, 2, 4, 9, 0, 5, 4, 9, 1, 9, 0, 0, 1, 2, 0, 10, 0, 5, 0, 10, 1, 10, 0, 0, 0)
