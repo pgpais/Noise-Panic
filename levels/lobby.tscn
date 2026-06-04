@@ -32,9 +32,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 shape = SubResource("BoxShape3D_dxlos")
 
 [node name="SpawnPoint" type="Marker3D" parent="." unique_id=791842029]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 8)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1164420507]
+physics_interpolation_mode = 1
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2, 8)
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D" unique_id=1033854891]
 process_priority = 300
@@ -42,7 +44,7 @@ process_physics_priority = 300
 script = ExtResource("5_5h46i")
 
 [node name="PlayerDetectionArea" parent="." unique_id=1899837744 instance=ExtResource("5_63tst")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5999999, 1.3, 4.8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.49999988, 1.3, 4.8)
 
 [node name="PlayerDetectionArea2" parent="." unique_id=2001485053 instance=ExtResource("5_63tst")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 1.3, 4.8)

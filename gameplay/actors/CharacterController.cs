@@ -11,12 +11,14 @@ public partial class CharacterController : Node
 	public Vector2 MovInput { get; set; } = Vector2.Zero;
 	float targetYRotation;
 
+	Camera3D _camera;
 	CharacterBody3D _body;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		_body = GetOwner<CharacterBody3D>(); // necessary because of Godot's bug
+		_camera = GetViewport().GetCamera3D();
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -51,16 +53,13 @@ public partial class CharacterController : Node
 	{
 		Vector3 velocity = _body.Velocity;
 
-		// Add the gravity.
-		if (!_body.IsOnFloor())
-		{
-			velocity += _body.GetGravity() * (float)delta;
-		}
 
 		// Get the input direction and handle the movement/deceleration.
 		// As good practice, you should replace UI actions with custom gameplay actions.
 		Vector2 inputDir = MovInput;
-		Vector3 direction = (_body.Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
+
+		// Using camera forward and right as local axis
+		Vector3 direction = (_camera.GlobalTransform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
 		if (direction != Vector3.Zero)
 		{
 			velocity.X = direction.X * Speed;
@@ -76,6 +75,12 @@ public partial class CharacterController : Node
 		{
 			var velocity2D = new Vector2(velocity.X, velocity.Z);
 			animationTree.Set("parameters/MovementBlendSpace2D/blend_position", velocity2D / Speed);
+		}
+
+		// Add the gravity.
+		if (!_body.IsOnFloor())
+		{
+			velocity += _body.GetGravity() * (float)delta;
 		}
 
 		_body.Velocity = velocity;

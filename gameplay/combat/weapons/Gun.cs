@@ -20,9 +20,11 @@ public partial class Gun : Node3D
 		ObjectPooler.Instance.CreatePool<Projectile>(poolName, bulletPrefab);
 	}
 
-	public void Shoot()
+	public void Shoot(Vector3 rotation = default)
 	{
-		SpawnBullet(shootingPoint.GlobalPosition, shootingPoint.GlobalRotation);
+		if (rotation == default) rotation = shootingPoint.GlobalRotation;
+
+		SpawnBullet(shootingPoint.GlobalPosition, rotation);
 
 		Rpc(MethodName.SyncShoot, shootingPoint.GlobalPosition, shootingPoint.GlobalRotation);
 	}
@@ -38,6 +40,7 @@ public partial class Gun : Node3D
 		var bullet = ObjectPooler.Instance.RequestObject<Projectile>(poolName);
 		bullet.GlobalPosition = position;
 		bullet.GlobalRotation = rotation;
+		GD.Print(bullet.GlobalRotation);
 		bullet.ApplyCentralImpulse(-shootingPoint.GlobalTransform.Basis.Z * shootingForce);
 	}
 

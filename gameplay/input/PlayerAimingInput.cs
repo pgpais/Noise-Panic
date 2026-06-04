@@ -20,36 +20,20 @@ namespace WeWereDumb.Gameplay.Input
             base._Process(delta);
             if (!IsMultiplayerAuthority()) return;
 
-            HandleMouseAiming();
-
             if (Godot.Input.IsActionJustPressed("shoot"))
             {
                 gun.Shoot();
             }
         }
 
-        private void HandleMouseAiming()
+        public override void _UnhandledInput(InputEvent @event)
         {
-            var viewport = GetViewport();
-            var camera = viewport.GetCamera3D();
-            var mousePos = viewport.GetMousePosition();
+            base._UnhandledInput(@event);
 
-            var rayNormal = camera.ProjectRayNormal(mousePos);
-            var rayOrigin = camera.ProjectRayOrigin(mousePos);
-
-            var parameters = new PhysicsRayQueryParameters3D
+            if (@event is InputEventMouseMotion mouseMotion)
             {
-                From = rayOrigin,
-                To = rayOrigin + rayNormal * 1000
-            };
-
-            var hitDictionary = camera.GetWorld3D().DirectSpaceState.IntersectRay(parameters);
-
-            if (hitDictionary.Count > 0)
-            {
-                var hitPosition = hitDictionary["position"].AsVector3();
-
-                aimingController.AimAt(hitPosition);
+                var mouseMovement = mouseMotion.ScreenRelative;
+                aimingController.MouseMovementInput = mouseMovement;
             }
         }
     }
