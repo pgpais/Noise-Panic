@@ -4,13 +4,18 @@
 [ext_resource type="PackedScene" uid="uid://5wiwhftgaawa" path="res://gameplay/actors/player/player.tscn" id="2_0uhwm"]
 [ext_resource type="PackedScene" uid="uid://bdclfkico1hbu" path="res://gameplay/actors/Spaceship/Model/Spaceship.blend" id="2_vsqw0"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="3_0uhwm"]
+[ext_resource type="PackedScene" uid="uid://07g7f8nyxjox" path="res://gameplay/ship/player_pod_launcher.tscn" id="4_0uhwm"]
 [ext_resource type="Script" uid="uid://b2kjvnq7hq67u" path="res://gameplay/actors/enemies/EnemyController.cs" id="4_wajde"]
 [ext_resource type="Script" uid="uid://usjo7r6fhi6r" path="res://gameplay/enemy_spawning/EnemySpawnController.cs" id="5_3s4pm"]
+[ext_resource type="PackedScene" uid="uid://cdn5pxq8t3btd" path="res://gameplay/interaction/standing_button.tscn" id="5_wajde"]
 [ext_resource type="Script" uid="uid://dote0e123yk63" path="res://gameplay/enemy_spawning/EnemySpawner.cs" id="6_oei0w"]
 [ext_resource type="PackedScene" uid="uid://ds4f3k4yc0ma6" path="res://gameplay/actors/enemies/enemy.tscn" id="7_onwmp"]
 [ext_resource type="PackedScene" uid="uid://dj5q8quo7at0g" path="res://gameplay/gathering/resource_node.tscn" id="8_sy2v3"]
 [ext_resource type="Script" uid="uid://b8kyh4bqnu6ud" path="res://gameplay/extracting/ExtractionZone.cs" id="9_a31k0"]
 [ext_resource type="Script" uid="uid://cjmhgkfia23v3" path="res://gameplay/interaction/Interactable.cs" id="10_2khdt"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vsqw0"]
+size = Vector3(38, 1, 30)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5h46i"]
 albedo_color = Color(0.28118682, 0.28118688, 0.28118682, 1)
@@ -49,8 +54,23 @@ script = ExtResource("1_o3kko")
 playerScene = ExtResource("2_0uhwm")
 spawnPoint = NodePath("PlayerSpawnPoint")
 
-[node name="Spaceship" parent="." unique_id=1642621029 instance=ExtResource("2_vsqw0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 96.905334, 0)
+[node name="Ship" type="StaticBody3D" parent="." unique_id=1128394993]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0)
+
+[node name="Spaceship" parent="Ship" unique_id=1642621029 instance=ExtResource("2_vsqw0")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ship" unique_id=1304757868]
+shape = SubResource("BoxShape3D_vsqw0")
+
+[node name="PlayerPodLauncher" parent="Ship" unique_id=453249195 node_paths=PackedStringArray("podLaunchPoint") instance=ExtResource("4_0uhwm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9000015, 4)
+podLaunchPoint = NodePath("PodLaunchPoint")
+
+[node name="PodLaunchPoint" type="Marker3D" parent="Ship/PlayerPodLauncher" unique_id=267406332]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.9680252, 0)
+
+[node name="StandingButton" parent="Ship" unique_id=757749775 instance=ExtResource("5_wajde")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3714795, 0, 9.079641)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=156097673]
 
@@ -61,7 +81,7 @@ mesh = SubResource("PlaneMesh_arc7w")
 shape = SubResource("BoxShape3D_dxlos")
 
 [node name="PlayerSpawnPoint" type="Marker3D" parent="." unique_id=1524352124]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3292351, 102.88732, 6.716656)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=165574689]
 transform = Transform3D(0.117118545, 0.9409032, -0.3177808, -0.10445886, 0.32987908, 0.9382261, 0.987609, -0.07668865, 0.13692063, 0, 9.731221, 0)
@@ -164,3 +184,7 @@ omni_range = 5.4140034
 omni_attenuation = 0.33
 
 [node name="Enemies" type="Node3D" parent="." unique_id=269402511]
+
+[connection signal="Pressed" from="Ship/StandingButton" to="Ship/PlayerPodLauncher" method="TryLaunchPlayer"]
+
+[editable path="Ship/Spaceship"]

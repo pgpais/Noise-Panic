@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://07g7f8nyxjox"]
+
+[ext_resource type="Script" uid="uid://fphg083frosi" path="res://gameplay/ship/PlayerPodLauncher.cs" id="1_3x8wb"]
+[ext_resource type="PackedScene" uid="uid://m6ducyuarode" path="res://gameplay/player_detection_area.tscn" id="2_wkikn"]
+
+[node name="PlayerPodLauncher" type="Node3D" unique_id=453249195 node_paths=PackedStringArray("detectionArea")]
+script = ExtResource("1_3x8wb")
+detectionArea = NodePath("PlayerDetectionArea")
+
+[node name="PlayerDetectionArea" parent="." unique_id=1899837744 instance=ExtResource("2_wkikn")]
