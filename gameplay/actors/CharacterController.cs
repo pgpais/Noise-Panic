@@ -74,7 +74,8 @@ public partial class CharacterController : Node
 		if (animationTree != null)
 		{
 			var velocity2D = new Vector2(velocity.X, velocity.Z);
-			animationTree.Set("parameters/MovementBlendSpace2D/blend_position", velocity2D / Speed);
+			animationTree.Set("parameters/ArmsRunning/blend_position", velocity2D / Speed);
+			animationTree.Set("parameters/BodyRunning/blend_position", velocity2D / Speed);
 		}
 
 		// Add the gravity.
