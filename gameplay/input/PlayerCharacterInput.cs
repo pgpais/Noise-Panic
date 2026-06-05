@@ -28,15 +28,5 @@ public partial class PlayerCharacterInput : Node
 	{
 		Vector2 inputDir = Input.GetVector("move_left", "move_right", "move_up", "move_down");
 		controller.MovInput = inputDir;
-
-		if (Input.IsActionJustPressed("turn_left"))
-		{
-			controller.RotateCamera(Mathf.Pi / 2);
-		}
-
-		if (Input.IsActionJustPressed("turn_right"))
-		{
-			controller.RotateCamera(-Mathf.Pi / 2);
-		}
 	}
 }

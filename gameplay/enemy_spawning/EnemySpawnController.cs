@@ -9,8 +9,11 @@ namespace WeWereDumb.Gameplay.EnemySpawning
         [Export] Node spawnPath;
         [Export] Array<EnemySpawner> Spawners;
         [Export] float spawnTimer = 3f;
+        [Export] float spawnStartInterval = 5f;
 
         Timer timer;
+
+        bool isSpawning = false;
 
         public override void _Ready()
         {
@@ -25,10 +28,24 @@ namespace WeWereDumb.Gameplay.EnemySpawning
             {
                 WaitTime = spawnTimer,
                 OneShot = false,
-                Autostart = true
+                Autostart = false
             };
-            timer.Timeout += OnTimerTimeout;
             AddChild(timer);
+
+            GetTree().CreateTimer(spawnStartInterval).Timeout += StartSpawning;
+            timer.Timeout += OnTimerTimeout;
+        }
+
+        public void StartSpawning()
+        {
+            isSpawning = true;
+            timer.Start();
+        }
+
+        public void StopSpawning()
+        {
+            isSpawning = false;
+            timer.Stop();
         }
 
         private void OnTimerTimeout()

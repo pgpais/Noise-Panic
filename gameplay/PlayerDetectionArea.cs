@@ -7,6 +7,9 @@ public partial class PlayerDetectionArea : Area3D
 	[Signal] public delegate void PlayerEnteredAreaEventHandler(Player player);
 	[Signal] public delegate void PlayerExitedAreaEventHandler(Player player);
 
+	public bool IsPlayerDetected { get; private set; }
+	public Player CurrentPlayer { get; private set; }
+
 	[Export] MeshInstance3D mesh;
 	[Export] Material readyMaterial;
 	[Export] Material notReadyMaterial;
@@ -22,8 +25,11 @@ public partial class PlayerDetectionArea : Area3D
 
 	private void OnBodyExited(Node3D body)
 	{
-		if (body is Player player)
+		if (body is Player player && player == CurrentPlayer)
 		{
+			IsPlayerDetected = false;
+			CurrentPlayer = null;
+
 			mesh.MaterialOverride = notReadyMaterial;
 			EmitSignal(SignalName.PlayerExitedArea, player);
 		}
@@ -31,8 +37,11 @@ public partial class PlayerDetectionArea : Area3D
 
 	private void OnBodyEntered(Node3D body)
 	{
-		if (body is Player player)
+		if (CurrentPlayer == null && body is Player player)
 		{
+			IsPlayerDetected = true;
+			CurrentPlayer = player;
+
 			mesh.MaterialOverride = readyMaterial;
 			EmitSignal(SignalName.PlayerEnteredArea, player);
 		}
