@@ -6,9 +6,13 @@ namespace WeWereDumb.Gameplay.Actors
     [GlobalClass]
     public partial class AimingController : Node
     {
+        [ExportGroup("Settings")]
+        [Export] float mouseSensitivity = 0.1f;
+        [Export] float aimXClamp = 60;
+
+        [ExportGroup("References")]
         [Export] Node3D aimPivot;
         [Export] Node3D cameraPivot;
-        [Export] float mouseSensitivity = 10f;
 
         public Vector2 MouseMovementInput { get; set; }
 
@@ -19,8 +23,8 @@ namespace WeWereDumb.Gameplay.Actors
         {
             base._Ready();
 
-            targetXRotation = cameraPivot.RotationDegrees.X;
-            targetYRotation = aimPivot.RotationDegrees.Y;
+            targetXRotation = cameraPivot.Rotation.X;
+            targetYRotation = aimPivot.Rotation.Y;
 
             Godot.Input.MouseMode = Godot.Input.MouseModeEnum.Captured;
         }
@@ -37,11 +41,12 @@ namespace WeWereDumb.Gameplay.Actors
             }
 
             targetXRotation -= MouseMovementInput.Y * mouseSensitivity;
-            // ctargetXRotation = Mathf.Clamp(cameraRotationDegrees.X, -90, 90);
+            GD.Print("targetXRotation: " + targetXRotation);
+            targetXRotation = Mathf.Clamp(targetXRotation, -aimXClamp, aimXClamp);
             targetYRotation -= MouseMovementInput.X * mouseSensitivity;
 
-            cameraPivot.RotationDegrees = new Vector3(targetXRotation, cameraPivot.RotationDegrees.Y, cameraPivot.RotationDegrees.Z);
-            aimPivot.RotationDegrees = new Vector3(aimPivot.RotationDegrees.X, targetYRotation, aimPivot.RotationDegrees.Z);
+            cameraPivot.Rotation = new Vector3(targetXRotation, cameraPivot.RotationDegrees.Y, cameraPivot.RotationDegrees.Z);
+            aimPivot.Rotation = new Vector3(aimPivot.RotationDegrees.X, targetYRotation, aimPivot.RotationDegrees.Z);
 
             SyncRotation(cameraPivot.Rotation, aimPivot.Rotation);
             MouseMovementInput = Vector2.Zero;
