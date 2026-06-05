@@ -7,9 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://m6ducyuarode" path="res://gameplay/player_detection_area.tscn" id="5_63tst"]
 [ext_resource type="PackedScene" uid="uid://bdclfkico1hbu" path="res://gameplay/actors/Spaceship/Model/Spaceship.blend" id="10_fj1tp"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_dxlos"]
-size = Vector3(29, 1, 25)
-
 [node name="Lobby" type="Node3D" unique_id=1868881371 node_paths=PackedStringArray("spawnPos", "playerDetectionAreas")]
 script = ExtResource("1_dxlos")
 spawnPos = NodePath("Spaceship/SpawnPoint")
@@ -21,15 +18,11 @@ gameScene = ExtResource("3_3ohsu")
 
 [node name="Model" parent="Spaceship" unique_id=1642621029 instance=ExtResource("10_fj1tp")]
 
-[node name="Cube_008" parent="Spaceship/Model" index="3" unique_id=1673211985]
+[node name="Cube_008" parent="Spaceship/Model" index="3" unique_id=1678549120]
 visible = false
 
-[node name="walls" parent="Spaceship/Model" index="13" unique_id=941176754]
+[node name="walls" parent="Spaceship/Model" index="13" unique_id=1222840036]
 visible = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Spaceship" unique_id=978253849]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
-shape = SubResource("BoxShape3D_dxlos")
 
 [node name="SpawnPoint" type="Marker3D" parent="Spaceship" unique_id=791842029]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 8)

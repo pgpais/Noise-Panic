@@ -15,9 +15,6 @@
 [ext_resource type="Script" uid="uid://b8kyh4bqnu6ud" path="res://gameplay/extracting/ExtractionZone.cs" id="9_a31k0"]
 [ext_resource type="Script" uid="uid://cjmhgkfia23v3" path="res://gameplay/interaction/Interactable.cs" id="10_2khdt"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_vsqw0"]
-size = Vector3(38, 1, 30)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5h46i"]
 albedo_color = Color(0.28118682, 0.28118688, 0.28118682, 1)
 
@@ -59,9 +56,6 @@ spawnPoint = NodePath("PlayerSpawnPoint")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0)
 
 [node name="Spaceship" parent="Ship" unique_id=1642621029 instance=ExtResource("2_vsqw0")]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ship" unique_id=1304757868]
-shape = SubResource("BoxShape3D_vsqw0")
 
 [node name="PlayerPodLauncher" parent="Ship" unique_id=453249195 node_paths=PackedStringArray("podLaunchPoint") instance=ExtResource("4_0uhwm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9000015, 4)
