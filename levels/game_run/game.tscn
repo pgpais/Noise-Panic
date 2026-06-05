@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://b2kjvnq7hq67u" path="res://gameplay/actors/enemies/EnemyController.cs" id="4_wajde"]
 [ext_resource type="Script" uid="uid://usjo7r6fhi6r" path="res://gameplay/enemy_spawning/EnemySpawnController.cs" id="5_3s4pm"]
 [ext_resource type="PackedScene" uid="uid://cdn5pxq8t3btd" path="res://gameplay/interaction/standing_button.tscn" id="5_wajde"]
+[ext_resource type="Script" uid="uid://dy7d28cmkxxrm" path="res://gameplay/storage/ResourceStorage.cs" id="6_3s4pm"]
 [ext_resource type="Script" uid="uid://dote0e123yk63" path="res://gameplay/enemy_spawning/EnemySpawner.cs" id="6_oei0w"]
 [ext_resource type="PackedScene" uid="uid://ds4f3k4yc0ma6" path="res://gameplay/actors/enemies/enemy.tscn" id="7_onwmp"]
 [ext_resource type="PackedScene" uid="uid://dj5q8quo7at0g" path="res://gameplay/gathering/resource_node.tscn" id="8_sy2v3"]
@@ -71,6 +72,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.9680252, 0)
 
 [node name="StandingButton" parent="Ship" unique_id=757749775 instance=ExtResource("5_wajde")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3714795, 0, 9.079641)
+
+[node name="Storage" type="Node" parent="Ship" unique_id=1503478260]
+script = ExtResource("6_3s4pm")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=156097673]
 
@@ -144,8 +148,12 @@ script = ExtResource("6_oei0w")
 automaticSpawn = true
 enemyScene = ExtResource("7_onwmp")
 
-[node name="ResourceNode" parent="." unique_id=1238149726 instance=ExtResource("8_sy2v3")]
+[node name="ResourceNode" parent="." unique_id=1238149726 node_paths=PackedStringArray("dropPoint") instance=ExtResource("8_sy2v3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7)
+dropPoint = NodePath("Marker3D")
+
+[node name="Marker3D" type="Marker3D" parent="ResourceNode" unique_id=1810786127]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.59727067, 0, 0)
 
 [node name="ExtractionZone" type="StaticBody3D" parent="." unique_id=2106124962 node_paths=PackedStringArray("interactable")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.242014, 2.2, 0)

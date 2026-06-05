@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("1_eqvm7")
+Id = "proto"
 Name = "Proto"
 Description = "proto"
 Scene = ExtResource("1_r5db6")

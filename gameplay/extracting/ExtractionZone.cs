@@ -3,12 +3,14 @@ using System;
 using WeWereDumb.Gameplay.Gathering;
 using WeWereDumb.Gameplay.Interaction;
 using WeWereDumb.Gameplay.Resources;
+using WeWereDumb.Gameplay.Storage;
 
 public partial class ExtractionZone : StaticBody3D
 {
 	[Signal] public delegate void ResourceExtractedEventHandler(GameResource resource);
 
 	[Export] Interactable interactable;
+	[Export] ResourceStorage storage;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -22,16 +24,20 @@ public partial class ExtractionZone : StaticBody3D
 
 		if (holder != null && holder.HasResource())
 		{
-			var resource = holder.DropResource();
+			var resource = holder.Resource;
 
-			ExtractResource(resource);
 		}
 	}
 
-	public void ExtractResource(GameResource resource)
+	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = true)]
+	public void ExtractResource(NodePath resourcePath)
 	{
-		//TODO:
+		var resource = GetNode<GameResource>(resourcePath);
 
-		resource.QueueFree();
+		// storage.Add(resource.Data, 1);
+		EmitSignal(SignalName.ResourceExtracted, resource);
+
+		resource.Rpc(GameResource.MethodName.Destroy);
+		// resource.QueueFree();
 	}
 }

@@ -1,4 +1,5 @@
 using Godot;
+using WeWereDumb.Gameplay.Gathering;
 using WeWereDumb.Gameplay.Interaction;
 
 [GlobalClass]
@@ -6,6 +7,7 @@ public partial class PlayerCharacterInput : Node
 {
 	[Export] CharacterController controller;
 	[Export] Interactor interactor;
+	[Export] ResourceHolder resourceHolder;
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
@@ -21,6 +23,11 @@ public partial class PlayerCharacterInput : Node
 		if (Input.IsActionJustPressed("ui_cancel"))
 		{
 			interactor.StopInteracting();
+		}
+
+		if (Input.IsActionJustPressed("drop"))
+		{
+			resourceHolder.TryToDropResource();
 		}
 	}
 
