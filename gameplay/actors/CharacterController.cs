@@ -33,22 +33,6 @@ public partial class CharacterController : Node
 		MovInput = Vector2.Zero;
 	}
 
-	public void RotateCamera(float angleRads)
-	{
-		GD.Print("Rotating by " + angleRads);
-		float targetRotation = cameraAnchor.Rotation.Y + angleRads;
-		Tween t = GetTree().CreateTween();
-		t.SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Linear);
-		t.TweenMethod(Callable.From((float x) => SetCameraYRotation(x)), cameraAnchor.Rotation.Y, targetRotation, 0.1f);
-	}
-
-	private void SetCameraYRotation(float angleRads)
-	{
-		var rotation = _body.Rotation;
-		rotation.Y = angleRads;
-		cameraAnchor.Rotation = rotation;
-	}
-
 	private void HandleMovement(double delta)
 	{
 		Vector3 velocity = _body.Velocity;
@@ -71,12 +55,7 @@ public partial class CharacterController : Node
 			velocity.Z = Mathf.MoveToward(_body.Velocity.Z, 0, Speed);
 		}
 
-		if (animationTree != null)
-		{
-			var velocity2D = new Vector2(velocity.X, velocity.Z);
-			animationTree.Set("parameters/ArmsRunning/blend_position", velocity2D / Speed);
-			animationTree.Set("parameters/BodyRunning/blend_position", velocity2D / Speed);
-		}
+		HandleAnimations(velocity);
 
 		// Add the gravity.
 		if (!_body.IsOnFloor())
@@ -89,13 +68,25 @@ public partial class CharacterController : Node
 
 		if (IsMultiplayerAuthority())
 		{
-			Rpc(MethodName.SyncMovement, _body.GlobalPosition);
+			Rpc(MethodName.SyncMovement, _body.GlobalPosition, velocity);
 		}
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.Authority)]
-	private void SyncMovement(Vector3 position)
+	private void SyncMovement(Vector3 position, Vector3 velocity)
 	{
 		_body.GlobalPosition = position;
+		_body.Velocity = velocity;
+		HandleAnimations(velocity);
+	}
+
+	private void HandleAnimations(Vector3 velocity)
+	{
+		if (animationTree != null)
+		{
+			var velocity2D = new Vector2(velocity.X, velocity.Z);
+			animationTree.Set("parameters/ArmsRunning/blend_position", velocity2D / Speed);
+			animationTree.Set("parameters/BodyRunning/blend_position", velocity2D / Speed);
+		}
 	}
 }
