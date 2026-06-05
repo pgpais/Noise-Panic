@@ -38,6 +38,11 @@ public partial class Gun : Node3D
 	private void SpawnBullet(Vector3 position, Vector3 rotation)
 	{
 		var bullet = ObjectPooler.Instance.RequestObject<Projectile>(poolName);
+		CallDeferred(MethodName.InitBullet, bullet, position, rotation);
+	}
+
+	private void InitBullet(Projectile bullet, Vector3 position, Vector3 rotation)
+	{
 		bullet.GlobalPosition = position;
 		bullet.GlobalRotation = rotation;
 		GD.Print(bullet.GlobalRotation);
