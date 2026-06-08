@@ -10,9 +10,12 @@ public partial class Interactable : Area3D
 	[Signal] public delegate void InteractionStartedEventHandler(Interactor interactor);
 	[Signal] public delegate void InteractionStoppedEventHandler(Interactor interactor);
 
+	[Export] bool enabled = true;
+
 	[ExportGroup("Highlighting")]
 	[Export] Material highlightMaterial;
 	[Export] MeshInstance3D mesh;
+
 
 	public override void _Ready()
 	{
@@ -30,6 +33,8 @@ public partial class Interactable : Area3D
 
 	public virtual void ShowHighlight()
 	{
+		if (!enabled) return;
+
 		if (mesh != null)
 		{
 			mesh.MaterialOverlay = highlightMaterial;
@@ -38,6 +43,8 @@ public partial class Interactable : Area3D
 
 	public virtual void HideHighlight()
 	{
+		if (!enabled) return;
+
 		if (mesh != null)
 		{
 			mesh.MaterialOverlay = null;
@@ -46,11 +53,27 @@ public partial class Interactable : Area3D
 
 	public virtual void StartInteraction(Interactor interactor)
 	{
+		if (!enabled) return;
+
 		EmitSignal(SignalName.InteractionStarted, interactor);
 	}
 
 	public virtual void StopInteraction(Interactor interactor)
 	{
+		if (!enabled) return;
+
 		EmitSignal(SignalName.InteractionStopped, interactor);
+	}
+
+	public virtual void Enable()
+	{
+		ProcessMode = ProcessModeEnum.Inherit;
+		enabled = true;
+	}
+
+	public virtual void Disable()
+	{
+		ProcessMode = ProcessModeEnum.Disabled;
+		enabled = false;
 	}
 }

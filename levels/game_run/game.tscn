@@ -13,7 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://ds4f3k4yc0ma6" path="res://gameplay/actors/enemies/enemy.tscn" id="7_onwmp"]
 [ext_resource type="PackedScene" uid="uid://dj5q8quo7at0g" path="res://gameplay/gathering/resource_node.tscn" id="8_sy2v3"]
 [ext_resource type="Script" uid="uid://b8kyh4bqnu6ud" path="res://gameplay/extracting/ExtractionZone.cs" id="9_a31k0"]
-[ext_resource type="Script" uid="uid://cjmhgkfia23v3" path="res://gameplay/interaction/Interactable.cs" id="10_2khdt"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5h46i"]
 albedo_color = Color(0.28118682, 0.28118688, 0.28118682, 1)
@@ -58,14 +57,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0)
 [node name="Spaceship" parent="Ship" unique_id=1642621029 instance=ExtResource("2_vsqw0")]
 
 [node name="PlayerPodLauncher" parent="Ship" unique_id=453249195 node_paths=PackedStringArray("podLaunchPoint") instance=ExtResource("4_0uhwm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9000015, 4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.7)
 podLaunchPoint = NodePath("PodLaunchPoint")
 
 [node name="PodLaunchPoint" type="Marker3D" parent="Ship/PlayerPodLauncher" unique_id=267406332]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.9680252, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.9680252, 0)
 
 [node name="StandingButton" parent="Ship" unique_id=757749775 instance=ExtResource("5_wajde")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3714795, 0, 9.079641)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3714795, -1, 13.079641)
 
 [node name="Storage" type="Node" parent="Ship" unique_id=1503478260]
 script = ExtResource("6_3s4pm")
@@ -79,7 +78,7 @@ mesh = SubResource("PlaneMesh_arc7w")
 shape = SubResource("BoxShape3D_dxlos")
 
 [node name="PlayerSpawnPoint" type="Marker3D" parent="." unique_id=1524352124]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3292351, 102.88732, 6.716656)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10991049, 103.01138, -1.2744617)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=165574689]
 transform = Transform3D(0.117118545, 0.9409032, -0.3177808, -0.10445886, 0.32987908, 0.9382261, 0.987609, -0.07668865, 0.13692063, 0, 9.731221, 0)
@@ -149,34 +148,32 @@ dropPoint = NodePath("Marker3D")
 [node name="Marker3D" type="Marker3D" parent="ResourceNode" unique_id=1810786127]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.59727067, 0, 0)
 
-[node name="ExtractionZone" type="StaticBody3D" parent="." unique_id=2106124962 node_paths=PackedStringArray("interactable")]
+[node name="ExtractionZone" type="Area3D" parent="." unique_id=965620974 node_paths=PackedStringArray("storage")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.242014, 2.2, 0)
 script = ExtResource("9_a31k0")
-interactable = NodePath("Interactable")
+storage = NodePath("../Ship/Storage")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="ExtractionZone" unique_id=1801613258]
+[node name="StaticBody3D" type="StaticBody3D" parent="ExtractionZone" unique_id=404447689]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="ExtractionZone/StaticBody3D" unique_id=1801613258]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4595337, 0)
 size = Vector3(7.48291, 3.5067139, 7.5214844)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="ExtractionZone/CSGBox3D" unique_id=1010753083]
+[node name="CSGBox3D2" type="CSGBox3D" parent="ExtractionZone/StaticBody3D/CSGBox3D" unique_id=1010753083]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08062744, -0.20892334, 0)
 operation = 2
 size = Vector3(7.3216553, 4.0079346, 6.44751)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="ExtractionZone/CSGBox3D" unique_id=455694805]
+[node name="CSGBox3D" type="CSGBox3D" parent="ExtractionZone/StaticBody3D/CSGBox3D" unique_id=455694805]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9000001, 0)
 visible = false
 size = Vector3(7.489258, 0.4, 7.5080566)
 
-[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="ExtractionZone" unique_id=694462303]
+[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="ExtractionZone/StaticBody3D" unique_id=694462303]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4595337, 0)
 shape = SubResource("ConcavePolygonShape3D_7i7hg")
 
-[node name="Interactable" type="Area3D" parent="ExtractionZone" unique_id=983700401]
-script = ExtResource("10_2khdt")
-metadata/_custom_type_script = "uid://cjmhgkfia23v3"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ExtractionZone/Interactable" unique_id=1659654516]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ExtractionZone" unique_id=1659654516]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 shape = SubResource("BoxShape3D_ymuiv")
 

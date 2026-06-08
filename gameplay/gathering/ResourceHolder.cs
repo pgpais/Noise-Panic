@@ -38,7 +38,7 @@ namespace WeWereDumb.Gameplay.Gathering
 
             if (resource == null) return false;
 
-            DropResource();
+            CallDeferred(MethodName.DropResource);
             Rpc(MethodName.SyncDropResource);
 
             return true;
@@ -48,12 +48,20 @@ namespace WeWereDumb.Gameplay.Gathering
         [Rpc(MultiplayerApi.RpcMode.Authority)]
         private void SyncDropResource()
         {
-            DropResource();
+            CallDeferred(MethodName.DropResource);
         }
 
         private void DropResource()
         {
-            GetTree().CurrentScene.AddChild(resource, true);
+            resource.Reparent(GetTree().CurrentScene);
+            resource.Enable();
+            GetDropPosition(out var position, out var normal);
+            var angle = Mathf.Acos(resource.Transform.Basis.Y.Dot(normal));
+            var axis = normal.Cross(resource.Transform.Basis.Y);
+            resource.Rotate(axis, angle);
+
+            resource.GlobalPosition = position;
+
             resource = null;
         }
 
@@ -78,9 +86,27 @@ namespace WeWereDumb.Gameplay.Gathering
         private void SetResource(GameResource resource)
         {
             this.resource = resource;
+            resource.Disable();
             resource.Reparent(holdingPoint);
             resource.GlobalPosition = holdingPoint.GlobalPosition;
             resource.GlobalRotation = holdingPoint.GlobalRotation;
+        }
+
+        private void GetDropPosition(out Vector3 position, out Vector3 normal)
+        {
+            var query = PhysicsRayQueryParameters3D.Create(holdingPoint.GlobalPosition, holdingPoint.GlobalPosition - Vector3.Up * 100);
+            query.CollideWithAreas = false;
+            query.CollideWithBodies = true;
+            var result = GetWorld3D().DirectSpaceState.IntersectRay(query);
+            if (result.Count == 0)
+            {
+                normal = Vector3.Zero;
+                position = Vector3.Zero;
+                return;
+            }
+            // Align Y axis with normal for rotation
+            normal = result["normal"].As<Vector3>();
+            position = result["position"].As<Vector3>();
         }
     }
 }

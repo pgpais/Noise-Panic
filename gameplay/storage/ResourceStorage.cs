@@ -68,6 +68,7 @@ namespace WeWereDumb.Gameplay.Storage
         {
             _resourceAmounts[resourceId] = newAmount;
             EmitSignal(SignalName.ResourcesChanged, resourceId, newAmount);
+            GD.Print($"ResourceStorage: {resourceId} → {newAmount}");
         }
     }
 }

@@ -5,39 +5,41 @@ using WeWereDumb.Gameplay.Interaction;
 using WeWereDumb.Gameplay.Resources;
 using WeWereDumb.Gameplay.Storage;
 
-public partial class ExtractionZone : StaticBody3D
+public partial class ExtractionZone : Area3D
 {
 	[Signal] public delegate void ResourceExtractedEventHandler(GameResource resource);
 
-	[Export] Interactable interactable;
 	[Export] ResourceStorage storage;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		interactable.InteractionStarted += OnInteractionStarted;
+		if (!IsMultiplayerAuthority()) return;
+
+		BodyEntered += OnBodyEntered;
 	}
 
-	private void OnInteractionStarted(Interactor interactor)
+	private void OnBodyEntered(Node3D body)
 	{
-		ResourceHolder holder = interactor.InteractActor.GetComponent<ResourceHolder>();
-
-		if (holder != null && holder.HasResource())
+		if (body is GameResource resource)
 		{
-			var resource = holder.Resource;
-
+			ExtractResource(resource);
+			Rpc(MethodName.ExtractResource, resource.GetPath());
 		}
 	}
 
-	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = true)]
+	[Rpc(MultiplayerApi.RpcMode.Authority)]
 	public void ExtractResource(NodePath resourcePath)
 	{
 		var resource = GetNode<GameResource>(resourcePath);
 
-		// storage.Add(resource.Data, 1);
-		EmitSignal(SignalName.ResourceExtracted, resource);
+		ExtractResource(resource);
+	}
 
-		resource.Rpc(GameResource.MethodName.Destroy);
-		// resource.QueueFree();
+	public void ExtractResource(GameResource resource)
+	{
+		storage.Add(resource.Data, 1);
+		EmitSignal(SignalName.ResourceExtracted, resource);
+		resource.QueueFree();
 	}
 }

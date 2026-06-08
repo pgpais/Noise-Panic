@@ -5,7 +5,7 @@ using WeWereDumb.Gameplay.Interaction;
 
 namespace WeWereDumb.Gameplay.Resources
 {
-    public partial class GameResource : Node3D
+    public partial class GameResource : StaticBody3D
     {
         [Export] Interactable interactable;
 
@@ -33,6 +33,19 @@ namespace WeWereDumb.Gameplay.Resources
         public void Destroy()
         {
             QueueFree();
+        }
+
+        public void Enable()
+        {
+            ProcessMode = ProcessModeEnum.Inherit;
+            interactable.Enable();
+        }
+
+        public void Disable()
+        {
+            ProcessMode = ProcessModeEnum.Disabled;
+            interactable.HideHighlight();
+            interactable.Disable();
         }
     }
 }
