@@ -26,9 +26,8 @@ namespace WeWereDumb.Gameplay.Gathering
                 return;
             }
 
-            SetResource(resource);
-
             Rpc(MethodName.SyncAddResource, resource.GetPath());
+            SetResource(resource);
         }
 
         public bool HasResource() => resource != null;
@@ -69,6 +68,8 @@ namespace WeWereDumb.Gameplay.Gathering
         [Rpc(MultiplayerApi.RpcMode.Authority)]
         private void SyncAddResource(NodePath resourcePath)
         {
+            GD.Print("Synced Add resource " + resourcePath);
+
             var resource = GetNode<GameResource>(resourcePath);
 
             SetResource(resource);
@@ -77,7 +78,7 @@ namespace WeWereDumb.Gameplay.Gathering
         private void SetResource(GameResource resource)
         {
             this.resource = resource;
-            holdingPoint.AddChild(resource);
+            resource.Reparent(holdingPoint);
             resource.GlobalPosition = holdingPoint.GlobalPosition;
             resource.GlobalRotation = holdingPoint.GlobalRotation;
         }

@@ -22,10 +22,6 @@ size = Vector3(0.43, 0.28, 0.37)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5myso"]
 albedo_color = Color(0, 0, 0, 1)
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_3canv"]
-height = 1.2873046
-radius = 2.0
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5y3ih"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1meb4"]
@@ -138,10 +134,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.09790039, 0)
 animationTree = NodePath("../../AnimationTree")
 cameraAnchor = NodePath("../../AimPivot/CameraAnchor")
 
-[node name="PlayerCharacterInput" type="Node" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="1" unique_id=1807945806 node_paths=PackedStringArray("controller", "interactor")]
+[node name="PlayerCharacterInput" type="Node" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="1" unique_id=1807945806 node_paths=PackedStringArray("controller", "interactor", "resourceHolder")]
 script = ExtResource("2_jftto")
 controller = NodePath("../CharacterController")
 interactor = NodePath("../Interactor")
+resourceHolder = NodePath("../ResourceHolder")
 metadata/_custom_type_script = "uid://cmi2g3whgv6wt"
 
 [node name="AimingController" type="Node" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="2" unique_id=1409963134 node_paths=PackedStringArray("aimPivot", "cameraPivot")]
@@ -156,14 +153,12 @@ aimingController = NodePath("../AimingController")
 gun = NodePath("../../AimPivot/Main_Character2/Armature/Skeleton3D/GunBoneAttachment3D/Gun")
 metadata/_custom_type_script = "uid://cjae0hvsvnlpi"
 
-[node name="Interactor" type="Area3D" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="4" unique_id=80134322 node_paths=PackedStringArray("InteractActor")]
+[node name="Interactor" type="Node3D" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="4" unique_id=1448098989 node_paths=PackedStringArray("CameraNode", "InteractActor")]
 script = ExtResource("4_3canv")
+CameraNode = NodePath("../../AimPivot/CameraAnchor/SpringArm3D/PhantomCamera3D")
 InteractActor = NodePath("../..")
+InteractCollisionMask = 1
 metadata/_custom_type_script = "uid://dreeunpbb837k"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Components/Interactor" index="0" unique_id=1342794626]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3436523, 0)
-shape = SubResource("CylinderShape3D_3canv")
 
 [node name="Hitbox" type="Area3D" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="5" unique_id=1364468936]
 script = ExtResource("5_1meb4")

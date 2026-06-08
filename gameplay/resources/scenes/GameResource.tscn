@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://d0lgmybq66eko"]
 
 [ext_resource type="Script" uid="uid://82rjl262yx3b" path="res://gameplay/resources/GameResource.cs" id="1_o08cq"]
+[ext_resource type="Script" uid="uid://cjmhgkfia23v3" path="res://gameplay/interaction/Interactable.cs" id="2_1udt2"]
 
 [sub_resource type="TorusMesh" id="TorusMesh_iyhq6"]
 inner_radius = 0.1
@@ -11,8 +12,12 @@ albedo_color = Color(0, 0.24705882, 1, 1)
 emission = Color(0, 0.24705882, 1, 1)
 emission_energy_multiplier = 3.93
 
-[node name="ProtoGameResource" type="Node3D" unique_id=1129125321]
+[sub_resource type="BoxShape3D" id="BoxShape3D_1udt2"]
+size = Vector3(0.4, 0.1, 0.4)
+
+[node name="ProtoGameResource" type="Node3D" unique_id=1129125321 node_paths=PackedStringArray("interactable")]
 script = ExtResource("1_o08cq")
+interactable = NodePath("Interactable")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=736483202]
 mesh = SubResource("TorusMesh_iyhq6")
@@ -20,3 +25,10 @@ surface_material_override/0 = SubResource("StandardMaterial3D_o08cq")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1086706957]
 light_color = Color(0, 0.24705882, 1, 1)
+
+[node name="Interactable" type="Area3D" parent="." unique_id=181868856]
+script = ExtResource("2_1udt2")
+metadata/_custom_type_script = "uid://cjmhgkfia23v3"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable" unique_id=2080318278]
+shape = SubResource("BoxShape3D_1udt2")

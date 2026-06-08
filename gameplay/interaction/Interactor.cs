@@ -1,16 +1,24 @@
 using Godot;
+using System;
 using System.Linq;
 using WeWereDumb.Gameplay.Actors;
 
 namespace WeWereDumb.Gameplay.Interaction;
 
 [GlobalClass]
-public partial class Interactor : Area3D
+public partial class Interactor : Node3D
 {
 	[Signal] public delegate void StartedInteractingEventHandler(Interactable interactable);
 	[Signal] public delegate void StoppedInteractingEventHandler(Interactable interactable);
 
+	[Export] public float InteractionDistance { get; private set; } = 6f;
+
+	[Export] public Node3D CameraNode { get; private set; }
 	[Export] public Actor InteractActor { get; private set; }
+
+	[Export(PropertyHint.Layers3DPhysics)] public uint InteractCollisionMask { get; private set; }
+
+
 
 	Interactable target;
 	bool isInteracting = false;
@@ -18,9 +26,24 @@ public partial class Interactor : Area3D
 	public override void _Ready()
 	{
 		base._Ready();
+	}
 
-		AreaEntered += OnAreaEntered;
-		AreaExited += OnAreaExited;
+	public override void _PhysicsProcess(double delta)
+	{
+		base._PhysicsProcess(delta);
+
+		var newTarget = DetectInteractable();
+		if (newTarget != null)
+		{
+			target?.HideHighlight();
+			target = newTarget;
+			target.ShowHighlight();
+		}
+		else
+		{
+			target?.HideHighlight();
+			target = null;
+		}
 	}
 
 	public void StartInteracting()
@@ -51,41 +74,30 @@ public partial class Interactor : Area3D
 
 	}
 
-	private void OnAreaEntered(Area3D area)
+	private Interactable DetectInteractable()
 	{
-		target = GetOverlappingInteractable();
-	}
-
-	private void OnAreaExited(Area3D area)
-	{
-		target = GetOverlappingInteractable();
-	}
-
-	private Interactable GetOverlappingInteractable()
-	{
-		var areas = GetOverlappingAreas();
-
-		var interactables = areas.Where(x => x is Interactable).Cast<Interactable>().ToArray();
-
-		Interactable closestInteractable = null;
-		foreach (var interactable in interactables)
+		var spaceState = GetWorld3D().DirectSpaceState;
+		// use global coordinates, not local to node
+		Vector3 cameraPos = CameraNode.GlobalPosition;
+		Vector3 cameraForward = -CameraNode.GlobalTransform.Basis.Z;
+		Vector3 targetPos = cameraPos + cameraForward * InteractionDistance;
+		var query = PhysicsRayQueryParameters3D.Create(cameraPos, targetPos);
+		query.CollideWithAreas = true;
+		query.CollideWithBodies = false;
+		query.CollisionMask = InteractCollisionMask;
+		var result = spaceState.IntersectRay(query);
+		if (result.Count == 0)
 		{
-			if (closestInteractable == null)
-			{
-				closestInteractable = interactable;
-				continue;
-			}
+			return null;
+		}
+		var collider = result["collider"].As<Node3D>();
 
-			bool isClosest = interactable.GlobalPosition.DistanceSquaredTo(GlobalPosition) < closestInteractable.GlobalPosition.DistanceSquaredTo(GlobalPosition);
-
-			if (isClosest)
-			{
-				closestInteractable = interactable;
-			}
+		if (collider is Interactable interactable)
+		{
+			return interactable;
 		}
 
-		// GD.Print("Interactor " + Name + " has " + interactables.Length + " interactables");
-		return closestInteractable;
+		return null;
 	}
 
 	public bool HasTarget()

@@ -27,6 +27,7 @@ public partial class ResourceNode : StaticBody3D
 		instance.GlobalPosition = dropPoint.GlobalPosition;
 		instance.GlobalRotation = dropPoint.GlobalRotation;
 
+		GD.Print("Created resource " + instance.GetPath());
 
 		Rpc(MethodName.CreateResource, instance.Name);
 	}
@@ -35,11 +36,12 @@ public partial class ResourceNode : StaticBody3D
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer)]
 	private void CreateResource(string instanceName)
 	{
-		//TODO: create and drop item on floor, let player pick it up
 		var instance = resource.Scene.Instantiate<GameResource>();
 		instance.SetData(resource);
 		GetTree().CurrentScene.AddChild(instance, true);
 		instance.Name = instanceName;
+
+		GD.Print("Synced Created resource " + instance.GetPath());
 
 		instance.GlobalPosition = dropPoint.GlobalPosition;
 		instance.GlobalRotation = dropPoint.GlobalRotation;
