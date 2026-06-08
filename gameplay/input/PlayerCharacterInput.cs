@@ -29,6 +29,11 @@ public partial class PlayerCharacterInput : Node
 		{
 			resourceHolder.TryToDropResource();
 		}
+
+		if (Input.IsActionJustPressed("jump"))
+		{
+			controller.WantsToJump = true;
+		}
 	}
 
 	private void HandleMovementInput()

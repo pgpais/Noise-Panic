@@ -6,9 +6,12 @@ public partial class CharacterController : Node
 	[Export] AnimationTree animationTree;
 	[Export] Node3D cameraAnchor;
 	[Export] public float Speed { get; private set; }
+	[Export] public float JumpVelocity { get; private set; } = 10f;
 
 	public bool MovementEnabled { get; set; } = true;
 	public Vector2 MovInput { get; set; } = Vector2.Zero;
+	public bool WantsToJump { get; set; }
+
 	float targetYRotation;
 
 	Camera3D _camera;
@@ -43,7 +46,9 @@ public partial class CharacterController : Node
 		Vector2 inputDir = MovInput;
 
 		// Using camera forward and right as local axis
-		Vector3 direction = (_camera.GlobalTransform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
+		Vector3 forward = _camera.GlobalTransform.Basis.Z * inputDir.Y;
+		Vector3 right = _camera.GlobalTransform.Basis.X * inputDir.X;
+		Vector3 direction = new Vector3(forward.X, 0, forward.Z).Normalized() + new Vector3(right.X, 0, right.Z).Normalized();
 		if (direction != Vector3.Zero)
 		{
 			velocity.X = direction.X * Speed;
@@ -62,9 +67,15 @@ public partial class CharacterController : Node
 		{
 			velocity += _body.GetGravity() * (float)delta;
 		}
+		if (WantsToJump)
+		{
+			velocity.Y = JumpVelocity;
+		}
 
 		_body.Velocity = velocity;
 		_body.MoveAndSlide();
+
+		WantsToJump = false;
 
 		if (IsMultiplayerAuthority())
 		{
@@ -85,8 +96,10 @@ public partial class CharacterController : Node
 		if (animationTree != null)
 		{
 			var velocity2D = new Vector2(velocity.X, velocity.Z);
-			animationTree.Set("parameters/ArmsRunning/blend_position", velocity2D / Speed);
-			animationTree.Set("parameters/BodyRunning/blend_position", velocity2D / Speed);
+			animationTree.Set("parameters/conditions/has_jumped", velocity.Y > 0);
+			animationTree.Set("parameters/conditions/is_falling", velocity.Y < 0);
+			animationTree.Set("parameters/conditions/is_on_floor", _body.IsOnFloor());
+			animationTree.Set("parameters/MovementBlendSpace/blend_position", velocity2D / Speed);
 		}
 	}
 }
