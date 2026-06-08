@@ -8,7 +8,7 @@ namespace WeWereDumb.Gameplay.Actors
     {
         [ExportGroup("Settings")]
         [Export] float mouseSensitivity = 0.001f;
-        [Export] float aimXClamp = 60;
+        [Export] float aimXClampDegrees = 60;
 
         [ExportGroup("References")]
         [Export] Node3D aimPivot;
@@ -18,6 +18,8 @@ namespace WeWereDumb.Gameplay.Actors
 
         private float targetXRotation;
         private float targetYRotation;
+
+        private float aimXClampRads => Mathf.DegToRad(aimXClampDegrees);
 
         public override void _Ready()
         {
@@ -42,7 +44,7 @@ namespace WeWereDumb.Gameplay.Actors
             }
 
             targetXRotation -= MouseMovementInput.Y * mouseSensitivity;
-            targetXRotation = Mathf.Clamp(targetXRotation, -aimXClamp, aimXClamp);
+            targetXRotation = Mathf.Clamp(targetXRotation, -aimXClampRads, aimXClampRads);
             targetYRotation -= MouseMovementInput.X * mouseSensitivity;
 
             var targetCameraRotation = new Vector3(targetXRotation, cameraPivot.Rotation.Y, cameraPivot.Rotation.Z);
