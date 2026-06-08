@@ -42,7 +42,6 @@ namespace WeWereDumb.Gameplay.Actors
             }
 
             targetXRotation -= MouseMovementInput.Y * mouseSensitivity;
-            GD.Print("targetXRotation: " + targetXRotation);
             targetXRotation = Mathf.Clamp(targetXRotation, -aimXClamp, aimXClamp);
             targetYRotation -= MouseMovementInput.X * mouseSensitivity;
 
