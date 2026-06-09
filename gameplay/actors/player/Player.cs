@@ -8,6 +8,7 @@ public partial class Player : Actor
 {
 	public static List<Player> players = new();
 
+	[Export] CharacterController characterController;
 	[Export] Node3D phantomcamera3d;
 	PhantomCamera3D pcam;
 
@@ -28,5 +29,15 @@ public partial class Player : Actor
 	public override void _ExitTree()
 	{
 		players.Remove(this);
+	}
+
+	public void DisableMovement()
+	{
+		characterController.MovementEnabled = false;
+	}
+
+	public void EnableMovement()
+	{
+		characterController.MovementEnabled = true;
 	}
 }

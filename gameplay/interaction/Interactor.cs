@@ -32,17 +32,20 @@ public partial class Interactor : Node3D
 	{
 		base._PhysicsProcess(delta);
 
-		var newTarget = DetectInteractable();
-		if (newTarget != null)
+		if (!isInteracting)
 		{
-			target?.HideHighlight();
-			target = newTarget;
-			target.ShowHighlight();
-		}
-		else
-		{
-			target?.HideHighlight();
-			target = null;
+			var newTarget = DetectInteractable();
+			if (newTarget != null)
+			{
+				target?.HideHighlight();
+				target = newTarget;
+				target.ShowHighlight();
+			}
+			else
+			{
+				target?.HideHighlight();
+				target = null;
+			}
 		}
 	}
 
@@ -51,6 +54,7 @@ public partial class Interactor : Node3D
 		if (HasTarget())
 		{
 			target.StartInteraction(this);
+			target.HideHighlight();
 			isInteracting = true;
 			EmitSignal(SignalName.StartedInteracting, target);
 		}
