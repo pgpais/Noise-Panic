@@ -96,7 +96,7 @@ mesh = SubResource("PlaneMesh_arc7w")
 shape = SubResource("BoxShape3D_dxlos")
 
 [node name="PlayerSpawnPoint" type="Marker3D" parent="." unique_id=1524352124]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10991049, 103.01138, -1.2744617)
+transform = Transform3D(0.80970854, -0.19786175, 0.55246985, 0, 0.9414441, 0.33716914, -0.58683234, -0.2730087, 0.7622953, 1.7357736, 5.7003446, 1.6273336)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=165574689]
 transform = Transform3D(0.117118545, 0.9409032, -0.3177808, -0.10445886, 0.32987908, 0.9382261, 0.987609, -0.07668865, 0.13692063, 0, 9.731221, 0)

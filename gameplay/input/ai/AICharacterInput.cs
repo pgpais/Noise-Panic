@@ -22,7 +22,7 @@ public partial class AICharacterInput : Node
 
         var dir = (target.GlobalPosition - _owner.GlobalPosition).Normalized();
 
-        controller.MovInput = new Vector2(dir.X, dir.Z);
+        controller.MovInput = new Vector2(dir.X, dir.Z).Normalized();
     }
 
     public void SetTarget(Node3D target)

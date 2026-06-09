@@ -13,6 +13,13 @@ height = 1.0
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_45p3m"]
 albedo_color = Color(1, 0, 0, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wn54x"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8okpo"]
+material = SubResource("StandardMaterial3D_wn54x")
+size = Vector3(0.265, 0.145, 0.27)
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mgh73"]
 radius = 0.25
 height = 1.0
@@ -29,6 +36,10 @@ controller = NodePath("Components/CharacterController")
 [node name="MeshInstance3D" parent="." index="0" unique_id=41721404]
 mesh = SubResource("CapsuleMesh_xndlq")
 surface_material_override/0 = SubResource("StandardMaterial3D_45p3m")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D" index="0" unique_id=1895192631]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.28102008, 0.10632086)
+mesh = SubResource("BoxMesh_8okpo")
 
 [node name="CollisionShape3D" parent="." index="1" unique_id=1622523065]
 shape = SubResource("CapsuleShape3D_mgh73")

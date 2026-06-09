@@ -11,7 +11,7 @@ namespace WeWereDumb.Gameplay.Actors
         [Export] float aimXClampDegrees = 60;
 
         [ExportGroup("References")]
-        [Export] Node3D aimPivot;
+        [Export] CharacterBody3D _body;
         [Export] Node3D cameraPivot;
 
         public Vector2 MouseMovementInput { get; set; }
@@ -27,7 +27,7 @@ namespace WeWereDumb.Gameplay.Actors
             if (!IsMultiplayerAuthority()) return;
 
             targetXRotation = cameraPivot.Rotation.X;
-            targetYRotation = aimPivot.Rotation.Y;
+            targetYRotation = _body.Rotation.Y;
 
             Godot.Input.MouseMode = Godot.Input.MouseModeEnum.Captured;
         }
@@ -48,10 +48,10 @@ namespace WeWereDumb.Gameplay.Actors
             targetYRotation -= MouseMovementInput.X * mouseSensitivity;
 
             var targetCameraRotation = new Vector3(targetXRotation, cameraPivot.Rotation.Y, cameraPivot.Rotation.Z);
-            var targetAimRotation = new Vector3(aimPivot.Rotation.X, targetYRotation, aimPivot.Rotation.Z);
+            var targetAimRotation = new Vector3(_body.Rotation.X, targetYRotation, _body.Rotation.Z);
 
             cameraPivot.Rotation = targetCameraRotation;
-            aimPivot.Rotation = targetAimRotation;
+            _body.Rotation = targetAimRotation;
 
             Rpc(MethodName.SyncRotation, targetCameraRotation, targetAimRotation);
             MouseMovementInput = Vector2.Zero;
@@ -61,7 +61,7 @@ namespace WeWereDumb.Gameplay.Actors
         private void SyncRotation(Vector3 targetCameraRotation, Vector3 targetAimRotation)
         {
             cameraPivot.Rotation = targetCameraRotation;
-            aimPivot.Rotation = targetAimRotation;
+            _body.Rotation = targetAimRotation;
         }
     }
 }

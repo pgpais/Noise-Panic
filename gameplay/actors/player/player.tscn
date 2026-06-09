@@ -126,9 +126,9 @@ interactor = NodePath("../Interactor")
 resourceHolder = NodePath("../ResourceHolder")
 metadata/_custom_type_script = "uid://cmi2g3whgv6wt"
 
-[node name="AimingController" type="Node" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="2" unique_id=1409963134 node_paths=PackedStringArray("aimPivot", "cameraPivot")]
+[node name="AimingController" type="Node" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="2" unique_id=1409963134 node_paths=PackedStringArray("_body", "cameraPivot")]
 script = ExtResource("5_tg5ys")
-aimPivot = NodePath("../../AimPivot")
+_body = NodePath("../..")
 cameraPivot = NodePath("../../AimPivot/CameraAnchor")
 metadata/_custom_type_script = "uid://bbee2spqhn4r1"
 
@@ -226,7 +226,7 @@ grow_vertical = 2
 texture = ExtResource("16_e471u")
 
 [node name="GunBoneAttachment3D" type="BoneAttachment3D" parent="." index="7" unique_id=1686055260]
-transform = Transform3D(0.033454325, 0.011820761, 0.9993702, -0.027174927, -0.99954945, 0.012732595, 0.99907076, -0.027583817, -0.033118006, 0.34013736, -0.24453843, 0.02411)
+transform = Transform3D(0.038653906, 0.0342863, 0.99866414, -0.03273274, -0.9988312, 0.035558954, 0.99871653, -0.034063637, -0.03748658, 0.34505728, -0.24335915, 0.021668565)
 bone_name = "hand-R"
 bone_idx = 20
 use_external_skeleton = true
@@ -238,7 +238,7 @@ visible = false
 shootingPoint = NodePath("../../AimPivot/CameraAnchor/ShootingPoint")
 
 [node name="BackpackBoneAttachment3D" type="BoneAttachment3D" parent="." index="8" unique_id=1421805177]
-transform = Transform3D(-0.9999517, -0.009290771, 0.0031878506, 0.009822465, -0.9460083, 0.323993, 5.5885616e-06, 0.32400924, 0.9460525, 0.004331942, 0.24002564, 0.15261371)
+transform = Transform3D(-0.9999578, -0.009179314, 0.00033801878, 0.008801546, -0.94697803, 0.32117692, -0.0026280917, 0.32116678, 0.94701755, 0.0026840281, 0.23914564, 0.1542774)
 bone_name = "backpack"
 bone_idx = 31
 use_external_skeleton = true

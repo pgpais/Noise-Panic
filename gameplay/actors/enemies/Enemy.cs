@@ -71,4 +71,22 @@ public partial class Enemy : Actor, IPooledObject
 
         enemies.Remove(this);
     }
+
+    public Player GetClosestPlayer()
+    {
+        Player closestPlayer = null;
+        float closestDistance = float.MaxValue;
+
+        foreach (var player in Player.players)
+        {
+            float distance = player.GlobalPosition.DistanceTo(GlobalPosition);
+            if (distance < closestDistance)
+            {
+                closestPlayer = player;
+                closestDistance = distance;
+            }
+        }
+
+        return closestPlayer;
+    }
 }
