@@ -138,6 +138,7 @@ shape = SubResource("ConcavePolygonShape3D_wflc5")
 
 [node name="Interactable" type="Area3D" parent="Ship/OverviewScreenDesk" unique_id=205034060 node_paths=PackedStringArray("mesh")]
 script = ExtResource("11_a31k0")
+instantUse = false
 highlightMaterial = ExtResource("12_2khdt")
 mesh = NodePath("../CSGBakedMeshInstance3D")
 metadata/_custom_type_script = "uid://cjmhgkfia23v3"

@@ -22,9 +22,9 @@ public partial class OverviewScreenDesk : Node3D
 		}
 	}
 
-	private void OnInteractionStopped(Interactor interactor)
+	private void OnInteractionStopped()
 	{
-		if (interactor.InteractActor is Player player)
+		if (interactable.Interactor.InteractActor is Player player)
 		{
 			player.EnableMovement();
 		}

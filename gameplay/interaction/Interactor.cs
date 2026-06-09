@@ -53,11 +53,19 @@ public partial class Interactor : Node3D
 	{
 		if (HasTarget())
 		{
+			target.InteractionStopped += CancelInteraction;
 			target.StartInteraction(this);
 			target.HideHighlight();
 			isInteracting = true;
 			EmitSignal(SignalName.StartedInteracting, target);
 		}
+	}
+
+	private void CancelInteraction()
+	{
+		target = null;
+		isInteracting = false;
+		EmitSignal(SignalName.StoppedInteracting, target);
 	}
 
 	public void StopInteracting()
@@ -66,16 +74,15 @@ public partial class Interactor : Node3D
 		{
 			if (HasTarget())
 			{
-				target.StopInteraction(this);
-				isInteracting = false;
-				EmitSignal(SignalName.StoppedInteracting, target);
+				target.StopInteraction();
 			}
 			else
 			{
 				GD.PrintErr("Tried to stop an interaction without an interaction target!");
 			}
-		}
 
+			CancelInteraction();
+		}
 	}
 
 	private Interactable DetectInteractable()

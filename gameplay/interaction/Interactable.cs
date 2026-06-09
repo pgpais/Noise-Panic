@@ -8,27 +8,24 @@ public partial class Interactable : Area3D
 	const string HIGHLIGHT_MATERIAL_UID = "uid://buvy6b2l6l2sw";
 
 	[Signal] public delegate void InteractionStartedEventHandler(Interactor interactor);
-	[Signal] public delegate void InteractionStoppedEventHandler(Interactor interactor);
+	[Signal] public delegate void InteractionStoppedEventHandler();
 
 	[Export] bool enabled = true;
+	[Export] bool instantUse = true;
 
 	[ExportGroup("Highlighting")]
 	[Export] Material highlightMaterial;
 	[Export] MeshInstance3D mesh;
 
+	public Interactor Interactor => interactor;
+	Interactor interactor;
 
 	public override void _Ready()
 	{
 		base._Ready();
-		if (highlightMaterial == null)
-		{
-			highlightMaterial = ResourceLoader.Load<Material>(HIGHLIGHT_MATERIAL_UID);
-		}
 
-		if (mesh == null)
-		{
-			mesh = Owner.GetNode<MeshInstance3D>("MeshInstance3D");
-		}
+		highlightMaterial ??= ResourceLoader.Load<Material>(HIGHLIGHT_MATERIAL_UID);
+		mesh ??= Owner.GetNode<MeshInstance3D>("MeshInstance3D");
 	}
 
 	public virtual void ShowHighlight()
@@ -55,14 +52,19 @@ public partial class Interactable : Area3D
 	{
 		if (!enabled) return;
 
+		this.interactor = interactor;
 		EmitSignal(SignalName.InteractionStarted, interactor);
+		if (instantUse)
+		{
+			StopInteraction();
+		}
 	}
 
-	public virtual void StopInteraction(Interactor interactor)
+	public virtual void StopInteraction()
 	{
 		if (!enabled) return;
 
-		EmitSignal(SignalName.InteractionStopped, interactor);
+		EmitSignal(SignalName.InteractionStopped);
 	}
 
 	public virtual void Enable()
