@@ -14,9 +14,24 @@
 [ext_resource type="PackedScene" uid="uid://ds4f3k4yc0ma6" path="res://gameplay/actors/enemies/enemy.tscn" id="7_onwmp"]
 [ext_resource type="PackedScene" uid="uid://dj5q8quo7at0g" path="res://gameplay/gathering/resource_node.tscn" id="8_sy2v3"]
 [ext_resource type="Script" uid="uid://b8kyh4bqnu6ud" path="res://gameplay/extracting/ExtractionZone.cs" id="9_a31k0"]
+[ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="15_sy2v3"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="16_a31k0"]
+[ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="17_2khdt"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_sy2v3"]
+viewport_path = NodePath("SubViewport")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_3s4pm"]
 viewport_path = NodePath("Ship/Node3D/SubViewport")
+
+[sub_resource type="Resource" id="Resource_wflc5"]
+script = ExtResource("16_a31k0")
+
+[sub_resource type="Resource" id="Resource_mbg5y"]
+script = ExtResource("17_2khdt")
+fov = 5.0
+size = 10.0
+metadata/_custom_type_script = "uid://b8hhnqsugykly"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5h46i"]
 albedo_color = Color(0.28118682, 0.28118688, 0.28118682, 1)
@@ -27,15 +42,6 @@ size = Vector2(500, 500)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dxlos"]
 size = Vector3(500, 0.001, 500)
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_63tst"]
-
-[sub_resource type="Sky" id="Sky_3ohsu"]
-sky_material = SubResource("ProceduralSkyMaterial_63tst")
-
-[sub_resource type="Environment" id="Environment_5h46i"]
-background_mode = 2
-sky = SubResource("Sky_3ohsu")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ohsu"]
 albedo_color = Color(1, 0, 0, 1)
@@ -59,6 +65,11 @@ spawnPoint = NodePath("PlayerSpawnPoint")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0)
 
 [node name="Spaceship" parent="Ship" unique_id=1642621029 instance=ExtResource("2_vsqw0")]
+
+[node name="OverviewScreen" type="Sprite3D" parent="Ship/Spaceship" unique_id=1068318505]
+transform = Transform3D(1, 0, 0, 0, 0.98581207, 0.16785282, 0, -0.16785282, 0.98581207, -0.70684123, 6.580658, 2.8107617)
+flip_h = true
+texture = SubResource("ViewportTexture_sy2v3")
 
 [node name="PlayerPodLauncher" parent="Ship" unique_id=453249195 node_paths=PackedStringArray("podLaunchPoint") instance=ExtResource("4_0uhwm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.7)
@@ -87,6 +98,14 @@ size = Vector2i(256, 512)
 [node name="StorageOverview" parent="Ship/Node3D/SubViewport/CanvasLayer2" unique_id=1780766244 node_paths=PackedStringArray("storage") instance=ExtResource("7_3s4pm")]
 storage = NodePath("../../../../Storage")
 
+[node name="OverviewPhantomCamera3D" type="Node3D" parent="Ship" unique_id=1844172153]
+transform = Transform3D(1, 0, 0, 0, -0.167285, 0.98590845, 0, -0.98590845, -0.167285, -0.7062626, -1.0256042, -20.322823)
+script = ExtResource("15_sy2v3")
+tween_resource = SubResource("Resource_wflc5")
+host_layers = 2
+camera_3d_resource = SubResource("Resource_mbg5y")
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=156097673]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1329043612]
@@ -103,10 +122,8 @@ transform = Transform3D(0.117118545, 0.9409032, -0.3177808, -0.10445886, 0.32987
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1138672703]
-physics_interpolation_mode = 1
-transform = Transform3D(1, 0, 0, 0, 0.49613875, 0.8682433, 0, -0.8682433, 0.49613875, 0, 8, 4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7709875, 7.0266495)
 top_level = true
-environment = SubResource("Environment_5h46i")
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D" unique_id=1054332899]
 process_priority = 300
@@ -201,5 +218,22 @@ omni_range = 5.4140034
 omni_attenuation = 0.33
 
 [node name="Enemies" type="Node3D" parent="." unique_id=269402511]
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=929721130]
+size = Vector2i(964, 463)
+
+[node name="OverviewCamera" type="Camera3D" parent="SubViewport" unique_id=626315657]
+physics_interpolation_mode = 1
+transform = Transform3D(1, 0, 0, 0, -0.167285, 0.98590845, 0, -0.98590845, -0.167285, -0.7062626, 98.974396, -20.322823)
+top_level = true
+fov = 5.0
+size = 10.0
+
+[node name="OverviewPhantomCameraHost" type="Node" parent="SubViewport/OverviewCamera" unique_id=1007755368]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("3_0uhwm")
+host_layers = 2
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [connection signal="Pressed" from="Ship/StandingButton" to="Ship/PlayerPodLauncher" method="TryLaunchPlayer"]
