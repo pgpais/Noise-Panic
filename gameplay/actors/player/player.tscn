@@ -22,6 +22,9 @@ size = Vector3(0.43, 0.28, 0.37)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5myso"]
 albedo_color = Color(0, 0, 0, 1)
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f0w7x"]
+radius = 0.3569336
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5y3ih"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1meb4"]
@@ -112,8 +115,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.31018203)
 mesh = SubResource("BoxMesh_3canv")
 surface_material_override/0 = SubResource("StandardMaterial3D_5myso")
 
-[node name="CollisionShape3D" parent="." index="1" unique_id=1622523065]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.09790039, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1" unique_id=1544916881]
+shape = SubResource("CapsuleShape3D_f0w7x")
 
 [node name="CharacterController" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="0" unique_id=2102656381 node_paths=PackedStringArray("animationTree", "cameraAnchor")]
 animationTree = NodePath("../../AnimationTree")
@@ -126,8 +129,9 @@ interactor = NodePath("../Interactor")
 resourceHolder = NodePath("../ResourceHolder")
 metadata/_custom_type_script = "uid://cmi2g3whgv6wt"
 
-[node name="AimingController" type="Node" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="2" unique_id=1409963134 node_paths=PackedStringArray("cameraPivot")]
+[node name="AimingController" type="Node" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="2" unique_id=1409963134 node_paths=PackedStringArray("_body", "cameraPivot")]
 script = ExtResource("5_tg5ys")
+_body = NodePath("../..")
 cameraPivot = NodePath("../../AimPivot/CameraAnchor")
 metadata/_custom_type_script = "uid://bbee2spqhn4r1"
 
@@ -137,9 +141,11 @@ aimingController = NodePath("../AimingController")
 gun = NodePath("../../GunBoneAttachment3D/Gun")
 metadata/_custom_type_script = "uid://cjae0hvsvnlpi"
 
-[node name="Interactor" type="Node3D" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="4" unique_id=1448098989 node_paths=PackedStringArray("InteractActor")]
+[node name="Interactor" type="Node3D" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="4" unique_id=1448098989 node_paths=PackedStringArray("CameraNode", "InteractActor")]
 script = ExtResource("4_3canv")
+CameraNode = NodePath("../../AimPivot/CameraAnchor/SpringArm3D/PhantomCamera3D")
 InteractActor = NodePath("../..")
+InteractCollisionMask = 1
 metadata/_custom_type_script = "uid://dreeunpbb837k"
 
 [node name="Hitbox" type="Area3D" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="5" unique_id=1364468936]
@@ -223,7 +229,7 @@ grow_vertical = 2
 texture = ExtResource("16_e471u")
 
 [node name="GunBoneAttachment3D" type="BoneAttachment3D" parent="." index="7" unique_id=1686055260]
-transform = Transform3D(0.037275072, 0.0638626, 0.9972624, 0.028539672, -0.9976169, 0.0628186, 0.99889755, 0.026119923, -0.039008703, 0.33702618, -0.23897856, 0.03978756)
+transform = Transform3D(0.037043627, 0.033074167, 0.9987664, -0.031875134, -0.99890476, 0.034261018, 0.99880534, -0.033105068, -0.03594854, 0.34657454, -0.24366593, 0.020578422)
 bone_name = "hand-R"
 bone_idx = 20
 use_external_skeleton = true
@@ -235,7 +241,7 @@ visible = false
 shootingPoint = NodePath("../../AimPivot/CameraAnchor/ShootingPoint")
 
 [node name="BackpackBoneAttachment3D" type="BoneAttachment3D" parent="." index="8" unique_id=1421805177]
-transform = Transform3D(-0.99995464, 0.0079997545, -0.0051787817, -0.009315946, -0.9350459, 0.35440361, -0.0020072605, 0.3544362, 0.93507653, -0.004183838, 0.24269795, 0.15496871)
+transform = Transform3D(-0.99996334, -0.00857668, 0.00021791914, 0.008192276, -0.94698447, 0.32117447, -0.0025482485, 0.3211648, 0.94701844, 0.0030438039, 0.23921525, 0.15363416)
 bone_name = "backpack"
 bone_idx = 31
 use_external_skeleton = true

@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://bhsoqgg220w7f" path="res://gameplay/combat/health/HealthComponent.cs" id="3_45p3m"]
 [ext_resource type="PackedScene" uid="uid://cpetvmxskelxq" path="res://gameplay/combat/health/ui/health_bar.tscn" id="4_gefjq"]
 [ext_resource type="Script" uid="uid://dueyxdwc85adk" path="res://gameplay/combat/Hitbox.cs" id="4_wn54x"]
+[ext_resource type="PackedScene" uid="uid://c7puyq5j6v233" path="res://gameplay/actors/enemies/Slime/slime.blend" id="6_8okpo"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_xndlq"]
 radius = 0.25
@@ -20,12 +21,36 @@ albedo_color = Color(0, 0, 0, 1)
 material = SubResource("StandardMaterial3D_wn54x")
 size = Vector3(0.265, 0.145, 0.27)
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mgh73"]
-radius = 0.25
-height = 1.0
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gtwec"]
+radius = 0.97802734
+height = 1.9560547
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_gefjq"]
 viewport_path = NodePath("Sprite3D/SubViewport")
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8okpo"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gtwec"]
+animation = &"Walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y68ex"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ofm3v"]
+advance_mode = 2
+advance_condition = &"is_moving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bameu"]
+advance_mode = 2
+advance_expression = "is_moving == false"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_8okpo"]
+states/Idle/node = SubResource("AnimationNodeAnimation_8okpo")
+states/Idle/position = Vector2(367, 51)
+states/Walk/node = SubResource("AnimationNodeAnimation_gtwec")
+states/Walk/position = Vector2(535, 190)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_y68ex"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_ofm3v"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_bameu")]
 
 [node name="Enemy" unique_id=1748184085 node_paths=PackedStringArray("health", "controller") instance=ExtResource("1_mgh73")]
 collision_layer = 2
@@ -34,6 +59,7 @@ health = NodePath("Components/HealthComponent")
 controller = NodePath("Components/CharacterController")
 
 [node name="MeshInstance3D" parent="." index="0" unique_id=41721404]
+visible = false
 mesh = SubResource("CapsuleMesh_xndlq")
 surface_material_override/0 = SubResource("StandardMaterial3D_45p3m")
 
@@ -41,10 +67,8 @@ surface_material_override/0 = SubResource("StandardMaterial3D_45p3m")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.28102008, 0.10632086)
 mesh = SubResource("BoxMesh_8okpo")
 
-[node name="CollisionShape3D" parent="." index="1" unique_id=1622523065]
-shape = SubResource("CapsuleShape3D_mgh73")
-
-[node name="CharacterController" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="0" unique_id=2102656381]
+[node name="CharacterController" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="0" unique_id=2102656381 node_paths=PackedStringArray("animationTree")]
+animationTree = NodePath("../../AnimationTree")
 Speed = 2.5
 
 [node name="HealthComponent" type="Node" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="1" unique_id=1095575229]
@@ -57,11 +81,12 @@ collision_mask = 0
 script = ExtResource("4_wn54x")
 metadata/_custom_type_script = "uid://dueyxdwc85adk"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Components/Hitbox" index="0" unique_id=880271277]
-shape = SubResource("CapsuleShape3D_mgh73")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Components/Hitbox" index="0" unique_id=891479098]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.92038125, 0)
+shape = SubResource("CapsuleShape3D_gtwec")
 
-[node name="Sprite3D" type="Sprite3D" parent="." index="3" unique_id=1782822136]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[node name="Sprite3D" type="Sprite3D" parent="." index="2" unique_id=1782822136]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6750689, 0)
 billboard = 1
 texture = SubResource("ViewportTexture_gefjq")
 
@@ -70,5 +95,17 @@ size = Vector2i(150, 15)
 
 [node name="HealthBar" parent="Sprite3D/SubViewport" index="0" unique_id=1176962998 node_paths=PackedStringArray("healthComponent") instance=ExtResource("4_gefjq")]
 healthComponent = NodePath("../../../Components/HealthComponent")
+
+[node name="slime" parent="." index="3" unique_id=1952140254 instance=ExtResource("6_8okpo")]
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="4" unique_id=1707763281]
+root_node = NodePath("../slime")
+tree_root = SubResource("AnimationNodeStateMachine_8okpo")
+anim_player = NodePath("../slime/AnimationPlayer")
+parameters/conditions/is_moving = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="6" unique_id=518336157]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.92038125, 0)
+shape = SubResource("CapsuleShape3D_gtwec")
 
 [connection signal="HitTaken" from="Components/Hitbox" to="Components/HealthComponent" method="TakeDamage"]

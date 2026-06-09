@@ -100,6 +100,7 @@ public partial class CharacterController : Node
 			animationTree.Set("parameters/conditions/has_jumped", velocity.Y > 0);
 			animationTree.Set("parameters/conditions/is_falling", velocity.Y < 0);
 			animationTree.Set("parameters/conditions/is_on_floor", _body.IsOnFloor());
+			animationTree.Set("parameters/conditions/is_moving", velocity.X != 0);
 			animationTree.Set("parameters/MovementBlendSpace/blend_position", velocity2D / Speed);
 		}
 	}

@@ -5,17 +5,12 @@
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_xu0ks"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5y3ih"]
-
 [node name="Actor" type="CharacterBody3D" unique_id=1748184085 node_paths=PackedStringArray("componentsParent")]
 script = ExtResource("1_ioqnn")
 componentsParent = NodePath("Components")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=41721404]
 mesh = SubResource("CapsuleMesh_xu0ks")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1622523065]
-shape = SubResource("CapsuleShape3D_5y3ih")
 
 [node name="Components" type="Node3D" parent="." unique_id=2104275166]
 
