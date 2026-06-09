@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://bl435r8pm0foa"]
+
+[ext_resource type="Script" uid="uid://dddte75uplw3v" path="res://gameplay/storage/UI/ItemQuantityView.cs" id="1_xvuks"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_2s7t2"]
+size = Vector2(64, 64)
+
+[node name="ItemQuantityView" type="HBoxContainer" unique_id=274874954 node_paths=PackedStringArray("_quantityLabel", "_itemNameLabel", "_itemIcon")]
+script = ExtResource("1_xvuks")
+_quantityLabel = NodePath("QuantityLabel")
+_itemNameLabel = NodePath("ItemNameLabel")
+_itemIcon = NodePath("TextureRect")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1707840377]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_2s7t2")
+
+[node name="ItemNameLabel" type="Label" parent="." unique_id=2142529577]
+layout_mode = 2
+text = "ItemName"
+
+[node name="QuantityLabel" type="Label" parent="." unique_id=379037078]
+layout_mode = 2
+text = "x99"

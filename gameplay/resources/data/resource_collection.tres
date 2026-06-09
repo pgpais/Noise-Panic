@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="GameResourceDataCollection" format=3 uid="uid://dwsijsqoyfvq1"]
+
+[ext_resource type="Script" uid="uid://wqkdvif3cick" path="res://gameplay/resources/GameResourceData.cs" id="1_e6jth"]
+[ext_resource type="Script" uid="uid://bpw7bn6xkqtej" path="res://gameplay/resources/GameResourceDataCollection.cs" id="2_71tnr"]
+[ext_resource type="Resource" uid="uid://cprfup0nq3d6w" path="res://gameplay/resources/data/proto_resource.tres" id="2_bgr23"]
+
+[resource]
+script = ExtResource("2_71tnr")
+resources = Array[ExtResource("1_e6jth")]([ExtResource("2_bgr23")])
+metadata/_custom_type_script = "uid://bpw7bn6xkqtej"

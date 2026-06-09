@@ -10,9 +10,13 @@
 [ext_resource type="PackedScene" uid="uid://cdn5pxq8t3btd" path="res://gameplay/interaction/standing_button.tscn" id="5_wajde"]
 [ext_resource type="Script" uid="uid://dy7d28cmkxxrm" path="res://gameplay/storage/ResourceStorage.cs" id="6_3s4pm"]
 [ext_resource type="Script" uid="uid://dote0e123yk63" path="res://gameplay/enemy_spawning/EnemySpawner.cs" id="6_oei0w"]
+[ext_resource type="PackedScene" uid="uid://b7hchv0pso7lu" path="res://gameplay/storage/UI/storage_overview.tscn" id="7_3s4pm"]
 [ext_resource type="PackedScene" uid="uid://ds4f3k4yc0ma6" path="res://gameplay/actors/enemies/enemy.tscn" id="7_onwmp"]
 [ext_resource type="PackedScene" uid="uid://dj5q8quo7at0g" path="res://gameplay/gathering/resource_node.tscn" id="8_sy2v3"]
 [ext_resource type="Script" uid="uid://b8kyh4bqnu6ud" path="res://gameplay/extracting/ExtractionZone.cs" id="9_a31k0"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_3s4pm"]
+viewport_path = NodePath("Ship/Node3D/SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5h46i"]
 albedo_color = Color(0.28118682, 0.28118688, 0.28118682, 1)
@@ -68,6 +72,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3714795, -1, 13.079641)
 
 [node name="Storage" type="Node" parent="Ship" unique_id=1503478260]
 script = ExtResource("6_3s4pm")
+
+[node name="Node3D" type="Node3D" parent="Ship" unique_id=869427213]
+transform = Transform3D(0.014185922, -0.009521312, -0.999854, 2.9079976e-11, 0.9999545, -0.009522268, 0.99989927, 0.00013508211, 0.014185293, 6.9749074, 4.9304657, -9.107927)
+
+[node name="Sprite3D" type="Sprite3D" parent="Ship/Node3D" unique_id=687429621]
+texture = SubResource("ViewportTexture_3s4pm")
+
+[node name="SubViewport" type="SubViewport" parent="Ship/Node3D" unique_id=2004860489]
+size = Vector2i(256, 512)
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="Ship/Node3D/SubViewport" unique_id=1730811689]
+
+[node name="StorageOverview" parent="Ship/Node3D/SubViewport/CanvasLayer2" unique_id=1780766244 node_paths=PackedStringArray("storage") instance=ExtResource("7_3s4pm")]
+storage = NodePath("../../../../Storage")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=156097673]
 
@@ -185,5 +203,3 @@ omni_attenuation = 0.33
 [node name="Enemies" type="Node3D" parent="." unique_id=269402511]
 
 [connection signal="Pressed" from="Ship/StandingButton" to="Ship/PlayerPodLauncher" method="TryLaunchPlayer"]
-
-[editable path="Ship/Spaceship"]

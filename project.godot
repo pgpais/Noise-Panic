@@ -24,6 +24,7 @@ driver/enable_input=true
 
 NetworkManager="*uid://b33j202pbftxw"
 SteamNetworkManager="*uid://coip80jp42hav"
+GameResourceRegistry="*uid://cyo7gw2jlecdc"
 PhantomCameraManager="*uid://duq6jhf6unyis"
 ObjectPooler="*uid://cj5mn5hyjh2ja"
 
