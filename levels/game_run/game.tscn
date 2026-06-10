@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://cjmhgkfia23v3" path="res://gameplay/interaction/Interactable.cs" id="11_a31k0"]
 [ext_resource type="Script" uid="uid://bnc5nwxlnpwcg" path="res://gameplay/ship/OverviewScreenDesk.cs" id="11_wflc5"]
 [ext_resource type="Material" uid="uid://buvy6b2l6l2sw" path="res://gameplay/interaction/materials/interactable_highlight.tres" id="12_2khdt"]
+[ext_resource type="Script" uid="uid://qq6j1cjqfnqe" path="res://gameplay/ship/ShipController.cs" id="14_mbg5y"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="15_sy2v3"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="16_a31k0"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="17_2khdt"]
@@ -74,13 +75,17 @@ data = PackedVector3Array(-3.741455, -1.7533569, -3.7607422, -3.741455, 1.7, -3.
 [sub_resource type="BoxShape3D" id="BoxShape3D_ymuiv"]
 size = Vector3(7.1, 3.9, 6.5)
 
-[node name="Game" type="Node3D" unique_id=954981151 node_paths=PackedStringArray("spawnPoint")]
+[node name="Game" type="Node3D" unique_id=954981151 node_paths=PackedStringArray("spawnPoint", "ship")]
 script = ExtResource("1_o3kko")
 playerScene = ExtResource("2_0uhwm")
 spawnPoint = NodePath("Ship/PlayerSpawnPoint")
+ship = NodePath("Ship")
 
-[node name="Ship" type="StaticBody3D" parent="." unique_id=1128394993]
+[node name="Ship" type="RigidBody3D" parent="." unique_id=2106779243]
 transform = Transform3D(1, 0, 0, 0, 0.99939084, -0.034899496, 0, 0.034899496, 0.99939084, 8.87, 100, 5.465)
+gravity_scale = 0.0
+linear_damp = 2.353
+angular_damp = 0.8
 
 [node name="Spaceship" parent="Ship" unique_id=1642621029 instance=ExtResource("2_vsqw0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00057291985, 0.003364563, 0.0011432171)
@@ -126,10 +131,11 @@ host_layers = 2
 camera_3d_resource = SubResource("Resource_mbg5y")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
-[node name="OverviewScreenDesk" type="Node3D" parent="Ship" unique_id=558286297 node_paths=PackedStringArray("interactable")]
+[node name="OverviewScreenDesk" type="Node3D" parent="Ship" unique_id=558286297 node_paths=PackedStringArray("interactable", "shipController")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8070394, 3.0028381, 2.5186603)
 script = ExtResource("11_wflc5")
 interactable = NodePath("Interactable")
+shipController = NodePath("ShipController")
 
 [node name="CSGBakedMeshInstance3D" type="MeshInstance3D" parent="Ship/OverviewScreenDesk" unique_id=682255807]
 mesh = SubResource("ArrayMesh_2khdt")
@@ -146,6 +152,10 @@ metadata/_custom_type_script = "uid://cjmhgkfia23v3"
 
 [node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="Ship/OverviewScreenDesk/Interactable" unique_id=1652323540]
 shape = SubResource("ConcavePolygonShape3D_wflc5")
+
+[node name="ShipController" type="Node" parent="Ship/OverviewScreenDesk" unique_id=89597421 node_paths=PackedStringArray("_shipBody")]
+script = ExtResource("14_mbg5y")
+_shipBody = NodePath("../..")
 
 [node name="PlayerSpawnPoint" type="Marker3D" parent="Ship" unique_id=1524352124]
 transform = Transform3D(1, 0, 0, 0, 0.99939084, 0.034899496, 0, -0.034899496, 0.99939084, -4.4982915, 3.2330399, -11.0281925)

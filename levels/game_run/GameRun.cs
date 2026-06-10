@@ -5,6 +5,7 @@ public partial class GameRun : Node3D
 {
 	[Export] PackedScene playerScene;
 	[Export] Node3D spawnPoint;
+	[Export] Node3D ship;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -35,5 +36,7 @@ public partial class GameRun : Node3D
 		player.SetMultiplayerAuthority((int)long.Parse(id));
 		AddChild(player);
 		player.GlobalPosition = spawnPos;
+
+		player.Reparent(ship);
 	}
 }
