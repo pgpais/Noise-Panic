@@ -12,6 +12,9 @@ viewport_path = NodePath("Sprite3D/SubViewport")
 [node name="MeshInstance3D" parent="." index="0" unique_id=41721404]
 visible = false
 
+[node name="CharacterController" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="0" unique_id=2102656381 node_paths=PackedStringArray("animationTree")]
+animationTree = NodePath("../../AnimationTree")
+
 [node name="Sprite3D" parent="." index="2" unique_id=1782822136]
 texture = SubResource("ViewportTexture_env81")
 
