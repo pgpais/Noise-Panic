@@ -11,7 +11,6 @@
 [ext_resource type="Script" uid="uid://dy7d28cmkxxrm" path="res://gameplay/storage/ResourceStorage.cs" id="6_3s4pm"]
 [ext_resource type="Script" uid="uid://dote0e123yk63" path="res://gameplay/enemy_spawning/EnemySpawner.cs" id="6_oei0w"]
 [ext_resource type="PackedScene" uid="uid://b7hchv0pso7lu" path="res://gameplay/storage/UI/storage_overview.tscn" id="7_3s4pm"]
-[ext_resource type="PackedScene" uid="uid://ds4f3k4yc0ma6" path="res://gameplay/actors/enemies/enemy.tscn" id="7_onwmp"]
 [ext_resource type="PackedScene" uid="uid://dj5q8quo7at0g" path="res://gameplay/gathering/resource_node.tscn" id="8_sy2v3"]
 [ext_resource type="Script" uid="uid://b8kyh4bqnu6ud" path="res://gameplay/extracting/ExtractionZone.cs" id="9_a31k0"]
 [ext_resource type="Script" uid="uid://cjmhgkfia23v3" path="res://gameplay/interaction/Interactable.cs" id="11_a31k0"]
@@ -20,6 +19,8 @@
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="15_sy2v3"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="16_a31k0"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="17_2khdt"]
+[ext_resource type="PackedScene" uid="uid://2oypgw4dyts" path="res://gameplay/actors/enemies/Slime/slime.tscn" id="18_mbg5y"]
+[ext_resource type="PackedScene" uid="uid://ca57l0j31l3qw" path="res://gameplay/actors/enemies/SpiderBot/spider_bot.tscn" id="19_mbg5y"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_sy2v3"]
 viewport_path = NodePath("SubViewport")
@@ -186,35 +187,35 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0.120987654, -14)
 mesh = SubResource("BoxMesh_5h46i")
 script = ExtResource("6_oei0w")
 automaticSpawn = true
-enemyScene = ExtResource("7_onwmp")
+enemyScene = ExtResource("18_mbg5y")
 
 [node name="EnemySpawner2" type="MeshInstance3D" parent="SpawnController" unique_id=1870685914]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0.120987654, -14)
 mesh = SubResource("BoxMesh_5h46i")
 script = ExtResource("6_oei0w")
 automaticSpawn = true
-enemyScene = ExtResource("7_onwmp")
+enemyScene = ExtResource("18_mbg5y")
 
 [node name="EnemySpawner3" type="MeshInstance3D" parent="SpawnController" unique_id=1830065108]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 0.120987654, -19)
 mesh = SubResource("BoxMesh_5h46i")
 script = ExtResource("6_oei0w")
 automaticSpawn = true
-enemyScene = ExtResource("7_onwmp")
+enemyScene = ExtResource("19_mbg5y")
 
 [node name="EnemySpawner4" type="MeshInstance3D" parent="SpawnController" unique_id=68489295]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0.120987654, -18)
 mesh = SubResource("BoxMesh_5h46i")
 script = ExtResource("6_oei0w")
 automaticSpawn = true
-enemyScene = ExtResource("7_onwmp")
+enemyScene = ExtResource("19_mbg5y")
 
 [node name="EnemySpawner5" type="MeshInstance3D" parent="SpawnController" unique_id=566864949]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0.120987654, -10)
 mesh = SubResource("BoxMesh_5h46i")
 script = ExtResource("6_oei0w")
 automaticSpawn = true
-enemyScene = ExtResource("7_onwmp")
+enemyScene = ExtResource("18_mbg5y")
 
 [node name="ResourceNode" parent="." unique_id=1238149726 node_paths=PackedStringArray("dropPoint") instance=ExtResource("8_sy2v3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7)

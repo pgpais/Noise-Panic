@@ -1,0 +1,25 @@
+[gd_resource type="AnimationNodeStateMachine" format=3 uid="uid://bp4wc5fyixqar"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8okpo"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gtwec"]
+animation = &"Walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y68ex"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ofm3v"]
+advance_mode = 2
+advance_condition = &"is_moving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bameu"]
+advance_mode = 2
+advance_expression = "is_moving == false"
+
+[resource]
+states/Idle/node = SubResource("AnimationNodeAnimation_8okpo")
+states/Idle/position = Vector2(367, 51)
+states/Walk/node = SubResource("AnimationNodeAnimation_gtwec")
+states/Walk/position = Vector2(535, 190)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_y68ex"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_ofm3v"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_bameu")]

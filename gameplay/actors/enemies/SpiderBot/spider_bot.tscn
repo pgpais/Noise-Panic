@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://ca57l0j31l3qw"]
+
+[ext_resource type="PackedScene" uid="uid://ds4f3k4yc0ma6" path="res://gameplay/actors/enemies/enemy.tscn" id="1_sr8rv"]
+[ext_resource type="PackedScene" uid="uid://dfd10h4o44ta8" path="res://gameplay/actors/enemies/SpiderBot/SpiderBot.blend" id="2_n6ams"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://cuscp6oxr7r81" path="res://gameplay/actors/enemies/SpiderBot/spider_animation_node_state_machine.tres" id="3_rxysk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n6ams"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_n6ams"]
+viewport_path = NodePath("Sprite3D/SubViewport")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rxysk"]
+
+[node name="SpiderBot" unique_id=1748184085 instance=ExtResource("1_sr8rv")]
+
+[node name="MeshInstance3D" parent="." index="0" unique_id=41721404]
+visible = false
+
+[node name="CollisionShape3D" parent="Components/Hitbox" parent_id_path=PackedInt32Array(653123947) index="0" unique_id=891479098]
+shape = SubResource("BoxShape3D_n6ams")
+
+[node name="Sprite3D" parent="." index="2" unique_id=1782822136]
+texture = SubResource("ViewportTexture_n6ams")
+
+[node name="CollisionShape3D" parent="." index="3" unique_id=518336157]
+shape = SubResource("BoxShape3D_rxysk")
+
+[node name="SpiderBot" parent="." index="4" unique_id=1727079353 instance=ExtResource("2_n6ams")]
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="5" unique_id=135382709]
+root_node = NodePath("../SpiderBot")
+tree_root = ExtResource("3_rxysk")
+anim_player = NodePath("../SpiderBot/AnimationPlayer")
+parameters/conditions/is_moving = false
+parameters/conditions/is_not_moving = true
