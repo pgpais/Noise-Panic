@@ -7,6 +7,7 @@ public partial class CharacterController : Node
 	[Export] Node3D cameraAnchor;
 	[Export] public float Speed { get; private set; }
 	[Export] public float JumpVelocity { get; private set; } = 10f;
+	[Export] public bool TurnToFaceMovement { get; set; } = true;
 
 	public bool MovementEnabled { get; set; } = true;
 	public Vector2 MovInput { get; set; } = Vector2.Zero;
@@ -62,6 +63,13 @@ public partial class CharacterController : Node
 		}
 
 		HandleAnimations(velocity);
+		if (TurnToFaceMovement)
+		{
+			//TODO:
+			// Vector3 lookAtPos = _body.GlobalPosition + direction;
+			// _body.LookAt(lookAtPos, Vector3.Up);
+		}
+
 
 		// Add the gravity.
 		if (!_body.IsOnFloor())
