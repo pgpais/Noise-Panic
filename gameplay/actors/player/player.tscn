@@ -107,7 +107,7 @@ collision_layer = 4
 collision_mask = 3
 script = ExtResource("2_ddyh4")
 characterController = NodePath("Components/CharacterController")
-phantomcamera3d = NodePath("AimPivot/CameraAnchor/SpringArm3D/PhantomCamera3D")
+phantomcamera3d = NodePath("AimPivot/SpringArm3D2/CameraAnchor/SpringArm3D/PhantomCamera3D")
 
 [node name="MeshInstance3D" parent="." index="0" unique_id=41721404]
 visible = false
@@ -122,7 +122,7 @@ shape = SubResource("CapsuleShape3D_f0w7x")
 
 [node name="CharacterController" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="0" unique_id=2102656381 node_paths=PackedStringArray("animationTree", "cameraAnchor")]
 animationTree = NodePath("../../AnimationTree")
-cameraAnchor = NodePath("../../AimPivot/CameraAnchor")
+cameraAnchor = NodePath("../../AimPivot/SpringArm3D2/CameraAnchor")
 
 [node name="PlayerCharacterInput" type="Node" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="1" unique_id=1807945806 node_paths=PackedStringArray("controller", "interactor", "resourceHolder")]
 script = ExtResource("2_jftto")
@@ -134,7 +134,7 @@ metadata/_custom_type_script = "uid://cmi2g3whgv6wt"
 [node name="AimingController" type="Node" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="2" unique_id=1409963134 node_paths=PackedStringArray("_body", "cameraPivot")]
 script = ExtResource("5_tg5ys")
 _body = NodePath("../..")
-cameraPivot = NodePath("../../AimPivot/CameraAnchor")
+cameraPivot = NodePath("../../AimPivot/SpringArm3D2/CameraAnchor")
 metadata/_custom_type_script = "uid://bbee2spqhn4r1"
 
 [node name="PlayerAimingInput" type="Node" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="3" unique_id=2002222386 node_paths=PackedStringArray("aimingController", "gun")]
@@ -145,7 +145,7 @@ metadata/_custom_type_script = "uid://cjae0hvsvnlpi"
 
 [node name="Interactor" type="Node3D" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="4" unique_id=1448098989 node_paths=PackedStringArray("CameraNode", "InteractActor")]
 script = ExtResource("4_3canv")
-CameraNode = NodePath("../../AimPivot/CameraAnchor/SpringArm3D/PhantomCamera3D")
+CameraNode = NodePath("../../AimPivot/SpringArm3D2/CameraAnchor/SpringArm3D/PhantomCamera3D")
 InteractActor = NodePath("../..")
 InteractCollisionMask = 1
 metadata/_custom_type_script = "uid://dreeunpbb837k"
@@ -185,13 +185,17 @@ bus = &"Voice"
 [node name="Main_Character2" parent="AimPivot" index="0" unique_id=1366362755 instance=ExtResource("3_fbwt1")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, -0.8579986, 0)
 
-[node name="CameraAnchor" type="Node3D" parent="AimPivot" index="1" unique_id=124411788]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0)
+[node name="SpringArm3D2" type="SpringArm3D" parent="AimPivot" index="1" unique_id=180519594]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 1.5, 0)
+spring_length = 0.5
 
-[node name="SpringArm3D" type="SpringArm3D" parent="AimPivot/CameraAnchor" index="0" unique_id=359803306]
+[node name="CameraAnchor" type="Node3D" parent="AimPivot/SpringArm3D2" index="0" unique_id=124411788]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="AimPivot/SpringArm3D2/CameraAnchor" index="0" unique_id=359803306]
 spring_length = 3.62
 
-[node name="PhantomCamera3D" type="Node3D" parent="AimPivot/CameraAnchor/SpringArm3D" index="0" unique_id=30133293]
+[node name="PhantomCamera3D" type="Node3D" parent="AimPivot/SpringArm3D2/CameraAnchor/SpringArm3D" index="0" unique_id=30133293]
 script = ExtResource("4_gdo0n")
 tween_resource = SubResource("Resource_5myso")
 tween_on_load = false
@@ -203,7 +207,7 @@ shape = SubResource("SphereShape3D_f0w7x")
 look_at_offset = Vector3(0, 1, 0)
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
-[node name="ShootingPoint" type="Marker3D" parent="AimPivot/CameraAnchor" index="1" unique_id=2050930371]
+[node name="ShootingPoint" type="Marker3D" parent="AimPivot/SpringArm3D2/CameraAnchor" index="1" unique_id=2050930371]
 transform = Transform3D(0.9964412, -0.08422905, 0.0032459297, 0.08423142, 0.9964458, -0.0006616235, -0.0031785094, 0.00093257026, 0.9999945, -1.0121433, -1.0081998, 0.0019102246)
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="5" unique_id=1642883181]
@@ -232,7 +236,7 @@ grow_vertical = 2
 texture = ExtResource("16_e471u")
 
 [node name="GunBoneAttachment3D" type="BoneAttachment3D" parent="." index="7" unique_id=1686055260]
-transform = Transform3D(0.03986543, 0.06335801, 0.9971945, 0.025706798, -0.99772245, 0.062363863, 0.9988744, 0.023148248, -0.04140326, 0.33705166, -0.23879182, 0.039057594)
+transform = Transform3D(0.040240105, 0.06319648, 0.99718964, 0.02584979, -0.99772966, 0.062187627, 0.9988558, 0.02327458, -0.041782375, 0.3366034, -0.2386651, 0.039549593)
 bone_name = "hand-R"
 bone_idx = 20
 use_external_skeleton = true
@@ -241,10 +245,10 @@ external_skeleton = NodePath("../AimPivot/Main_Character2/Armature/Skeleton3D")
 [node name="Gun" parent="GunBoneAttachment3D" index="0" unique_id=1731575199 node_paths=PackedStringArray("shootingPoint") instance=ExtResource("13_nt81s")]
 transform = Transform3D(0.9953868, 0.09533713, -0.0108073065, 0.0083337575, -0.19811824, -0.9801427, -0.095585115, 0.97553104, -0.19799863, -0.073206544, 0.33629757, 0.009788841)
 visible = false
-shootingPoint = NodePath("../../AimPivot/CameraAnchor/ShootingPoint")
+shootingPoint = NodePath("../../AimPivot/SpringArm3D2/CameraAnchor/ShootingPoint")
 
 [node name="BackpackBoneAttachment3D" type="BoneAttachment3D" parent="." index="8" unique_id=1421805177]
-transform = Transform3D(-0.9999662, 0.0072922427, -0.003872752, -0.008190899, -0.93524796, 0.3538978, -0.0010412763, 0.35391778, 0.93527454, -0.0041294773, 0.2430017, 0.15489843)
+transform = Transform3D(-0.9999662, 0.007274385, -0.0038741522, -0.008175375, -0.9350169, 0.35450882, -0.0010435666, 0.35452878, 0.9350433, -0.004190879, 0.24312389, 0.15494242)
 bone_name = "backpack"
 bone_idx = 31
 use_external_skeleton = true
