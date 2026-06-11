@@ -45,7 +45,6 @@ public partial class OverviewScreenDesk : Node3D
 		if (inUse && ownerId == Multiplayer.GetUniqueId())
 		{
 			input = Input.GetVector("move_left", "move_right", "move_up", "move_down");
-			GD.Print(Multiplayer.GetUniqueId() + ": " + input);
 			Rpc(MethodName.SyncInput, input);
 		}
 		shipController.InputDirection = input;
@@ -60,7 +59,6 @@ public partial class OverviewScreenDesk : Node3D
 
 	private void SetUseState(bool inUse, int ownerId)
 	{
-		GD.Print(Multiplayer.GetUniqueId() + ": SetUseState(" + inUse + ", " + ownerId + ")");
 		this.inUse = inUse;
 		this.ownerId = ownerId;
 		Rpc(MethodName.SyncUseState, inUse, ownerId);
@@ -69,7 +67,6 @@ public partial class OverviewScreenDesk : Node3D
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer)]
 	private void SyncUseState(bool inUse, int ownerId)
 	{
-		GD.Print(Multiplayer.GetUniqueId() + ": SetUseState(" + inUse + ", " + ownerId + ")");
 		this.inUse = inUse;
 		this.ownerId = ownerId;
 	}

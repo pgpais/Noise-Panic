@@ -71,7 +71,6 @@ public partial class ShipTurret : Node3D
 	{
 		if (position == default || rotation == default)
 		{
-			GD.Print(Multiplayer.GetUniqueId() + ": Shooting default");
 			position = turretPivot.GlobalPosition;
 			rotation = turretPivot.GlobalRotation;
 		}
