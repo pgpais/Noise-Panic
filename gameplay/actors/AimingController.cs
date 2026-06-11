@@ -3,65 +3,60 @@ using PhantomCamera;
 
 namespace WeWereDumb.Gameplay.Actors
 {
-    [GlobalClass]
-    public partial class AimingController : Node
-    {
-        [ExportGroup("Settings")]
-        [Export] float mouseSensitivity = 0.001f;
-        [Export] float aimXClampDegrees = 60;
+	[GlobalClass]
+	public partial class AimingController : Node
+	{
+		[ExportGroup("Settings")]
+		[Export] float mouseSensitivity = 0.001f;
+		[Export] float aimXClampDegrees = 60;
 
-        [ExportGroup("References")]
-        [Export] CharacterBody3D _body;
-        [Export] Node3D cameraPivot;
+		[ExportGroup("References")]
+		[Export] CharacterBody3D _body;
+		[Export] Node3D cameraPivot;
 
-        public Vector2 MouseMovementInput { get; set; }
+		public Vector2 MouseMovementInput { get; set; }
 
-        private float targetXRotation;
-        private float targetYRotation;
+		private float targetXRotation;
+		private float targetYRotation;
 
-        private float aimXClampRads => Mathf.DegToRad(aimXClampDegrees);
+		private float aimXClampRads => Mathf.DegToRad(aimXClampDegrees);
 
-        public override void _Ready()
-        {
-            base._Ready();
-            if (!IsMultiplayerAuthority()) return;
+		public override void _Ready()
+		{
+			base._Ready();
+			if (!IsMultiplayerAuthority()) return;
 
-            targetXRotation = cameraPivot.Rotation.X;
-            targetYRotation = _body.Rotation.Y;
+			targetXRotation = cameraPivot.Rotation.X;
+			targetYRotation = _body.Rotation.Y;
 
-            Godot.Input.MouseMode = Godot.Input.MouseModeEnum.Captured;
-        }
+			Godot.Input.MouseMode = Godot.Input.MouseModeEnum.Captured;
+		}
 
-        public override void _Process(double delta)
-        {
-            base._Process(delta);
+		public override void _Process(double delta)
+		{
+			base._Process(delta);
 
-            if (!IsMultiplayerAuthority()) return;
+			if (!IsMultiplayerAuthority()) return;
 
-            if (Godot.Input.IsActionPressed("ui_cancel"))
-            {
-                Godot.Input.MouseMode = Godot.Input.MouseModeEnum.Visible;
-            }
+			targetXRotation -= MouseMovementInput.Y * mouseSensitivity;
+			targetXRotation = Mathf.Clamp(targetXRotation, -aimXClampRads, aimXClampRads);
+			targetYRotation -= MouseMovementInput.X * mouseSensitivity;
 
-            targetXRotation -= MouseMovementInput.Y * mouseSensitivity;
-            targetXRotation = Mathf.Clamp(targetXRotation, -aimXClampRads, aimXClampRads);
-            targetYRotation -= MouseMovementInput.X * mouseSensitivity;
+			var targetCameraRotation = new Vector3(targetXRotation, cameraPivot.Rotation.Y, cameraPivot.Rotation.Z);
+			var targetAimRotation = new Vector3(_body.Rotation.X, targetYRotation, _body.Rotation.Z);
 
-            var targetCameraRotation = new Vector3(targetXRotation, cameraPivot.Rotation.Y, cameraPivot.Rotation.Z);
-            var targetAimRotation = new Vector3(_body.Rotation.X, targetYRotation, _body.Rotation.Z);
+			cameraPivot.Rotation = targetCameraRotation;
+			_body.Rotation = targetAimRotation;
 
-            cameraPivot.Rotation = targetCameraRotation;
-            _body.Rotation = targetAimRotation;
+			Rpc(MethodName.SyncRotation, targetCameraRotation, targetAimRotation);
+			MouseMovementInput = Vector2.Zero;
+		}
 
-            Rpc(MethodName.SyncRotation, targetCameraRotation, targetAimRotation);
-            MouseMovementInput = Vector2.Zero;
-        }
-
-        [Rpc(MultiplayerApi.RpcMode.Authority)]
-        private void SyncRotation(Vector3 targetCameraRotation, Vector3 targetAimRotation)
-        {
-            cameraPivot.Rotation = targetCameraRotation;
-            _body.Rotation = targetAimRotation;
-        }
-    }
+		[Rpc(MultiplayerApi.RpcMode.Authority)]
+		private void SyncRotation(Vector3 targetCameraRotation, Vector3 targetAimRotation)
+		{
+			cameraPivot.Rotation = targetCameraRotation;
+			_body.Rotation = targetAimRotation;
+		}
+	}
 }
