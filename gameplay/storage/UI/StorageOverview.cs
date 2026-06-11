@@ -23,7 +23,16 @@ public partial class StorageOverview : Control
 			child.QueueFree();
 		}
 
-		storage.ResourcesChanged += OnResourcesChanged;
+		Initialize(storage);
+	}
+
+	public void Initialize(ResourceStorage storage)
+	{
+		this.storage = storage;
+		if (storage != null)
+		{
+			storage.ResourcesChanged += OnResourcesChanged;
+		}
 	}
 
 	private void OnResourcesChanged(string resourceId, int newAmount)

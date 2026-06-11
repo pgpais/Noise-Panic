@@ -1,0 +1,44 @@
+[gd_scene format=4 uid="uid://b6h4waninhvcc"]
+
+[ext_resource type="Script" uid="uid://bnc5nwxlnpwcg" path="res://gameplay/ship/OverviewScreen/OverviewScreenDesk.cs" id="1_u1h4l"]
+[ext_resource type="Script" uid="uid://cjmhgkfia23v3" path="res://gameplay/interaction/Interactable.cs" id="2_m8frj"]
+[ext_resource type="Material" uid="uid://buvy6b2l6l2sw" path="res://gameplay/interaction/materials/interactable_highlight.tres" id="3_tjdkh"]
+[ext_resource type="Script" uid="uid://qq6j1cjqfnqe" path="res://gameplay/ship/ShipController.cs" id="4_e13ra"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_2khdt"]
+_surfaces = [{
+"aabb": AABB(-2.541504, -0.5, -0.5, 5.083008, 1, 1),
+"attribute_data": PackedByteArray("AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/"),
+"format": 34359738391,
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 36,
+"vertex_data": PackedByteArray("AKgiwAAAAL8AAAA/AKgiwAAAAL8AAAC/AKgiwAAAAD8AAAC/AKgiQAAAAL8AAAC/AKgiwAAAAL8AAAC/AKgiwAAAAL8AAAA/AKgiwAAAAD8AAAC/AKgiwAAAAL8AAAC/AKgiQAAAAL8AAAC/AKgiwAAAAD8AAAC/AKgiwAAAAD8AAAA/AKgiwAAAAL8AAAA/AKgiwAAAAL8AAAA/AKgiwAAAAD8AAAA/AKgiQAAAAD8AAAA/AKgiQAAAAD8AAAA/AKgiwAAAAD8AAAA/AKgiwAAAAD8AAAC/AKgiwAAAAL8AAAA/AKgiQAAAAL8AAAA/AKgiQAAAAL8AAAC/AKgiQAAAAD8AAAA/AKgiQAAAAL8AAAA/AKgiwAAAAL8AAAA/AKgiQAAAAL8AAAC/AKgiQAAAAL8AAAA/AKgiQAAAAD8AAAA/AKgiQAAAAL8AAAC/AKgiQAAAAD8AAAC/AKgiwAAAAD8AAAC/AKgiwAAAAD8AAAC/AKgiQAAAAD8AAAC/AKgiQAAAAD8AAAA/AKgiQAAAAD8AAAA/AKgiQAAAAD8AAAC/AKgiQAAAAL8AAAC/AAD/f/9//n8AAP9//3/+fwAA/3//f/5//38AAP//AAD/fwAA//8AAP9/AAD//wAA/////wAA/z//////AAD/P/////8AAP8/AAD/f/9//n8AAP9//3/+fwAA/3//f/5//3//fwAA/z//f/9/AAD/P/9//38AAP8//3//////AAD/f/////8AAP9//////wAA/38AAP//AAD/fwAA//8AAP9/AAD//wAA/3//fwAA/z//f/9/AAD/P/9//38AAP8/////f/9//n////9//3/+f////3//f/5//////wAA/z//////AAD/P/////8AAP8//3//////AAD/f/////8AAP9//////wAA////f/9//n////9//3/+f////3//f/5/")
+}]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_wflc5"]
+data = PackedVector3Array(-2.541504, -0.5, 0.5, -2.541504, -0.5, -0.5, -2.541504, 0.5, -0.5, 2.541504, -0.5, -0.5, -2.541504, -0.5, -0.5, -2.541504, -0.5, 0.5, -2.541504, 0.5, -0.5, -2.541504, -0.5, -0.5, 2.541504, -0.5, -0.5, -2.541504, 0.5, -0.5, -2.541504, 0.5, 0.5, -2.541504, -0.5, 0.5, -2.541504, -0.5, 0.5, -2.541504, 0.5, 0.5, 2.541504, 0.5, 0.5, 2.541504, 0.5, 0.5, -2.541504, 0.5, 0.5, -2.541504, 0.5, -0.5, -2.541504, -0.5, 0.5, 2.541504, -0.5, 0.5, 2.541504, -0.5, -0.5, 2.541504, 0.5, 0.5, 2.541504, -0.5, 0.5, -2.541504, -0.5, 0.5, 2.541504, -0.5, -0.5, 2.541504, -0.5, 0.5, 2.541504, 0.5, 0.5, 2.541504, -0.5, -0.5, 2.541504, 0.5, -0.5, -2.541504, 0.5, -0.5, -2.541504, 0.5, -0.5, 2.541504, 0.5, -0.5, 2.541504, 0.5, 0.5, 2.541504, 0.5, 0.5, 2.541504, 0.5, -0.5, 2.541504, -0.5, -0.5)
+
+[node name="OverviewScreenDesk" type="Node3D" unique_id=507243146 node_paths=PackedStringArray("interactable", "shipController")]
+script = ExtResource("1_u1h4l")
+interactable = NodePath("Interactable")
+shipController = NodePath("ShipController")
+
+[node name="CSGBakedMeshInstance3D" type="MeshInstance3D" parent="." unique_id=1003875487]
+mesh = SubResource("ArrayMesh_2khdt")
+
+[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="." unique_id=1460900943]
+shape = SubResource("ConcavePolygonShape3D_wflc5")
+
+[node name="Interactable" type="Area3D" parent="." unique_id=153120710 node_paths=PackedStringArray("mesh")]
+script = ExtResource("2_m8frj")
+instantUse = false
+highlightMaterial = ExtResource("3_tjdkh")
+mesh = NodePath("../CSGBakedMeshInstance3D")
+metadata/_custom_type_script = "uid://cjmhgkfia23v3"
+
+[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="Interactable" unique_id=195731137]
+shape = SubResource("ConcavePolygonShape3D_wflc5")
+
+[node name="ShipController" type="Node" parent="." unique_id=1886239836]
+script = ExtResource("4_e13ra")

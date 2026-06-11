@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://cwo4jb3vh35id"]
+[gd_scene format=3 uid="uid://cwo4jb3vh35id"]
 
 [ext_resource type="Script" uid="uid://blly41s47kv0g" path="res://levels/game_run/GameRun.cs" id="1_o3kko"]
 [ext_resource type="PackedScene" uid="uid://5wiwhftgaawa" path="res://gameplay/actors/player/player.tscn" id="2_0uhwm"]
@@ -10,13 +10,10 @@
 [ext_resource type="PackedScene" uid="uid://cdn5pxq8t3btd" path="res://gameplay/interaction/standing_button.tscn" id="5_wajde"]
 [ext_resource type="Script" uid="uid://dy7d28cmkxxrm" path="res://gameplay/storage/ResourceStorage.cs" id="6_3s4pm"]
 [ext_resource type="Script" uid="uid://dote0e123yk63" path="res://gameplay/enemy_spawning/EnemySpawner.cs" id="6_oei0w"]
-[ext_resource type="PackedScene" uid="uid://b7hchv0pso7lu" path="res://gameplay/storage/UI/storage_overview.tscn" id="7_3s4pm"]
+[ext_resource type="PackedScene" uid="uid://c0vaq6fixcavj" path="res://gameplay/ship/resource_storage_screen.tscn" id="7_2khdt"]
 [ext_resource type="PackedScene" uid="uid://dj5q8quo7at0g" path="res://gameplay/gathering/resource_node.tscn" id="8_sy2v3"]
 [ext_resource type="Script" uid="uid://b8kyh4bqnu6ud" path="res://gameplay/extracting/ExtractionZone.cs" id="9_a31k0"]
-[ext_resource type="Script" uid="uid://cjmhgkfia23v3" path="res://gameplay/interaction/Interactable.cs" id="11_a31k0"]
-[ext_resource type="Script" uid="uid://bnc5nwxlnpwcg" path="res://gameplay/ship/OverviewScreenDesk.cs" id="11_wflc5"]
-[ext_resource type="Material" uid="uid://buvy6b2l6l2sw" path="res://gameplay/interaction/materials/interactable_highlight.tres" id="12_2khdt"]
-[ext_resource type="Script" uid="uid://qq6j1cjqfnqe" path="res://gameplay/ship/ShipController.cs" id="14_mbg5y"]
+[ext_resource type="PackedScene" uid="uid://b6h4waninhvcc" path="res://gameplay/ship/OverviewScreen/overview_screen_desk.tscn" id="11_2khdt"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="15_sy2v3"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="16_a31k0"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="17_2khdt"]
@@ -26,9 +23,6 @@
 [sub_resource type="ViewportTexture" id="ViewportTexture_sy2v3"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_3s4pm"]
-viewport_path = NodePath("Ship/Node3D/SubViewport")
-
 [sub_resource type="Resource" id="Resource_wflc5"]
 script = ExtResource("16_a31k0")
 
@@ -37,20 +31,6 @@ script = ExtResource("17_2khdt")
 fov = 10.0
 size = 10.0
 metadata/_custom_type_script = "uid://b8hhnqsugykly"
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_2khdt"]
-_surfaces = [{
-"aabb": AABB(-2.541504, -0.5, -0.5, 5.083008, 1, 1),
-"attribute_data": PackedByteArray("AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/"),
-"format": 34359738391,
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 36,
-"vertex_data": PackedByteArray("AKgiwAAAAL8AAAA/AKgiwAAAAL8AAAC/AKgiwAAAAD8AAAC/AKgiQAAAAL8AAAC/AKgiwAAAAL8AAAC/AKgiwAAAAL8AAAA/AKgiwAAAAD8AAAC/AKgiwAAAAL8AAAC/AKgiQAAAAL8AAAC/AKgiwAAAAD8AAAC/AKgiwAAAAD8AAAA/AKgiwAAAAL8AAAA/AKgiwAAAAL8AAAA/AKgiwAAAAD8AAAA/AKgiQAAAAD8AAAA/AKgiQAAAAD8AAAA/AKgiwAAAAD8AAAA/AKgiwAAAAD8AAAC/AKgiwAAAAL8AAAA/AKgiQAAAAL8AAAA/AKgiQAAAAL8AAAC/AKgiQAAAAD8AAAA/AKgiQAAAAL8AAAA/AKgiwAAAAL8AAAA/AKgiQAAAAL8AAAC/AKgiQAAAAL8AAAA/AKgiQAAAAD8AAAA/AKgiQAAAAL8AAAC/AKgiQAAAAD8AAAC/AKgiwAAAAD8AAAC/AKgiwAAAAD8AAAC/AKgiQAAAAD8AAAC/AKgiQAAAAD8AAAA/AKgiQAAAAD8AAAA/AKgiQAAAAD8AAAC/AKgiQAAAAL8AAAC/AAD/f/9//n8AAP9//3/+fwAA/3//f/5//38AAP//AAD/fwAA//8AAP9/AAD//wAA/////wAA/z//////AAD/P/////8AAP8/AAD/f/9//n8AAP9//3/+fwAA/3//f/5//3//fwAA/z//f/9/AAD/P/9//38AAP8//3//////AAD/f/////8AAP9//////wAA/38AAP//AAD/fwAA//8AAP9/AAD//wAA/3//fwAA/z//f/9/AAD/P/9//38AAP8/////f/9//n////9//3/+f////3//f/5//////wAA/z//////AAD/P/////8AAP8//3//////AAD/f/////8AAP9//////wAA////f/9//n////9//3/+f////3//f/5/")
-}]
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_wflc5"]
-data = PackedVector3Array(-2.541504, -0.5, 0.5, -2.541504, -0.5, -0.5, -2.541504, 0.5, -0.5, 2.541504, -0.5, -0.5, -2.541504, -0.5, -0.5, -2.541504, -0.5, 0.5, -2.541504, 0.5, -0.5, -2.541504, -0.5, -0.5, 2.541504, -0.5, -0.5, -2.541504, 0.5, -0.5, -2.541504, 0.5, 0.5, -2.541504, -0.5, 0.5, -2.541504, -0.5, 0.5, -2.541504, 0.5, 0.5, 2.541504, 0.5, 0.5, 2.541504, 0.5, 0.5, -2.541504, 0.5, 0.5, -2.541504, 0.5, -0.5, -2.541504, -0.5, 0.5, 2.541504, -0.5, 0.5, 2.541504, -0.5, -0.5, 2.541504, 0.5, 0.5, 2.541504, -0.5, 0.5, -2.541504, -0.5, 0.5, 2.541504, -0.5, -0.5, 2.541504, -0.5, 0.5, 2.541504, 0.5, 0.5, 2.541504, -0.5, -0.5, 2.541504, 0.5, -0.5, -2.541504, 0.5, -0.5, -2.541504, 0.5, -0.5, 2.541504, 0.5, -0.5, 2.541504, 0.5, 0.5, 2.541504, 0.5, 0.5, 2.541504, 0.5, -0.5, 2.541504, -0.5, -0.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5h46i"]
 albedo_color = Color(0.28118682, 0.28118688, 0.28118682, 1)
@@ -108,19 +88,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3714795, -1, 13.079641)
 [node name="Storage" type="Node" parent="Ship" unique_id=1503478260]
 script = ExtResource("6_3s4pm")
 
-[node name="Node3D" type="Node3D" parent="Ship" unique_id=869427213]
-transform = Transform3D(0.014185922, -0.009521312, -0.999854, 2.9079976e-11, 0.9999545, -0.009522268, 0.99989927, 0.00013508211, 0.014185293, 6.9749074, 4.9304657, -9.107927)
-
-[node name="Sprite3D" type="Sprite3D" parent="Ship/Node3D" unique_id=687429621]
-texture = SubResource("ViewportTexture_3s4pm")
-
-[node name="SubViewport" type="SubViewport" parent="Ship/Node3D" unique_id=2004860489]
-size = Vector2i(256, 512)
-
-[node name="CanvasLayer2" type="CanvasLayer" parent="Ship/Node3D/SubViewport" unique_id=1730811689]
-
-[node name="StorageOverview" parent="Ship/Node3D/SubViewport/CanvasLayer2" unique_id=1780766244 node_paths=PackedStringArray("storage") instance=ExtResource("7_3s4pm")]
-storage = NodePath("../../../../Storage")
+[node name="ResourceStorageScreen" parent="Ship" unique_id=1327200870 node_paths=PackedStringArray("storage") instance=ExtResource("7_2khdt")]
+transform = Transform3D(0.01418598, -0.009521312, -0.99985397, 2.9079975e-11, 0.99995446, -0.009522271, 0.99989927, 0.00013508272, 0.014185337, 6.9749074, 4.9304657, -9.107927)
+storage = NodePath("../Storage")
 
 [node name="OverviewPhantomCamera3D" type="Node3D" parent="Ship" unique_id=1844172153]
 transform = Transform3D(1, 0, 0, 0, -0.167285, 0.98590845, 0, -0.98590845, -0.167285, -0.7062626, -1.0256042, -20.322823)
@@ -131,34 +101,13 @@ host_layers = 2
 camera_3d_resource = SubResource("Resource_mbg5y")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
-[node name="OverviewScreenDesk" type="Node3D" parent="Ship" unique_id=558286297 node_paths=PackedStringArray("interactable", "shipController")]
+[node name="OverviewScreenDesk" parent="Ship" unique_id=507243146 instance=ExtResource("11_2khdt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8070394, 3.0028381, 2.5186603)
-script = ExtResource("11_wflc5")
-interactable = NodePath("Interactable")
-shipController = NodePath("ShipController")
-
-[node name="CSGBakedMeshInstance3D" type="MeshInstance3D" parent="Ship/OverviewScreenDesk" unique_id=682255807]
-mesh = SubResource("ArrayMesh_2khdt")
-
-[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="Ship/OverviewScreenDesk" unique_id=82694863]
-shape = SubResource("ConcavePolygonShape3D_wflc5")
-
-[node name="Interactable" type="Area3D" parent="Ship/OverviewScreenDesk" unique_id=205034060 node_paths=PackedStringArray("mesh")]
-script = ExtResource("11_a31k0")
-instantUse = false
-highlightMaterial = ExtResource("12_2khdt")
-mesh = NodePath("../CSGBakedMeshInstance3D")
-metadata/_custom_type_script = "uid://cjmhgkfia23v3"
-
-[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="Ship/OverviewScreenDesk/Interactable" unique_id=1652323540]
-shape = SubResource("ConcavePolygonShape3D_wflc5")
-
-[node name="ShipController" type="Node" parent="Ship/OverviewScreenDesk" unique_id=89597421 node_paths=PackedStringArray("_shipBody")]
-script = ExtResource("14_mbg5y")
-_shipBody = NodePath("../..")
 
 [node name="PlayerSpawnPoint" type="Marker3D" parent="Ship" unique_id=1524352124]
 transform = Transform3D(1, 0, 0, 0, 0.99939084, 0.034899496, 0, -0.034899496, 0.99939084, -4.4982915, 3.2330399, -11.0281925)
+
+[node name="Node3D2" type="Node3D" parent="Ship" unique_id=222460864]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=156097673]
 
