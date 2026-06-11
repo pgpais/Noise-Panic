@@ -53,15 +53,15 @@ public partial class Interactor : Node3D
 	{
 		if (HasTarget())
 		{
-			target.InteractionStopped += CancelInteraction;
-			target.StartInteraction(this);
-			target.HideHighlight();
 			isInteracting = true;
+			target.InteractionStopped += CancelInteraction;
+			target.HideHighlight();
+			target.StartInteraction(this);
 			EmitSignal(SignalName.StartedInteracting, target);
 		}
 	}
 
-	private void CancelInteraction()
+	public void CancelInteraction()
 	{
 		target = null;
 		isInteracting = false;

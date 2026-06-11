@@ -10,14 +10,8 @@ public partial class ShipController : Node
 
 	public Vector2 InputDirection { get; set; }
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-	}
-
 	override public void _PhysicsProcess(double delta)
 	{
-		if (!IsMultiplayerAuthority()) return;
 		if (!enabled) return;
 
 		Vector3 forward = _shipBody.Transform.Basis.Z;
@@ -31,20 +25,18 @@ public partial class ShipController : Node
 			_shipBody.ApplyTorque(new Vector3(0, turnDirection * turnSpeed, 0));
 		}
 
-		Rpc(MethodName.SyncMovement, _shipBody.Transform.Origin, new Quaternion(_shipBody.Transform.Basis));
+		if (IsMultiplayerAuthority())
+		{
+			Rpc(MethodName.SyncMovement, _shipBody.LinearVelocity, _shipBody.AngularVelocity);
+		}
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.Authority)]
-	private void SyncMovement(Vector3 position, Quaternion rotation)
+	private void SyncMovement(Vector3 linearVelocity, Vector3 angularVelocity)
 	{
 		//TODO: we probably want interpolation or physics prediction
-
-		Transform3D transform = _shipBody.Transform;
-		transform.Basis = Basis.Identity;
-		transform.Origin = position;
-		transform.Basis = new Basis(rotation);
-
-		_shipBody.Transform = transform;
+		_shipBody.LinearVelocity = linearVelocity;
+		_shipBody.AngularVelocity = angularVelocity;
 	}
 
 	public void Enable()
@@ -55,5 +47,10 @@ public partial class ShipController : Node
 	public void Disable()
 	{
 		enabled = false;
+	}
+
+	public void SetBody(RigidBody3D body)
+	{
+		_shipBody = body;
 	}
 }

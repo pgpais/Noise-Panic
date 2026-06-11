@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://bo617ykqvvyjv" path="res://gameplay/gathering/ResourceHolder.cs" id="9_tg5ys"]
 [ext_resource type="PackedScene" uid="uid://dw46qc0a7drf0" path="res://gameplay/combat/weapons/gun.tscn" id="13_nt81s"]
 [ext_resource type="Environment" uid="uid://c8bycmkvq3a8d" path="res://core/camera/default_environment.tres" id="14_e471u"]
+[ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="14_h7rbu"]
 [ext_resource type="Texture2D" uid="uid://ck3aaxwyckl48" path="res://assets/kenney_crosshairs/crosshair007.png" id="16_e471u"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_3canv"]
@@ -40,6 +41,10 @@ buffer_length = 0.1
 
 [sub_resource type="Resource" id="Resource_5myso"]
 script = ExtResource("5_3canv")
+
+[sub_resource type="Resource" id="Resource_43e4c"]
+script = ExtResource("14_h7rbu")
+metadata/_custom_type_script = "uid://b8hhnqsugykly"
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_f0w7x"]
 
@@ -102,11 +107,12 @@ states/Start/position = Vector2(95, 97)
 transitions = ["JumpUp", "JumpDown", SubResource("AnimationNodeStateMachineTransition_pseu4"), "JumpDown", "MovementBlendSpace", SubResource("AnimationNodeStateMachineTransition_adh2p"), "MovementBlendSpace", "JumpUp", SubResource("AnimationNodeStateMachineTransition_jnrca"), "Start", "MovementBlendSpace", SubResource("AnimationNodeStateMachineTransition_x8p83")]
 graph_offset = Vector2(-46, -119)
 
-[node name="Player" unique_id=1748184085 node_paths=PackedStringArray("characterController", "phantomcamera3d") groups=["players"] instance=ExtResource("1_5p43v")]
+[node name="Player" unique_id=1748184085 node_paths=PackedStringArray("characterController", "aimingInput", "phantomcamera3d") groups=["players"] instance=ExtResource("1_5p43v")]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("2_ddyh4")
 characterController = NodePath("Components/CharacterController")
+aimingInput = NodePath("Components/PlayerAimingInput")
 phantomcamera3d = NodePath("AimPivot/SpringArm3D2/CameraAnchor/SpringArm3D/PhantomCamera3D")
 
 [node name="MeshInstance3D" parent="." index="0" unique_id=41721404]
@@ -200,6 +206,7 @@ spring_length = 3.62
 script = ExtResource("4_gdo0n")
 tween_resource = SubResource("Resource_5myso")
 tween_on_load = false
+camera_3d_resource = SubResource("Resource_43e4c")
 environment = ExtResource("14_e471u")
 follow_offset = Vector3(0, 2, 0)
 follow_distance = 8.0
@@ -237,7 +244,7 @@ grow_vertical = 2
 texture = ExtResource("16_e471u")
 
 [node name="GunBoneAttachment3D" type="BoneAttachment3D" parent="." index="7" unique_id=1686055260]
-transform = Transform3D(0.032366246, 0.044108775, 0.99850243, 0.03257271, -0.99854153, 0.043054692, 0.99894524, 0.031130377, -0.03375578, 0.32957312, -0.23955035, 0.043729857)
+transform = Transform3D(0.03391013, 0.026215153, 0.9990811, 0.016983021, -0.99952686, 0.025650479, 0.9992806, 0.016097702, -0.0343391, 0.3354356, -0.24188447, 0.03850265)
 bone_name = "hand-R"
 bone_idx = 20
 use_external_skeleton = true
@@ -249,7 +256,7 @@ visible = false
 shootingPoint = NodePath("../../AimPivot/SpringArm3D2/CameraAnchor/ShootingPoint")
 
 [node name="BackpackBoneAttachment3D" type="BoneAttachment3D" parent="." index="8" unique_id=1421805177]
-transform = Transform3D(-0.99996674, 0.007234532, -0.0037740814, -0.008102328, -0.93512976, 0.35421222, -0.00096669816, 0.3542315, 0.9351558, -0.003760542, 0.2434293, 0.1548361)
+transform = Transform3D(-0.99999833, -0.0015307317, 0.00079867034, 0.0017144699, -0.9350188, 0.35459334, 0.00020398473, 0.35459474, 0.93501854, 0.00079510664, 0.2441256, 0.15083002)
 bone_name = "backpack"
 bone_idx = 31
 use_external_skeleton = true
