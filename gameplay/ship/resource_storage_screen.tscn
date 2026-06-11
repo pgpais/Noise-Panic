@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://c0vaq6fixcavj"]
+
+[ext_resource type="PackedScene" uid="uid://b7hchv0pso7lu" path="res://gameplay/storage/UI/storage_overview.tscn" id="1_fhj2u"]
+[ext_resource type="Script" uid="uid://biniakikbikn6" path="res://gameplay/ship/Storage/ResourceStorageScreen.cs" id="1_idv30"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_3s4pm"]
+viewport_path = NodePath("Ship/ResourceStorageScreen/SubViewport")
+
+[node name="ResourceStorageScreen" type="Node3D" unique_id=1327200870 node_paths=PackedStringArray("storageOverview")]
+transform = Transform3D(0.014185922, -0.009521312, -0.999854, 2.9079976e-11, 0.9999545, -0.009522268, 0.99989927, 0.00013508211, 0.014185293, 0, 0, 0)
+script = ExtResource("1_idv30")
+storageOverview = NodePath("SubViewport/CanvasLayer2/StorageOverview")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=924106192]
+texture = SubResource("ViewportTexture_3s4pm")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1391010042]
+size = Vector2i(256, 512)
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="SubViewport" unique_id=2130531107]
+
+[node name="StorageOverview" parent="SubViewport/CanvasLayer2" unique_id=1780766244 instance=ExtResource("1_fhj2u")]
