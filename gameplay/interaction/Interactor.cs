@@ -61,7 +61,7 @@ public partial class Interactor : Node3D
 		}
 	}
 
-	private void CancelInteraction()
+	public void CancelInteraction()
 	{
 		target = null;
 		isInteracting = false;
