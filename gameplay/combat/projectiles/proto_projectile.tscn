@@ -14,7 +14,7 @@ height = 0.2
 [sub_resource type="SphereShape3D" id="SphereShape3D_3jh82"]
 radius = 0.1
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_g3gji"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_g3gji"]
 radius = 0.1
 
 [node name="ProtoProjectile" type="RigidBody3D" unique_id=1452483818 node_paths=PackedStringArray("hurtbox")]
@@ -37,4 +37,4 @@ damage = 30
 metadata/_custom_type_script = "uid://b3s5mo3k2nfjg"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=131729340]
-shape = SubResource("CylinderShape3D_g3gji")
+shape = SubResource("SphereShape3D_g3gji")

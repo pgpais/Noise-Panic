@@ -45,7 +45,6 @@ public partial class Gun : Node3D
 	{
 		bullet.GlobalPosition = position;
 		bullet.GlobalRotation = rotation;
-		GD.Print(bullet.GlobalRotation);
 		bullet.ApplyCentralImpulse(-bullet.GlobalTransform.Basis.Z * shootingForce);
 	}
 

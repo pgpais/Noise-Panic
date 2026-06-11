@@ -7,6 +7,7 @@ public partial class OverviewScreenDesk : Node3D
 {
 	[Export] Interactable interactable;
 	[Export] ShipController shipController;
+	[Export] RigidBody3D shipBody;
 
 	bool inUse = false;
 	Vector2 input;
@@ -14,6 +15,8 @@ public partial class OverviewScreenDesk : Node3D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		shipController.SetBody(shipBody);
+
 		interactable.InteractionStarted += OnInteractionStarted;
 		interactable.InteractionStopped += OnInteractionStopped;
 	}

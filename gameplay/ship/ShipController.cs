@@ -56,4 +56,9 @@ public partial class ShipController : Node
 	{
 		enabled = false;
 	}
+
+	public void SetBody(RigidBody3D body)
+	{
+		_shipBody = body;
+	}
 }
