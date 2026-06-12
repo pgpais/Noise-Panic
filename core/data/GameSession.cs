@@ -1,18 +1,47 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 namespace WeWereDumb.Core.Data
 {
-	public partial class GameSession : Node
+	public partial class GameSession : GodotObject
 	{
-		// Called when the node enters the scene tree for the first time.
-		public override void _Ready()
+		Dictionary<int, PeerData> _peerData;
+
+		public GameSession()
 		{
+			_peerData = [];
 		}
 
-		// Called every frame. 'delta' is the elapsed time since the previous frame.
-		public override void _Process(double delta)
+		public void SetPeerData(int peerId, PeerData peerData)
 		{
+			_peerData[peerId] = peerData;
+		}
+
+		public PeerData GetPlayerInfo(int peerId)
+		{
+			return _peerData[peerId];
+		}
+
+		public Dictionary<string, object> GetData()
+		{
+			Dictionary<string, object> data = [];
+			foreach (var peerId in _peerData.Keys)
+			{
+				data[peerId.ToString()] = _peerData[peerId].GetData();
+			}
+			return data;
+		}
+
+		public void SetData(Dictionary<string, object> data)
+		{
+			foreach (var peerId in data.Keys)
+			{
+				if (_peerData.TryGetValue(int.Parse(peerId), out PeerData peerData))
+				{
+					peerData.SetData((Dictionary<string, object>)data[peerId]);
+				}
+			}
 		}
 	}
 }

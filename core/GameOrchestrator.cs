@@ -1,10 +1,13 @@
 using Godot;
+using Godot.Collections;
 using System;
 using WeWereDumb.Core.Data;
 
 // After main menu, could be in lobby or in a game run
 public partial class GameOrchestrator : Node3D
 {
+	public static GameOrchestrator Instance { get; private set; }
+
 	[Signal] public delegate void GameStartedEventHandler();
 	[Signal] public delegate void GameInitializedEventHandler();
 
@@ -19,10 +22,22 @@ public partial class GameOrchestrator : Node3D
 	[Export] PackedScene hubScene;
 	[Export] PackedScene gameRunScene;
 
+	override public void _EnterTree()
+	{
+		if (Instance != null)
+		{
+			GD.PrintErr("[GameOrchestrator] " + Multiplayer.GetUniqueId() + ": " + "Instance already set, this should not happen.");
+			QueueFree();
+			return;
+		}
+		Instance = this;
+	}
+
 	override public void _Ready()
 	{
 		NetworkManager.Instance.ServerHosted += InitializeSession;
 		NetworkManager.Instance.ConnectedToServer += InitializeSession;
+		NetworkManager.Instance.ClientConnected += OnClientConnected;
 
 		if (hostLocal)
 		{
@@ -35,12 +50,16 @@ public partial class GameOrchestrator : Node3D
 		}
 	}
 
+	override public void _ExitTree()
+	{
+		Instance = null;
+	}
+
 	public void InitializeSession()
 	{
 		GD.Print("[GameOrchestrator] " + Multiplayer.GetUniqueId() + ": " + "Initializing session...");
 
 		_gameSession = new();
-		AddChild(_gameSession);
 
 		LoadHub(isSynced: false);
 	}
@@ -114,5 +133,14 @@ public partial class GameOrchestrator : Node3D
 		var steamNetworkManager = GetNode("/root/SteamNetworkManager");
 		steamNetworkManager.Call("host_server");
 		//TODO: move hide somewhere else
+	}
+
+	private void OnClientConnected(long id)
+	{
+		if (IsMultiplayerAuthority())
+		{
+			var peerData = new PeerData();
+			_gameSession.SetPeerData((int)id, peerData);
+		}
 	}
 }

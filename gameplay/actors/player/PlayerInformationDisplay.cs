@@ -1,0 +1,21 @@
+using Godot;
+
+public partial class PlayerInformationDisplay : Sprite3D
+{
+	[Export] Label nameLabel;
+	[Export] TextureRect iconRect;
+
+
+	override public void _Ready()
+	{
+		int peerId = GetMultiplayerAuthority();
+
+		SetPlayerInfo(peerId.ToString());
+	}
+
+	public void SetPlayerInfo(string name, Texture2D icon = null)
+	{
+		nameLabel.Text = name;
+		iconRect.Texture = icon ?? new PlaceholderTexture2D();
+	}
+}
