@@ -17,6 +17,8 @@
 [ext_resource type="Environment" uid="uid://c8bycmkvq3a8d" path="res://core/camera/default_environment.tres" id="14_e471u"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="14_h7rbu"]
 [ext_resource type="Texture2D" uid="uid://ck3aaxwyckl48" path="res://assets/kenney_crosshairs/crosshair007.png" id="16_e471u"]
+[ext_resource type="Texture2D" uid="uid://d3qhnj4b4ju5o" path="res://gameplay/voice/speak-icon.png" id="18_43e4c"]
+[ext_resource type="Script" uid="uid://teaclivds5vq" path="res://gameplay/actors/player/player_information_display.gd" id="18_r8lee"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_3canv"]
 size = Vector3(0.43, 0.28, 0.37)
@@ -106,6 +108,12 @@ states/MovementBlendSpace/position = Vector2(377, 93)
 states/Start/position = Vector2(95, 97)
 transitions = ["JumpUp", "JumpDown", SubResource("AnimationNodeStateMachineTransition_pseu4"), "JumpDown", "MovementBlendSpace", SubResource("AnimationNodeStateMachineTransition_adh2p"), "MovementBlendSpace", "JumpUp", SubResource("AnimationNodeStateMachineTransition_jnrca"), "Start", "MovementBlendSpace", SubResource("AnimationNodeStateMachineTransition_x8p83")]
 graph_offset = Vector2(-46, -119)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_43e4c"]
+viewport_path = NodePath("Sprite3D/SubViewport")
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_r8lee"]
+size = Vector2(64, 64)
 
 [node name="Player" unique_id=1748184085 node_paths=PackedStringArray("characterController", "aimingInput", "phantomcamera3d") groups=["players"] instance=ExtResource("1_5p43v")]
 collision_layer = 4
@@ -244,7 +252,7 @@ grow_vertical = 2
 texture = ExtResource("16_e471u")
 
 [node name="GunBoneAttachment3D" type="BoneAttachment3D" parent="." index="7" unique_id=1686055260]
-transform = Transform3D(0.03391013, 0.026215153, 0.9990811, 0.016983021, -0.99952686, 0.025650479, 0.9992806, 0.016097702, -0.0343391, 0.3354356, -0.24188447, 0.03850265)
+transform = Transform3D(0.033076942, 0.036949757, 0.9987695, 0.025646135, -0.9990188, 0.03610962, 0.9991238, 0.024420096, -0.03399211, 0.3318518, -0.24039042, 0.041489508)
 bone_name = "hand-R"
 bone_idx = 20
 use_external_skeleton = true
@@ -256,7 +264,7 @@ visible = false
 shootingPoint = NodePath("../../AimPivot/SpringArm3D2/CameraAnchor/ShootingPoint")
 
 [node name="BackpackBoneAttachment3D" type="BoneAttachment3D" parent="." index="8" unique_id=1421805177]
-transform = Transform3D(-0.99999833, -0.0015307317, 0.00079867034, 0.0017144699, -0.9350188, 0.35459334, 0.00020398473, 0.35459474, 0.93501854, 0.00079510664, 0.2441256, 0.15083002)
+transform = Transform3D(-0.99999076, 0.0038300995, -0.0019983226, -0.004289704, -0.93509, 0.35438424, -0.00051128556, 0.3543899, 0.93509626, -0.0019903432, 0.24374628, 0.15327597)
 bone_name = "backpack"
 bone_idx = 31
 use_external_skeleton = true
@@ -264,3 +272,35 @@ external_skeleton = NodePath("../AimPivot/Main_Character2/Armature/Skeleton3D")
 
 [node name="Marker3D" type="Marker3D" parent="BackpackBoneAttachment3D" index="0" unique_id=2052679749]
 transform = Transform3D(1.0000002, 1.1960283e-07, 2.4489532e-07, -1.9428623e-07, -0.31732133, 0.9483182, 1.9113202e-07, -0.9483185, -0.3173212, -1.6064604e-08, 0.22127882, 0.10311106)
+
+[node name="Sprite3D" type="Sprite3D" parent="." index="9" unique_id=1954656227 node_paths=PackedStringArray("nameLabel", "iconRect")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.4994028, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_43e4c")
+script = ExtResource("18_r8lee")
+nameLabel = NodePath("SubViewport/HBoxContainer/Username")
+iconRect = NodePath("SubViewport/HBoxContainer/UserAvatar")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite3D" index="0" unique_id=583921113]
+transparent_bg = true
+size = Vector2i(300, 64)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Sprite3D/SubViewport" index="0" unique_id=1915305140]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="UserAvatar" type="TextureRect" parent="Sprite3D/SubViewport/HBoxContainer" index="0" unique_id=1288785891]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_r8lee")
+
+[node name="Username" type="Label" parent="Sprite3D/SubViewport/HBoxContainer" index="1" unique_id=107659408]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Username"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Sprite3D/SubViewport/HBoxContainer" index="2" unique_id=1733517714]
+layout_mode = 2
+
+[node name="VoiceIndicator" type="TextureRect" parent="Sprite3D/SubViewport/HBoxContainer/HBoxContainer" index="0" unique_id=1045128796]
+layout_mode = 2
+texture = ExtResource("18_43e4c")

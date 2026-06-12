@@ -8,8 +8,8 @@ public partial class MainMenu : Control
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		NetworkManager.Instance.ConnectedToServer += OnConnectedToServer;
-		NetworkManager.Instance.ServerHosted += OnConnectedToServer;
+		// NetworkManager.Instance.ConnectedToServer += OnConnectedToServer;
+		// NetworkManager.Instance.ServerHosted += OnConnectedToServer;
 	}
 
 	private void OnConnectedToServer()

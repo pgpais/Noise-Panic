@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://mlmcvlisjveq"]
+
+[ext_resource type="Script" uid="uid://crr074raa36km" path="res://core/data/GameSession.cs" id="1_e2o6t"]
+[ext_resource type="Script" uid="uid://c7m268r5a3gov" path="res://core/GameOrchestrator.cs" id="1_fc0e3"]
+[ext_resource type="Script" uid="uid://ct5jp2yc8tdrn" path="res://core/level_loading/LevelLoader.cs" id="2_feb5d"]
+[ext_resource type="PackedScene" uid="uid://dn3jjnfy7m424" path="res://levels/lobby.tscn" id="2_ryrav"]
+[ext_resource type="PackedScene" uid="uid://cwo4jb3vh35id" path="res://levels/game_run/game_run.tscn" id="3_eow3j"]
+[ext_resource type="PackedScene" uid="uid://1oxb3rpa36t" path="res://menus/menu.tscn" id="3_feb5d"]
+[ext_resource type="PackedScene" uid="uid://b33tvgeeirbrq" path="res://core/level_loading/loading_scene.tscn" id="5_7jktm"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_feb5d"]
+
+[node name="Game" type="Node3D" unique_id=1084469427 node_paths=PackedStringArray("_levelLoader")]
+script = ExtResource("1_fc0e3")
+hostLocal = true
+_levelLoader = NodePath("LevelLoader")
+hubScene = ExtResource("2_ryrav")
+gameRunScene = ExtResource("3_eow3j")
+
+[node name="GameSession" type="Node" parent="." unique_id=356804486]
+script = ExtResource("1_e2o6t")
+
+[node name="LevelLoader" type="Node" parent="." unique_id=806257679 node_paths=PackedStringArray("_levelLoadingMenu", "levelsParent")]
+script = ExtResource("2_feb5d")
+_levelLoadingMenu = NodePath("../CanvasLayer/LoadingMenu")
+levelsParent = NodePath("../Levels")
+metadata/_custom_type_script = "uid://ct5jp2yc8tdrn"
+
+[node name="Levels" type="Node3D" parent="." unique_id=137934961]
+
+[node name="Lobby" type="Node3D" parent="Levels" unique_id=1237596210]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Levels/Lobby" unique_id=1485381931]
+mesh = SubResource("BoxMesh_feb5d")
+
+[node name="GameRun" type="Node3D" parent="Levels" unique_id=1792171977]
+
+[node name="Players" type="Node3D" parent="." unique_id=1573660553]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=872839243]
+
+[node name="Menu" parent="CanvasLayer" unique_id=1135982483 instance=ExtResource("3_feb5d")]
+visible = false
+
+[node name="LoadingMenu" parent="CanvasLayer" unique_id=909009375 instance=ExtResource("5_7jktm")]
+visible = false
