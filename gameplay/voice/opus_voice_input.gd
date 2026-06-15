@@ -1,10 +1,10 @@
-extends AudioStreamPlayer3D
+extends Node
 
 var prepend = PackedByteArray()
 var opus_encoder : TwovoipOpusEncoder
-var opus_packets_buffer = [ ]
+var voice_data_buffer = [ ]
 
-var voice_data : PackedByteArray = []
+var voice_data_packet : PackedByteArray = []
 
 func _ready():
 	opus_encoder = TwovoipOpusEncoder.new()
@@ -25,15 +25,18 @@ func process_record():
 			break
 		chunkcount += 1
 		chunkmax = max(chunkmax, lchunkmax)
-		voice_data = opus_encoder.encode_chunk(prepend);
+		voice_data_packet = opus_encoder.encode_chunk(prepend);
+		rpc("receive_voice_data", voice_data_packet)
 		if (chunkcount % 50) == 0:
-			# prints("audiomax: %.3f  data[%d]: %s" % [chunkmax, voice_data.size(), voice_data.slice(0,5)])
+			# prints("audiomax: %.3f  data[%d]: %s" % [chunkmax, voice_data_packet.size(), voice_data_packet.slice(0,5)])
 			chunkmax = 0.0
 
-func get_voice_data() -> PackedByteArray:
-	if(opus_packets_buffer.size() == 0):
-		return PackedByteArray()
-	return opus_packets_buffer.pop_front()
+func has_voice_data() -> bool:
+	return len(voice_data_buffer) != 0
 
-func add_voice_data(data: PackedByteArray):
-	opus_packets_buffer.append(data)
+func get_voice_data_packet() -> PackedByteArray:
+	return voice_data_buffer.pop_front()
+
+@rpc()
+func receive_voice_data(data: PackedByteArray):
+	voice_data_buffer.append(data)
