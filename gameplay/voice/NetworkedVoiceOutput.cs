@@ -3,11 +3,29 @@ using Godot;
 [GlobalClass]
 public partial class NetworkedVoiceOutput : Node3D
 {
-	[Export] Node voiceOutput;
+	const string VoiceOutputGD = "uid://do5g5ejibuqs5";
+
 	[Export] NetworkedVoiceInput voiceInput;
 
 	[ExportGroup("Voice Settings")]
 	[Export] private int opusChunkSize = 960;
+
+	Node voiceOutput;
+
+	public NetworkedVoiceOutput()
+	{
+		GD.Print("Getting voice output script");
+		var script = ResourceLoader.Load<GDScript>(VoiceOutputGD);
+		voiceOutput = (Node)(GodotObject)script.New();
+		GD.Print("Voice output script loaded");
+		AddChild(voiceOutput);
+		GD.Print("NetworkedVoiceOutput ready");
+	}
+
+	public void SetVoiceInput(NetworkedVoiceInput voiceInput)
+	{
+		this.voiceInput = voiceInput;
+	}
 
 	override public void _Process(double delta)
 	{

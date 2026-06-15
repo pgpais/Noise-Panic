@@ -6,6 +6,7 @@
 [ext_resource type="Environment" uid="uid://c8bycmkvq3a8d" path="res://core/camera/default_environment.tres" id="4_5h46i"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_5h46i"]
 [ext_resource type="PackedScene" uid="uid://m6ducyuarode" path="res://gameplay/player_detection_area.tscn" id="5_63tst"]
+[ext_resource type="Script" uid="uid://c3xgkksq5347w" path="res://gameplay/voice/speakers/Speaker.cs" id="7_ymuiv"]
 [ext_resource type="PackedScene" uid="uid://dly4oohfeagxb" path="res://menus/pause_menu/pause_menu.tscn" id="8_gyuag"]
 [ext_resource type="PackedScene" uid="uid://bdclfkico1hbu" path="res://gameplay/actors/Spaceship/Model/Spaceship.blend" id="10_fj1tp"]
 
@@ -37,6 +38,11 @@ transform = Transform3D(-0.9998384, 0, 0.017975947, 0.011248141, 0.7800374, 0.62
 shadow_enabled = true
 spot_range = 11.312
 spot_attenuation = -0.35
+
+[node name="Speaker" type="Node3D" parent="Spaceship" unique_id=728243623]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25541353, 3.1324816, 0)
+script = ExtResource("7_ymuiv")
+metadata/_custom_type_script = "uid://c3xgkksq5347w"
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1164420507]
 physics_interpolation_mode = 1

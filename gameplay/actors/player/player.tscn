@@ -15,7 +15,6 @@
 [ext_resource type="Script" uid="uid://dsbcc63ha117i" path="res://gameplay/voice/NetworkedVoiceInput.cs" id="10_r8lee"]
 [ext_resource type="Script" uid="uid://djd16o5tc6iqh" path="res://gameplay/voice/opus_voice_input.gd" id="11_2qhaa"]
 [ext_resource type="PackedScene" uid="uid://dw46qc0a7drf0" path="res://gameplay/combat/weapons/gun.tscn" id="13_nt81s"]
-[ext_resource type="Script" uid="uid://do5g5ejibuqs5" path="res://gameplay/voice/opus_voice_output.gd" id="13_pu8j8"]
 [ext_resource type="Environment" uid="uid://c8bycmkvq3a8d" path="res://core/camera/default_environment.tres" id="14_e471u"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="14_h7rbu"]
 [ext_resource type="Texture2D" uid="uid://ck3aaxwyckl48" path="res://assets/kenney_crosshairs/crosshair007.png" id="16_e471u"]
@@ -36,8 +35,6 @@ radius = 0.3569336
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1meb4"]
 radius = 0.6
-
-[sub_resource type="AudioStreamOpus" id="AudioStreamOpus_2qhaa"]
 
 [sub_resource type="Resource" id="Resource_5myso"]
 script = ExtResource("5_3canv")
@@ -113,10 +110,11 @@ viewport_path = NodePath("Sprite3D/SubViewport")
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_r8lee"]
 size = Vector2(64, 64)
 
-[node name="Player" unique_id=1748184085 node_paths=PackedStringArray("characterController", "aimingInput", "phantomcamera3d") groups=["players"] instance=ExtResource("1_5p43v")]
+[node name="Player" unique_id=1748184085 node_paths=PackedStringArray("VoiceInput", "characterController", "aimingInput", "phantomcamera3d") groups=["players"] instance=ExtResource("1_5p43v")]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("2_ddyh4")
+VoiceInput = NodePath("Components/NetworkedVoiceInput")
 characterController = NodePath("Components/CharacterController")
 aimingInput = NodePath("Components/PlayerAimingInput")
 phantomcamera3d = NodePath("AimPivot/SpringArm3D2/CameraAnchor/SpringArm3D/PhantomCamera3D")
@@ -191,16 +189,10 @@ metadata/_custom_type_script = "uid://dsbcc63ha117i"
 [node name="OpusVoiceInput" type="Node" parent="Components/NetworkedVoiceInput" index="0" unique_id=1675752155]
 script = ExtResource("11_2qhaa")
 
-[node name="NetworkedVoiceOutput" type="Node3D" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="9" unique_id=2034032913 node_paths=PackedStringArray("voiceOutput", "voiceInput")]
+[node name="NetworkedVoiceOutput" type="Node3D" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="9" unique_id=2034032913 node_paths=PackedStringArray("voiceInput")]
 script = ExtResource("20_44y0u")
-voiceOutput = NodePath("OpusVoiceOutput")
 voiceInput = NodePath("../NetworkedVoiceInput")
 metadata/_custom_type_script = "uid://lsi30cj5e2rk"
-
-[node name="OpusVoiceOutput" type="AudioStreamPlayer3D" parent="Components/NetworkedVoiceOutput" index="0" unique_id=936237810]
-stream = SubResource("AudioStreamOpus_2qhaa")
-autoplay = true
-script = ExtResource("13_pu8j8")
 
 [node name="AimPivot" type="Node3D" parent="." index="3" unique_id=1085734815]
 
@@ -259,7 +251,7 @@ grow_vertical = 2
 texture = ExtResource("16_e471u")
 
 [node name="GunBoneAttachment3D" type="BoneAttachment3D" parent="." index="6" unique_id=1686055260]
-transform = Transform3D(0.03265673, 0.042109225, 0.99857926, 0.02958252, -0.99871504, 0.041147567, 0.9990289, 0.028196542, -0.033860385, 0.33013183, -0.24005526, 0.04285657)
+transform = Transform3D(0.032565415, 0.043249745, 0.9985335, 0.030444417, -0.99864256, 0.0422616, 0.99900585, 0.029023543, -0.033837795, 0.32974884, -0.23993117, 0.0431596)
 bone_name = "hand-R"
 bone_idx = 20
 use_external_skeleton = true
@@ -271,7 +263,7 @@ visible = false
 shootingPoint = NodePath("../../AimPivot/SpringArm3D2/CameraAnchor/ShootingPoint")
 
 [node name="BackpackBoneAttachment3D" type="BoneAttachment3D" parent="." index="7" unique_id=1421805177]
-transform = Transform3D(-0.9999739, 0.006419733, -0.003349106, -0.0071897064, -0.9351831, 0.3540912, -0.0008588584, 0.35410646, 0.93520343, -0.0033367504, 0.24314642, 0.15448989)
+transform = Transform3D(-0.9999688, 0.006997751, -0.0036505742, -0.007836983, -0.9351941, 0.35404813, -0.0009364564, 0.35406625, 0.9352184, -0.0036373492, 0.24306273, 0.15475707)
 bone_name = "backpack"
 bone_idx = 31
 use_external_skeleton = true
