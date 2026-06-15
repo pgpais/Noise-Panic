@@ -19,17 +19,6 @@ public partial class Speaker : Node3D
 		}
 	}
 
-	override public void _Process(double delta)
-	{
-		foreach (var player in Player.players)
-		{
-			if (!voiceOutputs.ContainsKey(player.GetMultiplayerAuthority()))
-			{
-				AddSpeaker(player);
-			}
-		}
-	}
-
 	public void AddSpeaker(Player player)
 	{
 		var voiceOutput = new NetworkedVoiceOutput();

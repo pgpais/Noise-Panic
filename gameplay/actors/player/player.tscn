@@ -251,7 +251,7 @@ grow_vertical = 2
 texture = ExtResource("16_e471u")
 
 [node name="GunBoneAttachment3D" type="BoneAttachment3D" parent="." index="6" unique_id=1686055260]
-transform = Transform3D(0.032565415, 0.043249745, 0.9985335, 0.030444417, -0.99864256, 0.0422616, 0.99900585, 0.029023543, -0.033837795, 0.32974884, -0.23993117, 0.0431596)
+transform = Transform3D(0.033912007, 0.026190916, 0.9990813, 0.016963448, -0.99952745, 0.025626846, 0.9992808, 0.016078737, -0.03434035, 0.33544382, -0.24188757, 0.038495965)
 bone_name = "hand-R"
 bone_idx = 20
 use_external_skeleton = true
@@ -263,7 +263,7 @@ visible = false
 shootingPoint = NodePath("../../AimPivot/SpringArm3D2/CameraAnchor/ShootingPoint")
 
 [node name="BackpackBoneAttachment3D" type="BoneAttachment3D" parent="." index="7" unique_id=1421805177]
-transform = Transform3D(-0.9999688, 0.006997751, -0.0036505742, -0.007836983, -0.9351941, 0.35404813, -0.0009364564, 0.35406625, 0.9352184, -0.0036373492, 0.24306273, 0.15475707)
+transform = Transform3D(-0.99999845, -0.0015427546, 0.0008049442, 0.0017279361, -0.9350186, 0.35459387, 0.00020558675, 0.35459524, 0.9350184, 0.00080135063, 0.24412656, 0.15082456)
 bone_name = "backpack"
 bone_idx = 31
 use_external_skeleton = true
