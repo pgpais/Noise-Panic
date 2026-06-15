@@ -5,7 +5,7 @@ using static Godot.Upnp;
 
 /// <summary>
 /// The NetworkManager class is responsible for managing the network connection.
-/// 
+///
 /// It emits signals on different connection events.
 /// </summary>
 public partial class NetworkManager : Node
@@ -39,7 +39,7 @@ public partial class NetworkManager : Node
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		GD.Print(Multiplayer.GetUniqueId() + ": " + "NetworkManager Setting up signals");
+		GD.Print("[NetworkManager] " + Multiplayer.GetUniqueId() + ": " + "NetworkManager Setting up signals");
 		Multiplayer.PeerConnected += OnPeerConnected;
 		Multiplayer.PeerDisconnected += OnPeerDisconnected;
 	}
@@ -91,11 +91,12 @@ public partial class NetworkManager : Node
 		if (result == Error.Ok)
 		{
 			Multiplayer.MultiplayerPeer = peer;
-			GD.Print("Started server on port " + port + " with peer ID " + Multiplayer.MultiplayerPeer.GetUniqueId());
+			GD.Print("[NetworkManager] " + "Started server on port " + port + " with peer ID " + Multiplayer.MultiplayerPeer.GetUniqueId());
 			GD.Print(Multiplayer.GetUniqueId() + ": " + "NetworkManager Calling SetupUPNP");
 			Task.Run(() => SetupUPNP());
 			EmitSignal(SignalName.ServerHosted);
 		}
+		GD.Print("[NetworkManager] " + Multiplayer.GetUniqueId() + ": " + "CreateServer result: " + result);
 		return result;
 	}
 
@@ -112,7 +113,7 @@ public partial class NetworkManager : Node
 		if (result == Error.Ok)
 		{
 			Multiplayer.MultiplayerPeer = peer;
-			GD.Print("Connected to " + ip + ":" + port + " with peer ID " + Multiplayer.MultiplayerPeer.GetUniqueId());
+			GD.Print("[NetworkManager] " + "Connected to " + ip + ":" + port + " with peer ID " + Multiplayer.MultiplayerPeer.GetUniqueId());
 		}
 
 		return result;
@@ -126,12 +127,12 @@ public partial class NetworkManager : Node
 	/// <param name="id">The ID of the connected peer.</param>
 	private void OnPeerConnected(long id)
 	{
-		GD.Print(Multiplayer.GetUniqueId() + ": " + "Peer " + id + " connected.");
+		GD.Print("[NetworkManager] " + Multiplayer.GetUniqueId() + ": " + "Peer " + id + " connected.");
 
 		if (id == 1)
 		{
 			// Connected to server
-			GD.Print(Multiplayer.GetUniqueId() + ": " + "Connected to server.");
+			GD.Print("[NetworkManager] " + Multiplayer.GetUniqueId() + ": " + "Connected to server.");
 			EmitSignal(SignalName.ConnectedToServer);
 		}
 		else
@@ -148,7 +149,7 @@ public partial class NetworkManager : Node
 	/// <param name="id">The ID of the disconnected peer.</param>
 	private void OnPeerDisconnected(long id)
 	{
-		GD.Print(Multiplayer.GetUniqueId() + ": " + "Peer " + id + " disconnected.");
+		GD.Print("[NetworkManager] " + Multiplayer.GetUniqueId() + ": " + "Peer " + id + " disconnected.");
 
 		if (id == 1)
 		{

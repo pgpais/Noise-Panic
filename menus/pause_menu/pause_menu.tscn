@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://dly4oohfeagxb"]
+
+[ext_resource type="Script" uid="uid://gp5b0bukehe5" path="res://menus/pause_menu/PauseMenu.cs" id="1_5ndmu"]
+
+[node name="PauseMenu" type="Control" unique_id=167560632 node_paths=PackedStringArray("resumeButton", "quitButton")]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -176.0
+offset_right = 20.0
+offset_bottom = -136.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5ndmu")
+resumeButton = NodePath("PanelContainer/MarginContainer/VBoxContainer/ResumeButton")
+quitButton = NodePath("PanelContainer/MarginContainer/VBoxContainer/QuitButton")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=154272411]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=2033302138]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=757699755]
+layout_mode = 2
+
+[node name="ResumeButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1036199722]
+layout_mode = 2
+text = "Resume
+"
+
+[node name="QuitButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1056277599]
+layout_mode = 2
+text = "Quit
+
+"
