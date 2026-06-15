@@ -11,14 +11,15 @@
 [ext_resource type="Script" uid="uid://bbee2spqhn4r1" path="res://gameplay/actors/AimingController.cs" id="5_tg5ys"]
 [ext_resource type="Script" uid="uid://cjae0hvsvnlpi" path="res://gameplay/input/PlayerAimingInput.cs" id="6_f0w7x"]
 [ext_resource type="Script" uid="uid://b3s5mo3k2nfjg" path="res://gameplay/combat/Hurtbox.cs" id="6_fbwt1"]
-[ext_resource type="Script" uid="uid://cew6vps4wkxbk" path="res://gameplay/voice/networked_voice_controller.gd" id="6_gdo0n"]
 [ext_resource type="Script" uid="uid://bo617ykqvvyjv" path="res://gameplay/gathering/ResourceHolder.cs" id="9_tg5ys"]
+[ext_resource type="Script" uid="uid://dsbcc63ha117i" path="res://gameplay/voice/NetworkedVoiceInput.cs" id="10_r8lee"]
 [ext_resource type="PackedScene" uid="uid://dw46qc0a7drf0" path="res://gameplay/combat/weapons/gun.tscn" id="13_nt81s"]
 [ext_resource type="Environment" uid="uid://c8bycmkvq3a8d" path="res://core/camera/default_environment.tres" id="14_e471u"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="14_h7rbu"]
 [ext_resource type="Texture2D" uid="uid://ck3aaxwyckl48" path="res://assets/kenney_crosshairs/crosshair007.png" id="16_e471u"]
 [ext_resource type="Texture2D" uid="uid://d3qhnj4b4ju5o" path="res://gameplay/voice/speak-icon.png" id="18_43e4c"]
 [ext_resource type="Script" uid="uid://5b5tmc26f7pu" path="res://gameplay/actors/player/PlayerInformationDisplay.cs" id="18_r8lee"]
+[ext_resource type="Script" uid="uid://lsi30cj5e2rk" path="res://gameplay/voice/NetworkedVoiceOutput.cs" id="20_44y0u"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_3canv"]
 size = Vector3(0.43, 0.28, 0.37)
@@ -33,13 +34,6 @@ radius = 0.3569336
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1meb4"]
 radius = 0.6
-
-[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_3canv"]
-mix_rate_mode = 1
-mix_rate = 48000.0
-buffer_length = 0.1
-
-[sub_resource type="AudioStreamOpus" id="AudioStreamOpus_5myso"]
 
 [sub_resource type="Resource" id="Resource_5myso"]
 script = ExtResource("5_3canv")
@@ -178,24 +172,23 @@ damage = 40
 metadata/_custom_type_script = "uid://b3s5mo3k2nfjg"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Components/Hurtbox" index="0" unique_id=756587483]
+transform = Transform3D(0.99999994, 0.00023276011, -0.00015280527, -0.00023272743, 0.99999994, 0.0002644158, 0.00015285503, -0.00026438705, 0.9999999, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_1meb4")
 
 [node name="ResourceHolder" type="Node3D" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="7" unique_id=727391222 node_paths=PackedStringArray("holdingPoint")]
 script = ExtResource("9_tg5ys")
 holdingPoint = NodePath("../../BackpackBoneAttachment3D/Marker3D")
 
-[node name="VoiceStreamOutputPlayer3D" type="AudioStreamPlayer3D" parent="." index="3" unique_id=1396259304]
-stream = SubResource("AudioStreamGenerator_3canv")
-autoplay = true
-bus = &"Voice"
-script = ExtResource("6_gdo0n")
+[node name="NetworkedVoiceInput" type="Node3D" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="8" unique_id=1343744376]
+script = ExtResource("10_r8lee")
+metadata/_custom_type_script = "uid://dsbcc63ha117i"
 
-[node name="VoiceCapture" type="AudioStreamPlayer3D" parent="VoiceStreamOutputPlayer3D" index="0" unique_id=654925717]
-stream = SubResource("AudioStreamOpus_5myso")
-autoplay = true
-bus = &"Voice"
+[node name="NetworkedVoiceOutput" type="Node3D" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="9" unique_id=2034032913 node_paths=PackedStringArray("voiceInput")]
+script = ExtResource("20_44y0u")
+voiceInput = NodePath("../NetworkedVoiceInput")
+metadata/_custom_type_script = "uid://lsi30cj5e2rk"
 
-[node name="AimPivot" type="Node3D" parent="." index="4" unique_id=1085734815]
+[node name="AimPivot" type="Node3D" parent="." index="3" unique_id=1085734815]
 
 [node name="Main_Character2" parent="AimPivot" index="0" unique_id=1366362755 instance=ExtResource("3_fbwt1")]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0, -0.8579986, 0)
@@ -226,7 +219,7 @@ metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 [node name="ShootingPoint" type="Marker3D" parent="AimPivot/SpringArm3D2/CameraAnchor" index="1" unique_id=2050930371]
 transform = Transform3D(0.9964412, -0.08422905, 0.0032459297, 0.08423142, 0.9964458, -0.0006616235, -0.0031785094, 0.00093257026, 0.9999945, 0, -1.008, 0)
 
-[node name="AnimationTree" type="AnimationTree" parent="." index="5" unique_id=1642883181]
+[node name="AnimationTree" type="AnimationTree" parent="." index="4" unique_id=1642883181]
 root_node = NodePath("../AimPivot/Main_Character2")
 tree_root = SubResource("AnimationNodeStateMachine_ci2r1")
 anim_player = NodePath("../AimPivot/Main_Character2/AnimationPlayer")
@@ -235,7 +228,7 @@ parameters/conditions/is_falling = false
 parameters/conditions/is_on_floor = false
 parameters/MovementBlendSpace/blend_position = Vector2(0, 0)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." index="6" unique_id=1759074887]
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="5" unique_id=1759074887]
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer" index="0" unique_id=93175184]
 anchors_preset = 8
@@ -251,8 +244,8 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("16_e471u")
 
-[node name="GunBoneAttachment3D" type="BoneAttachment3D" parent="." index="7" unique_id=1686055260]
-transform = Transform3D(0.033132613, 0.036227774, 0.99879414, 0.025066, -0.99905866, 0.035405852, 0.9991367, 0.023862546, -0.034009635, 0.3320973, -0.24048829, 0.041293345)
+[node name="GunBoneAttachment3D" type="BoneAttachment3D" parent="." index="6" unique_id=1686055260]
+transform = Transform3D(0.034966055, 0.012076349, 0.99931574, 0.0059920326, -0.9999115, 0.011873931, 0.9993706, 0.0055726524, -0.035035316, 0.34009397, -0.24355066, 0.03463154)
 bone_name = "hand-R"
 bone_idx = 20
 use_external_skeleton = true
@@ -263,8 +256,8 @@ transform = Transform3D(0.9953868, 0.09533713, -0.0108073065, 0.0083337575, -0.1
 visible = false
 shootingPoint = NodePath("../../AimPivot/SpringArm3D2/CameraAnchor/ShootingPoint")
 
-[node name="BackpackBoneAttachment3D" type="BoneAttachment3D" parent="." index="8" unique_id=1421805177]
-transform = Transform3D(-0.9999924, 0.003471847, -0.0018114337, -0.003888478, -0.9350858, 0.35439983, -0.00046342457, 0.35440457, 0.93509066, -0.0018041175, 0.24377453, 0.15311226)
+[node name="BackpackBoneAttachment3D" type="BoneAttachment3D" parent="." index="7" unique_id=1421805177]
+transform = Transform3D(-0.99995273, -0.008626277, 0.0045018992, 0.009662617, -0.93481666, 0.35499844, 0.0011461376, 0.35502565, 0.93485445, 0.0044775414, 0.24493921, 0.14757292)
 bone_name = "backpack"
 bone_idx = 31
 use_external_skeleton = true
@@ -273,7 +266,7 @@ external_skeleton = NodePath("../AimPivot/Main_Character2/Armature/Skeleton3D")
 [node name="Marker3D" type="Marker3D" parent="BackpackBoneAttachment3D" index="0" unique_id=2052679749]
 transform = Transform3D(1.0000002, 1.1960283e-07, 2.4489532e-07, -1.9428623e-07, -0.31732133, 0.9483182, 1.9113202e-07, -0.9483185, -0.3173212, -1.6064604e-08, 0.22127882, 0.10311106)
 
-[node name="Sprite3D" type="Sprite3D" parent="." index="9" unique_id=1954656227 node_paths=PackedStringArray("nameLabel", "iconRect")]
+[node name="Sprite3D" type="Sprite3D" parent="." index="8" unique_id=1954656227 node_paths=PackedStringArray("nameLabel", "iconRect")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.4994028, 0)
 billboard = 1
 texture = SubResource("ViewportTexture_43e4c")
