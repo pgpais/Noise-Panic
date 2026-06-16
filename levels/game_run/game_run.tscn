@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://bxkurvxbq1ppv" path="res://gameplay/combat/projectiles/proto_ship_projectile.tscn" id="13_8bpfs"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="15_sy2v3"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="16_a31k0"]
+[ext_resource type="Script" uid="uid://c2r0p8u5tkq16" path="res://core/PlayerSpawner.cs" id="16_la0x0"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="17_2khdt"]
 [ext_resource type="PackedScene" uid="uid://2oypgw4dyts" path="res://gameplay/actors/enemies/Slime/slime.tscn" id="18_mbg5y"]
 [ext_resource type="PackedScene" uid="uid://ca57l0j31l3qw" path="res://gameplay/actors/enemies/SpiderBot/spider_bot.tscn" id="19_mbg5y"]
@@ -82,6 +83,13 @@ script = ExtResource("1_o3kko")
 playerScene = ExtResource("2_0uhwm")
 spawnPoint = NodePath("Ship/PlayerSpawnPoint")
 ship = NodePath("Ship")
+
+[node name="PlayerSpawner" type="Marker3D" parent="." unique_id=1896400735]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.73771, 100.61742, 4.744453)
+script = ExtResource("16_la0x0")
+playerScene = ExtResource("2_0uhwm")
+spawnNewPlayers = false
+metadata/_custom_type_script = "uid://c2r0p8u5tkq16"
 
 [node name="Ship" type="RigidBody3D" parent="." unique_id=2106779243]
 transform = Transform3D(1, 0, 0, 0, 0.99939084, -0.034899496, 0, 0.034899496, 0.99939084, 8.87, 100, 5.465)
@@ -174,7 +182,7 @@ transform = Transform3D(0.117118545, 0.9409032, -0.3177808, -0.10445886, 0.32987
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1138672703]
-transform = Transform3D(-0.9985689, 0.014782068, -0.05139694, 0, 0.9610422, 0.2764015, 0.05348042, 0.27600595, -0.95966697, 8.693587, 108.89046, -6.302533)
+transform = Transform3D(-0.99856895, 0.014782067, -0.051396936, 0, 0.9610423, 0.27640155, 0.053480413, 0.27600598, -0.9596669, 8.693587, 108.89046, -6.302533)
 top_level = true
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D" unique_id=1054332899]
@@ -281,10 +289,10 @@ size = Vector2i(964, 463)
 
 [node name="OverviewCamera" type="Camera3D" parent="SubViewport" unique_id=626315657]
 physics_interpolation_mode = 1
-transform = Transform3D(1, 0, 0, 0, -0.13277555, 0.9911462, 0, -0.9911462, -0.13277555, 8.163737, 100.584595, -14.152422)
+transform = Transform3D(1, 0, 0, 0, -0.13277538, 0.991146, 0, -0.991146, -0.13277538, 8.163737, 100.584595, -14.152422)
 top_level = true
-fov = 25.166668
-size = 7.8999996
+fov = 10.0
+size = 10.0
 
 [node name="OverviewPhantomCameraHost" type="Node" parent="SubViewport/OverviewCamera" unique_id=1007755368]
 process_priority = 300
