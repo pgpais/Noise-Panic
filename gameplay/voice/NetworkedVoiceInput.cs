@@ -25,11 +25,6 @@ public partial class NetworkedVoiceInput : Node3D
 		}
 	}
 
-	public byte[] GetVoiceDataPacket()
-	{
-		return voiceInput.Call("get_voice_data_packet").As<byte[]>();
-	}
-
 	public Array<byte[]> GetVoiceDataBuffer()
 	{
 		var buffer = voiceInput.Call("get_voice_data_buffer");

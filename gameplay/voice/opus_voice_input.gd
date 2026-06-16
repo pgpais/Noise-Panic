@@ -35,9 +35,6 @@ func process_record():
 func has_voice_data() -> bool:
 	return len(voice_data_buffer) != 0
 
-func get_voice_data_packet() -> PackedByteArray:
-	return voice_data_buffer.pop_front()
-
 func get_voice_data_buffer() -> Array:
 	return voice_data_buffer
 
