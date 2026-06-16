@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://biniakikbikn6" path="res://gameplay/ship/Storage/ResourceStorageScreen.cs" id="1_idv30"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_3s4pm"]
-viewport_path = NodePath("Ship/ResourceStorageScreen/SubViewport")
+viewport_path = NodePath("SubViewport")
 
 [node name="ResourceStorageScreen" type="Node3D" unique_id=1327200870 node_paths=PackedStringArray("storageOverview")]
 transform = Transform3D(0.014185922, -0.009521312, -0.999854, 2.9079976e-11, 0.9999545, -0.009522268, 0.99989927, 0.00013508211, 0.014185293, 0, 0, 0)

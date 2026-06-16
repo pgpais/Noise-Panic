@@ -14,11 +14,15 @@
 [ext_resource type="PackedScene" uid="uid://dj5q8quo7at0g" path="res://gameplay/gathering/resource_node.tscn" id="8_sy2v3"]
 [ext_resource type="Script" uid="uid://b8kyh4bqnu6ud" path="res://gameplay/extracting/ExtractionZone.cs" id="9_a31k0"]
 [ext_resource type="PackedScene" uid="uid://b6h4waninhvcc" path="res://gameplay/ship/OverviewScreen/overview_screen_desk.tscn" id="11_2khdt"]
+[ext_resource type="Script" uid="uid://dbgj4mok8bi0y" path="res://gameplay/ship/ship_turret/ShipTurret.cs" id="12_mbg5y"]
+[ext_resource type="Script" uid="uid://cjmhgkfia23v3" path="res://gameplay/interaction/Interactable.cs" id="12_wflc5"]
+[ext_resource type="PackedScene" uid="uid://bxkurvxbq1ppv" path="res://gameplay/combat/projectiles/proto_ship_projectile.tscn" id="13_8bpfs"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="15_sy2v3"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="16_a31k0"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="17_2khdt"]
 [ext_resource type="PackedScene" uid="uid://2oypgw4dyts" path="res://gameplay/actors/enemies/Slime/slime.tscn" id="18_mbg5y"]
 [ext_resource type="PackedScene" uid="uid://ca57l0j31l3qw" path="res://gameplay/actors/enemies/SpiderBot/spider_bot.tscn" id="19_mbg5y"]
+[ext_resource type="PackedScene" uid="uid://dly4oohfeagxb" path="res://menus/pause_menu/pause_menu.tscn" id="23_7w4il"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_sy2v3"]
 viewport_path = NodePath("SubViewport")
@@ -30,6 +34,17 @@ script = ExtResource("16_a31k0")
 script = ExtResource("17_2khdt")
 fov = 10.0
 size = 10.0
+metadata/_custom_type_script = "uid://b8hhnqsugykly"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mbg5y"]
+size = Vector3(1.6, 1.5, 1.3000001)
+
+[sub_resource type="Resource" id="Resource_8bpfs"]
+script = ExtResource("16_a31k0")
+
+[sub_resource type="Resource" id="Resource_7w4il"]
+script = ExtResource("17_2khdt")
+fov = 15.0
 metadata/_custom_type_script = "uid://b8hhnqsugykly"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5h46i"]
@@ -55,7 +70,14 @@ data = PackedVector3Array(-3.741455, -1.7533569, -3.7607422, -3.741455, 1.7, -3.
 [sub_resource type="BoxShape3D" id="BoxShape3D_ymuiv"]
 size = Vector3(7.1, 3.9, 6.5)
 
-[node name="Game" type="Node3D" unique_id=954981151 node_paths=PackedStringArray("spawnPoint", "ship")]
+[sub_resource type="Resource" id="Resource_g68f2"]
+script = ExtResource("16_a31k0")
+
+[sub_resource type="Resource" id="Resource_7svux"]
+script = ExtResource("17_2khdt")
+metadata/_custom_type_script = "uid://b8hhnqsugykly"
+
+[node name="GameRun" type="Node3D" unique_id=954981151 node_paths=PackedStringArray("spawnPoint", "ship")]
 script = ExtResource("1_o3kko")
 playerScene = ExtResource("2_0uhwm")
 spawnPoint = NodePath("Ship/PlayerSpawnPoint")
@@ -93,7 +115,7 @@ transform = Transform3D(0.01418598, -0.009521312, -0.99985397, 2.9079975e-11, 0.
 storage = NodePath("../Storage")
 
 [node name="OverviewPhantomCamera3D" type="Node3D" parent="Ship" unique_id=1844172153]
-transform = Transform3D(1, 0, 0, 0, -0.167285, 0.98590845, 0, -0.98590845, -0.167285, -0.7062626, -1.0256042, -20.322823)
+transform = Transform3D(1, 0, 0, 0, -0.167285, 0.98590845, 0, -0.98590845, -0.167285, -0.7062626, -0.10040283, -19.625874)
 script = ExtResource("15_sy2v3")
 tween_resource = SubResource("Resource_wflc5")
 tween_on_load = false
@@ -101,13 +123,43 @@ host_layers = 2
 camera_3d_resource = SubResource("Resource_mbg5y")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
-[node name="OverviewScreenDesk" parent="Ship" unique_id=507243146 instance=ExtResource("11_2khdt")]
+[node name="OverviewScreenDesk" parent="Ship" unique_id=507243146 node_paths=PackedStringArray("shipBody") instance=ExtResource("11_2khdt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8070394, 3.0028381, 2.5186603)
+shipBody = NodePath("..")
 
 [node name="PlayerSpawnPoint" type="Marker3D" parent="Ship" unique_id=1524352124]
 transform = Transform3D(1, 0, 0, 0, 0.99939084, 0.034899496, 0, -0.034899496, 0.99939084, -4.4982915, 3.2330399, -11.0281925)
 
-[node name="Node3D2" type="Node3D" parent="Ship" unique_id=222460864]
+[node name="ShipTurretStation" type="Node3D" parent="Ship" unique_id=222460864 node_paths=PackedStringArray("phantomCameraNode", "interactable", "turretPivot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6804037, 0.82440186, -17.889317)
+script = ExtResource("12_mbg5y")
+phantomCameraNode = NodePath("TurretPivot/TurretPhantomCamera3D")
+interactable = NodePath("Interactable")
+turretPivot = NodePath("TurretPivot")
+turretProjectileScene = ExtResource("13_8bpfs")
+shootingForce = 200.0
+
+[node name="SeatPosition" type="Marker3D" parent="Ship/ShipTurretStation" unique_id=442275201]
+
+[node name="Interactable" type="Area3D" parent="Ship/ShipTurretStation" unique_id=945140645]
+script = ExtResource("12_wflc5")
+instantUse = false
+metadata/_custom_type_script = "uid://cjmhgkfia23v3"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ship/ShipTurretStation/Interactable" unique_id=1946925031]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05003357, -0.05000496)
+shape = SubResource("BoxShape3D_mbg5y")
+
+[node name="TurretPivot" type="Node3D" parent="Ship/ShipTurretStation" unique_id=1343676958]
+transform = Transform3D(1, 0, 0, 0, -0.16470337, 0.98634315, 0, -0.98634315, -0.16470337, -0.14149666, -1.3188629, -0.107587814)
+
+[node name="TurretPhantomCamera3D" type="Node3D" parent="Ship/ShipTurretStation/TurretPivot" unique_id=1793329647]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.3)
+script = ExtResource("15_sy2v3")
+priority = 1
+tween_resource = SubResource("Resource_8bpfs")
+camera_3d_resource = SubResource("Resource_7w4il")
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=156097673]
 
@@ -122,7 +174,7 @@ transform = Transform3D(0.117118545, 0.9409032, -0.3177808, -0.10445886, 0.32987
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1138672703]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7709875, 7.0266495)
+transform = Transform3D(-0.9985689, 0.014782068, -0.05139694, 0, 0.9610422, 0.2764015, 0.05348042, 0.27600595, -0.95966697, 8.693587, 108.89046, -6.302533)
 top_level = true
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D" unique_id=1054332899]
@@ -229,10 +281,10 @@ size = Vector2i(964, 463)
 
 [node name="OverviewCamera" type="Camera3D" parent="SubViewport" unique_id=626315657]
 physics_interpolation_mode = 1
-transform = Transform3D(1, 0, 0, 0, -0.13277538, 0.991146, 0, -0.991146, -0.13277538, 8.163737, 99.68428, -14.881235)
+transform = Transform3D(1, 0, 0, 0, -0.13277555, 0.9911462, 0, -0.9911462, -0.13277555, 8.163737, 100.584595, -14.152422)
 top_level = true
-fov = 10.0
-size = 10.0
+fov = 25.166668
+size = 7.8999996
 
 [node name="OverviewPhantomCameraHost" type="Node" parent="SubViewport/OverviewCamera" unique_id=1007755368]
 process_priority = 300
@@ -240,5 +292,18 @@ process_physics_priority = 300
 script = ExtResource("3_0uhwm")
 host_layers = 2
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
+[node name="DefaultPhantomCamera3D" type="Node3D" parent="." unique_id=284842459]
+transform = Transform3D(-0.99856895, 0.014782067, -0.051396936, 0, 0.9610423, 0.27640155, 0.053480413, 0.27600598, -0.9596669, 8.693587, 108.89046, -6.302533)
+script = ExtResource("15_sy2v3")
+priority = 1
+tween_resource = SubResource("Resource_g68f2")
+camera_3d_resource = SubResource("Resource_7svux")
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=262941763]
+layer = 2
+
+[node name="PauseMenu" parent="CanvasLayer2" unique_id=167560632 instance=ExtResource("23_7w4il")]
 
 [connection signal="Pressed" from="Ship/StandingButton" to="Ship/PlayerPodLauncher" method="TryLaunchPlayer"]

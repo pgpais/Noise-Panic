@@ -11,6 +11,7 @@ public partial class Interactor : Node3D
 	[Signal] public delegate void StartedInteractingEventHandler(Interactable interactable);
 	[Signal] public delegate void StoppedInteractingEventHandler(Interactable interactable);
 
+	public bool IsInteracting => isInteracting;
 	[Export] public float InteractionDistance { get; private set; } = 6f;
 
 	[Export] public Node3D CameraNode { get; private set; }
@@ -53,15 +54,15 @@ public partial class Interactor : Node3D
 	{
 		if (HasTarget())
 		{
-			target.InteractionStopped += CancelInteraction;
-			target.StartInteraction(this);
-			target.HideHighlight();
 			isInteracting = true;
+			target.InteractionStopped += CancelInteraction;
+			target.HideHighlight();
+			target.StartInteraction(this);
 			EmitSignal(SignalName.StartedInteracting, target);
 		}
 	}
 
-	private void CancelInteraction()
+	public void CancelInteraction()
 	{
 		target = null;
 		isInteracting = false;

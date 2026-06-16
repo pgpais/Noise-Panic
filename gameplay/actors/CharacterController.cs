@@ -62,7 +62,6 @@ public partial class CharacterController : Node
 			velocity.Z = Mathf.MoveToward(_body.Velocity.Z, 0, Speed);
 		}
 
-		HandleAnimations(velocity);
 		if (TurnToFaceMovement)
 		{
 			//TODO:
@@ -84,12 +83,13 @@ public partial class CharacterController : Node
 		_body.Velocity = velocity;
 		_body.MoveAndSlide();
 
-		WantsToJump = false;
-
 		if (IsMultiplayerAuthority())
 		{
 			Rpc(MethodName.SyncMovement, _body.GlobalPosition, velocity);
+			HandleAnimations(velocity);
 		}
+
+		WantsToJump = false;
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.Authority)]
@@ -104,12 +104,13 @@ public partial class CharacterController : Node
 	{
 		if (animationTree != null)
 		{
+			bool isMoving = velocity.X != 0 || velocity.Z != 0;
 			var velocity2D = new Vector2(velocity.X, velocity.Z);
 			animationTree.Set("parameters/conditions/has_jumped", velocity.Y > 0);
 			animationTree.Set("parameters/conditions/is_falling", velocity.Y < 0);
 			animationTree.Set("parameters/conditions/is_on_floor", _body.IsOnFloor());
-			animationTree.Set("parameters/conditions/is_moving", velocity.X != 0);
-			animationTree.Set("parameters/conditions/is_not_moving", velocity.X == 0);
+			animationTree.Set("parameters/conditions/is_moving", isMoving);
+			animationTree.Set("parameters/conditions/is_not_moving", !isMoving);
 			animationTree.Set("parameters/MovementBlendSpace/blend_position", velocity2D / Speed);
 		}
 	}

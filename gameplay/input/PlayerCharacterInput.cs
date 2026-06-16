@@ -17,12 +17,14 @@ public partial class PlayerCharacterInput : Node
 
 		if (Input.IsActionJustPressed("interact"))
 		{
-			interactor.StartInteracting();
-		}
-
-		if (Input.IsActionJustPressed("ui_cancel"))
-		{
-			interactor.StopInteracting();
+			if (interactor.IsInteracting)
+			{
+				interactor.StopInteracting();
+			}
+			else
+			{
+				interactor.StartInteracting();
+			}
 		}
 
 		if (Input.IsActionJustPressed("drop"))

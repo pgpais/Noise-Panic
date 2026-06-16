@@ -2,10 +2,11 @@
 
 [ext_resource type="Script" uid="uid://0k13edbpdde5" path="res://levels/Lobby.cs" id="1_dxlos"]
 [ext_resource type="PackedScene" uid="uid://5wiwhftgaawa" path="res://gameplay/actors/player/player.tscn" id="2_doeiq"]
-[ext_resource type="PackedScene" uid="uid://cwo4jb3vh35id" path="res://levels/game_run/game.tscn" id="3_3ohsu"]
+[ext_resource type="PackedScene" uid="uid://cwo4jb3vh35id" path="res://levels/game_run/game_run.tscn" id="3_3ohsu"]
 [ext_resource type="Environment" uid="uid://c8bycmkvq3a8d" path="res://core/camera/default_environment.tres" id="4_5h46i"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_5h46i"]
 [ext_resource type="PackedScene" uid="uid://m6ducyuarode" path="res://gameplay/player_detection_area.tscn" id="5_63tst"]
+[ext_resource type="PackedScene" uid="uid://dly4oohfeagxb" path="res://menus/pause_menu/pause_menu.tscn" id="8_gyuag"]
 [ext_resource type="PackedScene" uid="uid://bdclfkico1hbu" path="res://gameplay/actors/Spaceship/Model/Spaceship.blend" id="10_fj1tp"]
 
 [node name="Lobby" type="Node3D" unique_id=1868881371 node_paths=PackedStringArray("spawnPos", "playerDetectionAreas")]
@@ -46,3 +47,8 @@ top_level = true
 process_priority = 300
 process_physics_priority = 300
 script = ExtResource("5_5h46i")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=959621057]
+layer = 2
+
+[node name="PauseMenu" parent="CanvasLayer" unique_id=167560632 instance=ExtResource("8_gyuag")]

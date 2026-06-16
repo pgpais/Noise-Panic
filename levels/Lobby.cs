@@ -26,7 +26,7 @@ public partial class Lobby : Node3D
 		SpawnLocalPlayer();
 		SpawnPeers();
 
-		GD.Print(Multiplayer.GetUniqueId() + ": " + "Lobby ready");
+		GD.Print("[Lobby] " + Multiplayer.GetUniqueId() + ": " + "Lobby ready");
 
 		NetworkManager.Instance.ClientConnected += OnPlayerJoined;
 
@@ -39,11 +39,13 @@ public partial class Lobby : Node3D
 
 	private void SpawnLocalPlayer()
 	{
+		GD.Print("[Lobby] " + Multiplayer.GetUniqueId() + ": " + "Spawning local player...");
 		SpawnPlayer(Multiplayer.GetUniqueId().ToString(), spawnPos.GlobalPosition);
 	}
 
 	private void SpawnPeers()
 	{
+		GD.Print("[Lobby] " + Multiplayer.GetUniqueId() + ": " + "Spawning peers...");
 		var peerIds = Multiplayer.GetPeers();
 		foreach (var peerId in peerIds)
 		{
