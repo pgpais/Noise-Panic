@@ -3,8 +3,7 @@ using System;
 
 public partial class GameRun : Node3D
 {
-
-	[ExportGroup("Run Paremeters")]
+	[ExportGroup("Run Parameters")]
 	[Export] Timer countdownTimer;
 
 	// Called when the node enters the scene tree for the first time.
