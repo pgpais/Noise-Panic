@@ -6,14 +6,15 @@
 [ext_resource type="Environment" uid="uid://c8bycmkvq3a8d" path="res://core/camera/default_environment.tres" id="4_5h46i"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_5h46i"]
 [ext_resource type="PackedScene" uid="uid://m6ducyuarode" path="res://gameplay/player_detection_area.tscn" id="5_63tst"]
+[ext_resource type="Script" uid="uid://c2r0p8u5tkq16" path="res://core/PlayerSpawner.cs" id="5_ymuiv"]
 [ext_resource type="PackedScene" uid="uid://dly4oohfeagxb" path="res://menus/pause_menu/pause_menu.tscn" id="8_gyuag"]
 [ext_resource type="PackedScene" uid="uid://bdclfkico1hbu" path="res://gameplay/actors/Spaceship/Model/Spaceship.blend" id="10_fj1tp"]
 
-[node name="Lobby" type="Node3D" unique_id=1868881371 node_paths=PackedStringArray("spawnPos", "playerDetectionAreas")]
+[node name="Lobby" type="Node3D" unique_id=1868881371 node_paths=PackedStringArray("spawnPos", "playerDetectionAreas", "playerSpawner")]
 script = ExtResource("1_dxlos")
 spawnPos = NodePath("Spaceship/SpawnPoint")
-playerScene = ExtResource("2_doeiq")
 playerDetectionAreas = [NodePath("Spaceship/PlayerDetectionArea"), NodePath("Spaceship/PlayerDetectionArea2")]
+playerSpawner = NodePath("Spaceship/SpawnPoint")
 gameScene = ExtResource("3_3ohsu")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1396617127]
@@ -22,9 +23,12 @@ environment = ExtResource("4_5h46i")
 [node name="Spaceship" type="StaticBody3D" parent="." unique_id=1732322271]
 
 [node name="Model" parent="Spaceship" unique_id=1642621029 instance=ExtResource("10_fj1tp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0021094084, -0.00985384, -0.0074973106)
 
 [node name="SpawnPoint" type="Marker3D" parent="Spaceship" unique_id=791842029]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 8)
+script = ExtResource("5_ymuiv")
+playerScene = ExtResource("2_doeiq")
 
 [node name="PlayerDetectionArea" parent="Spaceship" unique_id=1899837744 instance=ExtResource("5_63tst")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.49999988, -1.1920929e-07, 5.8)

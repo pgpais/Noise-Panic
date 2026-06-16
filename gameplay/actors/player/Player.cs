@@ -9,6 +9,8 @@ public partial class Player : Actor
 {
 	public static List<Player> players = new();
 
+	[Export] public NetworkedVoiceInput VoiceInput { get; private set; }
+
 	[Export] CharacterController characterController;
 	[Export] PlayerAimingInput aimingInput;
 	[Export] Node3D phantomcamera3d;

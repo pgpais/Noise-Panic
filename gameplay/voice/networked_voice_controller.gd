@@ -6,6 +6,8 @@ var audiostreamplaybackopus : AudioStreamPlaybackOpus
 var prepend = PackedByteArray()
 var opuspacketsbuffer = [ ]
 
+var voice_data : PackedByteArray = []
+
 func _ready():
 	opusencoder = TwovoipOpusEncoder.new()
 	audiostreamopus = $VoiceCapture.stream
@@ -38,16 +40,13 @@ func _process_record():
 			break
 		chunkcount += 1
 		chunkmax = max(chunkmax, lchunkmax)
-		var opusdata : PackedByteArray = opusencoder.encode_chunk(prepend);
-		rpc("_send_voice", opusdata)
+		voice_data = opusencoder.encode_chunk(prepend);
 		if (chunkcount % 50) == 0:
-			prints("audiomax: %.3f  data[%d]: %s" % [chunkmax, opusdata.size(), opusdata.slice(0,5)])
+			# prints("audiomax: %.3f  data[%d]: %s" % [chunkmax, voice_data.size(), voice_data.slice(0,5)])
 			chunkmax = 0.0
 
-@rpc("any_peer")
-func _send_voice(voice_data: PackedByteArray):
-	opuspacketsbuffer.append(voice_data)
-	
+
+
 func _process_playback():
 	while opus_chunk_size < audiostreamplaybackopus.available_space_frames() and len(opuspacketsbuffer) != 0:
 		audiostreamplaybackopus.push_opus_packet(opuspacketsbuffer.pop_front(), 0, 0)
