@@ -7,7 +7,6 @@
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_5h46i"]
 [ext_resource type="PackedScene" uid="uid://m6ducyuarode" path="res://gameplay/player_detection_area.tscn" id="5_63tst"]
 [ext_resource type="Script" uid="uid://c2r0p8u5tkq16" path="res://core/PlayerSpawner.cs" id="5_ymuiv"]
-[ext_resource type="Script" uid="uid://c3xgkksq5347w" path="res://gameplay/voice/speakers/Speaker.cs" id="7_ymuiv"]
 [ext_resource type="PackedScene" uid="uid://dly4oohfeagxb" path="res://menus/pause_menu/pause_menu.tscn" id="8_gyuag"]
 [ext_resource type="PackedScene" uid="uid://bdclfkico1hbu" path="res://gameplay/actors/Spaceship/Model/Spaceship.blend" id="10_fj1tp"]
 
@@ -24,6 +23,7 @@ environment = ExtResource("4_5h46i")
 [node name="Spaceship" type="StaticBody3D" parent="." unique_id=1732322271]
 
 [node name="Model" parent="Spaceship" unique_id=1642621029 instance=ExtResource("10_fj1tp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0021094084, -0.00985384, -0.0074973106)
 
 [node name="SpawnPoint" type="Marker3D" parent="Spaceship" unique_id=791842029]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 8)
@@ -42,11 +42,6 @@ shadow_enabled = true
 spot_range = 11.312
 spot_attenuation = -0.35
 
-[node name="Speaker" type="Node3D" parent="Spaceship" unique_id=728243623]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25541353, 8.939714, 1.6661825)
-script = ExtResource("7_ymuiv")
-metadata/_custom_type_script = "uid://c3xgkksq5347w"
-
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1164420507]
 physics_interpolation_mode = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2, 8)
@@ -61,5 +56,3 @@ script = ExtResource("5_5h46i")
 layer = 2
 
 [node name="PauseMenu" parent="CanvasLayer" unique_id=167560632 instance=ExtResource("8_gyuag")]
-
-[connection signal="PlayerSpawned" from="Spaceship/SpawnPoint" to="Spaceship/Speaker" method="AddSpeaker" unbinds=1]

@@ -189,10 +189,15 @@ metadata/_custom_type_script = "uid://dsbcc63ha117i"
 [node name="OpusVoiceInput" type="Node" parent="Components/NetworkedVoiceInput" index="0" unique_id=1675752155]
 script = ExtResource("11_2qhaa")
 
-[node name="NetworkedVoiceOutput" type="Node3D" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="9" unique_id=2034032913 node_paths=PackedStringArray("voiceInput")]
+[node name="NetworkedVoiceOutput" type="Node3D" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="9" unique_id=2034032913 node_paths=PackedStringArray("audioStreamPlayer3D", "voiceInput")]
 script = ExtResource("20_44y0u")
+audioStreamPlayer3D = NodePath("AudioStreamPlayer3D")
 voiceInput = NodePath("../NetworkedVoiceInput")
 metadata/_custom_type_script = "uid://lsi30cj5e2rk"
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Components/NetworkedVoiceOutput" index="0" unique_id=2125100688]
+unit_size = 5.0
+doppler_tracking = 2
 
 [node name="AimPivot" type="Node3D" parent="." index="3" unique_id=1085734815]
 
@@ -251,7 +256,7 @@ grow_vertical = 2
 texture = ExtResource("16_e471u")
 
 [node name="GunBoneAttachment3D" type="BoneAttachment3D" parent="." index="6" unique_id=1686055260]
-transform = Transform3D(0.033912007, 0.026190916, 0.9990813, 0.016963448, -0.99952745, 0.025626846, 0.9992808, 0.016078737, -0.03434035, 0.33544382, -0.24188757, 0.038495965)
+transform = Transform3D(0.03350142, 0.030845042, 0.9989625, 0.020684682, -0.9993308, 0.030162752, 0.9992246, 0.019652633, -0.034117073, 0.3339104, -0.24124134, 0.039774753)
 bone_name = "hand-R"
 bone_idx = 20
 use_external_skeleton = true
@@ -263,7 +268,7 @@ visible = false
 shootingPoint = NodePath("../../AimPivot/SpringArm3D2/CameraAnchor/ShootingPoint")
 
 [node name="BackpackBoneAttachment3D" type="BoneAttachment3D" parent="." index="7" unique_id=1421805177]
-transform = Transform3D(-0.99999845, -0.0015427546, 0.0008049442, 0.0017279361, -0.9350186, 0.35459387, 0.00020558675, 0.35459524, 0.9350184, 0.00080135063, 0.24412656, 0.15082456)
+transform = Transform3D(-0.9999997, 0.0007612765, -0.00039728076, -0.0008526733, -0.9350524, 0.3545079, -0.00010159997, 0.35450858, 0.9350514, -0.00039548113, 0.24396956, 0.15187503)
 bone_name = "backpack"
 bone_idx = 31
 use_external_skeleton = true

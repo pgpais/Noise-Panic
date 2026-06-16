@@ -6,9 +6,12 @@ using Godot.NativeInterop;
 [GlobalClass]
 public partial class NetworkedVoiceInput : Node3D
 {
+	[Signal]
+	public delegate void VoiceDataReceivedEventHandler(Array<byte[]> buffer);
+
 	[Export] Node voiceInput;
 
-	byte[] incomingVoiceData;
+	Array<byte[]> incomingVoiceData;
 
 	public override void _Process(double delta)
 	{
@@ -17,6 +20,8 @@ public partial class NetworkedVoiceInput : Node3D
 		if (Input.IsActionPressed("voice"))
 		{
 			voiceInput.Call("process_record");
+			var buffer = GetVoiceDataBuffer();
+			Rpc(MethodName.SyncVoiceBuffer, buffer);
 		}
 	}
 
@@ -25,8 +30,26 @@ public partial class NetworkedVoiceInput : Node3D
 		return voiceInput.Call("get_voice_data_packet").As<byte[]>();
 	}
 
+	public Array<byte[]> GetVoiceDataBuffer()
+	{
+		var buffer = voiceInput.Call("get_voice_data_buffer");
+		return buffer.As<Array<byte[]>>();
+	}
+
+	[Rpc]
+	public void SyncVoiceBuffer(Array<byte[]> buffer)
+	{
+		SetVoiceBuffer(buffer);
+	}
+
+	private void SetVoiceBuffer(Array<byte[]> buffer)
+	{
+		incomingVoiceData = buffer;
+		EmitSignal(SignalName.VoiceDataReceived, buffer);
+	}
+
 	public bool HasVoiceData()
 	{
-		return voiceInput.Call("has_voice_data").As<bool>();
+		return incomingVoiceData != null && incomingVoiceData.Count > 0;
 	}
 }

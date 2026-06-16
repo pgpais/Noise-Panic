@@ -41,14 +41,11 @@ func _process_record():
 		chunkcount += 1
 		chunkmax = max(chunkmax, lchunkmax)
 		voice_data = opusencoder.encode_chunk(prepend);
-		rpc("_send_voice", voice_data)
 		if (chunkcount % 50) == 0:
 			# prints("audiomax: %.3f  data[%d]: %s" % [chunkmax, voice_data.size(), voice_data.slice(0,5)])
 			chunkmax = 0.0
 
-@rpc("any_peer")
-func _send_voice(voice_data: PackedByteArray):
-	opuspacketsbuffer.append(voice_data)
+
 
 func _process_playback():
 	while opus_chunk_size < audiostreamplaybackopus.available_space_frames() and len(opuspacketsbuffer) != 0:

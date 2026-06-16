@@ -17,6 +17,7 @@ var chunkcount = 0
 var chunkmax = 0.0
 var opus_chunk_size = 960
 func process_record():
+	voice_data_buffer = [ ]
 	print("Processing record...")
 	while true:
 		var frames = AudioServer.get_input_frames(opus_encoder.calc_audio_chunk_size(opus_chunk_size))
@@ -26,7 +27,7 @@ func process_record():
 		chunkcount += 1
 		chunkmax = max(chunkmax, lchunkmax)
 		voice_data_packet = opus_encoder.encode_chunk(prepend);
-		rpc("receive_voice_data", voice_data_packet)
+		voice_data_buffer.append(voice_data_packet)
 		if (chunkcount % 50) == 0:
 			# prints("audiomax: %.3f  data[%d]: %s" % [chunkmax, voice_data_packet.size(), voice_data_packet.slice(0,5)])
 			chunkmax = 0.0
@@ -36,6 +37,9 @@ func has_voice_data() -> bool:
 
 func get_voice_data_packet() -> PackedByteArray:
 	return voice_data_buffer.pop_front()
+
+func get_voice_data_buffer() -> Array:
+	return voice_data_buffer
 
 @rpc()
 func receive_voice_data(data: PackedByteArray):
