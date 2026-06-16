@@ -19,13 +19,15 @@
 [ext_resource type="PackedScene" uid="uid://bxkurvxbq1ppv" path="res://gameplay/combat/projectiles/proto_ship_projectile.tscn" id="13_8bpfs"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="15_sy2v3"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="16_a31k0"]
+[ext_resource type="Script" uid="uid://c2r0p8u5tkq16" path="res://core/PlayerSpawner.cs" id="16_la0x0"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="17_2khdt"]
 [ext_resource type="PackedScene" uid="uid://2oypgw4dyts" path="res://gameplay/actors/enemies/Slime/slime.tscn" id="18_mbg5y"]
 [ext_resource type="PackedScene" uid="uid://ca57l0j31l3qw" path="res://gameplay/actors/enemies/SpiderBot/spider_bot.tscn" id="19_mbg5y"]
 [ext_resource type="PackedScene" uid="uid://dly4oohfeagxb" path="res://menus/pause_menu/pause_menu.tscn" id="23_7w4il"]
+[ext_resource type="Script" uid="uid://0u5x4n5nxnuk" path="res://gameplay/time_limit/ui/TimerLabel.cs" id="24_yxbgd"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_sy2v3"]
-viewport_path = NodePath("SubViewport")
+viewport_path = NodePath("Ship/Spaceship/OverviewScreen/SubViewport")
 
 [sub_resource type="Resource" id="Resource_wflc5"]
 script = ExtResource("16_a31k0")
@@ -77,11 +79,16 @@ script = ExtResource("16_a31k0")
 script = ExtResource("17_2khdt")
 metadata/_custom_type_script = "uid://b8hhnqsugykly"
 
-[node name="GameRun" type="Node3D" unique_id=954981151 node_paths=PackedStringArray("spawnPoint", "ship")]
+[node name="GameRun" type="Node3D" unique_id=954981151 node_paths=PackedStringArray("spawnPoint", "ship", "countdownTimer")]
 script = ExtResource("1_o3kko")
 playerScene = ExtResource("2_0uhwm")
 spawnPoint = NodePath("Ship/PlayerSpawnPoint")
 ship = NodePath("Ship")
+countdownTimer = NodePath("RunTimer")
+
+[node name="RunTimer" type="Timer" parent="." unique_id=1970086283]
+wait_time = 60.0
+one_shot = true
 
 [node name="Ship" type="RigidBody3D" parent="." unique_id=2106779243]
 transform = Transform3D(1, 0, 0, 0, 0.99939084, -0.034899496, 0, 0.034899496, 0.99939084, 8.87, 100, 5.465)
@@ -93,9 +100,26 @@ angular_damp = 0.8
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00057291985, 0.003364563, 0.0011432171)
 
 [node name="OverviewScreen" type="Sprite3D" parent="Ship/Spaceship" unique_id=1068318505]
-transform = Transform3D(1, 0, 0, 0, 0.98581207, 0.16785282, 0, -0.16785282, 0.98581207, -0.70684123, 6.580658, 2.8107617)
+transform = Transform3D(1, 0, 0, 0, 0.9858123, 0.16785283, 0, -0.16785283, 0.9858123, 0.09588146, 3.6952896, 21.419556)
 flip_h = true
 texture = SubResource("ViewportTexture_sy2v3")
+
+[node name="SubViewport" type="SubViewport" parent="Ship/Spaceship/OverviewScreen" unique_id=929721130]
+size = Vector2i(964, 463)
+
+[node name="OverviewCamera" type="Camera3D" parent="Ship/Spaceship/OverviewScreen/SubViewport" unique_id=626315657]
+physics_interpolation_mode = 1
+transform = Transform3D(1, 0, 0, 0, -0.13277538, 0.991146, 0, -0.991146, -0.13277538, 8.163737, 100.584595, -14.152422)
+top_level = true
+fov = 10.0
+size = 10.0
+
+[node name="OverviewPhantomCameraHost" type="Node" parent="Ship/Spaceship/OverviewScreen/SubViewport/OverviewCamera" unique_id=1007755368]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("3_0uhwm")
+host_layers = 2
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="PlayerPodLauncher" parent="Ship" unique_id=453249195 node_paths=PackedStringArray("podLaunchPoint") instance=ExtResource("4_0uhwm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.7)
@@ -161,6 +185,10 @@ tween_resource = SubResource("Resource_8bpfs")
 camera_3d_resource = SubResource("Resource_7w4il")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
+[node name="PlayerSpawner" type="Marker3D" parent="Ship" unique_id=1762019291]
+script = ExtResource("16_la0x0")
+metadata/_custom_type_script = "uid://c2r0p8u5tkq16"
+
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=156097673]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1329043612]
@@ -174,7 +202,7 @@ transform = Transform3D(0.117118545, 0.9409032, -0.3177808, -0.10445886, 0.32987
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1138672703]
-transform = Transform3D(-0.9985689, 0.014782068, -0.05139694, 0, 0.9610422, 0.2764015, 0.05348042, 0.27600595, -0.95966697, 8.693587, 108.89046, -6.302533)
+transform = Transform3D(-0.99856895, 0.014782067, -0.051396936, 0, 0.9610423, 0.27640155, 0.053480413, 0.27600598, -0.9596669, 8.693587, 108.89046, -6.302533)
 top_level = true
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D" unique_id=1054332899]
@@ -276,23 +304,6 @@ omni_attenuation = 0.33
 
 [node name="Enemies" type="Node3D" parent="." unique_id=269402511]
 
-[node name="SubViewport" type="SubViewport" parent="." unique_id=929721130]
-size = Vector2i(964, 463)
-
-[node name="OverviewCamera" type="Camera3D" parent="SubViewport" unique_id=626315657]
-physics_interpolation_mode = 1
-transform = Transform3D(1, 0, 0, 0, -0.13277555, 0.9911462, 0, -0.9911462, -0.13277555, 8.163737, 100.584595, -14.152422)
-top_level = true
-fov = 25.166668
-size = 7.8999996
-
-[node name="OverviewPhantomCameraHost" type="Node" parent="SubViewport/OverviewCamera" unique_id=1007755368]
-process_priority = 300
-process_physics_priority = 300
-script = ExtResource("3_0uhwm")
-host_layers = 2
-metadata/_custom_type_script = "uid://bd046eokvcnu2"
-
 [node name="DefaultPhantomCamera3D" type="Node3D" parent="." unique_id=284842459]
 transform = Transform3D(-0.99856895, 0.014782067, -0.051396936, 0, 0.9610423, 0.27640155, 0.053480413, 0.27600598, -0.9596669, 8.693587, 108.89046, -6.302533)
 script = ExtResource("15_sy2v3")
@@ -305,5 +316,22 @@ metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 layer = 2
 
 [node name="PauseMenu" parent="CanvasLayer2" unique_id=167560632 instance=ExtResource("23_7w4il")]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer2" unique_id=551485270]
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 20.0
+offset_bottom = 43.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer2/HBoxContainer" unique_id=26817396 node_paths=PackedStringArray("timeCountdown")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "1:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("24_yxbgd")
+timeCountdown = NodePath("../../../RunTimer")
 
 [connection signal="Pressed" from="Ship/StandingButton" to="Ship/PlayerPodLauncher" method="TryLaunchPlayer"]

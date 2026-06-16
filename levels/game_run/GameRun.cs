@@ -7,11 +7,25 @@ public partial class GameRun : Node3D
 	[Export] Node3D spawnPoint;
 	[Export] Node3D ship;
 
+	[ExportGroup("Run Paremeters")]
+	[Export] Timer countdownTimer;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		SpawnLocalPlayer();
 		SpawnPeers();
+
+		if (IsMultiplayerAuthority())
+		{
+			StartCountdown();
+		}
+	}
+
+	[Rpc(CallLocal = true)]
+	public void StartCountdown()
+	{
+		countdownTimer.Start();
 	}
 
 	private void SpawnLocalPlayer()
