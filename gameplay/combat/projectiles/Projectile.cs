@@ -6,6 +6,9 @@ namespace WeWereDumb.Gameplay.Combat.Projectiles
 {
     public partial class Projectile : RigidBody3D, IPooledObject
     {
+        public Node Shooter { get; private set; }
+
+        [Export] int damage = 2;
         [Export] float timeToLive = 2f;
         [Export] Hurtbox hurtbox;
 
@@ -29,10 +32,22 @@ namespace WeWereDumb.Gameplay.Combat.Projectiles
             hurtbox.Hit += OnHit;
         }
 
+        public void SetShooter(Node shooter)
+        {
+            Shooter = shooter;
+        }
+
         private void OnHit(Hitbox hitbox)
         {
             //TODO: maybe deal damage?
+            if (hitbox.Owner == Shooter) return;
+            DealDamage(hitbox);
             Despawn();
+        }
+
+        private void DealDamage(Hitbox hitbox)
+        {
+            hitbox.TakeHit(damage);
         }
 
         private void Despawn()

@@ -43,6 +43,7 @@ public partial class Gun : Node3D
 
 	private void InitBullet(Projectile bullet, Vector3 position, Vector3 rotation)
 	{
+		bullet.SetShooter(Owner);
 		bullet.GlobalPosition = position;
 		bullet.GlobalRotation = rotation;
 		bullet.ApplyCentralImpulse(-bullet.GlobalTransform.Basis.Z * shootingForce);
