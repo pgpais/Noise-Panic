@@ -21,7 +21,11 @@ namespace WeWereDumb.Gameplay.Resources
 
         private void OnInteractionStarted(Interactor interactor)
         {
-            interactor.InteractActor.GetComponent<ResourceHolder>().AddResource(this);
+            var resourceHolder = interactor.InteractActor.GetComponent<ResourceHolder>();
+            if (resourceHolder.HasResource()) return;
+
+            resourceHolder.AddResource(this);
+            interactor.CancelInteraction();
         }
 
         public void SetData(GameResourceData data)
