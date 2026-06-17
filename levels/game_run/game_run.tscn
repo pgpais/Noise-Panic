@@ -3,11 +3,11 @@
 [ext_resource type="Script" uid="uid://blly41s47kv0g" path="res://levels/game_run/GameRun.cs" id="1_o3kko"]
 [ext_resource type="PackedScene" uid="uid://5wiwhftgaawa" path="res://gameplay/actors/player/player.tscn" id="2_0uhwm"]
 [ext_resource type="Resource" uid="uid://cprfup0nq3d6w" path="res://gameplay/resources/data/proto_resource.tres" id="2_itlwr"]
-[ext_resource type="PackedScene" uid="uid://bdclfkico1hbu" path="res://gameplay/actors/Spaceship/Model/Spaceship.blend" id="2_vsqw0"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="3_0uhwm"]
 [ext_resource type="PackedScene" uid="uid://07g7f8nyxjox" path="res://gameplay/ship/player_pod_launcher.tscn" id="4_0uhwm"]
 [ext_resource type="Script" uid="uid://b2kjvnq7hq67u" path="res://gameplay/actors/enemies/EnemyController.cs" id="4_wajde"]
 [ext_resource type="Script" uid="uid://usjo7r6fhi6r" path="res://gameplay/enemy_spawning/EnemySpawnController.cs" id="5_3s4pm"]
+[ext_resource type="PackedScene" uid="uid://bbuu50ref7c45" path="res://gameplay/ship/Model/spaceship_model.tscn" id="5_uwean"]
 [ext_resource type="PackedScene" uid="uid://cdn5pxq8t3btd" path="res://gameplay/interaction/standing_button.tscn" id="5_wajde"]
 [ext_resource type="Script" uid="uid://dy7d28cmkxxrm" path="res://gameplay/storage/ResourceStorage.cs" id="6_3s4pm"]
 [ext_resource type="Script" uid="uid://dote0e123yk63" path="res://gameplay/enemy_spawning/EnemySpawner.cs" id="6_oei0w"]
@@ -29,7 +29,7 @@
 [ext_resource type="Script" uid="uid://0ml1o8gn0q1u" path="res://gameplay/goals/ObjectiveProgressBar.cs" id="27_uwean"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_sy2v3"]
-viewport_path = NodePath("Ship/Spaceship/OverviewScreen/SubViewport")
+viewport_path = NodePath("Ship/SpaceshipModel/OverviewScreen/SubViewport")
 
 [sub_resource type="Resource" id="Resource_wflc5"]
 script = ExtResource("16_a31k0")
@@ -105,25 +105,24 @@ gravity_scale = 0.0
 linear_damp = 2.353
 angular_damp = 0.8
 
-[node name="Spaceship" parent="Ship" unique_id=1642621029 instance=ExtResource("2_vsqw0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00057291985, 0.003364563, 0.0011432171)
+[node name="SpaceshipModel" parent="Ship" unique_id=876929230 instance=ExtResource("5_uwean")]
 
-[node name="OverviewScreen" type="Sprite3D" parent="Ship/Spaceship" unique_id=1068318505]
-transform = Transform3D(1, 0, 0, 0, 0.9858123, 0.16785283, 0, -0.16785283, 0.9858123, 0.09588146, 3.6952896, 21.419556)
+[node name="OverviewScreen" type="Sprite3D" parent="Ship/SpaceshipModel" unique_id=1068318505]
+transform = Transform3D(1, 0, 0, 0, 0.987703, -0.15634847, 0, 0.15634847, 0.987703, 0.095308304, 3.6889267, -3.3365693)
 flip_h = true
 texture = SubResource("ViewportTexture_sy2v3")
 
-[node name="SubViewport" type="SubViewport" parent="Ship/Spaceship/OverviewScreen" unique_id=929721130]
+[node name="SubViewport" type="SubViewport" parent="Ship/SpaceshipModel/OverviewScreen" unique_id=929721130]
 size = Vector2i(964, 463)
 
-[node name="OverviewCamera" type="Camera3D" parent="Ship/Spaceship/OverviewScreen/SubViewport" unique_id=626315657]
+[node name="OverviewCamera" type="Camera3D" parent="Ship/SpaceshipModel/OverviewScreen/SubViewport" unique_id=626315657]
 physics_interpolation_mode = 1
-transform = Transform3D(1, 0, 0, 0, -0.13277538, 0.991146, 0, -0.991146, -0.13277538, 8.163737, 100.584595, -14.152422)
+transform = Transform3D(1, 0, 0, 0, -0.13277538, 0.991146, 0, -0.991146, -0.13277538, 8.163737, 95.795784, -14.152422)
 top_level = true
 fov = 10.0
 size = 10.0
 
-[node name="OverviewPhantomCameraHost" type="Node" parent="Ship/Spaceship/OverviewScreen/SubViewport/OverviewCamera" unique_id=1007755368]
+[node name="OverviewPhantomCameraHost" type="Node" parent="Ship/SpaceshipModel/OverviewScreen/SubViewport/OverviewCamera" unique_id=1007755368]
 process_priority = 300
 process_physics_priority = 300
 script = ExtResource("3_0uhwm")
@@ -131,14 +130,14 @@ host_layers = 2
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="PlayerPodLauncher" parent="Ship" unique_id=453249195 node_paths=PackedStringArray("podLaunchPoint") instance=ExtResource("4_0uhwm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.0587463, 9.976288)
 podLaunchPoint = NodePath("PodLaunchPoint")
 
 [node name="PodLaunchPoint" type="Marker3D" parent="Ship/PlayerPodLauncher" unique_id=267406332]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.9680252, 0)
 
 [node name="StandingButton" parent="Ship" unique_id=757749775 instance=ExtResource("5_wajde")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3714795, -1, 13.079641)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1775217, 2.1172867, 9.901314)
 
 [node name="Storage" type="Node" parent="Ship" unique_id=1503478260]
 script = ExtResource("6_3s4pm")
@@ -148,7 +147,7 @@ transform = Transform3D(0.01418598, -0.009521312, -0.99985397, 2.9079975e-11, 0.
 storage = NodePath("../Storage")
 
 [node name="OverviewPhantomCamera3D" type="Node3D" parent="Ship" unique_id=1844172153]
-transform = Transform3D(1, 0, 0, 0, -0.167285, 0.98590845, 0, -0.98590845, -0.167285, -0.7062626, -0.10040283, -19.625874)
+transform = Transform3D(1, 0, 0, 0, -0.167285, 0.98590845, 0, -0.98590845, -0.167285, -0.7062626, -4.8862915, -19.458748)
 script = ExtResource("15_sy2v3")
 tween_resource = SubResource("Resource_wflc5")
 tween_on_load = false
@@ -157,11 +156,11 @@ camera_3d_resource = SubResource("Resource_mbg5y")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="OverviewScreenDesk" parent="Ship" unique_id=507243146 node_paths=PackedStringArray("shipBody") instance=ExtResource("11_2khdt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8070394, 3.0028381, 2.5186603)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.29122257, 0.57180786, 0.26361132)
 shipBody = NodePath("..")
 
 [node name="PlayerSpawnPoint" type="Marker3D" parent="Ship" unique_id=1524352124]
-transform = Transform3D(1, 0, 0, 0, 0.99939084, 0.034899496, 0, -0.034899496, 0.99939084, -4.4982915, 3.2330399, -11.0281925)
+transform = Transform3D(1, 0, 0, 0, 0.99939084, 0.034899496, 0, -0.034899496, 0.99939084, -4.4982915, -1.5003815, -15.779501)
 
 [node name="ShipTurretStation" type="Node3D" parent="Ship" unique_id=222460864 node_paths=PackedStringArray("phantomCameraNode", "interactable", "turretPivot")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6804037, 0.82440186, -17.889317)

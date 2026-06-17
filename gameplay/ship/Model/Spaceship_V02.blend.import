@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bdclfkico1hbu"
-path="res://.godot/imported/Spaceship.blend-4e212c563d8e906161486a26bfb1daa6.scn"
+uid="uid://daxb8sn7lacet"
+path="res://.godot/imported/Spaceship_V02.blend-24564f04bf29f46e01440ec277cd4841.scn"
 
 [deps]
 
-source_file="res://gameplay/actors/Spaceship/Model/Spaceship.blend"
-dest_files=["res://.godot/imported/Spaceship.blend-4e212c563d8e906161486a26bfb1daa6.scn"]
+source_file="res://gameplay/ship/Model/Spaceship_V02.blend"
+dest_files=["res://.godot/imported/Spaceship_V02.blend-24564f04bf29f46e01440ec277cd4841.scn"]
 
 [params]
 
