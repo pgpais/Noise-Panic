@@ -40,6 +40,7 @@ public partial class ExtractionZone : Area3D
 	{
 		storage.Add(resource.Data, 1);
 		EmitSignal(SignalName.ResourceExtracted, resource);
+		EventBus.Instance.EmitSignal(EventBus.SignalName.ItemExtracted, resource.Data.Id);
 		resource.QueueFree();
 	}
 }

@@ -23,6 +23,7 @@ driver/mix_rate=48000
 
 [autoload]
 
+EventBus="*uid://b12f8kh8ai4eu"
 NetworkManager="*uid://b33j202pbftxw"
 SteamNetworkManager="*uid://coip80jp42hav"
 GameResourceRegistry="*uid://cyo7gw2jlecdc"
