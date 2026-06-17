@@ -16,6 +16,9 @@ public partial class Player : Actor
 	[Export] Node3D phantomcamera3d;
 	PhantomCamera3D pcam;
 
+	[ExportGroup("HUD")]
+	[Export] CanvasLayer playerHud;
+
 	public override void _EnterTree()
 	{
 		players.Add(this);
@@ -25,6 +28,10 @@ public partial class Player : Actor
 	{
 		pcam = phantomcamera3d.AsPhantomCamera3D();
 		SetCameraPriority();
+		if (!IsMultiplayerAuthority())
+		{
+			playerHud.Hide();
+		}
 	}
 
 	public override void _ExitTree()
