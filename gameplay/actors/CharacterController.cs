@@ -35,6 +35,25 @@ public partial class CharacterController : Node
 		MovInput = Vector2.Zero;
 	}
 
+	public Vector3 GetNextPosition()
+	{
+		return default;
+	}
+
+	public void SetRelativeMovementInput(Vector2 inputDir)
+	{
+		// Using camera forward and right as local axis
+		Vector3 forward = _body.GlobalTransform.Basis.Z * inputDir.Y;
+		Vector3 right = _body.GlobalTransform.Basis.X * inputDir.X;
+		Vector2 direction = new Vector2(forward.X, forward.Z) + new Vector2(right.X, right.Z);
+		MovInput = direction.Normalized();
+	}
+
+	public void SetAbsoluteMovementInput(Vector2 inputDir)
+	{
+		MovInput = inputDir;
+	}
+
 	private void HandleMovement(double delta)
 	{
 		Vector3 velocity = _body.Velocity;
@@ -43,13 +62,7 @@ public partial class CharacterController : Node
 		// Get the input direction and handle the movement/deceleration.
 		// As good practice, you should replace UI actions with custom gameplay actions.
 		Vector2 inputDir = MovInput;
-
-		// Using camera forward and right as local axis
-		Vector3 forward = _body.GlobalTransform.Basis.Z * inputDir.Y;
-		Vector3 right = _body.GlobalTransform.Basis.X * inputDir.X;
-		Vector3 direction = forward + right;
-		direction.Y = 0;
-		direction = direction.Normalized();
+		Vector3 direction = new Vector3(inputDir.X, 0, inputDir.Y);
 
 		if (direction != Vector3.Zero)
 		{
@@ -58,15 +71,14 @@ public partial class CharacterController : Node
 		}
 		else
 		{
-			velocity.X = Mathf.MoveToward(_body.Velocity.X, 0, Speed);
-			velocity.Z = Mathf.MoveToward(_body.Velocity.Z, 0, Speed);
+			velocity.X = 0;
+			velocity.Z = 0;
 		}
 
-		if (TurnToFaceMovement)
+		if (TurnToFaceMovement && direction != Vector3.Zero)
 		{
-			//TODO:
-			// Vector3 lookAtPos = _body.GlobalPosition + direction;
-			// _body.LookAt(lookAtPos, Vector3.Up);
+			Vector3 lookAtPos = _body.GlobalPosition + direction;
+			_body.LookAt(lookAtPos, Vector3.Up);
 		}
 
 

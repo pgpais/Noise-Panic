@@ -41,6 +41,7 @@ public partial class PlayerCharacterInput : Node
 	private void HandleMovementInput()
 	{
 		Vector2 inputDir = Input.GetVector("move_left", "move_right", "move_up", "move_down");
-		controller.MovInput = inputDir;
+
+		controller.SetRelativeMovementInput(inputDir);
 	}
 }

@@ -34,11 +34,11 @@ public partial class Enemy : Actor, IPooledObject
 		ObjectPooler.Instance.ReturnObject(pool.Name, this);
 	}
 
-	public void MoveTowards(Vector2 position)
+	public void MoveTowards(Vector2 position2D)
 	{
 		Vector2 thisPos2D = new(GlobalPosition.X, GlobalPosition.Z);
-		Vector2 dir = thisPos2D.DirectionTo(position);
-		controller.MovInput = dir;
+		Vector2 dir = thisPos2D.DirectionTo(position2D);
+		controller.SetAbsoluteMovementInput(dir);
 	}
 
 	public void SetPool(ObjectPool pool)
