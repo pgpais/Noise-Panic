@@ -29,27 +29,29 @@ public partial class HealthBar : ProgressBar
 
 		_tween?.Kill();
 		_tween = CreateTween();
-		_tween.SetParallel(true);
 
+		var foregroundTween = CreateTween();
+		foregroundTween.SetParallel(true);
 		// Make the bar scale up slightly to emphasize the change, then spring back to normal.
 		Scale = new Vector2(1.15f, 1.15f);
-		_tween.TweenProperty(this, "scale", Vector2.One, 0.3)
+		foregroundTween.TweenProperty(this, "scale", Vector2.One, 0.3)
 			.SetTrans(Tween.TransitionType.Spring)
 			.SetEase(Tween.EaseType.Out);
 
 		// Make the foreground bar tween to the new health value.
-		_tween.TweenProperty(this, "value", (double)newHealth, 0.15)
+		foregroundTween.TweenProperty(this, "value", (double)newHealth, 0.15)
 			.SetTrans(Tween.TransitionType.Sine)
 			.SetEase(Tween.EaseType.Out);
 
-		// If the health changed by more than 1, also tween the background bar to create a "trailing" effect after some delay.
-		if (Math.Abs(newHealth - Value) > 1)
-		{
-			_tween.TweenInterval(0.5);
-			_tween.TweenProperty(_backgroundBar, "value", (double)newHealth,
-				0.25)
-				.SetTrans(Tween.TransitionType.Sine)
-				.SetEase(Tween.EaseType.Out);
-		}
+		// also tween the background bar to create a "trailing" effect after some delay.
+		var backgroundTween = CreateTween();
+		backgroundTween.TweenInterval(1);
+		backgroundTween.TweenProperty(_backgroundBar, "value", (double)newHealth,
+			0.25)
+			.SetTrans(Tween.TransitionType.Sine)
+			.SetEase(Tween.EaseType.Out);
+
+		_tween.TweenSubtween(foregroundTween);
+		_tween.TweenSubtween(backgroundTween);
 	}
 }
