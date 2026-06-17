@@ -21,6 +21,7 @@
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="14_h7rbu"]
 [ext_resource type="Texture2D" uid="uid://ck3aaxwyckl48" path="res://assets/kenney_crosshairs/crosshair007.png" id="16_e471u"]
 [ext_resource type="Texture2D" uid="uid://d3qhnj4b4ju5o" path="res://gameplay/voice/speak-icon.png" id="18_43e4c"]
+[ext_resource type="PackedScene" uid="uid://cnumeaa05hn82" path="res://gameplay/actors/player/model/Main_Character.blend" id="18_pseu4"]
 [ext_resource type="Script" uid="uid://lsi30cj5e2rk" path="res://gameplay/voice/NetworkedVoiceOutput.cs" id="20_44y0u"]
 [ext_resource type="PackedScene" uid="uid://cpetvmxskelxq" path="res://gameplay/combat/health/ui/health_bar.tscn" id="20_adh2p"]
 
@@ -160,7 +161,7 @@ healthComponent = NodePath("../../BoneAttachment3D/Components/HealthComponent")
 
 [node name="BoneAttachment3D" parent="." index="3" unique_id=1831147750]
 transform = Transform3D(1, -1.509958e-07, 0, 0, 0, 1, -1.509958e-07, -1, 0, 0, -0.8579986, 0)
-external_skeleton = NodePath("../AimPivot/Main_Character2/Armature/Skeleton3D")
+external_skeleton = NodePath("../AimPivot/Main_Character/Armature/Skeleton3D")
 
 [node name="Sprite3D" parent="BoneAttachment3D" index="0" unique_id=1325557530]
 transform = Transform3D(-1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 2.639309)
@@ -310,9 +311,9 @@ metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 transform = Transform3D(0.9964412, -0.08422905, 0.0032459297, 0.08423142, 0.9964458, -0.0006616235, -0.0031785094, 0.00093257026, 0.9999945, 0, -1.008, 0)
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="5" unique_id=1642883181]
-root_node = NodePath("../AimPivot/Main_Character2")
+root_node = NodePath("../AimPivot/Main_Character")
 tree_root = SubResource("AnimationNodeStateMachine_ci2r1")
-anim_player = NodePath("../AimPivot/Main_Character2/AnimationPlayer")
+anim_player = NodePath("../AimPivot/Main_Character/AnimationPlayer")
 parameters/conditions/has_jumped = false
 parameters/conditions/is_falling = false
 parameters/conditions/is_on_floor = false
@@ -323,7 +324,7 @@ transform = Transform3D(0.03465611, 0.01611376, 0.9992694, 0.008949269, -0.99983
 bone_name = "hand-R"
 bone_idx = 20
 use_external_skeleton = true
-external_skeleton = NodePath("../AimPivot/Main_Character2/Armature/Skeleton3D")
+external_skeleton = NodePath("../AimPivot/Main_Character/Armature/Skeleton3D")
 
 [node name="Gun" parent="GunBoneAttachment3D" index="0" unique_id=1731575199 node_paths=PackedStringArray("shootingPoint") instance=ExtResource("13_nt81s")]
 transform = Transform3D(0.9953868, 0.09533713, -0.0108073065, 0.0083337575, -0.19811824, -0.9801427, -0.095585115, 0.97553104, -0.19799863, -0.073206544, 0.33629757, 0.009788841)
@@ -335,7 +336,7 @@ transform = Transform3D(-0.9999722, -0.0066019027, 0.0034452425, 0.007394822, -0
 bone_name = "backpack"
 bone_idx = 31
 use_external_skeleton = true
-external_skeleton = NodePath("../AimPivot/Main_Character2/Armature/Skeleton3D")
+external_skeleton = NodePath("../AimPivot/Main_Character/Armature/Skeleton3D")
 
 [node name="Marker3D" type="Marker3D" parent="BackpackBoneAttachment3D" index="0" unique_id=2052679749]
 transform = Transform3D(1.0000002, 1.1960283e-07, 2.4489532e-07, -1.9428623e-07, -0.31732133, 0.9483182, 1.9113202e-07, -0.9483185, -0.3173212, -1.6064604e-08, 0.22127882, 0.10311106)
