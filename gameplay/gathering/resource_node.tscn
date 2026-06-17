@@ -14,6 +14,9 @@ metallic_specular = 0.0
 [sub_resource type="BoxShape3D" id="BoxShape3D_6htc0"]
 size = Vector3(0.5, 0.5, 0.5)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_1h077"]
+size = Vector3(0.6, 0.6, 0.6)
+
 [node name="ResourceNode" type="StaticBody3D" unique_id=1238149726 node_paths=PackedStringArray("interactable")]
 script = ExtResource("1_1h077")
 resource = ExtResource("2_nc1g0")
@@ -31,4 +34,5 @@ script = ExtResource("3_odwat")
 metadata/_custom_type_script = "uid://cjmhgkfia23v3"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable" unique_id=1501017062]
-shape = SubResource("BoxShape3D_6htc0")
+shape = SubResource("BoxShape3D_1h077")
+debug_color = Color(0.98039216, 0, 0.37254903, 0.20784314)

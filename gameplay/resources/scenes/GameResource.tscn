@@ -13,8 +13,11 @@ albedo_color = Color(0, 0.24705882, 1, 1)
 emission = Color(0, 0.24705882, 1, 1)
 emission_energy_multiplier = 3.93
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_pa230"]
+size = Vector3(0.4716797, 0.1, 0.47265625)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_1udt2"]
-size = Vector3(0.4, 0.1, 0.4)
+size = Vector3(0.4169922, 0.1, 0.4)
 
 [node name="ProtoGameResource" type="StaticBody3D" unique_id=598974538 node_paths=PackedStringArray("interactable")]
 script = ExtResource("1_o08cq")
@@ -34,7 +37,8 @@ mesh = NodePath("../MeshInstance3D")
 metadata/_custom_type_script = "uid://cjmhgkfia23v3"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable" unique_id=2080318278]
-shape = SubResource("BoxShape3D_1udt2")
+shape = SubResource("BoxShape3D_pa230")
+debug_color = Color(0.9607843, 0, 0.5058824, 0.09019608)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1050386554]
 shape = SubResource("BoxShape3D_1udt2")
