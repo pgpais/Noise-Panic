@@ -19,11 +19,21 @@ public partial class GameRun : Node3D
 	{
 		if (IsMultiplayerAuthority())
 		{
-			StartCountdown();
+			Rpc(MethodName.StartCountdown);
 		}
 
 		countdownTimer.Timeout += OnCountdownComplete;
 		EventBus.Instance.ItemExtracted += OnItemExtracted;
+		EventBus.Instance.PlayerDied += OnPlayerDied;
+	}
+
+	private void OnPlayerDied()
+	{
+		GD.Print($"[GameRun] {Multiplayer.GetUniqueId()}: Player died");
+		if (IsMultiplayerAuthority())
+		{
+			Rpc(MethodName.EndRun, false);
+		}
 	}
 
 	private void OnItemExtracted(string itemName)
