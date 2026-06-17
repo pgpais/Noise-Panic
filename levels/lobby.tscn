@@ -8,13 +8,12 @@
 [ext_resource type="PackedScene" uid="uid://m6ducyuarode" path="res://gameplay/player_detection_area.tscn" id="5_63tst"]
 [ext_resource type="Script" uid="uid://c2r0p8u5tkq16" path="res://core/PlayerSpawner.cs" id="5_ymuiv"]
 [ext_resource type="PackedScene" uid="uid://dly4oohfeagxb" path="res://menus/pause_menu/pause_menu.tscn" id="8_gyuag"]
-[ext_resource type="PackedScene" uid="uid://bdclfkico1hbu" path="res://gameplay/actors/Spaceship/Model/Spaceship.blend" id="10_fj1tp"]
+[ext_resource type="PackedScene" uid="uid://bdclfkico1hbu" path="res://gameplay/ship/Model/Spaceship.blend" id="10_fj1tp"]
 
-[node name="Lobby" type="Node3D" unique_id=1868881371 node_paths=PackedStringArray("spawnPos", "playerDetectionAreas", "playerSpawner")]
+[node name="Lobby" type="Node3D" unique_id=1868881371 node_paths=PackedStringArray("spawnPos", "playerDetectionAreas")]
 script = ExtResource("1_dxlos")
 spawnPos = NodePath("Spaceship/SpawnPoint")
 playerDetectionAreas = [NodePath("Spaceship/PlayerDetectionArea"), NodePath("Spaceship/PlayerDetectionArea2")]
-playerSpawner = NodePath("Spaceship/SpawnPoint")
 gameScene = ExtResource("3_3ohsu")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1396617127]

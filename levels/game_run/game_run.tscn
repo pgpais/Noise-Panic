@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://blly41s47kv0g" path="res://levels/game_run/GameRun.cs" id="1_o3kko"]
 [ext_resource type="PackedScene" uid="uid://5wiwhftgaawa" path="res://gameplay/actors/player/player.tscn" id="2_0uhwm"]
 [ext_resource type="Resource" uid="uid://cprfup0nq3d6w" path="res://gameplay/resources/data/proto_resource.tres" id="2_itlwr"]
-[ext_resource type="PackedScene" uid="uid://bdclfkico1hbu" path="res://gameplay/actors/Spaceship/Model/Spaceship.blend" id="2_vsqw0"]
+[ext_resource type="PackedScene" uid="uid://bdclfkico1hbu" path="res://gameplay/ship/Model/Spaceship.blend" id="2_vsqw0"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="3_0uhwm"]
 [ext_resource type="PackedScene" uid="uid://07g7f8nyxjox" path="res://gameplay/ship/player_pod_launcher.tscn" id="4_0uhwm"]
 [ext_resource type="Script" uid="uid://b2kjvnq7hq67u" path="res://gameplay/actors/enemies/EnemyController.cs" id="4_wajde"]

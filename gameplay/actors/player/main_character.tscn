@@ -11,13 +11,13 @@ shader_parameter/FaceTexture = ExtResource("3_s4rvo")
 
 [node name="Main_Character" unique_id=1366362755 instance=ExtResource("1_l8eew")]
 
-[node name="player-character" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(1874151086) index="2" unique_id=312835841]
+[node name="player-character" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(1321360851) index="2" unique_id=1957899179]
 material_overlay = SubResource("ShaderMaterial_ivuq3")
 
-[node name="LookAtModifier3D" type="LookAtModifier3D" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(1874151086) index="3" unique_id=1894094501]
+[node name="LookAtModifier3D" type="LookAtModifier3D" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(1321360851) index="3" unique_id=1894094501]
 target_node = NodePath("../../Marker3D")
 bone_name = "upper-body"
 bone = 2
 
-[node name="Marker3D" type="Marker3D" parent="Armature" parent_id_path=PackedInt32Array(2069573078) index="1" unique_id=1789345657]
+[node name="Marker3D" type="Marker3D" parent="Armature" parent_id_path=PackedInt32Array(1233924915) index="1" unique_id=1789345657]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8832905, 1.906983)

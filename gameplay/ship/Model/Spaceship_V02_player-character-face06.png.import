@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1xoc7601wjh7"
-path.s3tc="res://.godot/imported/Spaceship_main-screen.png-928632ca4b2f6323768c57bbccdf6707.s3tc.ctex"
+uid="uid://bqgm8x3373vm6"
+path.s3tc="res://.godot/imported/Spaceship_V02_player-character-face06.png-a8cd4685acc5ec76e523dde7a1180676.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "621a7682e7086df1fb6a55d6faa2c9b8"
+"md5": "df5a6f44e03a25c0209ef54c9ef0588f"
 }
 
 [deps]
 
-source_file="res://gameplay/actors/Spaceship/Model/Spaceship_main-screen.png"
-dest_files=["res://.godot/imported/Spaceship_main-screen.png-928632ca4b2f6323768c57bbccdf6707.s3tc.ctex"]
+source_file="res://gameplay/ship/Model/Spaceship_V02_player-character-face06.png"
+dest_files=["res://.godot/imported/Spaceship_V02_player-character-face06.png-a8cd4685acc5ec76e523dde7a1180676.s3tc.ctex"]
 
 [params]
 
