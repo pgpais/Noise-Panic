@@ -4,11 +4,11 @@
 [ext_resource type="PackedScene" uid="uid://dfd10h4o44ta8" path="res://gameplay/actors/enemies/SpiderBot/SpiderBot.blend" id="2_n6ams"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://cuscp6oxr7r81" path="res://gameplay/actors/enemies/SpiderBot/spider_animation_node_state_machine.tres" id="3_rxysk"]
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_rxysk"]
+viewport_path = NodePath("BoneAttachment3D/Sprite3D/SubViewport")
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_n6ams"]
 size = Vector3(1, 1.4, 1)
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_n6ams"]
-viewport_path = NodePath("Sprite3D/SubViewport")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rxysk"]
 size = Vector3(1, 1.4, 1)
@@ -18,23 +18,31 @@ size = Vector3(1, 1.4, 1)
 [node name="MeshInstance3D" parent="." index="0" unique_id=41721404]
 visible = false
 
-[node name="CharacterController" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="0" unique_id=2102656381 node_paths=PackedStringArray("animationTree")]
-animationTree = NodePath("../../AnimationTree")
+[node name="BoneAttachment3D" parent="." index="1" unique_id=1831147750]
+transform = Transform3D(-1, 1.8444593e-06, -3.541657e-06, 1.8905242e-06, 0.9999148, -0.01305097, 3.517283e-06, -0.01305097, -0.9999148, -4.5448536e-07, 1.0936351, 2.365383e-09)
+bone_name = "Head.Main"
+bone_idx = 15
+external_skeleton = NodePath("../SpiderBot/Armature/Skeleton3D")
 
-[node name="CollisionShape3D" parent="Components/Hitbox" parent_id_path=PackedInt32Array(653123947) index="0" unique_id=891479098]
+[node name="Sprite3D" parent="BoneAttachment3D" index="0" unique_id=1325557530]
+transform = Transform3D(-1, 0, 7.1054274e-15, -7.1054274e-15, 0, 1, 0, 1, 0, 1.7229172e-07, 0.5370995, -0.0025227591)
+texture = SubResource("ViewportTexture_rxysk")
+
+[node name="CharacterController" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="0" unique_id=2102656381 node_paths=PackedStringArray("animationTree")]
+animationTree = NodePath("../../../AnimationTree")
+
+[node name="CollisionShape3D" parent="BoneAttachment3D/Components/Hitbox" parent_id_path=PackedInt32Array(653123947) index="0" unique_id=891479098]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72038126, 0)
 shape = SubResource("BoxShape3D_n6ams")
 
-[node name="Sprite3D" parent="." index="2" unique_id=1782822136]
-texture = SubResource("ViewportTexture_n6ams")
-
-[node name="CollisionShape3D" parent="." index="3" unique_id=518336157]
+[node name="CollisionShape3D" parent="." index="2" unique_id=518336157]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72038126, 0)
 shape = SubResource("BoxShape3D_rxysk")
 
-[node name="SpiderBot" parent="." index="4" unique_id=1727079353 instance=ExtResource("2_n6ams")]
+[node name="SpiderBot" parent="." index="3" unique_id=1727079353 instance=ExtResource("2_n6ams")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
-[node name="AnimationTree" type="AnimationTree" parent="." index="5" unique_id=135382709]
+[node name="AnimationTree" type="AnimationTree" parent="." index="4" unique_id=135382709]
 root_node = NodePath("../SpiderBot")
 tree_root = ExtResource("3_rxysk")
 anim_player = NodePath("../SpiderBot/AnimationPlayer")

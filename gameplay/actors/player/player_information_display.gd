@@ -1,4 +1,4 @@
-extends Sprite3D
+extends Control
 
 @export var nameLabel: Label
 @export var iconRect: TextureRect

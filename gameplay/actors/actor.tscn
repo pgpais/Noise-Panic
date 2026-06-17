@@ -2,18 +2,41 @@
 
 [ext_resource type="Script" uid="uid://doydo1xbi8bwn" path="res://gameplay/actors/Actor.cs" id="1_ioqnn"]
 [ext_resource type="Script" uid="uid://ewrhisw7wrwb" path="res://gameplay/actors/CharacterController.cs" id="3_jq3yg"]
+[ext_resource type="PackedScene" uid="uid://cpetvmxskelxq" path="res://gameplay/combat/health/ui/health_bar.tscn" id="3_wgycm"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_xu0ks"]
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_adjua"]
+viewport_path = NodePath("BoneAttachment3D/Sprite3D/SubViewport")
+
 [node name="Actor" type="CharacterBody3D" unique_id=1748184085 node_paths=PackedStringArray("componentsParent")]
 script = ExtResource("1_ioqnn")
-componentsParent = NodePath("Components")
+componentsParent = NodePath("BoneAttachment3D/Components")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=41721404]
 mesh = SubResource("CapsuleMesh_xu0ks")
 
-[node name="Components" type="Node3D" parent="." unique_id=2104275166]
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="." unique_id=1831147750]
+transform = Transform3D(-1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0)
+bone_name = "root"
+bone_idx = 0
+use_external_skeleton = true
+external_skeleton = NodePath("")
 
-[node name="CharacterController" type="Node" parent="Components" unique_id=2102656381]
+[node name="Sprite3D" type="Sprite3D" parent="BoneAttachment3D" unique_id=1325557530]
+transform = Transform3D(-1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1.6750689)
+billboard = 1
+texture = SubResource("ViewportTexture_adjua")
+
+[node name="SubViewport" type="SubViewport" parent="BoneAttachment3D/Sprite3D" unique_id=1048474995]
+size = Vector2i(150, 15)
+
+[node name="HealthBar" parent="BoneAttachment3D/Sprite3D/SubViewport" unique_id=1176962998 node_paths=PackedStringArray("healthComponent") instance=ExtResource("3_wgycm")]
+healthComponent = NodePath("")
+
+[node name="Components" type="Node3D" parent="BoneAttachment3D" unique_id=2104275166]
+transform = Transform3D(-1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0)
+
+[node name="CharacterController" type="Node" parent="BoneAttachment3D/Components" unique_id=2102656381]
 script = ExtResource("3_jq3yg")
 Speed = 5.0

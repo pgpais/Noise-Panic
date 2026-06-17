@@ -8,6 +8,8 @@
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="4_gdo0n"]
 [ext_resource type="Script" uid="uid://dueyxdwc85adk" path="res://gameplay/combat/Hitbox.cs" id="5_1meb4"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_3canv"]
+[ext_resource type="Script" uid="uid://cc4irrwij4tcc" path="res://gameplay/actors/player/PlayerWorldHUD.cs" id="5_adh2p"]
+[ext_resource type="Script" uid="uid://teaclivds5vq" path="res://gameplay/actors/player/player_information_display.gd" id="5_pseu4"]
 [ext_resource type="Script" uid="uid://bbee2spqhn4r1" path="res://gameplay/actors/AimingController.cs" id="5_tg5ys"]
 [ext_resource type="Script" uid="uid://cjae0hvsvnlpi" path="res://gameplay/input/PlayerAimingInput.cs" id="6_f0w7x"]
 [ext_resource type="Script" uid="uid://bo617ykqvvyjv" path="res://gameplay/gathering/ResourceHolder.cs" id="9_tg5ys"]
@@ -19,7 +21,6 @@
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="14_h7rbu"]
 [ext_resource type="Texture2D" uid="uid://ck3aaxwyckl48" path="res://assets/kenney_crosshairs/crosshair007.png" id="16_e471u"]
 [ext_resource type="Texture2D" uid="uid://d3qhnj4b4ju5o" path="res://gameplay/voice/speak-icon.png" id="18_43e4c"]
-[ext_resource type="Script" uid="uid://5b5tmc26f7pu" path="res://gameplay/actors/player/PlayerInformationDisplay.cs" id="18_r8lee"]
 [ext_resource type="Script" uid="uid://lsi30cj5e2rk" path="res://gameplay/voice/NetworkedVoiceOutput.cs" id="20_44y0u"]
 [ext_resource type="PackedScene" uid="uid://cpetvmxskelxq" path="res://gameplay/combat/health/ui/health_bar.tscn" id="20_adh2p"]
 
@@ -31,6 +32,12 @@ albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f0w7x"]
 radius = 0.3569336
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_pu8j8"]
+viewport_path = NodePath("BoneAttachment3D/Sprite3D/SubViewport")
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_r8lee"]
+size = Vector2(64, 64)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5y3ih"]
 
@@ -102,19 +109,13 @@ states/Start/position = Vector2(95, 97)
 transitions = ["JumpUp", "JumpDown", SubResource("AnimationNodeStateMachineTransition_pseu4"), "JumpDown", "MovementBlendSpace", SubResource("AnimationNodeStateMachineTransition_adh2p"), "MovementBlendSpace", "JumpUp", SubResource("AnimationNodeStateMachineTransition_jnrca"), "Start", "MovementBlendSpace", SubResource("AnimationNodeStateMachineTransition_x8p83")]
 graph_offset = Vector2(-46, -119)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_43e4c"]
-viewport_path = NodePath("Sprite3D/SubViewport")
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_r8lee"]
-size = Vector2(64, 64)
-
 [node name="Player" unique_id=1748184085 node_paths=PackedStringArray("VoiceInput", "characterController", "aimingInput", "phantomcamera3d", "playerHud") groups=["players"] instance=ExtResource("1_5p43v")]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("2_ddyh4")
-VoiceInput = NodePath("Components/NetworkedVoiceInput")
-characterController = NodePath("Components/CharacterController")
-aimingInput = NodePath("Components/PlayerAimingInput")
+VoiceInput = NodePath("BoneAttachment3D/Components/NetworkedVoiceInput")
+characterController = NodePath("BoneAttachment3D/Components/CharacterController")
+aimingInput = NodePath("BoneAttachment3D/Components/PlayerAimingInput")
 phantomcamera3d = NodePath("AimPivot/SpringArm3D2/CameraAnchor/SpringArm3D/PhantomCamera3D")
 playerHud = NodePath("CanvasLayer")
 
@@ -155,71 +156,125 @@ offset_right = 312.0
 offset_bottom = -37.0
 grow_horizontal = 1
 grow_vertical = 0
-healthComponent = NodePath("../../Components/HealthComponent")
+healthComponent = NodePath("../../BoneAttachment3D/Components/HealthComponent")
 
-[node name="CharacterController" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="0" unique_id=2102656381 node_paths=PackedStringArray("animationTree", "cameraAnchor")]
-animationTree = NodePath("../../AnimationTree")
-cameraAnchor = NodePath("../../AimPivot/SpringArm3D2/CameraAnchor")
+[node name="BoneAttachment3D" parent="." index="3" unique_id=1831147750]
+transform = Transform3D(1, -1.509958e-07, 0, 0, 0, 1, -1.509958e-07, -1, 0, 0, -0.8579986, 0)
+external_skeleton = NodePath("../AimPivot/Main_Character2/Armature/Skeleton3D")
+
+[node name="Sprite3D" parent="BoneAttachment3D" index="0" unique_id=1325557530]
+transform = Transform3D(-1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 2.639309)
+texture = SubResource("ViewportTexture_pu8j8")
+script = ExtResource("5_adh2p")
+
+[node name="SubViewport" parent="BoneAttachment3D/Sprite3D" index="0" unique_id=1048474995]
+transparent_bg = true
+size = Vector2i(320, 118)
+
+[node name="HealthBar" parent="BoneAttachment3D/Sprite3D/SubViewport" index="0" unique_id=1176962998 node_paths=PackedStringArray("healthComponent")]
+custom_minimum_size = Vector2(200, 30)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+offset_left = -100.0
+offset_top = -30.0
+offset_right = 100.0
+grow_vertical = 0
+healthComponent = NodePath("../../../Components/HealthComponent")
+
+[node name="PlayerInformation" type="HBoxContainer" parent="BoneAttachment3D/Sprite3D/SubViewport" index="1" unique_id=13234163 node_paths=PackedStringArray("nameLabel", "iconRect")]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -140.5
+offset_right = 140.5
+offset_bottom = 64.0
+grow_horizontal = 2
+alignment = 1
+script = ExtResource("5_pseu4")
+nameLabel = NodePath("Username")
+iconRect = NodePath("UserAvatar")
+
+[node name="UserAvatar" type="TextureRect" parent="BoneAttachment3D/Sprite3D/SubViewport/PlayerInformation" index="0" unique_id=410823107]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_r8lee")
+
+[node name="Username" type="Label" parent="BoneAttachment3D/Sprite3D/SubViewport/PlayerInformation" index="1" unique_id=1076980664]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Username"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BoneAttachment3D/Sprite3D/SubViewport/PlayerInformation" index="2" unique_id=1277889740]
+layout_mode = 2
+
+[node name="VoiceIndicator" type="TextureRect" parent="BoneAttachment3D/Sprite3D/SubViewport/PlayerInformation/HBoxContainer" index="0" unique_id=585939242]
+layout_mode = 2
+texture = ExtResource("18_43e4c")
+
+[node name="CharacterController" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="0" unique_id=2102656381 node_paths=PackedStringArray("animationTree", "cameraAnchor")]
+animationTree = NodePath("../../../AnimationTree")
+cameraAnchor = NodePath("../../../AimPivot/SpringArm3D2/CameraAnchor")
 TurnToFaceMovement = false
 
-[node name="PlayerCharacterInput" type="Node" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="1" unique_id=1807945806 node_paths=PackedStringArray("controller", "interactor", "resourceHolder")]
+[node name="PlayerCharacterInput" type="Node" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="1" unique_id=1807945806 node_paths=PackedStringArray("controller", "interactor", "resourceHolder")]
 script = ExtResource("2_jftto")
 controller = NodePath("../CharacterController")
 interactor = NodePath("../Interactor")
 resourceHolder = NodePath("../ResourceHolder")
 metadata/_custom_type_script = "uid://cmi2g3whgv6wt"
 
-[node name="AimingController" type="Node" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="2" unique_id=1409963134 node_paths=PackedStringArray("_body", "cameraPivot")]
+[node name="AimingController" type="Node" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="2" unique_id=1409963134 node_paths=PackedStringArray("_body", "cameraPivot")]
 script = ExtResource("5_tg5ys")
-_body = NodePath("../..")
-cameraPivot = NodePath("../../AimPivot/SpringArm3D2/CameraAnchor")
+_body = NodePath("../../..")
+cameraPivot = NodePath("../../../AimPivot/SpringArm3D2/CameraAnchor")
 metadata/_custom_type_script = "uid://bbee2spqhn4r1"
 
-[node name="PlayerAimingInput" type="Node" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="3" unique_id=2002222386 node_paths=PackedStringArray("aimingController", "gun")]
+[node name="PlayerAimingInput" type="Node" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="3" unique_id=2002222386 node_paths=PackedStringArray("aimingController", "gun")]
 script = ExtResource("6_f0w7x")
 aimingController = NodePath("../AimingController")
-gun = NodePath("../../GunBoneAttachment3D/Gun")
+gun = NodePath("../../../GunBoneAttachment3D/Gun")
 metadata/_custom_type_script = "uid://cjae0hvsvnlpi"
 
-[node name="Interactor" type="Node3D" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="4" unique_id=1448098989 node_paths=PackedStringArray("CameraNode", "InteractActor")]
+[node name="Interactor" type="Node3D" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="4" unique_id=1448098989 node_paths=PackedStringArray("CameraNode", "InteractActor")]
 script = ExtResource("4_3canv")
-CameraNode = NodePath("../../AimPivot/SpringArm3D2/CameraAnchor/SpringArm3D/PhantomCamera3D")
-InteractActor = NodePath("../..")
+CameraNode = NodePath("../../../AimPivot/SpringArm3D2/CameraAnchor/SpringArm3D/PhantomCamera3D")
+InteractActor = NodePath("../../..")
 InteractCollisionMask = 1
 metadata/_custom_type_script = "uid://dreeunpbb837k"
 
-[node name="Hitbox" type="Area3D" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="5" unique_id=1364468936]
+[node name="Hitbox" type="Area3D" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="5" unique_id=1364468936]
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("5_1meb4")
 metadata/_custom_type_script = "uid://dueyxdwc85adk"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Components/Hitbox" index="0" unique_id=1862238874]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BoneAttachment3D/Components/Hitbox" index="0" unique_id=1862238874]
 shape = SubResource("CapsuleShape3D_5y3ih")
 
-[node name="ResourceHolder" type="Node3D" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="6" unique_id=727391222 node_paths=PackedStringArray("holdingPoint")]
+[node name="ResourceHolder" type="Node3D" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="6" unique_id=727391222 node_paths=PackedStringArray("holdingPoint")]
 script = ExtResource("9_tg5ys")
-holdingPoint = NodePath("../../BackpackBoneAttachment3D/Marker3D")
+holdingPoint = NodePath("../../../BackpackBoneAttachment3D/Marker3D")
 
-[node name="NetworkedVoiceInput" type="Node3D" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="7" unique_id=1343744376 node_paths=PackedStringArray("voiceInput")]
+[node name="NetworkedVoiceInput" type="Node3D" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="7" unique_id=1343744376 node_paths=PackedStringArray("voiceInput")]
 script = ExtResource("10_r8lee")
 voiceInput = NodePath("OpusVoiceInput")
 metadata/_custom_type_script = "uid://dsbcc63ha117i"
 
-[node name="OpusVoiceInput" type="Node" parent="Components/NetworkedVoiceInput" index="0" unique_id=1675752155]
+[node name="OpusVoiceInput" type="Node" parent="BoneAttachment3D/Components/NetworkedVoiceInput" index="0" unique_id=1675752155]
 script = ExtResource("11_2qhaa")
 
-[node name="NetworkedVoiceOutput" type="Node3D" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="8" unique_id=2034032913 node_paths=PackedStringArray("audioStreamPlayer3D", "voiceInput")]
+[node name="NetworkedVoiceOutput" type="Node3D" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="8" unique_id=2034032913 node_paths=PackedStringArray("audioStreamPlayer3D", "voiceInput")]
 script = ExtResource("20_44y0u")
 audioStreamPlayer3D = NodePath("AudioStreamPlayer3D")
 voiceInput = NodePath("../NetworkedVoiceInput")
 metadata/_custom_type_script = "uid://lsi30cj5e2rk"
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Components/NetworkedVoiceOutput" index="0" unique_id=2125100688]
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="BoneAttachment3D/Components/NetworkedVoiceOutput" index="0" unique_id=2125100688]
 unit_size = 5.0
 doppler_tracking = 2
 
-[node name="HealthComponent" type="Node" parent="Components" parent_id_path=PackedInt32Array(2104275166) index="9" unique_id=497690319]
+[node name="HealthComponent" type="Node" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="9" unique_id=497690319]
 script = ExtResource("13_pseu4")
 metadata/_custom_type_script = "uid://bhsoqgg220w7f"
 
@@ -264,7 +319,7 @@ parameters/conditions/is_on_floor = false
 parameters/MovementBlendSpace/blend_position = Vector2(0, 0)
 
 [node name="GunBoneAttachment3D" type="BoneAttachment3D" parent="." index="6" unique_id=1686055260]
-transform = Transform3D(0.03493673, 0.011823923, 0.99931943, 0.0057855397, -0.9999156, 0.011628658, 0.99937284, 0.0053753424, -0.035002265, 0.3401873, -0.24356675, 0.03455367)
+transform = Transform3D(0.03465611, 0.01611376, 0.9992694, 0.008949269, -0.99983495, 0.015812516, 0.9993592, 0.008394782, -0.034794483, 0.33876237, -0.24316454, 0.035683714)
 bone_name = "hand-R"
 bone_idx = 20
 use_external_skeleton = true
@@ -276,7 +331,7 @@ visible = false
 shootingPoint = NodePath("../../AimPivot/SpringArm3D2/CameraAnchor/ShootingPoint")
 
 [node name="BackpackBoneAttachment3D" type="BoneAttachment3D" parent="." index="7" unique_id=1421805177]
-transform = Transform3D(-0.99995106, -0.0087686805, 0.004576232, 0.009822157, -0.93480897, 0.35501432, 0.0011648975, 0.35504255, 0.934848, 0.004551394, 0.24497318, 0.14750619)
+transform = Transform3D(-0.9999722, -0.0066019027, 0.0034452425, 0.007394822, -0.9348973, 0.3548406, 0.0008783262, 0.3548568, 0.9349188, 0.0034274699, 0.24461067, 0.14850901)
 bone_name = "backpack"
 bone_idx = 31
 use_external_skeleton = true
@@ -285,40 +340,4 @@ external_skeleton = NodePath("../AimPivot/Main_Character2/Armature/Skeleton3D")
 [node name="Marker3D" type="Marker3D" parent="BackpackBoneAttachment3D" index="0" unique_id=2052679749]
 transform = Transform3D(1.0000002, 1.1960283e-07, 2.4489532e-07, -1.9428623e-07, -0.31732133, 0.9483182, 1.9113202e-07, -0.9483185, -0.3173212, -1.6064604e-08, 0.22127882, 0.10311106)
 
-[node name="Sprite3D" type="Sprite3D" parent="." index="8" unique_id=1954656227 node_paths=PackedStringArray("nameLabel", "iconRect")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.4994028, 0)
-billboard = 1
-texture = SubResource("ViewportTexture_43e4c")
-script = ExtResource("18_r8lee")
-nameLabel = NodePath("SubViewport/HBoxContainer/Username")
-iconRect = NodePath("SubViewport/HBoxContainer/UserAvatar")
-
-[node name="SubViewport" type="SubViewport" parent="Sprite3D" index="0" unique_id=583921113]
-transparent_bg = true
-size = Vector2i(300, 64)
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Sprite3D/SubViewport" index="0" unique_id=1915305140]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
-
-[node name="UserAvatar" type="TextureRect" parent="Sprite3D/SubViewport/HBoxContainer" index="0" unique_id=1288785891]
-layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_r8lee")
-
-[node name="Username" type="Label" parent="Sprite3D/SubViewport/HBoxContainer" index="1" unique_id=107659408]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Username"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Sprite3D/SubViewport/HBoxContainer" index="2" unique_id=1733517714]
-layout_mode = 2
-
-[node name="VoiceIndicator" type="TextureRect" parent="Sprite3D/SubViewport/HBoxContainer/HBoxContainer" index="0" unique_id=1045128796]
-layout_mode = 2
-texture = ExtResource("18_43e4c")
-
-[connection signal="HitTaken" from="Components/Hitbox" to="Components/HealthComponent" method="TakeDamage"]
+[connection signal="HitTaken" from="BoneAttachment3D/Components/Hitbox" to="BoneAttachment3D/Components/HealthComponent" method="TakeDamage"]

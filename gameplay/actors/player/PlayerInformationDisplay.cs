@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class PlayerInformationDisplay : Sprite3D
+public partial class PlayerInformationDisplay : Control
 {
 	[Export] Label nameLabel;
 	[Export] TextureRect iconRect;
