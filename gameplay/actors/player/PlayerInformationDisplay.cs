@@ -10,6 +10,11 @@ public partial class PlayerInformationDisplay : Sprite3D
 	{
 		int peerId = GetMultiplayerAuthority();
 
+		if (IsMultiplayerAuthority())
+		{
+			Hide();
+		}
+
 		SetPlayerInfo(peerId.ToString());
 	}
 
