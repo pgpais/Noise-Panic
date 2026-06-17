@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://blly41s47kv0g" path="res://levels/game_run/GameRun.cs" id="1_o3kko"]
 [ext_resource type="PackedScene" uid="uid://5wiwhftgaawa" path="res://gameplay/actors/player/player.tscn" id="2_0uhwm"]
+[ext_resource type="Resource" uid="uid://cprfup0nq3d6w" path="res://gameplay/resources/data/proto_resource.tres" id="2_itlwr"]
 [ext_resource type="PackedScene" uid="uid://bdclfkico1hbu" path="res://gameplay/actors/Spaceship/Model/Spaceship.blend" id="2_vsqw0"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="3_0uhwm"]
 [ext_resource type="PackedScene" uid="uid://07g7f8nyxjox" path="res://gameplay/ship/player_pod_launcher.tscn" id="4_0uhwm"]
@@ -25,6 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://ca57l0j31l3qw" path="res://gameplay/actors/enemies/SpiderBot/spider_bot.tscn" id="19_mbg5y"]
 [ext_resource type="PackedScene" uid="uid://dly4oohfeagxb" path="res://menus/pause_menu/pause_menu.tscn" id="23_7w4il"]
 [ext_resource type="Script" uid="uid://0u5x4n5nxnuk" path="res://gameplay/time_limit/ui/TimerLabel.cs" id="24_yxbgd"]
+[ext_resource type="Script" uid="uid://0ml1o8gn0q1u" path="res://gameplay/goals/ObjectiveProgressBar.cs" id="27_uwean"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_sy2v3"]
 viewport_path = NodePath("Ship/Spaceship/OverviewScreen/SubViewport")
@@ -79,12 +81,12 @@ script = ExtResource("16_a31k0")
 script = ExtResource("17_2khdt")
 metadata/_custom_type_script = "uid://b8hhnqsugykly"
 
-[node name="GameRun" type="Node3D" unique_id=954981151 node_paths=PackedStringArray("spawnPoint", "ship", "countdownTimer")]
+[node name="GameRun" type="Node3D" unique_id=954981151 node_paths=PackedStringArray("storage", "countdownTimer")]
 script = ExtResource("1_o3kko")
-playerScene = ExtResource("2_0uhwm")
-spawnPoint = NodePath("Ship/PlayerSpawnPoint")
-ship = NodePath("Ship")
+storage = NodePath("Ship/Storage")
 countdownTimer = NodePath("RunTimer")
+itemExtractsRequired = 10
+itemRequired = ExtResource("2_itlwr")
 
 [node name="RunTimer" type="Timer" parent="." unique_id=1970086283]
 wait_time = 60.0
@@ -195,6 +197,7 @@ metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=156097673]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1329043612]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.09971523)
 mesh = SubResource("PlaneMesh_arc7w")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1931856980]
@@ -219,6 +222,7 @@ script = ExtResource("3_0uhwm")
 script = ExtResource("4_wajde")
 
 [node name="SpawnController" type="Node3D" parent="." unique_id=1934995528 node_paths=PackedStringArray("spawnPath", "Spawners")]
+process_mode = 4
 script = ExtResource("5_3s4pm")
 spawnPath = NodePath("../Enemies")
 Spawners = [NodePath("EnemySpawner"), NodePath("EnemySpawner2"), NodePath("EnemySpawner3"), NodePath("EnemySpawner4"), NodePath("EnemySpawner5")]
@@ -265,11 +269,11 @@ automaticSpawn = true
 enemyScene = ExtResource("19_mbg5y")
 
 [node name="ResourceNode" parent="." unique_id=1238149726 node_paths=PackedStringArray("dropPoint") instance=ExtResource("8_sy2v3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.38650274, -7)
 dropPoint = NodePath("Marker3D")
 
 [node name="Marker3D" type="Marker3D" parent="ResourceNode" unique_id=1810786127]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.59727067, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.59727067, 0.75999105, 0)
 
 [node name="ExtractionZone" type="Area3D" parent="." unique_id=965620974 node_paths=PackedStringArray("storage")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.242014, 2.2, 0)
@@ -336,5 +340,19 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("24_yxbgd")
 timeCountdown = NodePath("../../../RunTimer")
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer2" unique_id=1711291792 node_paths=PackedStringArray("gameRun")]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -129.0
+offset_top = 68.0
+offset_right = 129.0
+offset_bottom = 95.0
+grow_horizontal = 2
+value = 40.43
+show_percentage = false
+script = ExtResource("27_uwean")
+gameRun = NodePath("../..")
 
 [connection signal="Pressed" from="Ship/StandingButton" to="Ship/PlayerPodLauncher" method="TryLaunchPlayer"]
