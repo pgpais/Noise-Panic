@@ -1,0 +1,47 @@
+[gd_resource type="VisualShader" format=3 uid="uid://2x543b2y2b3u"]
+
+[ext_resource type="Texture2D" uid="uid://dykh5w44ckl38" path="res://assets/Textures/Gradient-Pallet.png" id="1_upu3b"]
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_icoo2"]
+texture = ExtResource("1_upu3b")
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeUVFunc" id="VisualShaderNodeUVFunc_i0k7k"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_5gmgt"]
+input_name = "time"
+
+[sub_resource type="VisualShaderNodeVectorCompose" id="VisualShaderNodeVectorCompose_8f43h"]
+op_type = 0
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_lfglf"]
+default_input_values = [0, 0.0, 1, 0.5]
+operator = 2
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_upu3b"]
+constant = 2.0
+
+[sub_resource type="VisualShaderNodeVectorCompose" id="VisualShaderNodeVectorCompose_icoo2"]
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_i0k7k"]
+operator = 2
+
+[resource]
+flags/unshaded = true
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_icoo2")
+nodes/fragment/2/position = Vector2(-200, 220)
+nodes/fragment/3/node = SubResource("VisualShaderNodeUVFunc_i0k7k")
+nodes/fragment/3/position = Vector2(-520, 320)
+nodes/fragment/4/node = SubResource("VisualShaderNodeInput_5gmgt")
+nodes/fragment/4/position = Vector2(-1580, 400)
+nodes/fragment/5/node = SubResource("VisualShaderNodeVectorCompose_8f43h")
+nodes/fragment/5/position = Vector2(-840, 400)
+nodes/fragment/6/node = SubResource("VisualShaderNodeFloatOp_lfglf")
+nodes/fragment/6/position = Vector2(-1100.6365, 399.66364)
+nodes/fragment/7/node = SubResource("VisualShaderNodeFloatConstant_upu3b")
+nodes/fragment/7/position = Vector2(-240, 520)
+nodes/fragment/8/node = SubResource("VisualShaderNodeVectorCompose_icoo2")
+nodes/fragment/8/position = Vector2(-20, 440)
+nodes/fragment/9/node = SubResource("VisualShaderNodeVectorOp_i0k7k")
+nodes/fragment/9/position = Vector2(180, 200)
+nodes/fragment/connections = PackedInt32Array(3, 0, 2, 0, 5, 0, 3, 2, 4, 0, 6, 0, 6, 0, 5, 1, 7, 0, 8, 0, 7, 0, 8, 1, 7, 0, 8, 2, 9, 0, 0, 0, 2, 0, 9, 0, 8, 0, 9, 1)

@@ -27,6 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://dly4oohfeagxb" path="res://menus/pause_menu/pause_menu.tscn" id="23_7w4il"]
 [ext_resource type="Script" uid="uid://0u5x4n5nxnuk" path="res://gameplay/time_limit/ui/TimerLabel.cs" id="24_yxbgd"]
 [ext_resource type="Script" uid="uid://0ml1o8gn0q1u" path="res://gameplay/goals/ObjectiveProgressBar.cs" id="27_uwean"]
+[ext_resource type="Environment" uid="uid://c8bycmkvq3a8d" path="res://core/camera/default_environment.tres" id="28_ywhi4"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_sy2v3"]
 viewport_path = NodePath("Ship/SpaceshipModel/OverviewScreen/SubViewport")
@@ -352,5 +353,8 @@ value = 40.43
 show_percentage = false
 script = ExtResource("27_uwean")
 gameRun = NodePath("../..")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=250441152]
+environment = ExtResource("28_ywhi4")
 
 [connection signal="Pressed" from="Ship/StandingButton" to="Ship/PlayerPodLauncher" method="TryLaunchPlayer"]

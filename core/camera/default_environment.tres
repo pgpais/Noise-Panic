@@ -2,7 +2,7 @@
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_t7uvb"]
 sky_top_color = Color(0, 0.023891695, 0.023891695, 1)
-sky_horizon_color = Color(0, 0.1753161, 0.29501134, 1)
+sky_horizon_color = Color(0.08252942, 0.18073538, 0.22336867, 1)
 
 [sub_resource type="Sky" id="Sky_jj140"]
 sky_material = SubResource("ProceduralSkyMaterial_t7uvb")
@@ -10,5 +10,14 @@ sky_material = SubResource("ProceduralSkyMaterial_t7uvb")
 [resource]
 background_mode = 2
 sky = SubResource("Sky_jj140")
-ambient_light_source = 3
+tonemap_mode = 4
+tonemap_exposure = 1.54
+tonemap_agx_white = 2.0
+tonemap_agx_contrast = 1.0
 ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+glow_enabled = true
+glow_normalized = true
+adjustment_enabled = true
+adjustment_contrast = 1.13

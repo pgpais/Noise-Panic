@@ -109,15 +109,13 @@ states/Start/position = Vector2(95, 97)
 transitions = ["JumpUp", "JumpDown", SubResource("AnimationNodeStateMachineTransition_pseu4"), "JumpDown", "MovementBlendSpace", SubResource("AnimationNodeStateMachineTransition_adh2p"), "MovementBlendSpace", "JumpUp", SubResource("AnimationNodeStateMachineTransition_jnrca"), "Start", "MovementBlendSpace", SubResource("AnimationNodeStateMachineTransition_x8p83")]
 graph_offset = Vector2(-46, -119)
 
-[node name="Player" unique_id=1748184085 node_paths=PackedStringArray("VoiceInput", "characterController", "aimingInput", "phantomcamera3d", "playerHud") groups=["players"] instance=ExtResource("1_5p43v")]
+[node name="Player" unique_id=1748184085 node_paths=PackedStringArray("characterController", "aimingInput", "phantomcamera3d") groups=["players"] instance=ExtResource("1_5p43v")]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("2_ddyh4")
-VoiceInput = NodePath("BoneAttachment3D/Components/NetworkedVoiceInput")
 characterController = NodePath("BoneAttachment3D/Components/CharacterController")
 aimingInput = NodePath("BoneAttachment3D/Components/PlayerAimingInput")
 phantomcamera3d = NodePath("AimPivot/SpringArm3D2/CameraAnchor/SpringArm3D/PhantomCamera3D")
-playerHud = NodePath("CanvasLayer")
 
 [node name="MeshInstance3D" parent="." index="0" unique_id=41721404]
 visible = false
@@ -128,6 +126,7 @@ mesh = SubResource("BoxMesh_3canv")
 surface_material_override/0 = SubResource("StandardMaterial3D_5myso")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1" unique_id=1544916881]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0015403, 0)
 shape = SubResource("CapsuleShape3D_f0w7x")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." index="2" unique_id=1759074887]
@@ -250,6 +249,7 @@ script = ExtResource("5_1meb4")
 metadata/_custom_type_script = "uid://dueyxdwc85adk"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BoneAttachment3D/Components/Hitbox" index="0" unique_id=1862238874]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0096593, 0)
 shape = SubResource("CapsuleShape3D_5y3ih")
 
 [node name="ResourceHolder" type="Node3D" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="6" unique_id=727391222 node_paths=PackedStringArray("holdingPoint")]
@@ -322,7 +322,7 @@ parameters/conditions/is_on_floor = false
 parameters/MovementBlendSpace/blend_position = Vector2(0, 0)
 
 [node name="GunBoneAttachment3D" type="BoneAttachment3D" parent="." index="6" unique_id=1686055260]
-transform = Transform3D(0.31575346, -0.24041699, 0.9178777, -0.93404716, 0.091400355, 0.34525603, -0.16689983, -0.9663568, -0.19570096, 0.10245825, 1.1336782, -0.49481887)
+transform = Transform3D(0.03233963, 0.034549855, 0.99887943, -0.09227681, -0.9950304, 0.037404314, 0.9952082, -0.09338321, -0.028990773, 0.33270717, 0.6151357, 0.0029491715)
 bone_name = "hand-R"
 bone_idx = 20
 use_external_skeleton = true
@@ -334,7 +334,7 @@ visible = false
 shootingPoint = NodePath("../../AimPivot/SpringArm3D2/CameraAnchor/ShootingPoint")
 
 [node name="BackpackBoneAttachment3D" type="BoneAttachment3D" parent="." index="7" unique_id=1421805177]
-transform = Transform3D(-0.98650485, 0.14683694, -0.07243562, -0.16329579, -0.9146141, 0.36988527, -0.011937822, 0.3767227, 0.9262477, -0.00023129223, 1.1159611, 0.13952881)
+transform = Transform3D(-0.9999945, 0.002380118, -0.0022754723, -0.002863056, -0.9698227, 0.24379382, -0.0016265496, 0.24379933, 0.9698229, -0.0015005802, 1.0834813, 0.16990569)
 bone_name = "backpack"
 bone_idx = 31
 use_external_skeleton = true
