@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using Godot;
+using Godot.Collections;
 using PhantomCamera;
 using WeWereDumb.Gameplay.Input;
 
@@ -7,12 +9,15 @@ namespace WeWereDumb.Gameplay.Actors;
 
 public partial class Player : Actor
 {
+	// @MrCoolerPants: Prometi à stream voltar ao Visage - Cheese
+	//@alexmfcamara: Alex esteve aqui.
+
 	public static List<Player> players = new();
 
 	[Export] public NetworkedVoiceInput VoiceInput { get; private set; }
 
 	[Export] CharacterController characterController;
-	[Export] PlayerAimingInput aimingInput;
+	[Export] Array<Node> inputs;
 	[Export] Node3D phantomcamera3d;
 	PhantomCamera3D pcam;
 
@@ -32,6 +37,8 @@ public partial class Player : Actor
 		{
 			playerHud.Hide();
 		}
+
+		EventBus.Instance.GamePaused += OnGamePaused;
 	}
 
 	public override void _ExitTree()
@@ -41,24 +48,24 @@ public partial class Player : Actor
 
 	public void EnableInput()
 	{
-		EnableAiming();
-		EnableMovement();
+		foreach (var input in inputs)
+		{
+			if (input is IInput iInput)
+			{
+				iInput.Enable();
+			}
+		}
 	}
 
 	public void DisableInput()
 	{
-		DisableAiming();
-		DisableMovement();
-	}
-
-	public void EnableAiming()
-	{
-		aimingInput.Enable();
-	}
-
-	public void DisableAiming()
-	{
-		aimingInput.Disable();
+		foreach (var input in inputs)
+		{
+			if (input is IInput iInput)
+			{
+				iInput.Disable();
+			}
+		}
 	}
 
 	public void DisableMovement()
@@ -81,6 +88,19 @@ public partial class Player : Actor
 		else
 		{
 			pcam.Priority = 0;
+		}
+	}
+
+	private void OnGamePaused(bool paused)
+	{
+		if (!IsMultiplayerAuthority()) return;
+		if (paused)
+		{
+			DisableInput();
+		}
+		else
+		{
+			EnableInput();
 		}
 	}
 }

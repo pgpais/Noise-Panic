@@ -1,18 +1,33 @@
 using Godot;
 using WeWereDumb.Gameplay.Gathering;
+using WeWereDumb.Gameplay.Input;
 using WeWereDumb.Gameplay.Interaction;
 
 [GlobalClass]
-public partial class PlayerCharacterInput : Node
+public partial class PlayerCharacterInput : Node, IInput
 {
 	[Export] CharacterController controller;
 	[Export] Interactor interactor;
 	[Export] ResourceHolder resourceHolder;
 
+	bool isEnabled = true;
+
+	public void Disable()
+	{
+		isEnabled = false;
+	}
+
+	public void Enable()
+	{
+		isEnabled = true;
+	}
+
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 		if (!IsMultiplayerAuthority()) return;
+		if (!isEnabled) return;
+
 		HandleMovementInput();
 
 		if (Input.IsActionJustPressed("interact"))

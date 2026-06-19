@@ -18,6 +18,7 @@ radius = 0.1
 radius = 0.1
 
 [node name="ProtoProjectile" type="RigidBody3D" unique_id=1452483818 node_paths=PackedStringArray("hurtbox")]
+process_mode = 3
 collision_layer = 0
 collision_mask = 0
 gravity_scale = 0.0
@@ -33,7 +34,6 @@ shape = SubResource("SphereShape3D_3jh82")
 [node name="Hurtbox" type="Area3D" parent="." unique_id=667936574]
 collision_mask = 6
 script = ExtResource("2_g3gji")
-damage = 30
 metadata/_custom_type_script = "uid://b3s5mo3k2nfjg"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=131729340]

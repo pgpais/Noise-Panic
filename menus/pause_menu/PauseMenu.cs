@@ -22,6 +22,7 @@ public partial class PauseMenu : Control
 		isPaused = true;
 		Input.MouseMode = Input.MouseModeEnum.Visible;
 		Show();
+		EventBus.Instance.EmitSignal(EventBus.SignalName.GamePaused, true);
 	}
 
 	public void Unpause()
@@ -29,10 +30,12 @@ public partial class PauseMenu : Control
 		isPaused = false;
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 		Hide();
+		EventBus.Instance.EmitSignal(EventBus.SignalName.GamePaused, false);
 	}
 
 	override public void _Input(InputEvent @event)
 	{
+		//TODO: make a specific action for this
 		if (@event is InputEventKey keyEvent && keyEvent.Pressed && keyEvent.Keycode == Key.Escape)
 		{
 			if (isPaused)

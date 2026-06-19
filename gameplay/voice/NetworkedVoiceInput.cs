@@ -2,25 +2,28 @@ using System.Linq;
 using Godot;
 using Godot.Collections;
 using Godot.NativeInterop;
+using WeWereDumb.Gameplay.Input;
 
 [GlobalClass]
-public partial class NetworkedVoiceInput : Node3D
+public partial class NetworkedVoiceInput : Node3D, IInput
 {
-	[Signal] public delegate void VoiceRecordingStartedEventHandler();
-	[Signal] public delegate void VoiceRecordingStoppedEventHandler();
+	[Signal] public delegate void VoiceRecordingStateChangedEventHandler(bool state);
 	[Signal] public delegate void VoiceDataReceivedEventHandler(Array<byte[]> buffer);
 
 	[Export] Node voiceInput;
 
 	Array<byte[]> incomingVoiceData;
 
+	bool isEnabled = true;
+
 	public override void _Process(double delta)
 	{
 		if (!IsMultiplayerAuthority()) return;
+		if (!isEnabled) return;
 
 		if (Input.IsActionPressed("voice"))
 		{
-			EmitSignal(SignalName.VoiceRecordingStarted);
+			Rpc(MethodName.SyncVoiceRecordingState, true);
 			voiceInput.Call("process_record");
 			var buffer = GetVoiceDataBuffer();
 			Rpc(MethodName.SyncVoiceBuffer, buffer);
@@ -28,7 +31,7 @@ public partial class NetworkedVoiceInput : Node3D
 
 		if (Input.IsActionJustReleased("voice"))
 		{
-			EmitSignal(SignalName.VoiceRecordingStopped);
+			Rpc(MethodName.SyncVoiceRecordingState, false);
 		}
 	}
 
@@ -44,14 +47,30 @@ public partial class NetworkedVoiceInput : Node3D
 		SetVoiceBuffer(buffer);
 	}
 
+	public bool HasVoiceData()
+	{
+		return incomingVoiceData != null && incomingVoiceData.Count > 0;
+	}
+
+	public void Enable()
+	{
+		isEnabled = true;
+	}
+
+	public void Disable()
+	{
+		isEnabled = false;
+	}
+
+	[Rpc(CallLocal = true)]
+	private void SyncVoiceRecordingState(bool state)
+	{
+		EmitSignal(SignalName.VoiceRecordingStateChanged, state);
+	}
+
 	private void SetVoiceBuffer(Array<byte[]> buffer)
 	{
 		incomingVoiceData = buffer;
 		EmitSignal(SignalName.VoiceDataReceived, buffer);
-	}
-
-	public bool HasVoiceData()
-	{
-		return incomingVoiceData != null && incomingVoiceData.Count > 0;
 	}
 }

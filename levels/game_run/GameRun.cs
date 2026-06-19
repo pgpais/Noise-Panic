@@ -1,11 +1,14 @@
 using Godot;
-using System;
 using WeWereDumb.Gameplay.Resources;
 using WeWereDumb.Gameplay.Storage;
 
 public partial class GameRun : Node3D
 {
+	// @jmsMARTO: Sou o cheese e tenho um espelho no lugar da testa
+	// @Camarao_Lendario: https://camarao.itch.io/space-mages
+	// @Phobiiaa: Sou um burro do carvalho
 	[Signal] public delegate void ObjectiveProgressChangedEventHandler(float progress);
+
 
 	[Export] ResourceStorage storage;
 
@@ -68,7 +71,6 @@ public partial class GameRun : Node3D
 	[Rpc(CallLocal = true)]
 	public void EndRun(bool isVictory)
 	{
-		GD.Print($"[GameRun] {Multiplayer.GetUniqueId()}: End run, isVictory: {isVictory}");
 		if (isVictory)
 		{
 			OnVictory();
@@ -82,10 +84,12 @@ public partial class GameRun : Node3D
 	private void OnVictory()
 	{
 		GD.Print($"[GameRun] {Multiplayer.GetUniqueId()}: Victory!");
+		EventBus.Instance.EmitSignal(EventBus.SignalName.RunEnded, true);
 	}
 
 	private void OnDefeat()
 	{
 		GD.Print($"[GameRun] {Multiplayer.GetUniqueId()}: Defeat!");
+		EventBus.Instance.EmitSignal(EventBus.SignalName.RunEnded, false);
 	}
 }

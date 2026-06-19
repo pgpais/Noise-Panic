@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Godot;
 using WeWereDumb.Gameplay.Actors;
 using WeWereDumb.Gameplay.Combat.Weapons;
@@ -5,10 +6,11 @@ using WeWereDumb.Gameplay.Combat.Weapons;
 namespace WeWereDumb.Gameplay.Input
 {
 	[GlobalClass]
-	public partial class PlayerAimingInput : Node
+	public partial class PlayerAimingInput : Node, IInput
 	{
 		[Export] AimingController aimingController;
 		[Export] Gun gun;
+
 
 		public override void _Ready()
 		{
@@ -20,6 +22,7 @@ namespace WeWereDumb.Gameplay.Input
 			base._Process(delta);
 			if (!IsMultiplayerAuthority()) return;
 
+
 			if (Godot.Input.IsActionJustPressed("shoot"))
 			{
 				gun.Shoot();
@@ -29,6 +32,8 @@ namespace WeWereDumb.Gameplay.Input
 		public override void _UnhandledInput(InputEvent @event)
 		{
 			base._UnhandledInput(@event);
+			if (!IsProcessing()) return;
+
 
 			if (@event is InputEventMouseMotion mouseMotion)
 			{

@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 public partial class VoiceVisualizer : TextureRect
@@ -9,8 +10,19 @@ public partial class VoiceVisualizer : TextureRect
 	{
 		Hide();
 
-		voiceInput.VoiceRecordingStarted += OnVoiceRecordingStarted;
-		voiceInput.VoiceRecordingStopped += OnVoiceRecordingStopped;
+		voiceInput.VoiceRecordingStateChanged += OnVoiceRecordingStateChanged;
+	}
+
+	private void OnVoiceRecordingStateChanged(bool state)
+	{
+		if (state)
+		{
+			OnVoiceRecordingStarted();
+		}
+		else
+		{
+			OnVoiceRecordingStopped();
+		}
 	}
 
 	private void OnVoiceRecordingStarted()
