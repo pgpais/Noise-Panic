@@ -132,10 +132,10 @@ metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="PlayerPodLauncher" parent="Ship" unique_id=453249195 node_paths=PackedStringArray("podLaunchPoint") instance=ExtResource("4_0uhwm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.0587463, 9.976288)
-podLaunchPoint = NodePath("PodLaunchPoint")
+podLaunchPoint = NodePath("../PodLaunchPoint")
 
-[node name="PodLaunchPoint" type="Marker3D" parent="Ship/PlayerPodLauncher" unique_id=267406332]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.9680252, 0)
+[node name="PodLaunchPoint" type="Marker3D" parent="Ship" unique_id=267406332]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -11.213882, -19.792719)
 
 [node name="StandingButton" parent="Ship" unique_id=757749775 instance=ExtResource("5_wajde")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1775217, 2.1172867, 9.901314)
