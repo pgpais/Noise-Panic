@@ -10,10 +10,11 @@
 [ext_resource type="PackedScene" uid="uid://bbuu50ref7c45" path="res://gameplay/ship/Model/spaceship_model.tscn" id="7_ymuiv"]
 [ext_resource type="PackedScene" uid="uid://dly4oohfeagxb" path="res://menus/pause_menu/pause_menu.tscn" id="8_gyuag"]
 
-[node name="Lobby" type="Node3D" unique_id=1868881371 node_paths=PackedStringArray("spawnPos", "playerDetectionAreas")]
+[node name="Lobby" type="Node3D" unique_id=1868881371 node_paths=PackedStringArray("spawnPos", "playerDetectionAreas", "playerSpawner")]
 script = ExtResource("1_dxlos")
 spawnPos = NodePath("Spaceship/SpawnPoint")
 playerDetectionAreas = [NodePath("Spaceship/PlayerDetectionArea"), NodePath("Spaceship/PlayerDetectionArea2")]
+playerSpawner = NodePath("Spaceship/SpawnPoint")
 gameScene = ExtResource("3_3ohsu")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1396617127]
