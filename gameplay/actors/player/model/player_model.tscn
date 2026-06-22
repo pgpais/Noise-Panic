@@ -1,38 +1,26 @@
 [gd_scene format=3 uid="uid://e34atjemiv2t"]
 
 [ext_resource type="PackedScene" uid="uid://cnumeaa05hn82" path="res://gameplay/actors/player/model/Main_Character.blend" id="1_h4krd"]
-[ext_resource type="Shader" uid="uid://dg3amo6jwypv8" path="res://gameplay/actors/player/model/Character_Face.tres" id="2_fwljq"]
-[ext_resource type="Texture2D" uid="uid://cwk8nr01xd0sq" path="res://gameplay/actors/player/model/textures/Faces/face-cheese.png" id="3_3e5u1"]
-[ext_resource type="Material" uid="uid://crl01hedtxl21" path="res://gameplay/Materials/Color-Primary.material" id="4_3e5u1"]
-[ext_resource type="Material" uid="uid://ci5dedrs4kjon" path="res://gameplay/Materials/Color-Screen.material" id="4_rinv7"]
-[ext_resource type="Material" uid="uid://gctjs4h3bqpy" path="res://gameplay/Materials/Color-Secondary.material" id="5_2vtxr"]
+[ext_resource type="Shader" uid="uid://dg3amo6jwypv8" path="res://assets/shaders/Character_Face.tres" id="2_fwljq"]
+[ext_resource type="Texture2D" uid="uid://cwk8nr01xd0sq" path="res://assets/textures/Character-Faces/face-cheese.png" id="3_3e5u1"]
+[ext_resource type="Material" uid="uid://ci5dedrs4kjon" path="res://assets/materials/Main-Character-Screens.material" id="4_rinv7"]
+[ext_resource type="Material" uid="uid://crl01hedtxl21" path="res://assets/materials/Main-Character-Body.material" id="5_yv5sr"]
+[ext_resource type="Material" uid="uid://bmwt32ou1qhq1" path="res://assets/materials/Main-Character-Metal.material" id="6_hyv1a"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2vtxr"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rinv7"]
 render_priority = 0
 shader = ExtResource("2_fwljq")
 shader_parameter/FaceTexture = ExtResource("3_3e5u1")
 
 [node name="PlayerModel" unique_id=1979854718 instance=ExtResource("1_h4krd")]
 
-[node name="Skeleton3D" parent="Armature" parent_id_path=PackedInt32Array(1598231197) index="0" unique_id=192084182]
-bones/6/rotation = Quaternion(0.002285329, 0.0022639972, -0.008468147, 0.999959)
-bones/7/rotation = Quaternion(-0.0022830793, 9.514772e-09, 0.003778278, 0.9999903)
-bones/10/rotation = Quaternion(0.016762758, 0.014489517, 0.00031921698, 0.9997545)
-bones/16/rotation = Quaternion(0.6954901, 0.69492024, -0.09369726, 0.15684502)
-bones/19/rotation = Quaternion(0.002285329, -0.0022639972, 0.008468147, 0.999959)
-bones/20/rotation = Quaternion(-0.0022830793, -9.514772e-09, -0.003778278, 0.9999903)
-bones/23/rotation = Quaternion(0.016762758, -0.014489517, -0.00031921698, 0.9997545)
-bones/29/rotation = Quaternion(0.6954901, -0.69492024, 0.09369726, 0.15684502)
-bones/45/rotation = Quaternion(-4.2146854e-07, 0.70710677, 0.70710677, -4.2146854e-07)
-bones/46/rotation = Quaternion(-4.2146894e-07, 0.70710677, 0.70710677, -4.2146806e-07)
-
-[node name="player-character" parent="Armature/Skeleton3D" index="2" unique_id=1080056940]
-material_overlay = SubResource("ShaderMaterial_2vtxr")
+[node name="player-character" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(538837639) index="2" unique_id=1785041995]
+material_overlay = SubResource("ShaderMaterial_rinv7")
 surface_material_override/0 = ExtResource("4_rinv7")
-surface_material_override/1 = ExtResource("4_3e5u1")
-surface_material_override/2 = ExtResource("5_2vtxr")
+surface_material_override/1 = ExtResource("5_yv5sr")
+surface_material_override/2 = ExtResource("6_hyv1a")
 
-[node name="LookAtModifier3D" type="LookAtModifier3D" parent="Armature/Skeleton3D" index="3" unique_id=496195974]
+[node name="LookAtModifier3D" type="LookAtModifier3D" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(538837639) index="3" unique_id=496195974]
 target_node = NodePath("../../../../SpringArm3D2/CameraAnchor/LookAtPoint")
 bone_name = "upper-body"
 bone = 2

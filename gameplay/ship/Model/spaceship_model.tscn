@@ -1,13 +1,24 @@
 [gd_scene format=3 uid="uid://bbuu50ref7c45"]
 
 [ext_resource type="PackedScene" uid="uid://daxb8sn7lacet" path="res://gameplay/ship/Model/Spaceship_V02.blend" id="1_agj6l"]
-[ext_resource type="Material" uid="uid://bt6i5xrn4snnt" path="res://gameplay/Materials/LED-Screen.tres" id="2_kvkmu"]
-[ext_resource type="Material" uid="uid://ci5dedrs4kjon" path="res://gameplay/Materials/Color-Screen.material" id="2_nh23a"]
-[ext_resource type="Texture2D" uid="uid://dykh5w44ckl38" path="res://assets/Textures/Gradient-Pallet.png" id="2_un0fb"]
-[ext_resource type="Shader" uid="uid://2x543b2y2b3u" path="res://gameplay/Materials/colored-buttons-panel.tres" id="4_rdj20"]
+[ext_resource type="Material" uid="uid://bt6i5xrn4snnt" path="res://assets/materials/LED-Screen.tres" id="2_kvkmu"]
+[ext_resource type="Texture2D" uid="uid://dykh5w44ckl38" path="res://assets/textures/Gradient-Pallet.png" id="2_un0fb"]
+[ext_resource type="Material" uid="uid://cbbhai78oplla" path="res://assets/materials/Spaceship-Primary.material" id="4_4con0"]
+[ext_resource type="Shader" uid="uid://2x543b2y2b3u" path="res://assets/shaders/colored-buttons-panel.tres" id="4_rdj20"]
+[ext_resource type="Material" uid="uid://bkgjfky5dufch" path="res://assets/materials/Spaceship-Secondary.material" id="5_ohdln"]
+[ext_resource type="Material" uid="uid://bv1662ogwnhuq" path="res://assets/materials/Spaceship-Interior.tres" id="6_ohdln"]
+[ext_resource type="LightmapGIData" uid="uid://c7tnm5m6glpoo" path="res://gameplay/light_maps/spaceship_model.lmbake" id="7_q3gt3"]
+[ext_resource type="Material" uid="uid://bmwt32ou1qhq1" path="res://assets/materials/Main-Character-Metal.material" id="8_ohdln"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vlwk7"]
 albedo_texture = ExtResource("2_un0fb")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ohdln"]
+resource_name = "Color-Primary"
+cull_mode = 2
+albedo_texture = ExtResource("2_un0fb")
+roughness = 0.13199997
+texture_filter = 0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q3gt3"]
 albedo_texture = ExtResource("2_un0fb")
@@ -18,29 +29,44 @@ shader = ExtResource("4_rdj20")
 
 [node name="SpaceshipModel" unique_id=876929230 instance=ExtResource("1_agj6l")]
 
-[node name="Main-Screen" parent="." index="1" unique_id=1839235337]
+[node name="Main-Screen" parent="." index="0" unique_id=197796928]
 surface_material_override/0 = SubResource("StandardMaterial3D_vlwk7")
 surface_material_override/1 = ExtResource("2_kvkmu")
 
-[node name="Spaceship-Body" parent="." index="3" unique_id=467532537]
-surface_material_override/2 = ExtResource("2_nh23a")
+[node name="Spaceship-Floor" parent="." index="1" unique_id=1764743966]
+surface_material_override/0 = SubResource("StandardMaterial3D_ohdln")
 
-[node name="Panel_Body" parent="." index="6" unique_id=831459329]
+[node name="Spaceship-Wings" parent="." index="3" unique_id=1722030004]
+surface_material_override/0 = ExtResource("4_4con0")
+surface_material_override/1 = ExtResource("5_ohdln")
+
+[node name="Panel_Body" parent="." index="5" unique_id=1487522332]
 surface_material_override/0 = SubResource("StandardMaterial3D_q3gt3")
 
-[node name="Panel_Buttons" parent="Panel_Body" index="0" unique_id=2093008359]
+[node name="Panel_Buttons" parent="Panel_Body" index="0" unique_id=950395711]
 surface_material_override/0 = SubResource("ShaderMaterial_un0fb")
 
-[node name="Panel_Screens_01" parent="Panel_Body" index="3" unique_id=897858787]
+[node name="Panel_Screens_01" parent="Panel_Body" index="3" unique_id=24761600]
 surface_material_override/0 = ExtResource("2_kvkmu")
 
-[node name="Panel_Screens_02" parent="Panel_Body" index="4" unique_id=470121444]
+[node name="Panel_Screens_02" parent="Panel_Body" index="4" unique_id=1401277801]
 surface_material_override/0 = ExtResource("2_kvkmu")
 
-[node name="Panel_Screens_03" parent="Panel_Body" index="5" unique_id=892715280]
+[node name="Panel_Screens_03" parent="Panel_Body" index="5" unique_id=94918759]
 surface_material_override/0 = ExtResource("2_kvkmu")
 
-[node name="OmniLight3D2" type="OmniLight3D" parent="." index="14" unique_id=251751550]
+[node name="Spaceship-Floor-colonly_001" parent="Ship-Armature" parent_id_path=PackedInt32Array(1715742866) index="0" unique_id=192472761]
+visible = false
+
+[node name="Spaceship-Body" parent="." index="10" unique_id=1653707401]
+surface_material_override/0 = ExtResource("4_4con0")
+surface_material_override/1 = ExtResource("5_ohdln")
+surface_material_override/2 = ExtResource("6_ohdln")
+surface_material_override/3 = ExtResource("8_ohdln")
+
+[node name="Lights" type="Node3D" parent="." index="12" unique_id=1897097921]
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Lights" index="0" unique_id=251751550]
 transform = Transform3D(-0.9998384, 1.153078e-08, 0.017975941, 0.011248136, 0.7800379, 0.6256312, -0.014021907, 0.62573236, -0.7799118, -1.2199483, 1.399061, 0.306715)
 light_color = Color(0.99971074, 0.003107538, 1.92523e-07, 1)
 light_energy = 0.366
@@ -48,18 +74,33 @@ light_specular = 1.926
 omni_range = 0.887
 omni_attenuation = 2.188
 
-[node name="OmniLight3D" type="OmniLight3D" parent="." index="15" unique_id=505154268]
+[node name="OmniLight3D" type="OmniLight3D" parent="Lights" index="1" unique_id=505154268]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.348386, -22.206938)
 light_color = Color(0.7621244, 0.762125, 0.76510006, 1)
 light_energy = 8.0
 light_specular = 0.0
+light_bake_mode = 1
 omni_range = 20.276
 omni_attenuation = 0.416
 
-[node name="OmniLight3D3" type="OmniLight3D" parent="." index="16" unique_id=1679752672]
+[node name="OmniLight3D3" type="OmniLight3D" parent="Lights" index="2" unique_id=1679752672]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.204354, 3.7686105)
 light_color = Color(0.7621244, 0.762125, 0.76510006, 1)
 light_energy = 4.0
 light_specular = 0.0
+light_bake_mode = 1
 omni_range = 20.276
 omni_attenuation = 0.416
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="Lights" index="3" unique_id=1376543175]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.2307634, -40.504646)
+light_energy = 10.0
+light_specular = 0.0
+light_bake_mode = 1
+omni_range = 23.988
+omni_attenuation = 1.656
+
+[node name="LightmapGI" type="LightmapGI" parent="." index="13" unique_id=1484918302]
+quality = 2
+supersampling = true
+light_data = ExtResource("7_q3gt3")
