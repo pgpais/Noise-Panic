@@ -4,6 +4,7 @@
 [ext_resource type="Material" uid="uid://bt6i5xrn4snnt" path="res://assets/materials/LED-Screen.tres" id="2_kvkmu"]
 [ext_resource type="Texture2D" uid="uid://dykh5w44ckl38" path="res://assets/textures/Gradient-Pallet.png" id="2_un0fb"]
 [ext_resource type="Material" uid="uid://cbbhai78oplla" path="res://assets/materials/Spaceship-Primary.material" id="4_4con0"]
+[ext_resource type="Material" uid="uid://d33clfn8k3ew2" path="res://assets/materials/Spaceship-Floor.material" id="4_d5gqo"]
 [ext_resource type="Shader" uid="uid://2x543b2y2b3u" path="res://assets/shaders/colored-buttons-panel.tres" id="4_rdj20"]
 [ext_resource type="Material" uid="uid://bkgjfky5dufch" path="res://assets/materials/Spaceship-Secondary.material" id="5_ohdln"]
 [ext_resource type="Material" uid="uid://bv1662ogwnhuq" path="res://assets/materials/Spaceship-Interior.tres" id="6_ohdln"]
@@ -12,13 +13,6 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vlwk7"]
 albedo_texture = ExtResource("2_un0fb")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ohdln"]
-resource_name = "Color-Primary"
-cull_mode = 2
-albedo_texture = ExtResource("2_un0fb")
-roughness = 0.13199997
-texture_filter = 0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q3gt3"]
 albedo_texture = ExtResource("2_un0fb")
@@ -29,36 +23,36 @@ shader = ExtResource("4_rdj20")
 
 [node name="SpaceshipModel" unique_id=876929230 instance=ExtResource("1_agj6l")]
 
-[node name="Main-Screen" parent="." index="0" unique_id=197796928]
+[node name="Main-Screen" parent="." index="0" unique_id=1623725134]
 surface_material_override/0 = SubResource("StandardMaterial3D_vlwk7")
 surface_material_override/1 = ExtResource("2_kvkmu")
 
-[node name="Spaceship-Floor" parent="." index="1" unique_id=1764743966]
-surface_material_override/0 = SubResource("StandardMaterial3D_ohdln")
+[node name="Spaceship-Floor" parent="." index="1" unique_id=2102449397]
+surface_material_override/0 = ExtResource("4_d5gqo")
 
-[node name="Spaceship-Wings" parent="." index="3" unique_id=1722030004]
+[node name="Spaceship-Wings" parent="." index="3" unique_id=571708340]
 surface_material_override/0 = ExtResource("4_4con0")
 surface_material_override/1 = ExtResource("5_ohdln")
 
-[node name="Panel_Body" parent="." index="5" unique_id=1487522332]
+[node name="Panel_Body" parent="." index="5" unique_id=643069520]
 surface_material_override/0 = SubResource("StandardMaterial3D_q3gt3")
 
-[node name="Panel_Buttons" parent="Panel_Body" index="0" unique_id=950395711]
+[node name="Panel_Buttons" parent="Panel_Body" index="0" unique_id=1335782098]
 surface_material_override/0 = SubResource("ShaderMaterial_un0fb")
 
-[node name="Panel_Screens_01" parent="Panel_Body" index="3" unique_id=24761600]
+[node name="Panel_Screens_01" parent="Panel_Body" index="3" unique_id=629144953]
 surface_material_override/0 = ExtResource("2_kvkmu")
 
-[node name="Panel_Screens_02" parent="Panel_Body" index="4" unique_id=1401277801]
+[node name="Panel_Screens_02" parent="Panel_Body" index="4" unique_id=1440732127]
 surface_material_override/0 = ExtResource("2_kvkmu")
 
-[node name="Panel_Screens_03" parent="Panel_Body" index="5" unique_id=94918759]
+[node name="Panel_Screens_03" parent="Panel_Body" index="5" unique_id=2057798054]
 surface_material_override/0 = ExtResource("2_kvkmu")
 
-[node name="Spaceship-Floor-colonly_001" parent="Ship-Armature" parent_id_path=PackedInt32Array(1715742866) index="0" unique_id=192472761]
-visible = false
+[node name="Spaceship-Ramp" parent="Ship-Armature/Skeleton3D" parent_id_path=PackedInt32Array(412186892) index="3" unique_id=1898288261]
+surface_material_override/0 = ExtResource("4_d5gqo")
 
-[node name="Spaceship-Body" parent="." index="10" unique_id=1653707401]
+[node name="Spaceship-Body" parent="." index="10" unique_id=1163051893]
 surface_material_override/0 = ExtResource("4_4con0")
 surface_material_override/1 = ExtResource("5_ohdln")
 surface_material_override/2 = ExtResource("6_ohdln")
@@ -100,7 +94,40 @@ light_bake_mode = 1
 omni_range = 23.988
 omni_attenuation = 1.656
 
+[node name="OmniLight3D5" type="OmniLight3D" parent="Lights" index="4" unique_id=180362623]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 6.5, -35)
+light_energy = 10.0
+light_specular = 0.0
+light_bake_mode = 1
+omni_range = 23.988
+omni_attenuation = 1.656
+
+[node name="OmniLight3D7" type="OmniLight3D" parent="Lights" index="5" unique_id=1656933698]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 6.5, -17)
+light_energy = 10.0
+light_specular = 0.0
+light_bake_mode = 1
+omni_range = 23.988
+omni_attenuation = 1.656
+
+[node name="OmniLight3D6" type="OmniLight3D" parent="Lights" index="6" unique_id=786778684]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 6.5, -35)
+light_energy = 10.0
+light_specular = 0.0
+light_bake_mode = 1
+omni_range = 23.988
+omni_attenuation = 1.656
+
+[node name="OmniLight3D8" type="OmniLight3D" parent="Lights" index="7" unique_id=2132560401]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 6.5, -17)
+light_energy = 10.0
+light_specular = 0.0
+light_bake_mode = 1
+omni_range = 23.988
+omni_attenuation = 1.656
+
 [node name="LightmapGI" type="LightmapGI" parent="." index="13" unique_id=1484918302]
 quality = 2
 supersampling = true
+generate_probes_subdiv = 4
 light_data = ExtResource("7_q3gt3")
