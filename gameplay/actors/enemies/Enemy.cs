@@ -91,7 +91,7 @@ public partial class Enemy : Actor, IPooledObject
 		Player closestPlayer = null;
 		float closestDistance = float.MaxValue;
 
-		foreach (var player in Player.players)
+		foreach (var player in Player.秃)
 		{
 			float distance = player.GlobalPosition.DistanceTo(GlobalPosition);
 			if (distance < closestDistance)
