@@ -26,6 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://ca57l0j31l3qw" path="res://gameplay/actors/enemies/SpiderBot/spider_bot.tscn" id="19_mbg5y"]
 [ext_resource type="PackedScene" uid="uid://dly4oohfeagxb" path="res://menus/pause_menu/pause_menu.tscn" id="23_7w4il"]
 [ext_resource type="Script" uid="uid://0u5x4n5nxnuk" path="res://gameplay/time_limit/ui/TimerLabel.cs" id="24_yxbgd"]
+[ext_resource type="Script" uid="uid://c4hfosbn77e3e" path="res://gameplay/hud/GameHud.cs" id="26_6xvwy"]
 [ext_resource type="Script" uid="uid://0ml1o8gn0q1u" path="res://gameplay/goals/ObjectiveProgressBar.cs" id="27_uwean"]
 [ext_resource type="Script" uid="uid://bcuxyjal2x5n" path="res://gameplay/hud/RunEndUI.cs" id="28_h4q3c"]
 [ext_resource type="Environment" uid="uid://c8bycmkvq3a8d" path="res://core/camera/default_environment.tres" id="28_ywhi4"]
@@ -333,6 +334,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+script = ExtResource("26_6xvwy")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer2/GameHud" unique_id=551485270]
 layout_mode = 1
