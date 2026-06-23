@@ -22,6 +22,7 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="16_a31k0"]
 [ext_resource type="Script" uid="uid://c2r0p8u5tkq16" path="res://core/PlayerSpawner.cs" id="16_la0x0"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="17_2khdt"]
+[ext_resource type="PackedScene" uid="uid://ch2h0wm1cuhu1" path="res://gameplay/crafting/crafting_machine_screen.tscn" id="18_2b53g"]
 [ext_resource type="PackedScene" uid="uid://2oypgw4dyts" path="res://gameplay/actors/enemies/Slime/slime.tscn" id="18_mbg5y"]
 [ext_resource type="PackedScene" uid="uid://ca57l0j31l3qw" path="res://gameplay/actors/enemies/SpiderBot/spider_bot.tscn" id="19_mbg5y"]
 [ext_resource type="PackedScene" uid="uid://dly4oohfeagxb" path="res://menus/pause_menu/pause_menu.tscn" id="23_7w4il"]
@@ -53,6 +54,9 @@ script = ExtResource("16_a31k0")
 script = ExtResource("17_2khdt")
 fov = 15.0
 metadata/_custom_type_script = "uid://b8hhnqsugykly"
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_tfbxm"]
+viewport_path = NodePath("Ship/CraftingMachine/Sprite3D/SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5h46i"]
 albedo_color = Color(0.28118682, 0.28118688, 0.28118682, 1)
@@ -195,6 +199,17 @@ script = ExtResource("16_la0x0")
 playerScene = ExtResource("2_0uhwm")
 spawnNewPlayers = false
 metadata/_custom_type_script = "uid://c2r0p8u5tkq16"
+
+[node name="CraftingMachine" type="Node3D" parent="Ship" unique_id=1162043784]
+transform = Transform3D(-0.021494994, 0.018243989, -0.9996025, 0, 0.9998335, 0.018248206, 0.999769, 0.00039224504, -0.021491416, 3.9493303, 0.10145569, -22.034937)
+
+[node name="Sprite3D" type="Sprite3D" parent="Ship/CraftingMachine" unique_id=518630077]
+texture = SubResource("ViewportTexture_tfbxm")
+
+[node name="SubViewport" type="SubViewport" parent="Ship/CraftingMachine/Sprite3D" unique_id=1822813925]
+size = Vector2i(595, 227)
+
+[node name="CraftingMachineScreen" parent="Ship/CraftingMachine/Sprite3D/SubViewport" unique_id=615105318 instance=ExtResource("18_2b53g")]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=156097673]
 

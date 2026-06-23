@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://ch2h0wm1cuhu1"]
+
+[ext_resource type="PackedScene" uid="uid://b3k6noajlsdyk" path="res://gameplay/crafting/compact_recipe_viewer.tscn" id="1_3lc86"]
+[ext_resource type="Script" uid="uid://dc8mq0rnhqt8m" path="res://gameplay/crafting/CraftingMachineScreen.cs" id="1_5xnme"]
+[ext_resource type="Script" uid="uid://cetikanhij36g" path="res://gameplay/crafting/recipes/CraftingRecipeData.cs" id="2_17hxf"]
+
+[sub_resource type="Resource" id="Resource_ig1x3"]
+script = ExtResource("2_17hxf")
+Name = "Proto Recipe"
+Description = "asdasd"
+metadata/_custom_type_script = "uid://cetikanhij36g"
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_jsaq8"]
+color = Color(1, 1, 1, 1)
+thickness = 8
+vertical = true
+
+[node name="CraftingMachineScreen" type="Control" unique_id=615105318 node_paths=PackedStringArray("recipeContainer")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5xnme")
+recipes = Array[Resource]([SubResource("Resource_ig1x3")])
+recipeContainer = NodePath("HSplitContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer")
+recipeScene = ExtResource("1_3lc86")
+
+[node name="HSplitContainer" type="HBoxContainer" parent="." unique_id=1437292548]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="PanelContainer2" type="PanelContainer" parent="HSplitContainer" unique_id=392150568]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VSeparator" type="VSeparator" parent="HSplitContainer" unique_id=856979044]
+layout_mode = 2
+theme_override_constants/separation = 8
+theme_override_styles/separator = SubResource("StyleBoxLine_jsaq8")
+
+[node name="PanelContainer" type="PanelContainer" parent="HSplitContainer" unique_id=1481609079]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/PanelContainer" unique_id=111110368]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HSplitContainer/PanelContainer/ScrollContainer" unique_id=657961072]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/PanelContainer/ScrollContainer/MarginContainer" unique_id=273052929]
+layout_mode = 2
+
+[node name="CompactRecipeViewer" parent="HSplitContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=898738953 instance=ExtResource("1_3lc86")]
+layout_mode = 2
