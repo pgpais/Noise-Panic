@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" uid="uid://clatb142gt1jh" path="res://gameplay/combat/health/ui/HealthBar.cs" id="1_xgg7v"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_px2r8"]
-bg_color = Color(0.3882353, 0, 0, 0.0627451)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b2hd3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xgg7v"]
 bg_color = Color(0, 0.7607843, 0, 1)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xgg7v"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_paw4o"]
+bg_color = Color(0.20784314, 0, 0, 0.27450982)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5nsir"]
 bg_color = Color(1, 0.3529412, 0, 1)
@@ -20,7 +20,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_px2r8")
+theme_override_styles/background = SubResource("StyleBoxEmpty_b2hd3")
 theme_override_styles/fill = SubResource("StyleBoxFlat_xgg7v")
 step = 0.001
 value = 50.0
@@ -36,7 +36,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/background = SubResource("StyleBoxEmpty_xgg7v")
+theme_override_styles/background = SubResource("StyleBoxFlat_paw4o")
 theme_override_styles/fill = SubResource("StyleBoxFlat_5nsir")
 step = 0.001
 value = 90.0
