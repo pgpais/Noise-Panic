@@ -19,6 +19,7 @@ public partial class Player : Actor
 	[Export] CharacterController characterController;
 	[Export] Array<Node> inputs;
 	[Export] Node3D phantomcamera3d;
+	[Export] HealthComponent healthComponent;
 	PhantomCamera3D pcam;
 
 	[ExportGroup("HUD")]
@@ -31,14 +32,22 @@ public partial class Player : Actor
 
 	public override void _Ready()
 	{
-		pcam = phantomcamera3d.AsPhantomCamera3D();
-		SetCameraPriority();
 		if (!IsMultiplayerAuthority())
 		{
 			playerHud.Hide();
+			return;
 		}
+		pcam = phantomcamera3d.AsPhantomCamera3D();
+		SetCameraPriority();
 
+		healthComponent.HealthDepleted += OnHealthDepleted;
 		EventBus.Instance.GamePaused += OnGamePaused;
+	}
+
+	private void OnHealthDepleted()
+	{
+		GD.Print($"[Player] {Multiplayer.GetUniqueId()}: Health depleted!");
+		EventBus.Instance.EmitSignal(EventBus.SignalName.PlayerDied);
 	}
 
 	public override void _ExitTree()
