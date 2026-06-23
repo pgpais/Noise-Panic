@@ -27,6 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://dly4oohfeagxb" path="res://menus/pause_menu/pause_menu.tscn" id="23_7w4il"]
 [ext_resource type="Script" uid="uid://0u5x4n5nxnuk" path="res://gameplay/time_limit/ui/TimerLabel.cs" id="24_yxbgd"]
 [ext_resource type="Script" uid="uid://0ml1o8gn0q1u" path="res://gameplay/goals/ObjectiveProgressBar.cs" id="27_uwean"]
+[ext_resource type="Script" uid="uid://bcuxyjal2x5n" path="res://gameplay/hud/RunEndUI.cs" id="28_h4q3c"]
 [ext_resource type="Environment" uid="uid://c8bycmkvq3a8d" path="res://core/camera/default_environment.tres" id="28_ywhi4"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_sy2v3"]
@@ -204,7 +205,7 @@ mesh = SubResource("PlaneMesh_arc7w")
 shape = SubResource("BoxShape3D_dxlos")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=165574689]
-transform = Transform3D(0.117118545, 0.9409032, -0.3177808, -0.10445886, 0.32987908, 0.9382261, 0.987609, -0.07668865, 0.13692063, 0, 9.731221, 0)
+transform = Transform3D(0.15505606, 0.6114181, -0.77596754, -0.024207849, 0.7875829, 0.6157331, 0.987609, -0.07668865, 0.13692062, -25.35896, 211.59932, 0)
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1138672703]
@@ -322,25 +323,37 @@ metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 layer = 2
 
 [node name="PauseMenu" parent="CanvasLayer2" unique_id=167560632 instance=ExtResource("23_7w4il")]
+mouse_filter = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer2" unique_id=551485270]
+[node name="GameHud" type="Control" parent="CanvasLayer2" unique_id=1273964282]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer2/GameHud" unique_id=551485270]
+layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_top = 20.0
-offset_bottom = 43.0
+offset_bottom = 65.0
 grow_horizontal = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="CanvasLayer2/HBoxContainer" unique_id=26817396 node_paths=PackedStringArray("timeCountdown")]
+[node name="Label" type="Label" parent="CanvasLayer2/GameHud/HBoxContainer" unique_id=26817396 node_paths=PackedStringArray("timeCountdown")]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "1:00"
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("24_yxbgd")
-timeCountdown = NodePath("../../../RunTimer")
+timeCountdown = NodePath("../../../../RunTimer")
 
-[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer2" unique_id=1711291792 node_paths=PackedStringArray("gameRun")]
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer2/GameHud" unique_id=1711291792 node_paths=PackedStringArray("gameRun")]
+layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -352,7 +365,70 @@ grow_horizontal = 2
 value = 40.43
 show_percentage = false
 script = ExtResource("27_uwean")
-gameRun = NodePath("../..")
+gameRun = NodePath("../../..")
+
+[node name="RunEnd" type="Control" parent="CanvasLayer2" unique_id=1004981365 node_paths=PackedStringArray("victoryUI", "defeatUI", "quitButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("28_h4q3c")
+victoryUI = NodePath("Victory")
+defeatUI = NodePath("Defeat")
+quitButton = NodePath("Button")
+
+[node name="Victory" type="Control" parent="CanvasLayer2/RunEnd" unique_id=258759160]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer2/RunEnd/Victory" unique_id=1338516728]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 20.0
+offset_bottom = 43.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "EZ WIN"
+horizontal_alignment = 1
+
+[node name="Defeat" type="Control" parent="CanvasLayer2/RunEnd" unique_id=1925097226]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer2/RunEnd/Defeat" unique_id=132953168]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 20.0
+offset_bottom = 65.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "RIP"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="CanvasLayer2/RunEnd" unique_id=338208995]
+layout_mode = 0
+offset_left = 544.0
+offset_top = 512.0
+offset_right = 609.0
+offset_bottom = 551.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_font_sizes/font_size = 22
+text = "Close"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=250441152]
 environment = ExtResource("28_ywhi4")

@@ -1,4 +1,5 @@
 using Godot;
+using WeWereDumb.Gameplay.Actors;
 using WeWereDumb.Gameplay.Resources;
 using WeWereDumb.Gameplay.Storage;
 
@@ -71,6 +72,7 @@ public partial class GameRun : Node3D
 	[Rpc(CallLocal = true)]
 	public void EndRun(bool isVictory)
 	{
+		GD.Print($"[GameRun] {Multiplayer.GetUniqueId()}: End run: {isVictory}");
 		if (isVictory)
 		{
 			OnVictory();
@@ -79,6 +81,8 @@ public partial class GameRun : Node3D
 		{
 			OnDefeat();
 		}
+
+		DisablePlayersInput();
 	}
 
 	private void OnVictory()
@@ -91,5 +95,13 @@ public partial class GameRun : Node3D
 	{
 		GD.Print($"[GameRun] {Multiplayer.GetUniqueId()}: Defeat!");
 		EventBus.Instance.EmitSignal(EventBus.SignalName.RunEnded, false);
+	}
+
+	private void DisablePlayersInput()
+	{
+		foreach (Player player in Player.players)
+		{
+			player.DisableInput();
+		}
 	}
 }

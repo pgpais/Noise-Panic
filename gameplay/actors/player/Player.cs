@@ -32,6 +32,9 @@ public partial class Player : Actor
 
 	public override void _Ready()
 	{
+		healthComponent.HealthDepleted += OnHealthDepleted;
+		EventBus.Instance.GamePaused += OnGamePaused;
+
 		if (!IsMultiplayerAuthority())
 		{
 			playerHud.Hide();
@@ -39,9 +42,6 @@ public partial class Player : Actor
 		}
 		pcam = phantomcamera3d.AsPhantomCamera3D();
 		SetCameraPriority();
-
-		healthComponent.HealthDepleted += OnHealthDepleted;
-		EventBus.Instance.GamePaused += OnGamePaused;
 	}
 
 	private void OnHealthDepleted()
@@ -102,7 +102,7 @@ public partial class Player : Actor
 
 	private void OnGamePaused(bool paused)
 	{
-		if (!IsMultiplayerAuthority()) return;
+		if (IsInstanceValid(this) && !IsMultiplayerAuthority()) return;
 		if (paused)
 		{
 			DisableInput();
