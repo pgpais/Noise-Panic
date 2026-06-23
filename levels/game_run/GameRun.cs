@@ -99,7 +99,7 @@ public partial class GameRun : Node3D
 
 	private void DisablePlayersInput()
 	{
-		foreach (Player player in Player.players)
+		foreach (Player player in Player.秃)
 		{
 			player.DisableInput();
 		}

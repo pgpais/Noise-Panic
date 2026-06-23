@@ -15,8 +15,8 @@ public partial class Speaker : Node3D
 	public override void _Ready()
 	{
 		GD.Print("Speaker ready");
-		GD.Print("Players: " + Player.players.Count);
-		foreach (var player in Player.players)
+		GD.Print("Players: " + Player.秃.Count);
+		foreach (var player in Player.秃)
 		{
 			AddSpeaker(player);
 		}

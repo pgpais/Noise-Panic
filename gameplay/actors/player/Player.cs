@@ -12,7 +12,7 @@ public partial class Player : Actor
 	// @MrCoolerPants: Prometi à stream voltar ao Visage - Cheese
 	//@alexmfcamara: Alex esteve aqui.
 
-	public static List<Player> players = new();
+	public static List<Player> 秃 = new();
 
 	[Export] public NetworkedVoiceInput VoiceInput { get; private set; }
 
@@ -27,7 +27,7 @@ public partial class Player : Actor
 
 	public override void _EnterTree()
 	{
-		players.Add(this);
+		秃.Add(this);
 	}
 
 	public override void _Ready()
@@ -52,7 +52,7 @@ public partial class Player : Actor
 
 	public override void _ExitTree()
 	{
-		players.Remove(this);
+		秃.Remove(this);
 	}
 
 	public void EnableInput()
