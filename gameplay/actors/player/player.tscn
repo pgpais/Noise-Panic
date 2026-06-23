@@ -19,7 +19,7 @@
 [ext_resource type="Script" uid="uid://bhsoqgg220w7f" path="res://gameplay/combat/health/HealthComponent.cs" id="13_pseu4"]
 [ext_resource type="Environment" uid="uid://c8bycmkvq3a8d" path="res://core/camera/default_environment.tres" id="14_e471u"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="14_h7rbu"]
-[ext_resource type="Texture2D" uid="uid://ck3aaxwyckl48" path="res://assets/kenney_crosshairs/crosshair007.png" id="16_e471u"]
+[ext_resource type="Texture2D" uid="uid://ck3aaxwyckl48" path="res://assets/textures/kenney_crosshairs/crosshair007.png" id="16_e471u"]
 [ext_resource type="Texture2D" uid="uid://d3qhnj4b4ju5o" path="res://gameplay/voice/speak-icon.png" id="18_43e4c"]
 [ext_resource type="PackedScene" uid="uid://e34atjemiv2t" path="res://gameplay/actors/player/model/player_model.tscn" id="18_pseu4"]
 [ext_resource type="Script" uid="uid://lsi30cj5e2rk" path="res://gameplay/voice/NetworkedVoiceOutput.cs" id="20_44y0u"]

@@ -41,7 +41,9 @@ enabled=PackedStringArray("res://addons/godotsteam/plugin.cfg", "res://addons/ph
 [file_customization]
 
 folder_colors={
-"res://gameplay/actors/player/model/textures/": "red"
+"res://assets/materials/": "purple",
+"res://assets/shaders/": "orange",
+"res://assets/textures/": "red"
 }
 
 [global_group]
