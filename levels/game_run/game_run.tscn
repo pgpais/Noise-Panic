@@ -93,15 +93,8 @@ itemRequired = ExtResource("2_itlwr")
 wait_time = 60.0
 one_shot = true
 
-[node name="PlayerSpawner" type="Marker3D" parent="." unique_id=1896400735]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.73771, 100.61742, 4.744453)
-script = ExtResource("16_la0x0")
-playerScene = ExtResource("2_0uhwm")
-spawnNewPlayers = false
-metadata/_custom_type_script = "uid://c2r0p8u5tkq16"
-
 [node name="Ship" type="RigidBody3D" parent="." unique_id=2106779243]
-transform = Transform3D(1, 0, 0, 0, 0.99939084, -0.034899496, 0, 0.034899496, 0.99939084, 8.87, 100, 5.465)
+transform = Transform3D(1, 0, 0, 0, 0.99939084, -0.034899496, 0, 0.034899496, 0.99939084, 8.87, 200, 5.465)
 gravity_scale = 0.0
 linear_damp = 2.353
 angular_damp = 0.8
@@ -118,7 +111,7 @@ size = Vector2i(964, 463)
 
 [node name="OverviewCamera" type="Camera3D" parent="Ship/SpaceshipModel/OverviewScreen/SubViewport" unique_id=626315657]
 physics_interpolation_mode = 1
-transform = Transform3D(1, 0, 0, 0, -0.13277538, 0.991146, 0, -0.991146, -0.13277538, 8.163737, 95.795784, -14.152422)
+transform = Transform3D(1, 0, 0, 0, -0.13277538, 0.991146, 0, -0.991146, -0.13277538, 8.163737, 195.79579, -14.152422)
 top_level = true
 fov = 10.0
 size = 10.0
@@ -193,6 +186,13 @@ priority = 1
 tween_resource = SubResource("Resource_8bpfs")
 camera_3d_resource = SubResource("Resource_7w4il")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[node name="PlayerSpawner" type="Marker3D" parent="Ship" unique_id=1896400735]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2738428, 2.2904358, 2.861524)
+script = ExtResource("16_la0x0")
+playerScene = ExtResource("2_0uhwm")
+spawnNewPlayers = false
+metadata/_custom_type_script = "uid://c2r0p8u5tkq16"
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=156097673]
 
