@@ -23,36 +23,57 @@ shader = ExtResource("4_rdj20")
 
 [node name="SpaceshipModel" unique_id=876929230 instance=ExtResource("1_agj6l")]
 
-[node name="Main-Screen" parent="." index="0" unique_id=1623725134]
+[node name="Main-Screen" parent="." index="1" unique_id=2109793335]
 surface_material_override/0 = SubResource("StandardMaterial3D_vlwk7")
 surface_material_override/1 = ExtResource("2_kvkmu")
 
-[node name="Spaceship-Floor" parent="." index="1" unique_id=2102449397]
+[node name="Spaceship-Floor" parent="." index="2" unique_id=2099897133]
 surface_material_override/0 = ExtResource("4_d5gqo")
 
-[node name="Spaceship-Wings" parent="." index="3" unique_id=571708340]
+[node name="Spaceship-Wings" parent="." index="4" unique_id=600494477]
 surface_material_override/0 = ExtResource("4_4con0")
 surface_material_override/1 = ExtResource("5_ohdln")
 
-[node name="Panel_Body" parent="." index="5" unique_id=643069520]
+[node name="Panel_Body" parent="." index="6" unique_id=462928422]
 surface_material_override/0 = SubResource("StandardMaterial3D_q3gt3")
 
-[node name="Panel_Buttons" parent="Panel_Body" index="0" unique_id=1335782098]
+[node name="Panel_Buttons" parent="Panel_Body" index="0" unique_id=1881595745]
 surface_material_override/0 = SubResource("ShaderMaterial_un0fb")
 
-[node name="Panel_Screens_01" parent="Panel_Body" index="3" unique_id=629144953]
+[node name="Panel_Screens_01" parent="Panel_Body" index="3" unique_id=1289695296]
 surface_material_override/0 = ExtResource("2_kvkmu")
 
-[node name="Panel_Screens_02" parent="Panel_Body" index="4" unique_id=1440732127]
+[node name="Panel_Screens_02" parent="Panel_Body" index="4" unique_id=1489691148]
 surface_material_override/0 = ExtResource("2_kvkmu")
 
-[node name="Panel_Screens_03" parent="Panel_Body" index="5" unique_id=2057798054]
+[node name="Panel_Screens_03" parent="Panel_Body" index="5" unique_id=1326550380]
 surface_material_override/0 = ExtResource("2_kvkmu")
 
-[node name="Spaceship-Ramp" parent="Ship-Armature/Skeleton3D" parent_id_path=PackedInt32Array(412186892) index="3" unique_id=1898288261]
-surface_material_override/0 = ExtResource("4_d5gqo")
+[node name="Skeleton3D" parent="Ship-Armature" parent_id_path=PackedInt32Array(1910583713) index="0" unique_id=1926622742]
+bones/2/position = Vector3(-9.553913e-07, 1.417078, -1.13771165e-07)
+bones/3/position = Vector3(-2.224016e-06, 1.2339599, 6.7326994e-07)
+bones/4/position = Vector3(-2.224016e-06, 1.9721048, 6.7327005e-07)
+bones/5/position = Vector3(-2.224016e-06, 1.972105, 6.7327005e-07)
+bones/6/position = Vector3(-2.224016e-06, 1.5568333, 6.7327005e-07)
+bones/7/rotation = Quaternion(-2.824026e-08, 3.7457007e-10, -0.65345985, 0.7569612)
+bones/8/rotation = Quaternion(2.9149355e-08, -6.4575373e-10, 0.65408564, 0.75642055)
+bones/10/position = Vector3(-3.2205344e-07, 1.417078, 1.4603062e-06)
+bones/11/position = Vector3(2.2240158e-06, 1.2339599, 6.7327005e-07)
+bones/12/position = Vector3(2.2240158e-06, 1.9721053, 6.7327005e-07)
+bones/13/position = Vector3(2.2240158e-06, 1.9721055, 6.7327005e-07)
+bones/14/position = Vector3(2.2240158e-06, 1.5568337, 6.7327005e-07)
+bones/15/rotation = Quaternion(-2.8240317e-08, -3.745065e-10, 0.65345985, 0.7569612)
+bones/16/rotation = Quaternion(2.9149302e-08, 6.4568517e-10, -0.6540856, 0.75642055)
+bones/18/position = Vector3(7.1054274e-14, 0.9353299, 1.0200824e-14)
+bones/19/position = Vector3(5.151435e-14, 0.8144655, 2.842171e-14)
+bones/20/position = Vector3(5.151435e-14, 1.301672, 2.842171e-14)
+bones/21/position = Vector3(5.151435e-14, 1.3016715, 5.684342e-14)
+bones/22/position = Vector3(5.151435e-14, 1.0275764, 5.684342e-14)
+bones/23/rotation = Quaternion(8.899577e-08, 1.3617965e-07, -0.6534597, 0.7569613)
+bones/24/rotation = Quaternion(2.8335457e-08, 2.9551858e-10, 0.6540855, 0.7564206)
+bones/25/position = Vector3(-6.3418247e-07, -3.2333717, -0.34846592)
 
-[node name="Spaceship-Body" parent="." index="10" unique_id=1163051893]
+[node name="Spaceship-Body" parent="." index="11" unique_id=530436086]
 surface_material_override/0 = ExtResource("4_4con0")
 surface_material_override/1 = ExtResource("5_ohdln")
 surface_material_override/2 = ExtResource("6_ohdln")
@@ -77,7 +98,34 @@ light_bake_mode = 1
 omni_range = 20.276
 omni_attenuation = 0.416
 
-[node name="OmniLight3D3" type="OmniLight3D" parent="Lights" index="2" unique_id=1679752672]
+[node name="OmniLight3D9" type="OmniLight3D" parent="Lights" index="2" unique_id=910790718]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.711577, -22.206938)
+light_color = Color(0.7621244, 0.762125, 0.76510006, 1)
+light_energy = 2.0
+light_specular = 0.0
+light_bake_mode = 1
+omni_range = 20.276
+omni_attenuation = 0.416
+
+[node name="OmniLight3D10" type="OmniLight3D" parent="Lights" index="3" unique_id=845976034]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, -2.295, -2.872)
+light_color = Color(0.7621244, 0.762125, 0.76510006, 1)
+light_energy = 2.0
+light_specular = 0.0
+light_bake_mode = 1
+omni_range = 20.276
+omni_attenuation = 0.416
+
+[node name="OmniLight3D11" type="OmniLight3D" parent="Lights" index="4" unique_id=1861154684]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, -2.295, -2.872)
+light_color = Color(0.7621244, 0.762125, 0.76510006, 1)
+light_energy = 2.0
+light_specular = 0.0
+light_bake_mode = 1
+omni_range = 20.276
+omni_attenuation = 0.416
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="Lights" index="5" unique_id=1679752672]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.204354, 3.7686105)
 light_color = Color(0.7621244, 0.762125, 0.76510006, 1)
 light_energy = 4.0
@@ -86,7 +134,7 @@ light_bake_mode = 1
 omni_range = 20.276
 omni_attenuation = 0.416
 
-[node name="OmniLight3D4" type="OmniLight3D" parent="Lights" index="3" unique_id=1376543175]
+[node name="OmniLight3D4" type="OmniLight3D" parent="Lights" index="6" unique_id=1376543175]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.2307634, -40.504646)
 light_energy = 10.0
 light_specular = 0.0
@@ -94,7 +142,7 @@ light_bake_mode = 1
 omni_range = 23.988
 omni_attenuation = 1.656
 
-[node name="OmniLight3D5" type="OmniLight3D" parent="Lights" index="4" unique_id=180362623]
+[node name="OmniLight3D5" type="OmniLight3D" parent="Lights" index="7" unique_id=180362623]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 6.5, -35)
 light_energy = 10.0
 light_specular = 0.0
@@ -102,7 +150,7 @@ light_bake_mode = 1
 omni_range = 23.988
 omni_attenuation = 1.656
 
-[node name="OmniLight3D7" type="OmniLight3D" parent="Lights" index="5" unique_id=1656933698]
+[node name="OmniLight3D7" type="OmniLight3D" parent="Lights" index="8" unique_id=1656933698]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 6.5, -17)
 light_energy = 10.0
 light_specular = 0.0
@@ -110,7 +158,7 @@ light_bake_mode = 1
 omni_range = 23.988
 omni_attenuation = 1.656
 
-[node name="OmniLight3D6" type="OmniLight3D" parent="Lights" index="6" unique_id=786778684]
+[node name="OmniLight3D6" type="OmniLight3D" parent="Lights" index="9" unique_id=786778684]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 6.5, -35)
 light_energy = 10.0
 light_specular = 0.0
@@ -118,7 +166,7 @@ light_bake_mode = 1
 omni_range = 23.988
 omni_attenuation = 1.656
 
-[node name="OmniLight3D8" type="OmniLight3D" parent="Lights" index="7" unique_id=2132560401]
+[node name="OmniLight3D8" type="OmniLight3D" parent="Lights" index="10" unique_id=2132560401]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 6.5, -17)
 light_energy = 10.0
 light_specular = 0.0
@@ -131,3 +179,6 @@ quality = 2
 supersampling = true
 generate_probes_subdiv = 4
 light_data = ExtResource("7_q3gt3")
+
+[node name="Spaceship-Basement-Walls" parent="." index="14" unique_id=1497434551]
+surface_material_override/0 = ExtResource("6_ohdln")
