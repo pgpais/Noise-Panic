@@ -1,13 +1,20 @@
 [gd_scene format=3 uid="uid://2oypgw4dyts"]
 
 [ext_resource type="PackedScene" uid="uid://ds4f3k4yc0ma6" path="res://gameplay/actors/enemies/enemy.tscn" id="1_qg3hk"]
+[ext_resource type="Script" uid="uid://b3s5mo3k2nfjg" path="res://gameplay/combat/Hurtbox.cs" id="2_ce0to"]
 [ext_resource type="PackedScene" uid="uid://c7puyq5j6v233" path="res://gameplay/actors/enemies/Slime/slime.blend" id="2_env81"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://bp4wc5fyixqar" path="res://gameplay/actors/enemies/generic_animation_node_state_machine.tres" id="3_oryfs"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_oryfs"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_ew6ba"]
 viewport_path = NodePath("BoneAttachment3D/Sprite3D/SubViewport")
 
-[node name="Slime" unique_id=1748184085 instance=ExtResource("1_qg3hk")]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gtwec"]
+radius = 0.97802734
+height = 1.9560547
+
+[node name="Slime" unique_id=1748184085 node_paths=PackedStringArray("hurtbox") instance=ExtResource("1_qg3hk")]
+hurtbox = NodePath("BoneAttachment3D/Components/Hurtbox")
+attackDamage = 5
 
 [node name="MeshInstance3D" parent="." index="0" unique_id=41721404]
 visible = false
@@ -17,10 +24,20 @@ external_skeleton = NodePath("../slime/Armature/Skeleton3D")
 
 [node name="Sprite3D" parent="BoneAttachment3D" index="0" unique_id=1325557530]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.6750689)
-texture = SubResource("ViewportTexture_oryfs")
+texture = SubResource("ViewportTexture_ew6ba")
 
 [node name="CharacterController" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="0" unique_id=2102656381 node_paths=PackedStringArray("animationTree")]
 animationTree = NodePath("../../../AnimationTree")
+
+[node name="Hurtbox" type="Area3D" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="3" unique_id=391651177]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("2_ce0to")
+metadata/_custom_type_script = "uid://b3s5mo3k2nfjg"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BoneAttachment3D/Components/Hurtbox" index="0" unique_id=1673281092]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.92038125, 0)
+shape = SubResource("CapsuleShape3D_gtwec")
 
 [node name="slime" parent="." index="3" unique_id=1038293839 instance=ExtResource("2_env81")]
 

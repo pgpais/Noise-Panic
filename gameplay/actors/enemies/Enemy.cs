@@ -12,6 +12,10 @@ public partial class Enemy : Actor, IPooledObject
 	[Export] HealthComponent health;
 	[Export] CharacterController controller;
 
+	[ExportGroup("Attack")]
+	[Export] Hurtbox hurtbox;
+	[Export] int attackDamage = 5;
+
 	ObjectPool pool;
 
 	public override void _Ready()
@@ -19,6 +23,13 @@ public partial class Enemy : Actor, IPooledObject
 		base._Ready();
 
 		health.HealthDepleted += OnHealthDepleted;
+		if (hurtbox != null) hurtbox.Hit += OnHit;
+	}
+
+	private void OnHit(Hitbox hitbox)
+	{
+		if (hitbox.Owner == this) return;
+		hitbox.TakeHit(attackDamage);
 	}
 
 	private void OnHealthDepleted()
@@ -55,6 +66,7 @@ public partial class Enemy : Actor, IPooledObject
 	private void Die()
 	{
 		CallDeferred(MethodName.Despawn);
+		EventBus.Instance.EmitSignal(EventBus.SignalName.EnemyDied, this);
 	}
 
 	public void OnSpawn()

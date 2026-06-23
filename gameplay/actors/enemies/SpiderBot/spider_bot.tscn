@@ -1,38 +1,52 @@
 [gd_scene format=3 uid="uid://ca57l0j31l3qw"]
 
 [ext_resource type="PackedScene" uid="uid://ds4f3k4yc0ma6" path="res://gameplay/actors/enemies/enemy.tscn" id="1_sr8rv"]
+[ext_resource type="Script" uid="uid://b3s5mo3k2nfjg" path="res://gameplay/combat/Hurtbox.cs" id="2_e4ygu"]
 [ext_resource type="PackedScene" uid="uid://dfd10h4o44ta8" path="res://gameplay/actors/enemies/SpiderBot/SpiderBot.blend" id="2_n6ams"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://cuscp6oxr7r81" path="res://gameplay/actors/enemies/SpiderBot/spider_animation_node_state_machine.tres" id="3_rxysk"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_rxysk"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_536ar"]
 viewport_path = NodePath("BoneAttachment3D/Sprite3D/SubViewport")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_n6ams"]
-size = Vector3(1, 1.4, 1)
+size = Vector3(1, 1.0646851, 1.6)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rxysk"]
 size = Vector3(1, 1.4, 1)
 
-[node name="SpiderBot" unique_id=1748184085 instance=ExtResource("1_sr8rv")]
+[node name="SpiderBot" unique_id=1748184085 node_paths=PackedStringArray("hurtbox") instance=ExtResource("1_sr8rv")]
+hurtbox = NodePath("BoneAttachment3D/Components/Hurtbox")
+attackDamage = 5
 
 [node name="MeshInstance3D" parent="." index="0" unique_id=41721404]
 visible = false
 
 [node name="BoneAttachment3D" parent="." index="1" unique_id=1831147750]
-transform = Transform3D(-1, 1.8444593e-06, -3.541657e-06, 1.8905242e-06, 0.9999148, -0.01305097, 3.517283e-06, -0.01305097, -0.9999148, -4.5448536e-07, 1.0936351, 2.365383e-09)
+transform = Transform3D(-1, 2.0900748e-06, -3.4024922e-06, 1.8905249e-06, 0.99833816, 0.057627246, 3.5172834e-06, 0.057627246, -0.99833816, -4.5448536e-07, 1.050422, 2.365383e-09)
 bone_name = "Head.Main"
 bone_idx = 15
 external_skeleton = NodePath("../SpiderBot/Armature/Skeleton3D")
 
 [node name="Sprite3D" parent="BoneAttachment3D" index="0" unique_id=1325557530]
 transform = Transform3D(-1, 0, 7.1054274e-15, -7.1054274e-15, 0, 1, 0, 1, 0, 1.7229172e-07, 0.5370995, -0.0025227591)
-texture = SubResource("ViewportTexture_rxysk")
+texture = SubResource("ViewportTexture_536ar")
 
 [node name="CharacterController" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="0" unique_id=2102656381 node_paths=PackedStringArray("animationTree")]
 animationTree = NodePath("../../../AnimationTree")
 
 [node name="CollisionShape3D" parent="BoneAttachment3D/Components/Hitbox" parent_id_path=PackedInt32Array(653123947) index="0" unique_id=891479098]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72038126, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_n6ams")
+
+[node name="Hurtbox" type="Area3D" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="3" unique_id=1068604676]
+transform = Transform3D(1, 0, -7.1054274e-15, 0, 1, 0, -7.1054274e-15, 0, 1, 5.671575e-07, 0.008304527, -0.29988515)
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("2_e4ygu")
+metadata/_custom_type_script = "uid://b3s5mo3k2nfjg"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BoneAttachment3D/Components/Hurtbox" index="0" unique_id=1844856679]
+transform = Transform3D(1, 0, -7.1054274e-15, 0, 1, 0, -7.1054274e-15, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_n6ams")
 
 [node name="CollisionShape3D" parent="." index="2" unique_id=518336157]
