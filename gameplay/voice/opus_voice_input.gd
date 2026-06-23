@@ -1,5 +1,5 @@
 extends Node
-
+#@pedrosa99i: Não mexer. Ninguém sabe o que acontece.
 var prepend = PackedByteArray()
 var opus_encoder : TwovoipOpusEncoder
 var voice_data_buffer = [ ]
