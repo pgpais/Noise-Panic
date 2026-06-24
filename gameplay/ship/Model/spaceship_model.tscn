@@ -24,55 +24,55 @@ shader = ExtResource("4_rdj20")
 
 [node name="SpaceshipModel" unique_id=876929230 instance=ExtResource("1_agj6l")]
 
-[node name="Player-Pod" parent="." index="0" unique_id=1283146199]
+[node name="Player-Pod" parent="." index="0" unique_id=761858210]
 surface_material_override/0 = ExtResource("4_4con0")
 surface_material_override/1 = ExtResource("3_tf0v1")
 
-[node name="Player-Pod-Door" parent="Player-Pod" index="1" unique_id=1775153839]
+[node name="Player-Pod-Door" parent="Player-Pod" index="1" unique_id=1343968955]
 surface_material_override/0 = ExtResource("5_ohdln")
 
-[node name="Spaceship-Launchpod" parent="." index="1" unique_id=2026203182]
+[node name="Spaceship-Launchpod" parent="." index="1" unique_id=85056006]
 surface_material_override/0 = ExtResource("6_ohdln")
 surface_material_override/1 = ExtResource("4_4con0")
 
-[node name="Player-Pod_001" parent="." index="2" unique_id=1439303554]
+[node name="Player-Pod_001" parent="." index="2" unique_id=1685748646]
 surface_material_override/0 = ExtResource("4_4con0")
 surface_material_override/1 = ExtResource("3_tf0v1")
 
-[node name="Player-Pod-Door_001" parent="Player-Pod_001" index="1" unique_id=1795519870]
+[node name="Player-Pod-Door_001" parent="Player-Pod_001" index="1" unique_id=1186428420]
 surface_material_override/0 = ExtResource("5_ohdln")
 
-[node name="Player-Pod_002" parent="." index="3" unique_id=1128291072]
+[node name="Player-Pod_002" parent="." index="3" unique_id=1273730154]
 surface_material_override/0 = ExtResource("4_4con0")
 surface_material_override/1 = ExtResource("3_tf0v1")
 
-[node name="Player-Pod-Door_002" parent="Player-Pod_002" index="1" unique_id=1239545804]
+[node name="Player-Pod-Door_002" parent="Player-Pod_002" index="1" unique_id=787153716]
 surface_material_override/0 = ExtResource("5_ohdln")
 
-[node name="Main-Screen" parent="." index="4" unique_id=901279116]
+[node name="Main-Screen" parent="." index="5" unique_id=50426880]
 surface_material_override/0 = SubResource("StandardMaterial3D_vlwk7")
 surface_material_override/1 = ExtResource("2_kvkmu")
 
-[node name="Spaceship-Floor" parent="." index="5" unique_id=1755314717]
+[node name="Spaceship-Floor" parent="." index="6" unique_id=2097576966]
 surface_material_override/0 = ExtResource("4_d5gqo")
 
-[node name="Spaceship-Wings" parent="." index="7" unique_id=324483121]
+[node name="Spaceship-Wings" parent="." index="7" unique_id=1311613886]
 surface_material_override/0 = ExtResource("4_4con0")
 surface_material_override/1 = ExtResource("5_ohdln")
 
-[node name="Panel_Body" parent="." index="9" unique_id=1432247456]
+[node name="Panel_Body" parent="." index="9" unique_id=2030594299]
 surface_material_override/0 = SubResource("StandardMaterial3D_q3gt3")
 
-[node name="Panel_Buttons" parent="Panel_Body" index="1" unique_id=1932048931]
+[node name="Panel_Buttons" parent="Panel_Body" index="1" unique_id=93045316]
 surface_material_override/0 = SubResource("ShaderMaterial_un0fb")
 
-[node name="Panel_Screens_01" parent="Panel_Body" index="4" unique_id=1736510834]
+[node name="Panel_Screens_01" parent="Panel_Body" index="4" unique_id=280590807]
 surface_material_override/0 = ExtResource("2_kvkmu")
 
-[node name="Panel_Screens_02" parent="Panel_Body" index="5" unique_id=433784081]
+[node name="Panel_Screens_02" parent="Panel_Body" index="5" unique_id=1120358287]
 surface_material_override/0 = ExtResource("2_kvkmu")
 
-[node name="Panel_Screens_03" parent="Panel_Body" index="6" unique_id=804003943]
+[node name="Panel_Screens_03" parent="Panel_Body" index="6" unique_id=693907733]
 surface_material_override/0 = ExtResource("2_kvkmu")
 
 [node name="Lights" type="Node3D" parent="." index="12" unique_id=1897097921]
@@ -203,11 +203,11 @@ interior = true
 generate_probes_subdiv = 4
 light_data = ExtResource("7_q3gt3")
 
-[node name="Spaceship-Body" parent="." index="16" unique_id=1928540643]
+[node name="Spaceship-Body" parent="." index="16" unique_id=2133307462]
 surface_material_override/0 = ExtResource("4_4con0")
 surface_material_override/1 = ExtResource("5_ohdln")
 surface_material_override/2 = ExtResource("6_ohdln")
 surface_material_override/3 = ExtResource("8_ohdln")
 
-[node name="Spaceship-Basement-Walls" parent="." index="17" unique_id=1232618826]
+[node name="Spaceship-Basement-Walls" parent="." index="17" unique_id=648803849]
 surface_material_override/0 = ExtResource("6_ohdln")
