@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://b3k6noajlsdyk"]
+
+[ext_resource type="Script" uid="uid://bq6wu3xr8ids6" path="res://gameplay/crafting/RecipeView.cs" id="1_ig1x3"]
+
+[node name="CompactRecipeViewer" type="PanelContainer" unique_id=898738953 node_paths=PackedStringArray("recipeName")]
+script = ExtResource("1_ig1x3")
+recipeName = NodePath("MarginContainer/Label")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=2051351183]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="MarginContainer" unique_id=343255046]
+layout_mode = 2
+text = "Recipe Name"
+horizontal_alignment = 1

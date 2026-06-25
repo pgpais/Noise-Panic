@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://cfd7cmhvy2tnk"]
+
+[ext_resource type="Script" uid="uid://cwto8ug1m43sk" path="res://gameplay/crafting/CraftingMachine.cs" id="1_j4jcv"]
+[ext_resource type="Script" uid="uid://cetikanhij36g" path="res://gameplay/crafting/recipes/CraftingRecipeData.cs" id="2_dat6u"]
+[ext_resource type="Script" uid="uid://c54hck77bjjn2" path="res://gameplay/crafting/ui/CraftingMachineProgressUI.cs" id="3_sn5ww"]
+
+[sub_resource type="Resource" id="Resource_tfbxm"]
+script = ExtResource("2_dat6u")
+Name = "Testing"
+RecipeTime = 10.0
+metadata/_custom_type_script = "uid://cetikanhij36g"
+
+[node name="Node3D" type="Node3D" unique_id=120401568]
+script = ExtResource("1_j4jcv")
+_debugRecipe = SubResource("Resource_tfbxm")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=345976326]
+
+[node name="Button" type="Button" parent="CanvasLayer" unique_id=1892197268]
+offset_left = 474.0
+offset_top = 345.0
+offset_right = 598.0
+offset_bottom = 396.0
+text = "Start crafting"
+
+[node name="CraftingMachineProgressUI" type="ProgressBar" parent="CanvasLayer" unique_id=1057514260 node_paths=PackedStringArray("_craftingMachine")]
+offset_left = 440.0
+offset_top = 275.0
+offset_right = 632.0
+offset_bottom = 302.0
+script = ExtResource("3_sn5ww")
+_craftingMachine = NodePath("../..")
+metadata/_custom_type_script = "uid://c54hck77bjjn2"
+
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="Debugstartcraft"]
