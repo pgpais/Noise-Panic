@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using WeWereDumb.Gameplay.Interaction;
 
 namespace Gameplay.Crafting;
 
@@ -11,7 +12,10 @@ public partial class CraftingMachine : Node
 	public CraftingRecipeData CurrentRecipe { get; private set; }
 	public float ElapsedTime => _elapsedTime;
 
-	[Export] private CraftingRecipeData _debugRecipe;
+	[Export] Node3D _resultSpawnPosition;
+	
+	[ExportGroup("Debug")]
+	[Export] CraftingRecipeData _debugRecipe;
 	
 	float _elapsedTime = 0f;
 	bool _isCrafting = false;
@@ -73,6 +77,9 @@ public partial class CraftingMachine : Node
 	private void ReceiveCraftRewards()
 	{
 		GD.Print($"[CraftingMachine] {Multiplayer.GetUniqueId()}: {CurrentRecipe.Name} completed");
+		var resource = CurrentRecipe.Result.SpawnResource();
+		resource.GlobalPosition = _resultSpawnPosition.GlobalPosition;
+		GetTree().CurrentScene.AddChild(resource, true);
 	}
 	
 	private bool IsCraftingDone() => _elapsedTime >= CurrentRecipe.RecipeTime;

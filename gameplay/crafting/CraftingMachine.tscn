@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://die5g2cgg7rwl"]
+
+[ext_resource type="Script" uid="uid://cwto8ug1m43sk" path="res://gameplay/crafting/CraftingMachine.cs" id="1_mo18w"]
+[ext_resource type="Script" uid="uid://cjmhgkfia23v3" path="res://gameplay/interaction/Interactable.cs" id="2_ojd8o"]
+[ext_resource type="Material" uid="uid://buvy6b2l6l2sw" path="res://gameplay/interaction/materials/interactable_highlight.tres" id="3_jvbk7"]
+[ext_resource type="PackedScene" uid="uid://ch2h0wm1cuhu1" path="res://gameplay/crafting/crafting_machine_screen.tscn" id="4_w0sat"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_tfbxm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mo18w"]
+albedo_color = Color(0.834243, 0.18727288, 7.797182e-06, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jvbk7"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_3j3j3"]
+viewport_path = NodePath("Sprite3D/SubViewport")
+
+[node name="CraftingMachine" type="Node3D" unique_id=1856535216]
+script = ExtResource("1_mo18w")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=667416522]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_tfbxm")
+surface_material_override/0 = SubResource("StandardMaterial3D_mo18w")
+
+[node name="Interactable" type="Area3D" parent="." unique_id=1706775195 node_paths=PackedStringArray("mesh")]
+script = ExtResource("2_ojd8o")
+highlightMaterial = ExtResource("3_jvbk7")
+mesh = NodePath("../MeshInstance3D")
+metadata/_custom_type_script = "uid://cjmhgkfia23v3"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable" unique_id=60734942]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_jvbk7")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1967159896]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4615467, 0)
+double_sided = false
+texture = SubResource("ViewportTexture_3j3j3")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite3D" unique_id=946088620]
+size = Vector2i(150, 50)
+
+[node name="CraftingMachineScreen" parent="Sprite3D/SubViewport" unique_id=615105318 node_paths=PackedStringArray("_craftingMachine") instance=ExtResource("4_w0sat")]
+_craftingMachine = NodePath("../../..")
+
+[connection signal="InteractionStarted" from="Interactable" to="." method="Debugstartcraft" unbinds=1]

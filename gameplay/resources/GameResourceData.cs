@@ -9,5 +9,12 @@ namespace WeWereDumb.Gameplay.Resources
         [Export] public string Name { get; private set; }
         [Export] public string Description { get; private set; }
         [Export] public PackedScene Scene { get; private set; }
+
+        public GameResource SpawnResource()
+        {
+            GameResource instance = Scene.Instantiate<GameResource>();
+            instance.SetData(this);
+            return instance;
+        }
     }
 }

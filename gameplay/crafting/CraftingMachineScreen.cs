@@ -10,9 +10,8 @@ public partial class CraftingMachineScreen : Control
 	[ExportGroup("References")]
 	[Export] CraftingMachineProgressUI _progressUi;
 
-	public void OnCraftIntent(CraftingRecipeData recipe)
+	public override void _Ready()
 	{
-		GD.Print("[CraftingMachineScreen] " + Multiplayer.GetUniqueId() + ": Craft intent: " + recipe.Name);
-		_craftingMachine.Debugstartcraft();
+		_progressUi.SetMachine(_craftingMachine);
 	}
 }
