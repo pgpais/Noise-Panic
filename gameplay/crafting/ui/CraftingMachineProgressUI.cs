@@ -10,8 +10,10 @@ public partial class CraftingMachineProgressUI: ProgressBar
     public override void _Ready()
     {
         base._Ready();
-        
-        SetMachine(_craftingMachine);
+        if(_craftingMachine != null)
+        {
+            SetMachine(_craftingMachine);
+        }
     }
 
     public override void _Process(double delta)

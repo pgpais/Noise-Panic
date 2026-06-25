@@ -11,6 +11,7 @@ public partial class CraftingMachine : Node
 	
 	public CraftingRecipeData CurrentRecipe { get; private set; }
 	public float ElapsedTime => _elapsedTime;
+	public bool IsCrafting => _isCrafting;
 
 	[Export] Node3D _resultSpawnPosition;
 	
@@ -78,8 +79,8 @@ public partial class CraftingMachine : Node
 	{
 		GD.Print($"[CraftingMachine] {Multiplayer.GetUniqueId()}: {CurrentRecipe.Name} completed");
 		var resource = CurrentRecipe.Result.SpawnResource();
-		resource.GlobalPosition = _resultSpawnPosition.GlobalPosition;
 		GetTree().CurrentScene.AddChild(resource, true);
+		resource.GlobalPosition = _resultSpawnPosition.GlobalPosition;
 	}
 	
 	private bool IsCraftingDone() => _elapsedTime >= CurrentRecipe.RecipeTime;
