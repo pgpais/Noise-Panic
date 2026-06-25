@@ -42,6 +42,7 @@ enabled=PackedStringArray("res://addons/godotsteam/plugin.cfg", "res://addons/ph
 
 folder_colors={
 "res://assets/materials/": "purple",
+"res://assets/sfx/": "blue",
 "res://assets/shaders/": "orange",
 "res://assets/textures/": "red"
 }
