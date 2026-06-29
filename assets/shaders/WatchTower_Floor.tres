@@ -1,7 +1,7 @@
 [gd_resource type="VisualShader" format=3 uid="uid://c3hlqjdlqhuw"]
 
 [ext_resource type="Texture2D" uid="uid://dnoak0ymwnqgm" path="res://assets/textures/stone_floor/stone_floor_normal.jpg" id="1_2n0bx"]
-[ext_resource type="Texture2D" uid="uid://dykh5w44ckl38" path="res://assets/textures/Gradient-Pallet.png" id="1_lsohi"]
+[ext_resource type="Texture2D" uid="uid://dykh5w44ckl38" path="res://assets/Textures/Gradient-Pallet.png" id="1_lsohi"]
 [ext_resource type="Texture2D" uid="uid://cvh0dxs0f3st" path="res://assets/textures/stone_floor/stone_floor.jpg" id="1_n0j82"]
 
 [sub_resource type="Gradient" id="Gradient_d6i0h"]
