@@ -1,6 +1,6 @@
 [gd_resource type="VisualShader" format=3 uid="uid://2x543b2y2b3u"]
 
-[ext_resource type="Texture2D" uid="uid://dykh5w44ckl38" path="res://assets/Textures/Gradient-Pallet.png" id="1_dvw7w"]
+[ext_resource type="Texture2D" uid="uid://dykh5w44ckl38" path="res://assets/textures/Gradient-Pallet.png" id="1_dvw7w"]
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_icoo2"]
 texture = ExtResource("1_dvw7w")

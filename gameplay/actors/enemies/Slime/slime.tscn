@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://c7puyq5j6v233" path="res://gameplay/actors/enemies/Slime/slime.blend" id="2_env81"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://bp4wc5fyixqar" path="res://gameplay/actors/enemies/generic_animation_node_state_machine.tres" id="3_oryfs"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_ew6ba"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_oryfs"]
 viewport_path = NodePath("BoneAttachment3D/Sprite3D/SubViewport")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gtwec"]
@@ -20,11 +20,12 @@ attackDamage = 5
 visible = false
 
 [node name="BoneAttachment3D" parent="." index="1" unique_id=1831147750]
+transform = Transform3D(0.5082578, 4.443331e-08, 0, 0, 0, 0.5082578, 4.443331e-08, -0.5082578, 0, 0, 0, 0)
 external_skeleton = NodePath("../slime/Armature/Skeleton3D")
 
 [node name="Sprite3D" parent="BoneAttachment3D" index="0" unique_id=1325557530]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.6750689)
-texture = SubResource("ViewportTexture_ew6ba")
+texture = SubResource("ViewportTexture_oryfs")
 
 [node name="CharacterController" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="0" unique_id=2102656381 node_paths=PackedStringArray("animationTree")]
 animationTree = NodePath("../../../AnimationTree")
@@ -40,6 +41,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.92038125, 0)
 shape = SubResource("CapsuleShape3D_gtwec")
 
 [node name="slime" parent="." index="3" unique_id=1038293839 instance=ExtResource("2_env81")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="4" unique_id=244467060]
 root_node = NodePath("../slime")

@@ -58,16 +58,16 @@ animation = &"JumpDown"
 animation = &"JumpUp"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f0w7x"]
-animation = &"Running-Forward-Weapon"
+animation = &"Walking-Forward-Weapon"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_e471u"]
-animation = &"Running-Forward-Weapon"
+animation = &"Walking-Forward-Weapon"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h7rbu"]
-animation = &"Running-Forward-Weapon"
+animation = &"Walking-Forward-Weapon"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_43e4c"]
-animation = &"Running-Forward-Weapon"
+animation = &"Walking-Forward-Weapon"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_r8lee"]
 animation = &"Idle"
@@ -75,14 +75,19 @@ animation = &"Idle"
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_44y0u"]
 blend_point_0/node = SubResource("AnimationNodeAnimation_f0w7x")
 blend_point_0/pos = Vector2(0, 1)
+blend_point_0/name = &"0"
 blend_point_1/node = SubResource("AnimationNodeAnimation_e471u")
 blend_point_1/pos = Vector2(1, 0)
+blend_point_1/name = &"1"
 blend_point_2/node = SubResource("AnimationNodeAnimation_h7rbu")
 blend_point_2/pos = Vector2(0, -1)
+blend_point_2/name = &"2"
 blend_point_3/node = SubResource("AnimationNodeAnimation_43e4c")
 blend_point_3/pos = Vector2(-1, 0)
+blend_point_3/name = &"3"
 blend_point_4/node = SubResource("AnimationNodeAnimation_r8lee")
 blend_point_4/pos = Vector2(0, 0)
+blend_point_4/name = &"4"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pseu4"]
 advance_mode = 2
@@ -114,6 +119,7 @@ graph_offset = Vector2(-46, -119)
 collision_layer = 4
 collision_mask = 3
 floor_max_angle = 1.0471976
+floor_snap_length = 0.2
 script = ExtResource("2_ddyh4")
 VoiceInput = NodePath("BoneAttachment3D/Components/NetworkedVoiceInput")
 characterController = NodePath("BoneAttachment3D/Components/CharacterController")
@@ -322,11 +328,8 @@ shape = SubResource("SphereShape3D_f0w7x")
 look_at_offset = Vector3(0, 1, 0)
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
-[node name="ShootingPoint" type="Marker3D" parent="AimPivot/SpringArm3D2/CameraAnchor" index="1" unique_id=2050930371]
-transform = Transform3D(0.9964412, -0.08422905, 0.0032459297, 0.08423142, 0.9964458, -0.0006616235, -0.0031785094, 0.00093257026, 0.9999945, 0.0376032, -0.3373438, -0.7870921)
-
-[node name="LookAtPoint" type="Marker3D" parent="AimPivot/SpringArm3D2/CameraAnchor" index="2" unique_id=1639446328]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.012427092, 0.24984884, -9.567041)
+[node name="LookAtPoint" type="Marker3D" parent="AimPivot/SpringArm3D2/CameraAnchor" index="1" unique_id=1639446328]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.81181407, 0.24984884, -9.567041)
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="5" unique_id=1642883181]
 root_node = NodePath("../AimPivot/PlayerModel")
@@ -338,19 +341,22 @@ parameters/conditions/is_on_floor = false
 parameters/MovementBlendSpace/blend_position = Vector2(0, 0)
 
 [node name="GunBoneAttachment3D" type="BoneAttachment3D" parent="." index="6" unique_id=1686055260]
-transform = Transform3D(0.03243571, 0.02251215, 0.99922, -0.102032654, -0.99444854, 0.025716722, 0.994252, -0.10278708, -0.029958664, 0.336661, 0.6137526, -0.0004175972)
-bone_name = "hand-R"
-bone_idx = 20
+transform = Transform3D(-0.12512898, 0.21070664, 0.9695079, -0.020119578, -0.97752607, 0.20985252, 0.99193645, 0.006752614, 0.1265562, 0.22676253, 0.7324949, 0.043724835)
+bone_name = "Weapon"
+bone_idx = 32
 use_external_skeleton = true
 external_skeleton = NodePath("../AimPivot/PlayerModel/Armature/Skeleton3D")
 
 [node name="Gun" parent="GunBoneAttachment3D" index="0" unique_id=1731575199 node_paths=PackedStringArray("shootingPoint") instance=ExtResource("13_nt81s")]
 transform = Transform3D(0.9953868, 0.09533713, -0.0108073065, 0.0083337575, -0.19811824, -0.9801427, -0.095585115, 0.97553104, -0.19799863, -0.073206544, 0.33629757, 0.009788841)
 visible = false
-shootingPoint = NodePath("../../AimPivot/SpringArm3D2/CameraAnchor/ShootingPoint")
+shootingPoint = NodePath("../ShootingPoint")
+
+[node name="ShootingPoint" type="Marker3D" parent="GunBoneAttachment3D" index="1" unique_id=2050930371]
+transform = Transform3D(0.23648416, -0.95747894, -0.16525602, -0.22879127, 0.11042448, -0.9671928, 0.944315, 0.2665345, -0.19294891, -0.093114614, 0.2293722, 0.022314727)
 
 [node name="BackpackBoneAttachment3D" type="BoneAttachment3D" parent="." index="7" unique_id=1421805177]
-transform = Transform3D(-0.99999195, -0.0039561307, 0.000110363624, 0.0038636334, -0.96980923, 0.24383357, -0.0008576077, 0.24383259, 0.96981543, 0.001508911, 1.0841233, 0.16719626)
+transform = Transform3D(-0.99639684, -0.01868111, -0.08273098, -0.002086672, -0.9697464, 0.24410485, -0.084788345, 0.24339831, 0.96621186, -0.015325481, 1.0837061, 0.16957437)
 bone_name = "backpack"
 bone_idx = 31
 use_external_skeleton = true

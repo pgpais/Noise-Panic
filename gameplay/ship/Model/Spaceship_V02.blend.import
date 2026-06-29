@@ -39,7 +39,73 @@ import_script/path=""
 materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
-_subresources={}
+_subresources={
+"meshes": {
+"Spaceship_V02_Cube_035": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": false,
+"save_to_file/fallback_path": "res://gameplay/ship/Model/ControlPanel/ScreenSet3.tres",
+"save_to_file/path": "uid://ldl8xom3cex6"
+},
+"Spaceship_V02_Cube_036": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": false,
+"save_to_file/fallback_path": "res://gameplay/ship/Model/ControlPanel/ScreenSet2.tres",
+"save_to_file/path": "uid://db6ffpyodlf21"
+},
+"Spaceship_V02_Cube_037": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": false,
+"save_to_file/fallback_path": "res://gameplay/ship/Model/ControlPanel/ScreenSet1.tres",
+"save_to_file/path": "uid://60h1x55avi8a"
+},
+"Spaceship_V02_Cube_038": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": false,
+"save_to_file/fallback_path": "res://gameplay/ship/Model/ControlPanel/lever.tres",
+"save_to_file/path": "uid://dugl2mh6dmfuc"
+},
+"Spaceship_V02_Cube_040": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": false,
+"save_to_file/fallback_path": "res://gameplay/ship/Model/ControlPanel/BigButton.tres",
+"save_to_file/path": "uid://ljb6v56hlwvk"
+},
+"Spaceship_V02_Cube_041": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": false,
+"save_to_file/fallback_path": "res://gameplay/ship/Model/ControlPanel/PanelButtons.tres",
+"save_to_file/path": "uid://c00fkwtmh1kdd"
+},
+"Spaceship_V02_Cube_042": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": false,
+"save_to_file/fallback_path": "res://gameplay/ship/Model/ControlPanel/ControlPanelBody.tres",
+"save_to_file/path": "uid://150nsfc258bg"
+}
+}
+}
 blender/nodes/visible=0
 blender/nodes/active_collection_only=false
 blender/nodes/punctual_lights=true

@@ -32,6 +32,8 @@
 [ext_resource type="Script" uid="uid://0ml1o8gn0q1u" path="res://gameplay/goals/ObjectiveProgressBar.cs" id="27_uwean"]
 [ext_resource type="Script" uid="uid://bcuxyjal2x5n" path="res://gameplay/hud/RunEndUI.cs" id="28_h4q3c"]
 [ext_resource type="Environment" uid="uid://c8bycmkvq3a8d" path="res://core/camera/default_environment.tres" id="28_ywhi4"]
+[ext_resource type="PackedScene" uid="uid://3lxx3tw2iouf" path="res://levels/albacore.tscn" id="33_kmbd1"]
+[ext_resource type="PackedScene" uid="uid://c2bwl705pmb5l" path="res://levels/buildings/watch_tower.tscn" id="34_5q4qy"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_sy2v3"]
 viewport_path = NodePath("Ship/SpaceshipModel/OverviewScreen/SubViewport")
@@ -63,16 +65,6 @@ RecipeTime = 2.0
 Result = ExtResource("2_itlwr")
 metadata/_custom_type_script = "uid://cetikanhij36g"
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5h46i"]
-albedo_color = Color(0.28118682, 0.28118688, 0.28118682, 1)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_arc7w"]
-material = SubResource("StandardMaterial3D_5h46i")
-size = Vector2(500, 500)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_dxlos"]
-size = Vector3(500, 0.001, 500)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ohsu"]
 albedo_color = Color(1, 0, 0, 1)
 
@@ -101,7 +93,7 @@ itemExtractsRequired = 10
 itemRequired = ExtResource("2_itlwr")
 
 [node name="RunTimer" type="Timer" parent="." unique_id=1970086283]
-wait_time = 60.0
+wait_time = 99999.0
 one_shot = true
 
 [node name="Ship" type="RigidBody3D" parent="." unique_id=2106779243]
@@ -213,18 +205,12 @@ _debugRecipe = SubResource("Resource_bhs2y")
 [node name="Marker3D" type="Marker3D" parent="Ship/CraftingMachine2" unique_id=1356770136]
 transform = Transform3D(1.0000002, -2.3283064e-10, 0, 0, 1.0000002, -1.0477379e-09, 0, -1.0440999e-09, 1.0000002, 1.4166298, -0.0024108887, -0.046553135)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=156097673]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1329043612]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.09971523)
-mesh = SubResource("PlaneMesh_arc7w")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1931856980]
-shape = SubResource("BoxShape3D_dxlos")
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=165574689]
 transform = Transform3D(0.15505606, 0.6114181, -0.77596754, -0.024207849, 0.7875829, 0.6157331, 0.987609, -0.07668865, 0.13692062, -25.35896, 211.59932, 0)
 shadow_enabled = true
+shadow_opacity = 0.95
+directional_shadow_fade_start = 0.2
+directional_shadow_max_distance = 250.0
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1138672703]
 transform = Transform3D(-0.99856895, 0.014782067, -0.051396936, 0, 0.9610423, 0.27640155, 0.053480413, 0.27600598, -0.9596669, 8.693587, 108.89046, -6.302533)
@@ -451,5 +437,11 @@ text = "Close"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=250441152]
 environment = ExtResource("28_ywhi4")
+
+[node name="Map_01" parent="." unique_id=120095929 instance=ExtResource("33_kmbd1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.998304, 0)
+
+[node name="WatchTower" parent="." unique_id=1152642652 instance=ExtResource("34_5q4qy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5203576, 0.0570516, -11.032647)
 
 [connection signal="Pressed" from="Ship/StandingButton" to="Ship/PlayerPodLauncher" method="TryLaunchPlayer"]
