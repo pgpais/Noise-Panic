@@ -23,7 +23,7 @@ namespace WeWereDumb.Gameplay.Input
 			if (!IsMultiplayerAuthority()) return;
 
 
-			if (Godot.Input.IsActionJustPressed("shoot"))
+			if (Godot.Input.IsActionPressed("shoot"))
 			{
 				gun.Shoot();
 			}
