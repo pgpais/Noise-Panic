@@ -38,6 +38,7 @@ namespace WeWereDumb.Gameplay.Combat.Projectiles
 
             hurtbox.Hit += OnHit;
             hurtbox.HitHitbox += OnHitboxHit;
+            particles.Finished += Despawn;
         }
 
         public override void _Process(double delta)
@@ -87,7 +88,6 @@ namespace WeWereDumb.Gameplay.Combat.Projectiles
             ResetPhysics();
             visuals.Hide();
             EmitParticles();
-            particles.Finished += Despawn;
         }
         
         private void OnHitboxHit(Hitbox hitbox)

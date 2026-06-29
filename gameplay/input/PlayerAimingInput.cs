@@ -27,6 +27,11 @@ namespace WeWereDumb.Gameplay.Input
 			{
 				gun.Shoot();
 			}
+
+			if (Godot.Input.IsActionJustPressed("reload"))
+			{
+				gun.Reload();
+			}
 		}
 
 		public override void _UnhandledInput(InputEvent @event)
