@@ -30,6 +30,8 @@ public partial class Beep : Node3D
 		
 		setEmission = Callable.From((Color color) => beepMaterial.Emission = color);
 		setEnergyMultiplier = Callable.From((float energy) => beepMaterial.EmissionEnergyMultiplier = energy);
+
+		EventBus.Instance.BeepActivated += Activate;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -37,12 +39,13 @@ public partial class Beep : Node3D
 	{
 		if (!IsMultiplayerAuthority()) return;
 		
-		if (Input.IsActionJustPressed("beep"))
+		if (Input.IsActionJustPressed("beep")) //TODO: maybe move input somewhere
 		{
-			Activate();
+			Rpc(MethodName.PropagateBeep);
 		}
 	}
-
+	
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true)]
 	public void Activate()
 	{
 		if (!IsMultiplayerAuthority()) return;
@@ -70,6 +73,12 @@ public partial class Beep : Node3D
 		var tween = DeactivationTween();
 		tween.Play();
 		_isActive = false;
+	}
+	
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true)]
+	private void PropagateBeep()
+	{
+		EventBus.Instance.EmitSignal(EventBus.SignalName.BeepActivated);
 	}
 
 	private Tween ActivationTween()

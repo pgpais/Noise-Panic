@@ -16,3 +16,4 @@ beepMaterial = ExtResource("2_akffe")
 stream = ExtResource("2_7vy5k")
 volume_db = -27.265
 pitch_scale = 0.35
+max_polyphony = 4

@@ -13,6 +13,8 @@ public partial class EventBus : Node
 	[Signal] public delegate void RunEndedEventHandler(bool success);
 
 	[Signal] public delegate void GamePausedEventHandler(bool paused);
+	
+	[Signal] public delegate void BeepActivatedEventHandler();
 
 	public static EventBus Instance { get; private set; }
 
