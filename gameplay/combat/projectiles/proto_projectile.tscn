@@ -51,10 +51,11 @@ hurtbox = NodePath("Hurtbox")
 particles = NodePath("GPUParticles3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1618312033]
-transform = Transform3D(1, 0, 0, 0, 1.1924881e-08, 1, 0, -1, 1.1924881e-08, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1.1924881e-08, 1, 0, -1, 1.1924881e-08, 0, 0, -0.5)
 mesh = SubResource("CylinderMesh_j3pel")
 
 [node name="Hurtbox" type="Area3D" parent="." unique_id=667936574]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
 collision_mask = 7
 input_ray_pickable = false
 script = ExtResource("2_g3gji")
@@ -65,7 +66,7 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0
 shape = SubResource("CylinderShape3D_g3gji")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=2128491416]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 emitting = false
 amount = 16
 one_shot = true
@@ -74,5 +75,5 @@ process_material = SubResource("ParticleProcessMaterial_tfbxm")
 draw_pass_1 = SubResource("BoxMesh_tfbxm")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=437937889]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -0.5)
 shape = SubResource("CylinderShape3D_g3gji")

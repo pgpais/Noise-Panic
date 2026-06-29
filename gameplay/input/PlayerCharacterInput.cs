@@ -51,6 +51,15 @@ public partial class PlayerCharacterInput : Node, IInput
 		{
 			controller.WantsToJump = true;
 		}
+
+		if (Input.IsActionJustPressed("run"))
+		{
+			controller.WantsToRun = true;
+		}
+		else if (Input.IsActionJustReleased("run"))
+		{
+			controller.WantsToRun = false;
+		}
 	}
 
 	private void HandleMovementInput()

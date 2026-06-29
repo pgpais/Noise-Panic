@@ -34,13 +34,14 @@ albedo_color = Color(0, 0, 0, 1)
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f0w7x"]
 radius = 0.3569336
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_adh2p"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_x8p83"]
 viewport_path = NodePath("BoneAttachment3D/Sprite3D/SubViewport")
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_r8lee"]
 size = Vector2(64, 64)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5y3ih"]
+radius = 0.3413086
 
 [sub_resource type="Resource" id="Resource_5myso"]
 script = ExtResource("5_3canv")
@@ -183,7 +184,7 @@ external_skeleton = NodePath("../AimPivot/PlayerModel/Armature/Skeleton3D")
 
 [node name="Sprite3D" parent="BoneAttachment3D" index="0" unique_id=1325557530]
 transform = Transform3D(-1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 2.639309)
-texture = SubResource("ViewportTexture_adh2p")
+texture = SubResource("ViewportTexture_x8p83")
 script = ExtResource("5_adh2p")
 
 [node name="SubViewport" parent="BoneAttachment3D/Sprite3D" index="0" unique_id=1048474995]
@@ -312,7 +313,10 @@ spring_length = 0.5
 [node name="CameraAnchor" type="Node3D" parent="AimPivot/SpringArm3D2" index="0" unique_id=124411788]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
 
-[node name="SpringArm3D" type="SpringArm3D" parent="AimPivot/SpringArm3D2/CameraAnchor" index="0" unique_id=359803306]
+[node name="ShootingPoint" type="Marker3D" parent="AimPivot/SpringArm3D2/CameraAnchor" index="0" unique_id=2050930371]
+transform = Transform3D(1.0000007, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000004, 0, 0, -0.564272)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="AimPivot/SpringArm3D2/CameraAnchor" index="1" unique_id=359803306]
 spring_length = 3.62
 
 [node name="PhantomCamera3D" type="Node3D" parent="AimPivot/SpringArm3D2/CameraAnchor/SpringArm3D" index="0" unique_id=30133293]
@@ -328,7 +332,7 @@ shape = SubResource("SphereShape3D_f0w7x")
 look_at_offset = Vector3(0, 1, 0)
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
-[node name="LookAtPoint" type="Marker3D" parent="AimPivot/SpringArm3D2/CameraAnchor" index="1" unique_id=1639446328]
+[node name="LookAtPoint" type="Marker3D" parent="AimPivot/SpringArm3D2/CameraAnchor" index="2" unique_id=1639446328]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.81181407, 0.24984884, -9.567041)
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="5" unique_id=1642883181]
@@ -341,7 +345,7 @@ parameters/conditions/is_on_floor = false
 parameters/MovementBlendSpace/blend_position = Vector2(0, 0)
 
 [node name="GunBoneAttachment3D" type="BoneAttachment3D" parent="." index="6" unique_id=1686055260]
-transform = Transform3D(-0.12512898, 0.21070664, 0.9695079, -0.020119578, -0.97752607, 0.20985252, 0.99193645, 0.006752614, 0.1265562, 0.22676253, 0.7324949, 0.043724835)
+transform = Transform3D(-0.12543416, 0.21390772, 0.96876734, -0.020303562, -0.9768284, 0.21305881, 0.99189425, 0.0070553757, 0.12687078, 0.22636037, 0.7326354, 0.04536175)
 bone_name = "Weapon"
 bone_idx = 32
 use_external_skeleton = true
@@ -350,13 +354,10 @@ external_skeleton = NodePath("../AimPivot/PlayerModel/Armature/Skeleton3D")
 [node name="Gun" parent="GunBoneAttachment3D" index="0" unique_id=1731575199 node_paths=PackedStringArray("shootingPoint") instance=ExtResource("13_nt81s")]
 transform = Transform3D(0.9953868, 0.09533713, -0.0108073065, 0.0083337575, -0.19811824, -0.9801427, -0.095585115, 0.97553104, -0.19799863, -0.073206544, 0.33629757, 0.009788841)
 visible = false
-shootingPoint = NodePath("../ShootingPoint")
-
-[node name="ShootingPoint" type="Marker3D" parent="GunBoneAttachment3D" index="1" unique_id=2050930371]
-transform = Transform3D(0.23648416, -0.95747894, -0.16525602, -0.22879127, 0.11042448, -0.9671928, 0.944315, 0.2665345, -0.19294891, -0.093114614, 0.2293722, 0.022314727)
+shootingPoint = NodePath("../../AimPivot/SpringArm3D2/CameraAnchor/ShootingPoint")
 
 [node name="BackpackBoneAttachment3D" type="BoneAttachment3D" parent="." index="7" unique_id=1421805177]
-transform = Transform3D(-0.99639684, -0.01868111, -0.08273098, -0.002086672, -0.9697464, 0.24410485, -0.084788345, 0.24339831, 0.96621186, -0.015325481, 1.0837061, 0.16957437)
+transform = Transform3D(-0.9963529, -0.015592986, -0.08389297, -0.0053726984, -0.969747, 0.24405256, -0.08516059, 0.24361348, 0.9661249, -0.016924942, 1.0830798, 0.17104027)
 bone_name = "backpack"
 bone_idx = 31
 use_external_skeleton = true

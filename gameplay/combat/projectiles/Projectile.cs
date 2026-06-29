@@ -52,11 +52,37 @@ namespace WeWereDumb.Gameplay.Combat.Projectiles
         {
             Shooter = shooter;
         }
+        
+        
+        public void OnSpawn()
+        {
+            ProcessMode = ProcessModeEnum.Inherit;
+            Show();
+            
+            visuals.Show();
+            CallDeferred(MethodName.MonitorContacts, true);
 
+            timer.Autostart = true;
+            timer.Timeout += Despawn;
+        }
+
+        public void OnDespawn()
+        {
+            ProcessMode = ProcessModeEnum.Disabled;
+            Hide();
+
+            if (timer.IsConnected(Timer.SignalName.Timeout, Callable.From(Despawn)))
+            {
+                timer.Timeout -= Despawn;
+            }
+            if (!timer.IsStopped()) timer.Stop();
+
+            CallDeferred(MethodName.ResetPhysics);
+        }
+        
         private void OnHit()
         {
-            hurtbox.Monitoring = false;
-            hurtbox.Monitorable = false;
+            CallDeferred(MethodName.MonitorContacts, false);
             
             ResetPhysics();
             visuals.Hide();
@@ -105,31 +131,10 @@ namespace WeWereDumb.Gameplay.Combat.Projectiles
             _velocity = Vector3.Zero;
         }
 
-        public void OnSpawn()
+        private void MonitorContacts(bool enabled)
         {
-            ProcessMode = ProcessModeEnum.Inherit;
-            Show();
-            
-            visuals.Show();
-            hurtbox.Monitoring = true;
-            hurtbox.Monitorable = true;
-
-            timer.Autostart = true;
-            timer.Timeout += Despawn;
-        }
-
-        public void OnDespawn()
-        {
-            ProcessMode = ProcessModeEnum.Disabled;
-            Hide();
-
-            if (timer.IsConnected(Timer.SignalName.Timeout, Callable.From(Despawn)))
-            {
-                timer.Timeout -= Despawn;
-            }
-            if (!timer.IsStopped()) timer.Stop();
-
-            CallDeferred(MethodName.ResetPhysics);
+            hurtbox.Monitoring = enabled;
+            hurtbox.Monitorable = enabled;
         }
     }
 }
