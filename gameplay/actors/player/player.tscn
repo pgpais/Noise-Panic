@@ -13,16 +13,17 @@
 [ext_resource type="Script" uid="uid://cb7754xejwcbs" path="res://gameplay/actors/player/hud/VoiceVisualizer.cs" id="6_adh2p"]
 [ext_resource type="Script" uid="uid://cjae0hvsvnlpi" path="res://gameplay/input/PlayerAimingInput.cs" id="6_f0w7x"]
 [ext_resource type="Script" uid="uid://bo617ykqvvyjv" path="res://gameplay/gathering/ResourceHolder.cs" id="9_tg5ys"]
-[ext_resource type="Script" uid="uid://dsbcc63ha117i" path="res://gameplay/voice/NetworkedVoiceInput.cs" id="10_r8lee"]
-[ext_resource type="Script" uid="uid://djd16o5tc6iqh" path="res://gameplay/voice/opus_voice_input.gd" id="11_2qhaa"]
+[ext_resource type="Script" uid="uid://dsbcc63ha117i" path="res://gameplay/communication/voice/NetworkedVoiceInput.cs" id="10_r8lee"]
+[ext_resource type="Script" uid="uid://djd16o5tc6iqh" path="res://gameplay/communication/voice/opus_voice_input.gd" id="11_2qhaa"]
 [ext_resource type="PackedScene" uid="uid://dw46qc0a7drf0" path="res://gameplay/combat/weapons/gun.tscn" id="13_nt81s"]
 [ext_resource type="Script" uid="uid://bhsoqgg220w7f" path="res://gameplay/combat/health/HealthComponent.cs" id="13_pseu4"]
 [ext_resource type="Environment" uid="uid://c8bycmkvq3a8d" path="res://core/camera/default_environment.tres" id="14_e471u"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="14_h7rbu"]
 [ext_resource type="Texture2D" uid="uid://ck3aaxwyckl48" path="res://assets/textures/kenney_crosshairs/crosshair007.png" id="16_e471u"]
-[ext_resource type="Texture2D" uid="uid://d3qhnj4b4ju5o" path="res://gameplay/voice/speak-icon.png" id="18_43e4c"]
+[ext_resource type="Texture2D" uid="uid://d3qhnj4b4ju5o" path="res://gameplay/communication/voice/speak-icon.png" id="18_43e4c"]
 [ext_resource type="PackedScene" uid="uid://e34atjemiv2t" path="res://gameplay/actors/player/model/player_model.tscn" id="18_pseu4"]
-[ext_resource type="Script" uid="uid://lsi30cj5e2rk" path="res://gameplay/voice/NetworkedVoiceOutput.cs" id="20_44y0u"]
+[ext_resource type="PackedScene" uid="uid://chcxfkf54biko" path="res://gameplay/communication/beep/beep.tscn" id="19_jnrca"]
+[ext_resource type="Script" uid="uid://lsi30cj5e2rk" path="res://gameplay/communication/voice/NetworkedVoiceOutput.cs" id="20_44y0u"]
 [ext_resource type="PackedScene" uid="uid://cpetvmxskelxq" path="res://gameplay/combat/health/ui/health_bar.tscn" id="20_adh2p"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_3canv"]
@@ -34,7 +35,7 @@ albedo_color = Color(0, 0, 0, 1)
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f0w7x"]
 radius = 0.3569336
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_adh2p"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_jnrca"]
 viewport_path = NodePath("BoneAttachment3D/Sprite3D/SubViewport")
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_r8lee"]
@@ -184,7 +185,7 @@ external_skeleton = NodePath("../AimPivot/PlayerModel/Armature/Skeleton3D")
 
 [node name="Sprite3D" parent="BoneAttachment3D" index="0" unique_id=1325557530]
 transform = Transform3D(-1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 2.639309)
-texture = SubResource("ViewportTexture_adh2p")
+texture = SubResource("ViewportTexture_jnrca")
 script = ExtResource("5_adh2p")
 
 [node name="SubViewport" parent="BoneAttachment3D/Sprite3D" index="0" unique_id=1048474995]
@@ -282,7 +283,6 @@ holdingPoint = NodePath("../../../BackpackBoneAttachment3D/Marker3D")
 [node name="NetworkedVoiceInput" type="Node3D" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="7" unique_id=1343744376 node_paths=PackedStringArray("voiceInput")]
 script = ExtResource("10_r8lee")
 voiceInput = NodePath("OpusVoiceInput")
-metadata/_custom_type_script = "uid://dsbcc63ha117i"
 
 [node name="OpusVoiceInput" type="Node" parent="BoneAttachment3D/Components/NetworkedVoiceInput" index="0" unique_id=1675752155]
 script = ExtResource("11_2qhaa")
@@ -291,7 +291,6 @@ script = ExtResource("11_2qhaa")
 script = ExtResource("20_44y0u")
 audioStreamPlayer3D = NodePath("AudioStreamPlayer3D")
 voiceInput = NodePath("../NetworkedVoiceInput")
-metadata/_custom_type_script = "uid://lsi30cj5e2rk"
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="BoneAttachment3D/Components/NetworkedVoiceOutput" index="0" unique_id=2125100688]
 unit_size = 5.0
@@ -300,6 +299,8 @@ doppler_tracking = 2
 [node name="HealthComponent" type="Node" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="9" unique_id=497690319]
 script = ExtResource("13_pseu4")
 metadata/_custom_type_script = "uid://bhsoqgg220w7f"
+
+[node name="Beep" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="10" unique_id=923369463 instance=ExtResource("19_jnrca")]
 
 [node name="AimPivot" type="Node3D" parent="." index="4" unique_id=1085734815]
 
@@ -345,7 +346,7 @@ parameters/conditions/is_on_floor = false
 parameters/MovementBlendSpace/blend_position = Vector2(0, 0)
 
 [node name="GunBoneAttachment3D" type="BoneAttachment3D" parent="." index="6" unique_id=1686055260]
-transform = Transform3D(-0.12553068, 0.2149182, 0.96853065, -0.020337649, -0.97660553, 0.21407409, 0.99188125, 0.0071755685, 0.12696493, 0.22623178, 0.73292035, 0.045885343)
+transform = Transform3D(-0.1252788, 0.21227588, 0.9691462, -0.020190842, -0.9771854, 0.21142675, 0.9919161, 0.006919455, 0.12670666, 0.22656533, 0.73274755, 0.04453161)
 bone_name = "Weapon"
 bone_idx = 32
 use_external_skeleton = true
@@ -358,7 +359,7 @@ maxAmmo = 1
 shootingPoint = NodePath("../../AimPivot/SpringArm3D2/CameraAnchor/ShootingPoint")
 
 [node name="BackpackBoneAttachment3D" type="BoneAttachment3D" parent="." index="7" unique_id=1421805177]
-transform = Transform3D(-0.9963362, -0.014617682, -0.08426023, -0.006412671, -0.96973896, 0.24405885, -0.08527816, 0.24370575, 0.9660912, -0.01743108, 1.0831246, 0.17150098)
+transform = Transform3D(-0.99637663, -0.017167553, -0.08330069, -0.0036988724, -0.9697435, 0.24409801, -0.08497097, 0.24352203, 0.96616465, -0.016109848, 1.0835859, 0.17029066)
 bone_name = "backpack"
 bone_idx = 31
 use_external_skeleton = true

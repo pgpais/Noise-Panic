@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://chcxfkf54biko"]
+
+[ext_resource type="Script" uid="uid://cb4jqt883o3x7" path="res://gameplay/communication/beep/Beep.cs" id="1_s8n6m"]
+[ext_resource type="AudioStream" uid="uid://dh5jjt358y3mp" path="res://assets/sfx/beep.mp3" id="2_7vy5k"]
+[ext_resource type="Material" uid="uid://dnft6at56ixl3" path="res://gameplay/communication/beep/materials/beep_material.tres" id="2_akffe"]
+
+[node name="Beep" type="Node3D" unique_id=923369463 node_paths=PackedStringArray("audioStreamPlayer")]
+script = ExtResource("1_s8n6m")
+beepActiveColor = Color(1.3528494, 0, 0, 1)
+beepActiveEmission = 16.0
+beepInactiveColor = Color(0, 0, 0, 1)
+audioStreamPlayer = NodePath("AudioStreamPlayer")
+beepMaterial = ExtResource("2_akffe")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1646209713]
+stream = ExtResource("2_7vy5k")
+volume_db = -27.265
+pitch_scale = 0.35
+max_polyphony = 4
