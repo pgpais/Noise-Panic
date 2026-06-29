@@ -13,13 +13,39 @@ material = SubResource("StandardMaterial3D_oo4fg")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_r08dx"]
 
-[node name="ProtoShipProjectile" type="RigidBody3D" unique_id=1452483818 node_paths=PackedStringArray("hurtbox")]
+[sub_resource type="Curve" id="Curve_r08dx"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_u1exi"]
+curve = SubResource("Curve_r08dx")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6txyr"]
+direction = Vector3(0, 0, -1)
+spread = 30.0
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+scale_curve = SubResource("CurveTexture_u1exi")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g3gji"]
+albedo_color = Color(1, 1, 0, 1)
+emission_enabled = true
+emission = Color(0.56078434, 1, 0, 1)
+emission_energy_multiplier = 8.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_fg84x"]
+material = SubResource("StandardMaterial3D_g3gji")
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="ProtoShipProjectile" type="RigidBody3D" unique_id=1452483818 node_paths=PackedStringArray("visuals", "hurtbox", "particles")]
 collision_layer = 0
 collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource("1_r08dx")
 timeToLive = 10.0
+visuals = NodePath("MeshInstance3D")
 hurtbox = NodePath("Hurtbox")
+particles = NodePath("GPUParticles3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1618312033]
 mesh = SubResource("SphereMesh_oo4fg")
@@ -30,8 +56,16 @@ shape = SubResource("SphereShape3D_3jh82")
 [node name="Hurtbox" type="Area3D" parent="." unique_id=667936574]
 collision_mask = 2
 script = ExtResource("2_6txyr")
-damage = 30
 metadata/_custom_type_script = "uid://b3s5mo3k2nfjg"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=131729340]
 shape = SubResource("SphereShape3D_r08dx")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1010344680]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+emitting = false
+amount = 16
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_6txyr")
+draw_pass_1 = SubResource("BoxMesh_fg84x")

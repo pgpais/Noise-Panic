@@ -106,7 +106,7 @@ public partial class ShipTurret : Node3D
 	{
 		bullet.GlobalPosition = position;
 		bullet.GlobalRotation = rotation;
-		bullet.ApplyCentralImpulse(-bullet.GlobalTransform.Basis.Z * shootingForce);
+		bullet.SetVelocity(-bullet.GlobalTransform.Basis.Z * shootingForce);
 	}
 
 	private void OnInteractionStarted(Interactor interactor)

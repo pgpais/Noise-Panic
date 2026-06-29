@@ -23,7 +23,7 @@ public partial class Enemy : Actor, IPooledObject
 		base._Ready();
 
 		health.HealthDepleted += OnHealthDepleted;
-		if (hurtbox != null) hurtbox.Hit += OnHit;
+		if (hurtbox != null) hurtbox.HitHitbox += OnHit;
 	}
 
 	private void OnHit(Hitbox hitbox)

@@ -3,38 +3,76 @@
 [ext_resource type="Script" uid="uid://b0nnxh5anynfp" path="res://gameplay/combat/projectiles/Projectile.cs" id="1_3jh82"]
 [ext_resource type="Script" uid="uid://b3s5mo3k2nfjg" path="res://gameplay/combat/Hurtbox.cs" id="2_g3gji"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oo4fg"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g3gji"]
 albedo_color = Color(1, 1, 0, 1)
+emission_enabled = true
+emission = Color(0.56078434, 1, 0, 1)
+emission_energy_multiplier = 8.0
 
-[sub_resource type="SphereMesh" id="SphereMesh_oo4fg"]
-material = SubResource("StandardMaterial3D_oo4fg")
-radius = 0.1
-height = 0.2
+[sub_resource type="CylinderMesh" id="CylinderMesh_j3pel"]
+material = SubResource("StandardMaterial3D_g3gji")
+top_radius = 0.05
+bottom_radius = 0.005
+height = 1.0
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_3jh82"]
-radius = 0.1
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_g3gji"]
+height = 1.0
+radius = 0.0275
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_g3gji"]
-radius = 0.1
+[sub_resource type="Curve" id="Curve_ost7x"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
 
-[node name="ProtoProjectile" type="RigidBody3D" unique_id=1452483818 node_paths=PackedStringArray("hurtbox")]
+[sub_resource type="CurveTexture" id="CurveTexture_g3gji"]
+curve = SubResource("Curve_ost7x")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tfbxm"]
+direction = Vector3(0, 0, 1)
+spread = 30.0
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+scale_curve = SubResource("CurveTexture_g3gji")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nwfim"]
+albedo_color = Color(1, 1, 0, 1)
+emission_enabled = true
+emission = Color(0.56078434, 1, 0, 1)
+emission_energy_multiplier = 8.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_tfbxm"]
+material = SubResource("StandardMaterial3D_nwfim")
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="ProtoProjectile" type="Node3D" unique_id=1687447170 node_paths=PackedStringArray("visuals", "hurtbox", "particles")]
 process_mode = 3
-collision_layer = 0
-collision_mask = 0
-gravity_scale = 0.0
 script = ExtResource("1_3jh82")
+visuals = NodePath("MeshInstance3D")
 hurtbox = NodePath("Hurtbox")
+particles = NodePath("GPUParticles3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1618312033]
-mesh = SubResource("SphereMesh_oo4fg")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2107723925]
-shape = SubResource("SphereShape3D_3jh82")
+transform = Transform3D(1, 0, 0, 0, 1.1924881e-08, 1, 0, -1, 1.1924881e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_j3pel")
 
 [node name="Hurtbox" type="Area3D" parent="." unique_id=667936574]
-collision_mask = 6
+collision_mask = 7
+input_ray_pickable = false
 script = ExtResource("2_g3gji")
 metadata/_custom_type_script = "uid://b3s5mo3k2nfjg"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=131729340]
-shape = SubResource("SphereShape3D_g3gji")
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+shape = SubResource("CylinderShape3D_g3gji")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=2128491416]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+emitting = false
+amount = 16
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_tfbxm")
+draw_pass_1 = SubResource("BoxMesh_tfbxm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=437937889]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+shape = SubResource("CylinderShape3D_g3gji")
