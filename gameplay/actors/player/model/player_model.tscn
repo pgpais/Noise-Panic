@@ -6,21 +6,16 @@
 [ext_resource type="Material" uid="uid://ci5dedrs4kjon" path="res://assets/materials/Main-Character-Screens.material" id="4_rinv7"]
 [ext_resource type="Material" uid="uid://crl01hedtxl21" path="res://assets/materials/Main-Character-Body.material" id="5_yv5sr"]
 [ext_resource type="Material" uid="uid://bmwt32ou1qhq1" path="res://assets/materials/Main-Character-Metal.material" id="6_hyv1a"]
+[ext_resource type="Material" uid="uid://dnft6at56ixl3" path="res://gameplay/communication/beep/materials/beep_material.tres" id="7_yv5sr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rinv7"]
 render_priority = 0
 shader = ExtResource("2_fwljq")
 shader_parameter/FaceTexture = ExtResource("3_3e5u1")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1ueoj"]
-albedo_color = Color(1, 0, 0, 1)
-emission_enabled = true
-emission = Color(1.3528494, 0, 0, 1)
-emission_energy_multiplier = 16.0
-
 [node name="PlayerModel" unique_id=1979854718 instance=ExtResource("1_h4krd")]
 
-[node name="Skeleton3D" parent="Armature" parent_id_path=PackedInt32Array(1340398495) index="0" unique_id=1783845040]
+[node name="Skeleton3D" parent="Armature" parent_id_path=PackedInt32Array(244401979) index="0" unique_id=524425086]
 bones/1/position = Vector3(8.7441964e-17, 0, 0.6571124)
 bones/1/rotation = Quaternion(0.0034712814, 0.70700866, 0.70718783, -0.0034743887)
 bones/2/rotation = Quaternion(-7.275947e-12, 4.371139e-08, 2.3283059e-10, 1)
@@ -79,7 +74,7 @@ bones/46/rotation = Quaternion(0.018103765, 0.70687497, 0.7068751, -0.01810461)
 bones/47/position = Vector3(-0.19888417, 0.074085, -0.06412814)
 bones/47/rotation = Quaternion(-0.06477537, 0.7041337, 0.7041337, 0.064774536)
 
-[node name="player-character" parent="Armature/Skeleton3D" index="2" unique_id=579116986]
+[node name="player-character" parent="Armature/Skeleton3D" index="2" unique_id=377076037]
 material_overlay = SubResource("ShaderMaterial_rinv7")
 surface_material_override/0 = ExtResource("4_rinv7")
 surface_material_override/1 = ExtResource("5_yv5sr")
@@ -90,6 +85,6 @@ target_node = NodePath("../../../../SpringArm3D2/CameraAnchor/LookAtPoint")
 bone_name = "upper-body"
 bone = 2
 
-[node name="Beeper" parent="Armature/Skeleton3D" index="4" unique_id=901850955]
+[node name="Beeper" parent="Armature/Skeleton3D" index="4" unique_id=683331295]
 surface_material_override/0 = ExtResource("5_yv5sr")
-surface_material_override/1 = SubResource("StandardMaterial3D_1ueoj")
+surface_material_override/1 = ExtResource("7_yv5sr")

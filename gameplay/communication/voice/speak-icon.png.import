@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d3qhnj4b4ju5o"
-path="res://.godot/imported/speak-icon.png-e6fcf92e0a25397d258ca7f8fd262eb3.ctex"
+path="res://.godot/imported/speak-icon.png-bc643a9ad450d7379ef548a841798194.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gameplay/voice/speak-icon.png"
-dest_files=["res://.godot/imported/speak-icon.png-e6fcf92e0a25397d258ca7f8fd262eb3.ctex"]
+source_file="res://gameplay/communication/voice/speak-icon.png"
+dest_files=["res://.godot/imported/speak-icon.png-bc643a9ad450d7379ef548a841798194.ctex"]
 
 [params]
 
