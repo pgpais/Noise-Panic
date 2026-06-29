@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://c2bwl705pmb5l"]
+
+[ext_resource type="PackedScene" uid="uid://bkpsu6nsmn8na" path="res://levels/buildings/WatchTower.blend" id="1_rvr4n"]
+[ext_resource type="Material" uid="uid://cct004ailehhf" path="res://assets/materials/WatchTower.material" id="2_badtk"]
+[ext_resource type="Material" uid="uid://c7qdf44fk04kt" path="res://assets/materials/WatchTower_Floor.material" id="3_fxjgk"]
+
+[node name="WatchTower" unique_id=1152642652 instance=ExtResource("1_rvr4n")]
+
+[node name="TowerStairs" parent="." index="0" unique_id=1462580764]
+surface_material_override/0 = ExtResource("2_badtk")
+
+[node name="WatchTower" parent="." index="1" unique_id=1706811230]
+surface_material_override/0 = ExtResource("2_badtk")
+
+[node name="TowerBase" parent="." index="2" unique_id=1419798118]
+surface_material_override/0 = ExtResource("3_fxjgk")
+
+[node name="TowerFloor" parent="." index="3" unique_id=1430726733]
+surface_material_override/0 = ExtResource("3_fxjgk")
+
+[node name="TorrerCenter" parent="." index="4" unique_id=1782553563]
+surface_material_override/0 = ExtResource("2_badtk")
+
+[node name="TowerTop" parent="." index="5" unique_id=368167161]
+surface_material_override/0 = ExtResource("2_badtk")
+
+[node name="CollisionShape3D" parent="TowerTop/TowerTop" parent_id_path=PackedInt32Array(1308284953) index="0" unique_id=1491608954]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.022943974, 0, -0.013842583)
+
+[node name="Plane_002" parent="." index="6" unique_id=1794045431]
+surface_material_override/0 = ExtResource("2_badtk")

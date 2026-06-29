@@ -1,0 +1,48 @@
+[gd_resource type="VisualShader" format=3 uid="uid://b56a2n24q581i"]
+
+[ext_resource type="Texture2D" uid="uid://dykh5w44ckl38" path="res://assets/textures/Gradient-Pallet.png" id="1_d6i0h"]
+
+[sub_resource type="Gradient" id="Gradient_d6i0h"]
+colors = PackedColorArray(0.2995475, 0.29954746, 0.29954726, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rtptg"]
+gradient = SubResource("Gradient_d6i0h")
+fill_from = Vector2(1, 0)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_eceit"]
+texture = SubResource("GradientTexture2D_rtptg")
+
+[sub_resource type="VisualShaderNodeIntParameter" id="VisualShaderNodeIntParameter_d6i0h"]
+parameter_name = "IntParameter"
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_qjb7d"]
+texture = ExtResource("1_d6i0h")
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_eceit"]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_1r4n0"]
+source = 5
+texture = ExtResource("1_d6i0h")
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeTextureParameterTriplanar" id="VisualShaderNodeTextureParameterTriplanar_d6i0h"]
+parameter_name = "Roughness"
+texture_repeat = 1
+
+[resource]
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_qjb7d")
+nodes/fragment/2/position = Vector2(-220, 200)
+nodes/fragment/3/node = SubResource("VisualShaderNodeInput_eceit")
+nodes/fragment/3/position = Vector2(-800, 320)
+nodes/fragment/4/node = SubResource("VisualShaderNodeTexture_1r4n0")
+nodes/fragment/4/position = Vector2(-220, 520)
+nodes/fragment/6/node = SubResource("VisualShaderNodeTextureParameterTriplanar_d6i0h")
+nodes/fragment/6/position = Vector2(-820, 500)
+nodes/fragment/10/node = SubResource("VisualShaderNodeTexture_eceit")
+nodes/fragment/10/position = Vector2(80, 480)
+nodes/fragment/12/node = SubResource("VisualShaderNodeIntParameter_d6i0h")
+nodes/fragment/12/position = Vector2(-800, 860)
+nodes/fragment/connections = PackedInt32Array(6, 1, 4, 2, 6, 0, 4, 0, 4, 0, 10, 0, 12, 0, 4, 1, 3, 0, 2, 0, 2, 0, 0, 0, 10, 0, 0, 3)

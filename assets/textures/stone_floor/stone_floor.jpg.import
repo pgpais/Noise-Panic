@@ -2,32 +2,29 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1xoc7601wjh7"
-path.s3tc="res://.godot/imported/Spaceship_main-screen.png-bf4e4535ff437e1c58e34a3fd391af38.s3tc.ctex"
+uid="uid://cvh0dxs0f3st"
+path.bptc="res://.godot/imported/stone_floor.jpg-51d7bac3f10913fd35fae435a92c8b75.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={
-"md5": "621a7682e7086df1fb6a55d6faa2c9b8"
-}
 
 [deps]
 
-source_file="res://gameplay/ship/Model/Spaceship_main-screen.png"
-dest_files=["res://.godot/imported/Spaceship_main-screen.png-bf4e4535ff437e1c58e34a3fd391af38.s3tc.ctex"]
+source_file="res://assets/textures/stone_floor/stone_floor.jpg"
+dest_files=["res://.godot/imported/stone_floor.jpg-51d7bac3f10913fd35fae435a92c8b75.bptc.ctex"]
 
 [params]
 
 compress/mode=2
-compress/high_quality=false
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
-compress/normal_map=0
+compress/normal_map=2
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

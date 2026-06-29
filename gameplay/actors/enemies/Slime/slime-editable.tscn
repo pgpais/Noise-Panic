@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://b7bcrcqmrmhpu"]
+
+[ext_resource type="PackedScene" uid="uid://c7puyq5j6v233" path="res://gameplay/actors/enemies/Slime/slime.blend" id="1_15yao"]
+[ext_resource type="Material" uid="uid://b4wm5ekh1hhpx" path="res://assets/materials/Slime/SlimeBody.tres" id="2_3ntnt"]
+[ext_resource type="Material" uid="uid://dkbm3uwxij16j" path="res://assets/materials/Slime/SlimeMouth.tres" id="2_8w2jl"]
+[ext_resource type="Material" uid="uid://bdxc3luhh33xq" path="res://assets/materials/Slime/SlimeEyes.tres" id="3_8bd3p"]
+[ext_resource type="Material" uid="uid://b11q85efisdx7" path="res://assets/materials/Slime/SlimePupil.tres" id="4_gdrj2"]
+
+[node name="slime" unique_id=1362585066 instance=ExtResource("1_15yao")]
+
+[node name="Slime" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(1316914643) index="0" unique_id=1092244766]
+surface_material_override/0 = ExtResource("2_3ntnt")
+surface_material_override/1 = ExtResource("3_8bd3p")
+surface_material_override/2 = ExtResource("4_gdrj2")
+surface_material_override/3 = ExtResource("2_8w2jl")

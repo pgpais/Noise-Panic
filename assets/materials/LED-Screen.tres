@@ -3,5 +3,5 @@
 [resource]
 transparency = 1
 shading_mode = 0
-albedo_color = Color(0.38981077, 1.1638972, 1.1638972, 0.19607843)
+albedo_color = Color(0.38981077, 1.1638972, 1.1638972, 1)
 grow_amount = 1.758
