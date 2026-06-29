@@ -5,13 +5,15 @@ public partial class CharacterController : Node
 {
 	[Export] AnimationTree animationTree;
 	[Export] Node3D cameraAnchor;
-	[Export] public float Speed { get; private set; }
+	[Export] public float RunningSpeed { get; private set; } = 10f;
+	[Export] public float WalkingSpeed { get; private set; } = 5f;
 	[Export] public float JumpVelocity { get; private set; } = 10f;
 	[Export] public bool TurnToFaceMovement { get; set; } = true;
 
 	public bool MovementEnabled { get; set; } = true;
 	public Vector2 MovInput { get; set; } = Vector2.Zero;
 	public bool WantsToJump { get; set; }
+	public bool WantsToRun { get; set; }
 
 	float targetYRotation;
 
@@ -57,6 +59,7 @@ public partial class CharacterController : Node
 	private void HandleMovement(double delta)
 	{
 		Vector3 velocity = _body.Velocity;
+		var speed = WantsToRun? RunningSpeed : WalkingSpeed;
 
 
 		// Get the input direction and handle the movement/deceleration.
@@ -66,8 +69,8 @@ public partial class CharacterController : Node
 
 		if (direction != Vector3.Zero)
 		{
-			velocity.X = direction.X * Speed;
-			velocity.Z = direction.Z * Speed;
+			velocity.X = direction.X * speed;
+			velocity.Z = direction.Z * speed;
 		}
 		else
 		{
@@ -123,7 +126,7 @@ public partial class CharacterController : Node
 			animationTree.Set("parameters/conditions/is_on_floor", _body.IsOnFloor());
 			animationTree.Set("parameters/conditions/is_moving", isMoving);
 			animationTree.Set("parameters/conditions/is_not_moving", !isMoving);
-			animationTree.Set("parameters/MovementBlendSpace/blend_position", velocity2D / Speed);
+			animationTree.Set("parameters/MovementBlendSpace/blend_position", velocity2D / WalkingSpeed);
 		}
 	}
 }
