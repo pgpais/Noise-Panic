@@ -4,16 +4,21 @@ using WeWereDumb.Core.Pooling;
 
 namespace WeWereDumb.Gameplay.Combat.Projectiles
 {
-    public partial class Projectile : RigidBody3D, IPooledObject
+    public partial class Projectile : Node3D, IPooledObject
     {
         public Node Shooter { get; private set; }
 
         [Export] int damage = 2;
         [Export] float timeToLive = 2f;
+
+        [Export] Node3D visuals;
         [Export] Hurtbox hurtbox;
+        [Export] GpuParticles3D particles;
 
         private ObjectPool pool;
         Timer timer;
+        
+        private Vector3 _velocity;
 
         public Projectile()
         {
@@ -29,7 +34,18 @@ namespace WeWereDumb.Gameplay.Combat.Projectiles
 
         public override void _Ready()
         {
+            particles.Emitting = false;
+
             hurtbox.Hit += OnHit;
+            hurtbox.HitHitbox += OnHitboxHit;
+        }
+
+        public override void _Process(double delta)
+        {
+            base._Process(delta);
+            
+            // Apply velocity
+            Position += _velocity * (float)delta;
         }
 
         public void SetShooter(Node shooter)
@@ -37,12 +53,26 @@ namespace WeWereDumb.Gameplay.Combat.Projectiles
             Shooter = shooter;
         }
 
-        private void OnHit(Hitbox hitbox)
+        private void OnHit()
         {
-            //TODO: maybe deal damage?
+            hurtbox.Monitoring = false;
+            hurtbox.Monitorable = false;
+            
+            ResetPhysics();
+            visuals.Hide();
+            EmitParticles();
+            particles.Finished += Despawn;
+        }
+        
+        private void OnHitboxHit(Hitbox hitbox)
+        {
             if (hitbox.Owner == Shooter) return;
             DealDamage(hitbox);
-            Despawn();
+        }
+        
+        private void EmitParticles()
+        {
+            particles.Restart();
         }
 
         private void DealDamage(Hitbox hitbox)
@@ -65,16 +95,24 @@ namespace WeWereDumb.Gameplay.Combat.Projectiles
             return pool;
         }
 
+        public void SetVelocity(Vector3 velocity)
+        {
+            _velocity = velocity;
+        }
+
         private void ResetPhysics()
         {
-            LinearVelocity = Vector3.Zero;
-            AngularVelocity = Vector3.Zero;
+            _velocity = Vector3.Zero;
         }
 
         public void OnSpawn()
         {
             ProcessMode = ProcessModeEnum.Inherit;
             Show();
+            
+            visuals.Show();
+            hurtbox.Monitoring = true;
+            hurtbox.Monitorable = true;
 
             timer.Autostart = true;
             timer.Timeout += Despawn;
@@ -89,7 +127,7 @@ namespace WeWereDumb.Gameplay.Combat.Projectiles
             {
                 timer.Timeout -= Despawn;
             }
-            if (timer.IsStopped()) timer.Stop();
+            if (!timer.IsStopped()) timer.Stop();
 
             CallDeferred(MethodName.ResetPhysics);
         }
