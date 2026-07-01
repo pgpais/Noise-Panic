@@ -6,4 +6,6 @@ namespace Gameplay.AI;
 public abstract partial class AiTargetAcquirer : Node3D
 {
     public abstract Node3D GetTarget();
+
+    public bool HasTarget() => GetTarget() != null;
 }

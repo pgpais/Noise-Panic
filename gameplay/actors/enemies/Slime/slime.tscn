@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://c7puyq5j6v233" path="res://gameplay/actors/enemies/Slime/slime.blend" id="2_env81"]
 [ext_resource type="Script" uid="uid://3aibrp1efy3c" path="res://gameplay/ai/states/AiState.cs" id="3_fe7yw"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://bp4wc5fyixqar" path="res://gameplay/actors/enemies/generic_animation_node_state_machine.tres" id="3_oryfs"]
-[ext_resource type="Script" uid="uid://iml07qnmjixs" path="res://gameplay/ai/conditions/TargetInAreaAiCondition.cs" id="4_v4v4e"]
+[ext_resource type="Script" uid="uid://busddf1jhgjkj" path="res://gameplay/ai/conditions/HasTargetAiCondition.cs" id="4_fe7yw"]
 [ext_resource type="Script" uid="uid://cuy423gqq4m5u" path="res://gameplay/ai/actions/MoveToTargetAiAction.cs" id="5_ndaa7"]
 [ext_resource type="Script" uid="uid://cpmkj0bcane6n" path="res://gameplay/ai/target_acquirers/ClosestPlayerAiTargetAcquirer.cs" id="6_xnuht"]
 
@@ -15,10 +15,6 @@ viewport_path = NodePath("BoneAttachment3D/Sprite3D/SubViewport")
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gtwec"]
 radius = 0.74121094
 height = 1.9560547
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_tfbxm"]
-height = 1.3784668
-radius = 9.856445
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ce0to"]
 radius = 0.35546875
@@ -66,18 +62,10 @@ metadata/_custom_type_script = "uid://3aibrp1efy3c"
 
 [node name="Conditions" type="Node3D" parent="BoneAttachment3D/Components/AiBrain/States/ChaseClosestPlayerAiState" index="0" unique_id=2138749098]
 
-[node name="TargetInAreaAiCondition" type="Node3D" parent="BoneAttachment3D/Components/AiBrain/States/ChaseClosestPlayerAiState/Conditions" index="0" unique_id=409852453 node_paths=PackedStringArray("area", "targetAcquirer")]
-script = ExtResource("4_v4v4e")
-area = NodePath("Area3D")
+[node name="HasTargetAiCondition" type="Node3D" parent="BoneAttachment3D/Components/AiBrain/States/ChaseClosestPlayerAiState/Conditions" index="0" unique_id=2144533759 node_paths=PackedStringArray("targetAcquirer")]
+script = ExtResource("4_fe7yw")
 targetAcquirer = NodePath("../../ClosestPlayerAiTargetAcquirer")
-metadata/_custom_type_script = "uid://iml07qnmjixs"
-
-[node name="Area3D" type="Area3D" parent="BoneAttachment3D/Components/AiBrain/States/ChaseClosestPlayerAiState/Conditions/TargetInAreaAiCondition" index="0" unique_id=1657174059]
-collision_mask = 4
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BoneAttachment3D/Components/AiBrain/States/ChaseClosestPlayerAiState/Conditions/TargetInAreaAiCondition/Area3D" index="0" unique_id=1779779359]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7238525, 0)
-shape = SubResource("CylinderShape3D_tfbxm")
+metadata/_custom_type_script = "uid://busddf1jhgjkj"
 
 [node name="Actions" type="Node3D" parent="BoneAttachment3D/Components/AiBrain/States/ChaseClosestPlayerAiState" index="1" unique_id=2106004198]
 
