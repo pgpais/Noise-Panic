@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dfd10h4o44ta8" path="res://gameplay/actors/enemies/SpiderBot/SpiderBot.blend" id="2_n6ams"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://cuscp6oxr7r81" path="res://gameplay/actors/enemies/SpiderBot/spider_animation_node_state_machine.tres" id="3_rxysk"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_536ar"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_e4ygu"]
 viewport_path = NodePath("BoneAttachment3D/Sprite3D/SubViewport")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_n6ams"]
@@ -22,17 +22,20 @@ attackDamage = 5
 visible = false
 
 [node name="BoneAttachment3D" parent="." index="1" unique_id=1831147750]
-transform = Transform3D(-1, 2.0900748e-06, -3.4024922e-06, 1.8905249e-06, 0.99833816, 0.057627246, 3.5172834e-06, 0.057627246, -0.99833816, -4.5448536e-07, 1.050422, 2.365383e-09)
+transform = Transform3D(-1, 2.1156748e-06, -3.3866336e-06, 1.8905247e-06, 0.9978752, 0.06515453, 3.5172834e-06, 0.06515453, -0.9978752, -4.5448536e-07, 1.0458001, 2.365383e-09)
 bone_name = "Head.Main"
 bone_idx = 15
 external_skeleton = NodePath("../SpiderBot/Armature/Skeleton3D")
 
 [node name="Sprite3D" parent="BoneAttachment3D" index="0" unique_id=1325557530]
 transform = Transform3D(-1, 0, 7.1054274e-15, -7.1054274e-15, 0, 1, 0, 1, 0, 1.7229172e-07, 0.5370995, -0.0025227591)
-texture = SubResource("ViewportTexture_536ar")
+texture = SubResource("ViewportTexture_e4ygu")
 
 [node name="CharacterController" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="0" unique_id=2102656381 node_paths=PackedStringArray("animationTree")]
 animationTree = NodePath("../../../AnimationTree")
+
+[node name="HealthComponent" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="1" unique_id=1095575229]
+MaxHealth = 25
 
 [node name="CollisionShape3D" parent="BoneAttachment3D/Components/Hitbox" parent_id_path=PackedInt32Array(653123947) index="0" unique_id=891479098]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
