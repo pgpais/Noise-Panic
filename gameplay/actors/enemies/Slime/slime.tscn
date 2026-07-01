@@ -9,8 +9,12 @@
 viewport_path = NodePath("BoneAttachment3D/Sprite3D/SubViewport")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gtwec"]
-radius = 0.97802734
+radius = 0.74121094
 height = 1.9560547
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ce0to"]
+radius = 0.35546875
+height = 1.0327148
 
 [node name="Slime" unique_id=1748184085 node_paths=PackedStringArray("hurtbox") instance=ExtResource("1_qg3hk")]
 hurtbox = NodePath("BoneAttachment3D/Components/Hurtbox")
@@ -33,6 +37,10 @@ animationTree = NodePath("../../../AnimationTree")
 [node name="HealthComponent" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="1" unique_id=1095575229]
 MaxHealth = 15
 
+[node name="CollisionShape3D" parent="BoneAttachment3D/Components/Hitbox" parent_id_path=PackedInt32Array(653123947) index="0" unique_id=891479098]
+transform = Transform3D(-4.3711402e-08, -1, 0, 1, -4.3711402e-08, 0, 4.2351647e-21, 0, 1, 0, 0.7236307, 0)
+shape = SubResource("CapsuleShape3D_gtwec")
+
 [node name="Hurtbox" type="Area3D" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="3" unique_id=391651177]
 collision_layer = 2
 collision_mask = 4
@@ -40,8 +48,12 @@ script = ExtResource("2_ce0to")
 metadata/_custom_type_script = "uid://b3s5mo3k2nfjg"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BoneAttachment3D/Components/Hurtbox" index="0" unique_id=1673281092]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.92038125, 0)
+transform = Transform3D(-4.3711392e-08, -1, 0, 1, -4.3711392e-08, 0, 4.2351647e-22, 0, 1, 0, 0.7236307, 0)
 shape = SubResource("CapsuleShape3D_gtwec")
+
+[node name="CollisionShape3D" parent="." index="2" unique_id=518336157]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.0056152344, 0.3607352, 0)
+shape = SubResource("CapsuleShape3D_ce0to")
 
 [node name="slime" parent="." index="3" unique_id=1038293839 instance=ExtResource("2_env81")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
