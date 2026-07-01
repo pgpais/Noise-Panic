@@ -31,7 +31,7 @@ public partial class Beep : Node3D
 		setEmission = Callable.From((Color color) => beepMaterial.Emission = color);
 		setEnergyMultiplier = Callable.From((float energy) => beepMaterial.EmissionEnergyMultiplier = energy);
 
-		EventBus.Instance.BeepActivated += Activate;
+		
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -74,7 +74,21 @@ public partial class Beep : Node3D
 		tween.Play();
 		_isActive = false;
 	}
-	
+
+	public override void _EnterTree()
+	{
+		base._EnterTree();
+		
+		EventBus.Instance.BeepActivated += Activate;
+	}
+
+	public override void _ExitTree()
+	{
+		base._ExitTree();
+		
+		EventBus.Instance.BeepActivated -= Activate;
+	}
+
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true)]
 	private void PropagateBeep()
 	{
