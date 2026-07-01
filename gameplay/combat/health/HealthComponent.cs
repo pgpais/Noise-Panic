@@ -16,14 +16,13 @@ public partial class HealthComponent : Node
 		Reset();
 	}
 
-	[Rpc(MultiplayerApi.RpcMode.AnyPeer)]
+	[Rpc(MultiplayerApi.RpcMode.Authority)]
 	public void TakeDamage(int damage)
 	{
-		if (!IsMultiplayerAuthority()) Rpc(MethodName.TakeDamage, damage);
 
 		// Damage is applied on all instances
 		CurrentHealth -= damage;
-
+		
 		if (IsMultiplayerAuthority())
 		{
 			// Authority holds ground truth
@@ -37,11 +36,9 @@ public partial class HealthComponent : Node
 		}
 	}
 
-	[Rpc(MultiplayerApi.RpcMode.AnyPeer)]
+	[Rpc(MultiplayerApi.RpcMode.Authority)]
 	public void Heal(int amount)
 	{
-		if (!IsMultiplayerAuthority()) Rpc(MethodName.Heal, amount);
-
 		// Healing is applied on all instances
 		CurrentHealth += amount;
 
@@ -49,7 +46,7 @@ public partial class HealthComponent : Node
 		{
 			CurrentHealth = MaxHealth;
 		}
-
+		
 		if (IsMultiplayerAuthority())
 		{
 			// Authority holds ground truth
