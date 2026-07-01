@@ -227,6 +227,7 @@ script = ExtResource("3_0uhwm")
 script = ExtResource("4_wajde")
 
 [node name="SpawnController" type="Node3D" parent="." unique_id=1934995528 node_paths=PackedStringArray("spawnPath", "Spawners")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 28)
 script = ExtResource("5_3s4pm")
 spawnPath = NodePath("../Enemies")
 Spawners = [NodePath("EnemySpawner"), NodePath("EnemySpawner2"), NodePath("EnemySpawner3"), NodePath("EnemySpawner4"), NodePath("EnemySpawner5")]
@@ -241,7 +242,7 @@ automaticSpawn = true
 enemyScene = ExtResource("18_mbg5y")
 
 [node name="EnemySpawner2" type="MeshInstance3D" parent="SpawnController" unique_id=1870685914]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0.120987654, -14)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.42098767, -12)
 mesh = SubResource("BoxMesh_5h46i")
 script = ExtResource("6_oei0w")
 poolName = "slimes"
@@ -273,14 +274,14 @@ automaticSpawn = true
 enemyScene = ExtResource("19_mbg5y")
 
 [node name="ResourceNode" parent="." unique_id=1238149726 node_paths=PackedStringArray("dropPoint") instance=ExtResource("8_sy2v3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.38650274, -7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0.38650274, 12)
 dropPoint = NodePath("Marker3D")
 
 [node name="Marker3D" type="Marker3D" parent="ResourceNode" unique_id=1810786127]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.59727067, 0.75999105, 0)
 
 [node name="ExtractionZone" type="Area3D" parent="." unique_id=965620974 node_paths=PackedStringArray("storage")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.242014, 2.2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.242014, 2.2, 20)
 script = ExtResource("9_a31k0")
 storage = NodePath("../Ship/Storage")
 
