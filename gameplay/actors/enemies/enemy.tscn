@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://dycl50odn06iq" path="res://gameplay/actors/enemies/Enemy.cs" id="2_xndlq"]
 [ext_resource type="Script" uid="uid://bhsoqgg220w7f" path="res://gameplay/combat/health/HealthComponent.cs" id="3_45p3m"]
 [ext_resource type="Script" uid="uid://dueyxdwc85adk" path="res://gameplay/combat/Hitbox.cs" id="4_wn54x"]
+[ext_resource type="Script" uid="uid://bptufysw4cwya" path="res://gameplay/ai/AiBrain.cs" id="5_wn54x"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_xndlq"]
 radius = 0.25
@@ -19,7 +20,7 @@ albedo_color = Color(0, 0, 0, 1)
 material = SubResource("StandardMaterial3D_wn54x")
 size = Vector3(0.265, 0.145, 0.27)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_gefjq"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_8okpo"]
 viewport_path = NodePath("BoneAttachment3D/Sprite3D/SubViewport")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gtwec"]
@@ -31,6 +32,7 @@ collision_layer = 2
 script = ExtResource("2_xndlq")
 health = NodePath("BoneAttachment3D/Components/HealthComponent")
 controller = NodePath("BoneAttachment3D/Components/CharacterController")
+attackDamage = 5
 
 [node name="MeshInstance3D" parent="." index="0" unique_id=41721404]
 mesh = SubResource("CapsuleMesh_xndlq")
@@ -41,13 +43,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.28102008, 0.10632086)
 mesh = SubResource("BoxMesh_8okpo")
 
 [node name="Sprite3D" parent="BoneAttachment3D" parent_id_path=PackedInt32Array(1831147750) index="0" unique_id=1325557530]
-texture = SubResource("ViewportTexture_gefjq")
+texture = SubResource("ViewportTexture_8okpo")
 
 [node name="HealthBar" parent="BoneAttachment3D/Sprite3D/SubViewport" parent_id_path=PackedInt32Array(1048474995) index="0" unique_id=1176962998 node_paths=PackedStringArray("healthComponent")]
 healthComponent = NodePath("../../../Components/HealthComponent")
-
-[node name="CharacterController" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="0" unique_id=2102656381]
-Speed = 2.5
 
 [node name="HealthComponent" type="Node" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="1" unique_id=1095575229]
 script = ExtResource("3_45p3m")
@@ -62,6 +61,13 @@ metadata/_custom_type_script = "uid://dueyxdwc85adk"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BoneAttachment3D/Components/Hitbox" index="0" unique_id=891479098]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.92038125, 0)
 shape = SubResource("CapsuleShape3D_gtwec")
+
+[node name="AiBrain" type="Node3D" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="3" unique_id=535434989 node_paths=PackedStringArray("statesParent")]
+script = ExtResource("5_wn54x")
+statesParent = NodePath("States")
+metadata/_custom_type_script = "uid://bptufysw4cwya"
+
+[node name="States" type="Node3D" parent="BoneAttachment3D/Components/AiBrain" index="0" unique_id=819931270]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="2" unique_id=518336157]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.92038125, 0)

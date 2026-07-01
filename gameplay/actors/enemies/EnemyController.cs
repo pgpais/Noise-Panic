@@ -1,4 +1,5 @@
 using System.Linq;
+using Gameplay.AI;
 using Godot;
 using Godot.Collections;
 using WeWereDumb.Gameplay.Actors;
@@ -19,7 +20,15 @@ public partial class EnemyController : Node
 			Player closestPlayer = enemy.GetClosestPlayer();
 			Vector2 playerPos2D = new(closestPlayer.GlobalPosition.X, closestPlayer.GlobalPosition.Z);
 
-			enemy.MoveTowards(playerPos2D);
+			var enemyBrain = enemy.GetComponent<AiBrain>();
+			if (enemyBrain != null)
+			{
+				enemyBrain.Process();
+			}
+			else
+			{
+				enemy.MoveTowards(playerPos2D);
+			}
 		}
 	}
 }
