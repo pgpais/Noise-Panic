@@ -119,6 +119,10 @@ beep={
 3d_physics/layer_2="Enemies"
 3d_physics/layer_3="Players"
 
+[limbo_ai]
+
+behavior_tree/user_task_dirs=PackedStringArray("res://demo/ai/tasks", "res://gameplay/ai/tasks")
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
