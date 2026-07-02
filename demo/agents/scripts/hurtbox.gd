@@ -8,7 +8,7 @@
 #* https://opensource.org/licenses/MIT.
 #* =============================================================================
 #*
-class_name Hurtbox
+class_name Hurtbox2D
 extends Area2D
 ## Area that registers damage.
 
@@ -17,6 +17,6 @@ extends Area2D
 var last_attack_vector: Vector2
 
 
-func take_damage(amount: float, knockback: Vector2, source: Hitbox) -> void:
+func take_damage(amount: float, knockback: Vector2, source: Hitbox2D) -> void:
 	last_attack_vector = owner.global_position - source.owner.global_position
 	health.take_damage(amount, knockback)

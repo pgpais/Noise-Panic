@@ -21,7 +21,7 @@ extends BTCondition
 ## Maximum distance to target.
 @export var distance_max: float
 
-## Blackboard variable that holds the target (expecting Node2D).
+## Blackboard variable that holds the target (expecting Node3D).
 @export var target_var: StringName = &"target"
 
 var _min_distance_squared: float
@@ -43,7 +43,7 @@ func _setup() -> void:
 
 # Called when the task is executed.
 func _tick(_delta: float) -> Status:
-	var target: Node2D = blackboard.get_var(target_var, null)
+	var target: Node3D = blackboard.get_var(target_var, null)
 	if not is_instance_valid(target):
 		return FAILURE
 

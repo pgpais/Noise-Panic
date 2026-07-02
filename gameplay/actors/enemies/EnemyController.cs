@@ -9,7 +9,7 @@ public partial class EnemyController : Node
 	{
 		base._PhysicsProcess(delta);
 
-		ControlEnemies();
+		// ControlEnemies();
 	}
 
 	private void ControlEnemies()

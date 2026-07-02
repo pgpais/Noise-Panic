@@ -29,6 +29,7 @@ func _generate_name() -> String:
 func _tick(_delta: float) -> Status:
 	var nodes: Array[Node] = agent.get_tree().get_nodes_in_group(group)
 	if nodes.size() == 0:
+		print("No nodes in group")
 		return FAILURE
 	blackboard.set_var(output_var, nodes[0])
 	return SUCCESS

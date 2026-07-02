@@ -14,7 +14,7 @@ extends LimboState
 
 @export var animation_player: AnimationPlayer
 @export var animations: Array[StringName]
-@export var hitbox: Hitbox
+@export var hitbox: Hitbox2D
 
 ## Cooldown duration after third attack in the combo is complete.
 @export var combo_cooldown: float = 0.1

@@ -4,6 +4,8 @@
 [ext_resource type="Script" uid="uid://dycl50odn06iq" path="res://gameplay/actors/enemies/Enemy.cs" id="2_xndlq"]
 [ext_resource type="Script" uid="uid://bhsoqgg220w7f" path="res://gameplay/combat/health/HealthComponent.cs" id="3_45p3m"]
 [ext_resource type="Script" uid="uid://dueyxdwc85adk" path="res://gameplay/combat/Hitbox.cs" id="4_wn54x"]
+[ext_resource type="Script" uid="uid://bb854u7j254lw" path="res://gameplay/ai/tasks/get_closest_in_group.gd" id="5_8okpo"]
+[ext_resource type="Script" uid="uid://bb75dihgptqet" path="res://gameplay/ai/tasks/move_towards_target3D.gd" id="6_8okpo"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_xndlq"]
 radius = 0.25
@@ -19,18 +21,45 @@ albedo_color = Color(0, 0, 0, 1)
 material = SubResource("StandardMaterial3D_wn54x")
 size = Vector3(0.265, 0.145, 0.27)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_gefjq"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_gtwec"]
 viewport_path = NodePath("BoneAttachment3D/Sprite3D/SubViewport")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gtwec"]
 radius = 0.97802734
 height = 1.9560547
 
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_ew6ba"]
+
+[sub_resource type="BTAction" id="BTAction_y68ex"]
+script = ExtResource("5_8okpo")
+group = &"players"
+
+[sub_resource type="BTAction" id="BTAction_gtwec"]
+script = ExtResource("6_8okpo")
+character_controller_path = NodePath("BoneAttachment3D/Components/CharacterController")
+
+[sub_resource type="BTSequence" id="BTSequence_ndaa7"]
+children = [SubResource("BTAction_y68ex"), SubResource("BTAction_gtwec")]
+
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_4eraf"]
+time_limit = 0.5
+children = [SubResource("BTSequence_ndaa7")]
+
+[sub_resource type="BTSequence" id="BTSequence_upk56"]
+children = [SubResource("BTTimeLimit_4eraf")]
+
+[sub_resource type="BehaviorTree" id="BehaviorTree_marvf"]
+blackboard_plan = SubResource("BlackboardPlan_ew6ba")
+root_task = SubResource("BTSequence_upk56")
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_rulmh"]
+
 [node name="Enemy" unique_id=1748184085 node_paths=PackedStringArray("health", "controller") instance=ExtResource("1_mgh73")]
 collision_layer = 2
 script = ExtResource("2_xndlq")
 health = NodePath("BoneAttachment3D/Components/HealthComponent")
 controller = NodePath("BoneAttachment3D/Components/CharacterController")
+attackDamage = 5
 
 [node name="MeshInstance3D" parent="." index="0" unique_id=41721404]
 mesh = SubResource("CapsuleMesh_xndlq")
@@ -41,13 +70,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.28102008, 0.10632086)
 mesh = SubResource("BoxMesh_8okpo")
 
 [node name="Sprite3D" parent="BoneAttachment3D" parent_id_path=PackedInt32Array(1831147750) index="0" unique_id=1325557530]
-texture = SubResource("ViewportTexture_gefjq")
+texture = SubResource("ViewportTexture_gtwec")
 
 [node name="HealthBar" parent="BoneAttachment3D/Sprite3D/SubViewport" parent_id_path=PackedInt32Array(1048474995) index="0" unique_id=1176962998 node_paths=PackedStringArray("healthComponent")]
 healthComponent = NodePath("../../../Components/HealthComponent")
-
-[node name="CharacterController" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="0" unique_id=2102656381]
-Speed = 2.5
 
 [node name="HealthComponent" type="Node" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="1" unique_id=1095575229]
 script = ExtResource("3_45p3m")
@@ -66,5 +92,9 @@ shape = SubResource("CapsuleShape3D_gtwec")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="2" unique_id=518336157]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.92038125, 0)
 shape = SubResource("CapsuleShape3D_gtwec")
+
+[node name="BTPlayer" type="BTPlayer" parent="." index="3" unique_id=406492328]
+behavior_tree = SubResource("BehaviorTree_marvf")
+blackboard_plan = SubResource("BlackboardPlan_rulmh")
 
 [connection signal="HitTaken" from="BoneAttachment3D/Components/Hitbox" to="BoneAttachment3D/Components/HealthComponent" method="TakeDamage"]

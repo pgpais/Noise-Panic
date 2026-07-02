@@ -18,7 +18,6 @@ height = 1.0327148
 
 [node name="Slime" unique_id=1748184085 node_paths=PackedStringArray("hurtbox") instance=ExtResource("1_qg3hk")]
 hurtbox = NodePath("BoneAttachment3D/Components/Hurtbox")
-attackDamage = 5
 
 [node name="MeshInstance3D" parent="." index="0" unique_id=41721404]
 visible = false

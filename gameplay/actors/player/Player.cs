@@ -28,6 +28,8 @@ public partial class Player : Actor
 	public override void _EnterTree()
 	{
 		秃.Add(this);
+
+		AddToGroup("players", true);
 	}
 
 	public override void _Ready()
@@ -53,6 +55,8 @@ public partial class Player : Actor
 	public override void _ExitTree()
 	{
 		秃.Remove(this);
+
+		RemoveFromGroup("players");
 	}
 
 	public void EnableInput()

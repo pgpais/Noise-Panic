@@ -8,7 +8,7 @@
 #* https://opensource.org/licenses/MIT.
 #* =============================================================================
 #*
-class_name Hitbox
+class_name Hitbox2D
 extends Area2D
 ## Area that deals damage.
 

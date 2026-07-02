@@ -56,10 +56,15 @@ public partial class CharacterController : Node
 		MovInput = inputDir;
 	}
 
+	public void LookAt(Vector3 lookAtPos)
+	{
+		_body.LookAt(lookAtPos, Vector3.Up);
+	}
+
 	private void HandleMovement(double delta)
 	{
 		Vector3 velocity = _body.Velocity;
-		var speed = WantsToRun? RunningSpeed : WalkingSpeed;
+		var speed = WantsToRun ? RunningSpeed : WalkingSpeed;
 
 
 		// Get the input direction and handle the movement/deceleration.
@@ -81,7 +86,7 @@ public partial class CharacterController : Node
 		if (TurnToFaceMovement && direction != Vector3.Zero)
 		{
 			Vector3 lookAtPos = _body.GlobalPosition + direction;
-			_body.LookAt(lookAtPos, Vector3.Up);
+			LookAt(lookAtPos);
 		}
 
 
