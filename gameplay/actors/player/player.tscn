@@ -21,7 +21,7 @@
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="14_h7rbu"]
 [ext_resource type="Texture2D" uid="uid://ck3aaxwyckl48" path="res://assets/textures/kenney_crosshairs/crosshair007.png" id="16_e471u"]
 [ext_resource type="Texture2D" uid="uid://d3qhnj4b4ju5o" path="res://gameplay/communication/voice/speak-icon.png" id="18_43e4c"]
-[ext_resource type="PackedScene" uid="uid://e34atjemiv2t" path="res://gameplay/actors/player/model/player_model.tscn" id="18_pseu4"]
+[ext_resource type="PackedScene" uid="uid://dp3xoeclf4kns" path="res://gameplay/actors/player/model/player_model.tscn" id="18_pseu4"]
 [ext_resource type="PackedScene" uid="uid://chcxfkf54biko" path="res://gameplay/communication/beep/beep.tscn" id="19_jnrca"]
 [ext_resource type="Script" uid="uid://lsi30cj5e2rk" path="res://gameplay/communication/voice/NetworkedVoiceOutput.cs" id="20_44y0u"]
 [ext_resource type="PackedScene" uid="uid://cpetvmxskelxq" path="res://gameplay/combat/health/ui/health_bar.tscn" id="20_adh2p"]
@@ -346,7 +346,7 @@ parameters/conditions/is_on_floor = false
 parameters/MovementBlendSpace/blend_position = Vector2(0, 0)
 
 [node name="GunBoneAttachment3D" type="BoneAttachment3D" parent="." index="6" unique_id=1686055260]
-transform = Transform3D(-0.124844134, 0.20772603, 0.9701876, -0.02000264, -0.9781659, 0.20686035, 0.9919747, 0.0064189998, 0.1262734, 0.227135, 0.7318411, 0.042189613)
+transform = Transform3D(-0.12459782, 0.2051476, 0.9707678, -0.019881919, -0.9787118, 0.20427455, 0.9920081, 0.0061513227, 0.12602416, 0.22745381, 0.73147273, 0.04086922)
 bone_name = "Weapon"
 bone_idx = 32
 use_external_skeleton = true
@@ -355,10 +355,14 @@ external_skeleton = NodePath("../AimPivot/PlayerModel/Armature/Skeleton3D")
 [node name="Gun" parent="GunBoneAttachment3D" index="0" unique_id=1731575199 node_paths=PackedStringArray("shootingPoint") instance=ExtResource("13_nt81s")]
 transform = Transform3D(0.9953868, 0.09533713, -0.0108073065, 0.0083337575, -0.19811824, -0.9801427, -0.095585115, 0.97553104, -0.19799863, -0.073206544, 0.33629757, 0.009788841)
 visible = false
+shootingForce = 40.0
+shootingCooldown = 0.1
+reloadTime = 1.0
+maxAmmo = 100
 shootingPoint = NodePath("../../AimPivot/SpringArm3D2/CameraAnchor/ShootingPoint")
 
 [node name="BackpackBoneAttachment3D" type="BoneAttachment3D" parent="." index="7" unique_id=1421805177]
-transform = Transform3D(-0.9964281, -0.021554442, -0.081649266, 0.0009754152, -0.96974987, 0.24409805, -0.08444089, 0.24314687, 0.96630555, -0.013836636, 1.0837556, 0.16821712)
+transform = Transform3D(-0.99644744, -0.024038617, -0.08071434, 0.003620908, -0.9697409, 0.24410939, -0.084140174, 0.24295008, 0.96638125, -0.012550975, 1.083995, 0.16704315)
 bone_name = "backpack"
 bone_idx = 31
 use_external_skeleton = true

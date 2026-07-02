@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://07g7f8nyxjox" path="res://gameplay/ship/player_pod_launcher.tscn" id="4_0uhwm"]
 [ext_resource type="Script" uid="uid://b2kjvnq7hq67u" path="res://gameplay/actors/enemies/EnemyController.cs" id="4_wajde"]
 [ext_resource type="Script" uid="uid://usjo7r6fhi6r" path="res://gameplay/enemy_spawning/EnemySpawnController.cs" id="5_3s4pm"]
-[ext_resource type="PackedScene" uid="uid://bbuu50ref7c45" path="res://gameplay/ship/Model/spaceship_model.tscn" id="5_uwean"]
+[ext_resource type="PackedScene" uid="uid://c5bw848ue34oc" path="res://gameplay/ship/Model/spaceship_model.tscn" id="5_uwean"]
 [ext_resource type="PackedScene" uid="uid://cdn5pxq8t3btd" path="res://gameplay/interaction/standing_button.tscn" id="5_wajde"]
 [ext_resource type="Script" uid="uid://dy7d28cmkxxrm" path="res://gameplay/storage/ResourceStorage.cs" id="6_3s4pm"]
 [ext_resource type="Script" uid="uid://dote0e123yk63" path="res://gameplay/enemy_spawning/EnemySpawner.cs" id="6_oei0w"]
@@ -32,8 +32,8 @@
 [ext_resource type="Script" uid="uid://0ml1o8gn0q1u" path="res://gameplay/goals/ObjectiveProgressBar.cs" id="27_uwean"]
 [ext_resource type="Script" uid="uid://bcuxyjal2x5n" path="res://gameplay/hud/RunEndUI.cs" id="28_h4q3c"]
 [ext_resource type="Environment" uid="uid://c8bycmkvq3a8d" path="res://core/camera/default_environment.tres" id="28_ywhi4"]
-[ext_resource type="PackedScene" uid="uid://3lxx3tw2iouf" path="res://levels/albacore.tscn" id="33_kmbd1"]
-[ext_resource type="PackedScene" uid="uid://c2bwl705pmb5l" path="res://levels/buildings/watch_tower.tscn" id="34_5q4qy"]
+[ext_resource type="PackedScene" uid="uid://bdsku0riobspd" path="res://levels/albacore.tscn" id="33_kmbd1"]
+[ext_resource type="PackedScene" uid="uid://bgqwgxm7n34yh" path="res://levels/buildings/watch_tower.tscn" id="34_5q4qy"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_sy2v3"]
 viewport_path = NodePath("Ship/SpaceshipModel/OverviewScreen/SubViewport")
@@ -239,22 +239,25 @@ mesh = SubResource("BoxMesh_5h46i")
 script = ExtResource("6_oei0w")
 poolName = "slimes"
 automaticSpawn = true
+spawnTimer = 4.0
 enemyScene = ExtResource("18_mbg5y")
 
 [node name="EnemySpawner2" type="MeshInstance3D" parent="SpawnController" unique_id=1870685914]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.42098767, -12)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.5866838, -12)
 mesh = SubResource("BoxMesh_5h46i")
 script = ExtResource("6_oei0w")
 poolName = "slimes"
 automaticSpawn = true
+spawnTimer = 4.0
 enemyScene = ExtResource("18_mbg5y")
 
 [node name="EnemySpawner3" type="MeshInstance3D" parent="SpawnController" unique_id=1830065108]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 0.120987654, -19)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 0.72255945, -19.003757)
 mesh = SubResource("BoxMesh_5h46i")
 script = ExtResource("6_oei0w")
 poolName = "spiders"
 automaticSpawn = true
+spawnTimer = 4.0
 enemyScene = ExtResource("19_mbg5y")
 
 [node name="EnemySpawner4" type="MeshInstance3D" parent="SpawnController" unique_id=68489295]
@@ -263,14 +266,34 @@ mesh = SubResource("BoxMesh_5h46i")
 script = ExtResource("6_oei0w")
 poolName = "spiders"
 automaticSpawn = true
+spawnTimer = 4.0
 enemyScene = ExtResource("19_mbg5y")
 
 [node name="EnemySpawner5" type="MeshInstance3D" parent="SpawnController" unique_id=566864949]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0.120987654, -10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.08139, 0.120987654, -3.9571915)
 mesh = SubResource("BoxMesh_5h46i")
 script = ExtResource("6_oei0w")
 poolName = "spiders"
 automaticSpawn = true
+spawnTimer = 4.0
+enemyScene = ExtResource("19_mbg5y")
+
+[node name="EnemySpawner6" type="MeshInstance3D" parent="SpawnController" unique_id=1908703127]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.20829, 0.50914407, 3.1493893)
+mesh = SubResource("BoxMesh_5h46i")
+script = ExtResource("6_oei0w")
+poolName = "spiders"
+automaticSpawn = true
+spawnTimer = 4.0
+enemyScene = ExtResource("19_mbg5y")
+
+[node name="EnemySpawner7" type="MeshInstance3D" parent="SpawnController" unique_id=2037968917]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.793358, 1.7183325, 0.14986229)
+mesh = SubResource("BoxMesh_5h46i")
+script = ExtResource("6_oei0w")
+poolName = "spiders"
+automaticSpawn = true
+spawnTimer = 4.0
 enemyScene = ExtResource("19_mbg5y")
 
 [node name="ResourceNode" parent="." unique_id=1238149726 node_paths=PackedStringArray("dropPoint") instance=ExtResource("8_sy2v3")]

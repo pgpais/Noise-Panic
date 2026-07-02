@@ -1,16 +1,18 @@
-[gd_scene format=3 uid="uid://3lxx3tw2iouf"]
+[gd_scene format=3 uid="uid://bdsku0riobspd"]
 
 [ext_resource type="PackedScene" uid="uid://cfi6biiekdd36" path="res://levels/Map_01.blend" id="1_v0e5k"]
-[ext_resource type="Texture2D" uid="uid://452a386jm501" path="res://assets/textures/fx/Melt/Melt 6 - 512x512.png" id="2_02j0d"]
+[ext_resource type="Texture2D" uid="uid://bll3gh0dqshuj" path="res://assets/textures/Sand/Sand_Bake1_PBR_Diffuse.png" id="2_fl6qe"]
 [ext_resource type="Texture2D" uid="uid://dp0emg5yh52ki" path="res://assets/textures/fx/Gabor/Gabor 1 - 512x512.png" id="3_fl6qe"]
 [ext_resource type="Texture2D" uid="uid://d1epi1430kdey" path="res://assets/textures/fx/Vein/Vein 3 - 512x512.png" id="4_8r35n"]
 [ext_resource type="Texture2D" uid="uid://cj3q8a8fx50o4" path="res://assets/textures/fx/Vein/Vein 11 - 512x512.png" id="5_4aucl"]
-[ext_resource type="Texture2D" uid="uid://cmupgyw0bu3yv" path="res://assets/textures/fx/Gabor/Gabor 6 - 512x512.png" id="6_02j0d"]
+[ext_resource type="Texture2D" uid="uid://f27l4tp04y4j" path="res://assets/textures/Sand/Sand_Bake1_PBR_Normal.png" id="6_8r35n"]
+[ext_resource type="Texture2D" uid="uid://dmqkg7wqv3mto" path="res://assets/textures/Sand/Sand_Bake1_PBR_Roughness.png" id="7_4aucl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v0e5k"]
-albedo_color = Color(0.59, 0.50818664, 0.4366, 1)
-albedo_texture = ExtResource("2_02j0d")
-roughness_texture = ExtResource("6_02j0d")
+albedo_texture = ExtResource("2_fl6qe")
+roughness_texture = ExtResource("7_4aucl")
+normal_enabled = true
+normal_texture = ExtResource("6_8r35n")
 heightmap_deep_parallax = true
 heightmap_min_layers = 8
 heightmap_max_layers = 32
@@ -25,10 +27,10 @@ data = PackedVector3Array(-2500, 117.4004, 2500, -2487.5, 117.84409, 2487.5, -24
 
 [node name="Albacore" unique_id=120095929 instance=ExtResource("1_v0e5k")]
 
-[node name="floor_001" parent="." index="1" unique_id=1320473316]
+[node name="floor_001" parent="." index="0" unique_id=724187897]
 surface_material_override/0 = SubResource("StandardMaterial3D_v0e5k")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="." index="2" unique_id=2122196752]
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1" unique_id=2122196752]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6708318, -0.88353443, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0" unique_id=1538212492]
