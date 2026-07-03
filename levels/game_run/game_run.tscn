@@ -113,8 +113,8 @@ texture = SubResource("ViewportTexture_sy2v3")
 size = Vector2i(964, 463)
 
 [node name="OverviewCamera" type="Camera3D" parent="Ship/SpaceshipModel/OverviewScreen/SubViewport" unique_id=626315657]
-physics_interpolation_mode = 2
-transform = Transform3D(1, 0, 0, 0, -0.1672852, 0.98590857, 0, -0.98590857, -0.1672852, 8.163737, 195.11371, -13.993748)
+physics_interpolation_mode = 1
+transform = Transform3D(1, 0, 0, 0, -0.167285, 0.98590845, 0, -0.98590845, -0.167285, 8.163737, 195.11371, -13.993748)
 top_level = true
 fov = 10.0
 size = 10.0
@@ -213,7 +213,7 @@ directional_shadow_fade_start = 0.2
 directional_shadow_max_distance = 250.0
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1138672703]
-transform = Transform3D(-0.99856883, 0.014782068, -0.05139694, 0, 0.9610422, 0.2764015, 0.053480417, 0.27600595, -0.95966697, 8.693587, 108.89046, -6.302533)
+transform = Transform3D(-0.99856895, 0.014782067, -0.051396936, 0, 0.9610423, 0.27640155, 0.053480413, 0.27600598, -0.9596669, 8.693587, 108.89046, -6.302533)
 top_level = true
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D" unique_id=1054332899]

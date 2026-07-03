@@ -1,0 +1,39 @@
+[gd_resource type="BehaviorTree" format=3 uid="uid://bhd7gmq8eg3ki"]
+
+[ext_resource type="Script" uid="uid://bb854u7j254lw" path="res://gameplay/ai/tasks/get_closest_in_group.gd" id="1_wu26q"]
+[ext_resource type="Script" uid="uid://b7v2utjmtge0x" path="res://gameplay/ai/tasks/in_range3D.gd" id="2_gkpwg"]
+[ext_resource type="Script" uid="uid://bb75dihgptqet" path="res://gameplay/ai/tasks/move_towards_target3D.gd" id="2_mhjsa"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_ew6ba"]
+
+[sub_resource type="BTAction" id="BTAction_y68ex"]
+script = ExtResource("1_wu26q")
+group = &"players"
+
+[sub_resource type="BTCondition" id="BTCondition_augan"]
+script = ExtResource("2_gkpwg")
+distance_max = 5.0
+
+[sub_resource type="BTSequence" id="BTSequence_phrv8"]
+children = [SubResource("BTCondition_augan")]
+
+[sub_resource type="BTAction" id="BTAction_ofm3v"]
+script = ExtResource("2_mhjsa")
+character_controller_path = NodePath("BoneAttachment3D/Components/CharacterController")
+
+[sub_resource type="BTSequence" id="BTSequence_bameu"]
+children = [SubResource("BTAction_ofm3v")]
+
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_marvf"]
+time_limit = 0.5
+children = [SubResource("BTSequence_bameu")]
+
+[sub_resource type="BTSelector" id="BTSelector_jngsw"]
+children = [SubResource("BTSequence_phrv8"), SubResource("BTTimeLimit_marvf")]
+
+[sub_resource type="BTSequence" id="BTSequence_upk56"]
+children = [SubResource("BTAction_y68ex"), SubResource("BTSelector_jngsw")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_ew6ba")
+root_task = SubResource("BTSequence_upk56")

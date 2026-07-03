@@ -4,8 +4,9 @@
 [ext_resource type="Script" uid="uid://b3s5mo3k2nfjg" path="res://gameplay/combat/Hurtbox.cs" id="2_ce0to"]
 [ext_resource type="PackedScene" uid="uid://c7puyq5j6v233" path="res://gameplay/actors/enemies/Slime/slime.blend" id="2_env81"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://bp4wc5fyixqar" path="res://gameplay/actors/enemies/generic_animation_node_state_machine.tres" id="3_oryfs"]
+[ext_resource type="BehaviorTree" uid="uid://dwqmbvjps6fvy" path="res://gameplay/actors/enemies/Slime/slime_behavior_tree.tres" id="5_ew6ba"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_ce0to"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_upk56"]
 viewport_path = NodePath("BoneAttachment3D/Sprite3D/SubViewport")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gtwec"]
@@ -28,7 +29,10 @@ external_skeleton = NodePath("../slime/Armature/Skeleton3D")
 
 [node name="Sprite3D" parent="BoneAttachment3D" index="0" unique_id=1325557530]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.6750689)
-texture = SubResource("ViewportTexture_ce0to")
+texture = SubResource("ViewportTexture_upk56")
+
+[node name="HealthBar" parent="BoneAttachment3D/Sprite3D/SubViewport" parent_id_path=PackedInt32Array(1048474995) index="0" unique_id=1176962998]
+visible = false
 
 [node name="CharacterController" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="0" unique_id=2102656381 node_paths=PackedStringArray("animationTree")]
 animationTree = NodePath("../../../AnimationTree")
@@ -62,3 +66,6 @@ root_node = NodePath("../slime")
 tree_root = ExtResource("3_oryfs")
 anim_player = NodePath("../slime/AnimationPlayer")
 parameters/conditions/is_moving = false
+
+[node name="BTPlayer" parent="." index="5" unique_id=406492328]
+behavior_tree = ExtResource("5_ew6ba")

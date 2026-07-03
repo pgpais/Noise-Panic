@@ -1,0 +1,56 @@
+[gd_resource type="BehaviorTree" format=3 uid="uid://d1rsq75h5vgxm"]
+
+[ext_resource type="Script" uid="uid://bb854u7j254lw" path="res://gameplay/ai/tasks/get_closest_in_group.gd" id="1_jngsw"]
+[ext_resource type="Script" uid="uid://b7v2utjmtge0x" path="res://gameplay/ai/tasks/in_range3D.gd" id="2_cg5qn"]
+[ext_resource type="Script" uid="uid://bb75dihgptqet" path="res://gameplay/ai/tasks/move_towards_target3D.gd" id="3_602mh"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_ew6ba"]
+
+[sub_resource type="BTAction" id="BTAction_y68ex"]
+script = ExtResource("1_jngsw")
+group = &"players"
+
+[sub_resource type="BTComment" id="BTComment_jngsw"]
+custom_name = "Shoot at Target"
+
+[sub_resource type="BTCondition" id="BTCondition_augan"]
+script = ExtResource("2_cg5qn")
+distance_min = 5.0
+distance_max = 10.0
+
+[sub_resource type="BTSequence" id="BTSequence_phrv8"]
+children = [SubResource("BTComment_jngsw"), SubResource("BTCondition_augan")]
+
+[sub_resource type="BTComment" id="BTComment_cg5qn"]
+custom_name = "Melee Attack"
+
+[sub_resource type="BTCondition" id="BTCondition_602mh"]
+script = ExtResource("2_cg5qn")
+distance_max = 5.0
+
+[sub_resource type="BTSequence" id="BTSequence_6x4d5"]
+children = [SubResource("BTComment_cg5qn"), SubResource("BTCondition_602mh")]
+
+[sub_resource type="BTComment" id="BTComment_1r5jm"]
+custom_name = "Chase Target"
+
+[sub_resource type="BTAction" id="BTAction_ofm3v"]
+script = ExtResource("3_602mh")
+character_controller_path = NodePath("BoneAttachment3D/Components/CharacterController")
+
+[sub_resource type="BTSequence" id="BTSequence_bameu"]
+children = [SubResource("BTComment_1r5jm"), SubResource("BTAction_ofm3v")]
+
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_marvf"]
+time_limit = 0.5
+children = [SubResource("BTSequence_bameu")]
+
+[sub_resource type="BTSelector" id="BTSelector_jngsw"]
+children = [SubResource("BTSequence_phrv8"), SubResource("BTSequence_6x4d5"), SubResource("BTTimeLimit_marvf")]
+
+[sub_resource type="BTSequence" id="BTSequence_upk56"]
+children = [SubResource("BTAction_y68ex"), SubResource("BTSelector_jngsw")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_ew6ba")
+root_task = SubResource("BTSequence_upk56")

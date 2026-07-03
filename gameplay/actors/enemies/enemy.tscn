@@ -30,23 +30,36 @@ height = 1.9560547
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_ew6ba"]
 
+[sub_resource type="BBNode" id="BBNode_8okpo"]
+saved_value = NodePath("AnimationTree")
+resource_name = "AnimationTree"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_gtwec"]
+await_completion = 0.5
+animation_player = SubResource("BBNode_8okpo")
+animation_name = &"idle"
+
+[sub_resource type="BTSequence" id="BTSequence_ndaa7"]
+custom_name = "Prepare Jump"
+children = [SubResource("BTPlayAnimation_gtwec")]
+
 [sub_resource type="BTAction" id="BTAction_y68ex"]
 script = ExtResource("5_8okpo")
 group = &"players"
 
-[sub_resource type="BTAction" id="BTAction_gtwec"]
+[sub_resource type="BTAction" id="BTAction_ofm3v"]
 script = ExtResource("6_8okpo")
 character_controller_path = NodePath("BoneAttachment3D/Components/CharacterController")
 
-[sub_resource type="BTSequence" id="BTSequence_ndaa7"]
-children = [SubResource("BTAction_y68ex"), SubResource("BTAction_gtwec")]
+[sub_resource type="BTSequence" id="BTSequence_bameu"]
+children = [SubResource("BTAction_y68ex"), SubResource("BTAction_ofm3v")]
 
-[sub_resource type="BTTimeLimit" id="BTTimeLimit_4eraf"]
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_marvf"]
 time_limit = 0.5
-children = [SubResource("BTSequence_ndaa7")]
+children = [SubResource("BTSequence_bameu")]
 
 [sub_resource type="BTSequence" id="BTSequence_upk56"]
-children = [SubResource("BTTimeLimit_4eraf")]
+children = [SubResource("BTSequence_ndaa7"), SubResource("BTTimeLimit_marvf")]
 
 [sub_resource type="BehaviorTree" id="BehaviorTree_marvf"]
 blackboard_plan = SubResource("BlackboardPlan_ew6ba")
