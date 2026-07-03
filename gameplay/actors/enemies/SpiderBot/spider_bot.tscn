@@ -2,15 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://ds4f3k4yc0ma6" path="res://gameplay/actors/enemies/enemy.tscn" id="1_sr8rv"]
 [ext_resource type="Script" uid="uid://b3s5mo3k2nfjg" path="res://gameplay/combat/Hurtbox.cs" id="2_e4ygu"]
-[ext_resource type="Script" uid="uid://3aibrp1efy3c" path="res://gameplay/ai/states/AiState.cs" id="3_augan"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://cuscp6oxr7r81" path="res://gameplay/actors/enemies/SpiderBot/spider_animation_node_state_machine.tres" id="3_rxysk"]
-[ext_resource type="Script" uid="uid://busddf1jhgjkj" path="res://gameplay/ai/conditions/HasTargetAiCondition.cs" id="4_phrv8"]
-[ext_resource type="Script" uid="uid://cuy423gqq4m5u" path="res://gameplay/ai/actions/MoveToTargetAiAction.cs" id="5_5e7s3"]
-[ext_resource type="Script" uid="uid://cpmkj0bcane6n" path="res://gameplay/ai/target_acquirers/ClosestPlayerAiTargetAcquirer.cs" id="6_ton4b"]
+[ext_resource type="Script" uid="uid://cwv6qdacbv2d5" path="res://gameplay/actors/LookAtAimingController.cs" id="6_inj8g"]
 [ext_resource type="PackedScene" uid="uid://dk5a4un6ibjq1" path="res://gameplay/actors/enemies/SpiderBot/spider_bot_model.tscn" id="7_dbxmr"]
 [ext_resource type="PackedScene" uid="uid://dw46qc0a7drf0" path="res://gameplay/combat/weapons/gun.tscn" id="9_5lk3h"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_augan"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_jlnfr"]
 viewport_path = NodePath("BoneAttachment3D/Sprite3D/SubViewport")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_n6ams"]
@@ -21,19 +18,42 @@ size = Vector3(1, 1.4, 1)
 
 [node name="SpiderBot" unique_id=1748184085 node_paths=PackedStringArray("hurtbox") instance=ExtResource("1_sr8rv")]
 hurtbox = NodePath("BoneAttachment3D/Components/Hurtbox")
+attackDamage = 5
 
-[node name="MeshInstance3D" parent="." index="0" unique_id=41721404]
+[node name="Model" parent="." index="0" unique_id=1727461906 instance=ExtResource("7_dbxmr")]
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="1" unique_id=135382709]
+root_node = NodePath("../Model")
+tree_root = ExtResource("3_rxysk")
+anim_player = NodePath("../Model/AnimationPlayer")
+parameters/conditions/is_moving = false
+parameters/conditions/is_not_moving = true
+
+[node name="LookAt" type="Marker3D" parent="." index="2" unique_id=606319979]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.025, -2.8353095)
+
+[node name="GunBoneAttachment3D" type="BoneAttachment3D" parent="." index="3" unique_id=795940720]
+transform = Transform3D(-1, 1.806475e-06, -3.5441906e-06, 1.8905247e-06, 0.9997153, -0.023859873, 3.5000792e-06, -0.023859873, -0.9997153, -4.5448536e-07, 1.0926694, 2.6866893e-09)
+bone_name = "Head.Main"
+bone_idx = 15
+use_external_skeleton = true
+external_skeleton = NodePath("../Model/Armature/Skeleton3D")
+
+[node name="ShootingPoint" type="Marker3D" parent="GunBoneAttachment3D" index="0" unique_id=749981373]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6763806e-08, 0.060045566, 0.7077192)
+
+[node name="MeshInstance3D" parent="." index="4" unique_id=41721404]
 visible = false
 
-[node name="BoneAttachment3D" parent="." index="1" unique_id=1831147750]
-transform = Transform3D(-1, 1.4031027e-06, 1.2480629e-06, 1.4742286e-06, 0.99826133, 0.05894369, -1.163189e-06, 0.05894369, -0.99826133, -5.106455e-07, 0.92377776, -0.64239764)
+[node name="BoneAttachment3D" parent="." index="5" unique_id=1831147750]
+transform = Transform3D(-1, 1.806475e-06, -3.5441906e-06, 1.8905247e-06, 0.9997153, -0.023859873, 3.5000792e-06, -0.023859873, -0.9997153, -4.5448536e-07, 1.0926694, 2.6866893e-09)
 bone_name = "Head.Main"
 bone_idx = 15
 external_skeleton = NodePath("../Model/Armature/Skeleton3D")
 
 [node name="Sprite3D" parent="BoneAttachment3D" index="0" unique_id=1325557530]
 transform = Transform3D(-1, 0, 7.1054274e-15, -7.1054274e-15, 0, 1, 0, 1, 0, 1.7229172e-07, 0.5370995, -0.0025227591)
-texture = SubResource("ViewportTexture_augan")
+texture = SubResource("ViewportTexture_jlnfr")
 
 [node name="CharacterController" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="0" unique_id=2102656381 node_paths=PackedStringArray("animationTree")]
 animationTree = NodePath("../../../AnimationTree")
@@ -56,57 +76,17 @@ metadata/_custom_type_script = "uid://b3s5mo3k2nfjg"
 transform = Transform3D(1, 0, -7.1054274e-15, 0, 1, 0, -7.1054274e-15, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_n6ams")
 
-[node name="ChaseClosestPlayerAiState" type="Node3D" parent="BoneAttachment3D/Components/AiBrain/States" parent_id_path=PackedInt32Array(819931270) index="0" unique_id=1670640469 node_paths=PackedStringArray("conditionsParent", "actionsParent")]
-script = ExtResource("3_augan")
-conditionsParent = NodePath("Conditions")
-actionsParent = NodePath("Actions")
-metadata/_custom_type_script = "uid://3aibrp1efy3c"
-
-[node name="Conditions" type="Node3D" parent="BoneAttachment3D/Components/AiBrain/States/ChaseClosestPlayerAiState" index="0" unique_id=199041049]
-
-[node name="HasTargetAiCondition" type="Node3D" parent="BoneAttachment3D/Components/AiBrain/States/ChaseClosestPlayerAiState/Conditions" index="0" unique_id=271974215 node_paths=PackedStringArray("targetAcquirer")]
-script = ExtResource("4_phrv8")
-targetAcquirer = NodePath("../../ClosestPlayerAiTargetAcquirer")
-metadata/_custom_type_script = "uid://busddf1jhgjkj"
-
-[node name="Actions" type="Node3D" parent="BoneAttachment3D/Components/AiBrain/States/ChaseClosestPlayerAiState" index="1" unique_id=1261439524]
-
-[node name="MoveToTargetAiAction" type="Node3D" parent="BoneAttachment3D/Components/AiBrain/States/ChaseClosestPlayerAiState/Actions" index="0" unique_id=1507795540 node_paths=PackedStringArray("targetAcquirer")]
-script = ExtResource("5_5e7s3")
-targetAcquirer = NodePath("../../ClosestPlayerAiTargetAcquirer")
-metadata/_custom_type_script = "uid://cuy423gqq4m5u"
-
-[node name="ClosestPlayerAiTargetAcquirer" type="Node3D" parent="BoneAttachment3D/Components/AiBrain/States/ChaseClosestPlayerAiState" index="2" unique_id=1103639477]
-script = ExtResource("6_ton4b")
-metadata/_custom_type_script = "uid://cpmkj0bcane6n"
-
-[node name="Gun" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="5" unique_id=1731575199 node_paths=PackedStringArray("shootingPoint") instance=ExtResource("9_5lk3h")]
+[node name="Gun" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="4" unique_id=1731575199 node_paths=PackedStringArray("shootingPoint") instance=ExtResource("9_5lk3h")]
 transform = Transform3D(0.9953866, 0.095339544, -0.010804151, -0.008537104, 0.20015717, 0.97972655, 0.09556925, -0.9751144, 0.20004761, 5.331592e-07, 0.00094264373, -0.041604042)
 poolName = "spider_gun_projectiles"
 shootingPoint = NodePath("../../../GunBoneAttachment3D/ShootingPoint")
 
-[node name="CollisionShape3D" parent="." index="2" unique_id=518336157]
+[node name="LookAtAimingController" type="Node" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="5" unique_id=805736730 node_paths=PackedStringArray("lookAt", "gun")]
+script = ExtResource("6_inj8g")
+lookAt = NodePath("../../../LookAt")
+gun = NodePath("../Gun")
+metadata/_custom_type_script = "uid://cwv6qdacbv2d5"
+
+[node name="CollisionShape3D" parent="." index="6" unique_id=518336157]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72038126, 0)
 shape = SubResource("BoxShape3D_rxysk")
-
-[node name="Model" parent="." index="3" unique_id=1727461906 instance=ExtResource("7_dbxmr")]
-
-[node name="AnimationTree" type="AnimationTree" parent="." index="4" unique_id=135382709]
-root_node = NodePath("../Model")
-tree_root = ExtResource("3_rxysk")
-anim_player = NodePath("../Model/AnimationPlayer")
-parameters/conditions/is_moving = false
-parameters/conditions/is_not_moving = true
-
-[node name="LookAt" type="Marker3D" parent="." index="5" unique_id=606319979]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.025, -2.371)
-
-[node name="GunBoneAttachment3D" type="BoneAttachment3D" parent="." index="6" unique_id=795940720]
-transform = Transform3D(-1, 1.4031027e-06, 1.2480629e-06, 1.4742286e-06, 0.99826133, 0.05894369, -1.163189e-06, 0.05894369, -0.99826133, -5.106455e-07, 0.92377776, -0.64239764)
-bone_name = "Head.Main"
-bone_idx = 15
-use_external_skeleton = true
-external_skeleton = NodePath("../Model/Armature/Skeleton3D")
-
-[node name="ShootingPoint" type="Marker3D" parent="GunBoneAttachment3D" index="0" unique_id=749981373]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6763806e-08, 0.060045566, 0.7077192)
