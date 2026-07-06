@@ -46,6 +46,7 @@ func _enter() -> void:
 
 # Called each time this task is ticked (aka executed).
 func _tick(_delta: float) -> Status:
+	#@NIVEKdotPT: Quando comecei a programar isto ainda tinha cabelo
 	var target: Node3D = blackboard.get_var(target_var, null)
 	if not is_instance_valid(target):
 		return FAILURE

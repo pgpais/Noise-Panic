@@ -3,6 +3,7 @@ using Godot;
 [GlobalClass]
 public partial class CharacterController : Node
 {
+	//@entega_: 1. Cozer o bacalhau e fritar as batatasColoque o bacalhau num tacho, cubra com água e leve a ferver.Coza por 5 minutos, retire o peixe e reserve o leite ou a água da cozedura para o molho.Limpe o bacalhau de peles e espinhas e desfie-o em lascas.Frite as batatas em cubos numa fritadeira convencional ou na air fryer até dourarem levemente (sem ficarem demasiado duras). Reserve.2. Fazer o refogadoNum tacho largo, aqueça um fio generoso de azeite.Adicione as cebolas, os alhos e a folha de louro.
 	[Export] AnimationTree animationTree;
 	[Export] Node3D cameraAnchor;
 	[Export] public float RunningSpeed { get; private set; } = 10f;
