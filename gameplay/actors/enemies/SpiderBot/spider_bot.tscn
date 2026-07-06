@@ -3,12 +3,12 @@
 [ext_resource type="PackedScene" uid="uid://ds4f3k4yc0ma6" path="res://gameplay/actors/enemies/enemy.tscn" id="1_sr8rv"]
 [ext_resource type="Script" uid="uid://b3s5mo3k2nfjg" path="res://gameplay/combat/Hurtbox.cs" id="2_e4ygu"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://cuscp6oxr7r81" path="res://gameplay/actors/enemies/SpiderBot/spider_animation_node_state_machine.tres" id="3_rxysk"]
+[ext_resource type="BehaviorTree" uid="uid://d1rsq75h5vgxm" path="res://gameplay/actors/enemies/SpiderBot/spiderbot_behavior_tree.tres" id="5_536ar"]
 [ext_resource type="Script" uid="uid://cwv6qdacbv2d5" path="res://gameplay/actors/LookAtAimingController.cs" id="6_inj8g"]
 [ext_resource type="PackedScene" uid="uid://dk5a4un6ibjq1" path="res://gameplay/actors/enemies/SpiderBot/spider_bot_model.tscn" id="7_dbxmr"]
 [ext_resource type="PackedScene" uid="uid://dw46qc0a7drf0" path="res://gameplay/combat/weapons/gun.tscn" id="9_5lk3h"]
-[ext_resource type="BehaviorTree" uid="uid://d1rsq75h5vgxm" path="res://gameplay/actors/enemies/SpiderBot/spiderbot_behavior_tree.tres" id="5_536ar"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_17qed"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_jlnfr"]
 viewport_path = NodePath("BoneAttachment3D/Sprite3D/SubViewport")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_n6ams"]
@@ -33,27 +33,27 @@ parameters/conditions/is_not_moving = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.025, -2.8353095)
 
 [node name="GunBoneAttachment3D" type="BoneAttachment3D" parent="." index="3" unique_id=795940720]
-transform = Transform3D(-1, 1.806475e-06, -3.5441906e-06, 1.8905247e-06, 0.9997153, -0.023859873, 3.5000792e-06, -0.023859873, -0.9997153, -4.5448536e-07, 1.0926694, 2.6866893e-09)
+transform = Transform3D(-1, 1.8522919e-06, -3.498284e-06, 1.8905247e-06, 0.9999399, -0.010960856, 3.4777713e-06, -0.010960856, -0.9999399, -4.5448536e-07, 1.0560793, 2.686689e-09)
 bone_name = "Head.Main"
 bone_idx = 15
 use_external_skeleton = true
 external_skeleton = NodePath("../Model/Armature/Skeleton3D")
 
 [node name="ShootingPoint" type="Marker3D" parent="GunBoneAttachment3D" index="0" unique_id=749981373]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6763806e-08, 0.060045566, 0.7077192)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.6763806e-08, 0.060045566, 0.7077192)
 
 [node name="MeshInstance3D" parent="." index="4" unique_id=41721404]
 visible = false
 
-[node name="BoneAttachment3D" parent="." index="1" unique_id=1831147750]
-transform = Transform3D(-1, 1.8635351e-06, -3.5316573e-06, 1.8905247e-06, 0.9999707, -0.0076575964, 3.5172834e-06, -0.0076575964, -0.9999707, -4.5448536e-07, 1.0903413, 2.365383e-09)
+[node name="BoneAttachment3D" parent="." index="5" unique_id=1831147750]
+transform = Transform3D(-1, 1.8522919e-06, -3.498284e-06, 1.8905247e-06, 0.9999399, -0.010960856, 3.4777713e-06, -0.010960856, -0.9999399, -4.5448536e-07, 1.0560793, 2.686689e-09)
 bone_name = "Head.Main"
 bone_idx = 15
 external_skeleton = NodePath("../Model/Armature/Skeleton3D")
 
 [node name="Sprite3D" parent="BoneAttachment3D" index="0" unique_id=1325557530]
 transform = Transform3D(-1, 0, 7.1054274e-15, -7.1054274e-15, 0, 1, 0, 1, 0, 1.7229172e-07, 0.5370995, -0.0025227591)
-texture = SubResource("ViewportTexture_17qed")
+texture = SubResource("ViewportTexture_jlnfr")
 
 [node name="CharacterController" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="0" unique_id=2102656381 node_paths=PackedStringArray("animationTree")]
 animationTree = NodePath("../../../AnimationTree")
@@ -91,5 +91,5 @@ metadata/_custom_type_script = "uid://cwv6qdacbv2d5"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72038126, 0)
 shape = SubResource("BoxShape3D_rxysk")
 
-[node name="BTPlayer" parent="." index="5" unique_id=406492328]
+[node name="BTPlayer" parent="." index="7" unique_id=406492328]
 behavior_tree = ExtResource("5_536ar")

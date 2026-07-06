@@ -2,7 +2,10 @@
 
 [ext_resource type="Script" uid="uid://bb854u7j254lw" path="res://gameplay/ai/tasks/get_closest_in_group.gd" id="1_jngsw"]
 [ext_resource type="Script" uid="uid://b7v2utjmtge0x" path="res://gameplay/ai/tasks/in_range3D.gd" id="2_cg5qn"]
+[ext_resource type="Script" uid="uid://by5yqltsltepi" path="res://gameplay/ai/tasks/face_target3D.gd" id="3_6x4d5"]
 [ext_resource type="Script" uid="uid://bb75dihgptqet" path="res://gameplay/ai/tasks/move_towards_target3D.gd" id="3_602mh"]
+[ext_resource type="Script" uid="uid://dx3hgnwkornl4" path="res://gameplay/ai/tasks/aim_lookat_at_target3D.gd" id="3_cg5qn"]
+[ext_resource type="Script" uid="uid://bcn5rphbk4lej" path="res://gameplay/ai/tasks/shoot_at_target3D.gd" id="5_6x4d5"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_ew6ba"]
 
@@ -18,8 +21,20 @@ script = ExtResource("2_cg5qn")
 distance_min = 5.0
 distance_max = 10.0
 
+[sub_resource type="BTAction" id="BTAction_1r5jm"]
+script = ExtResource("3_6x4d5")
+character_controller_path = NodePath("BoneAttachment3D/Components/CharacterController")
+
+[sub_resource type="BTAction" id="BTAction_602mh"]
+script = ExtResource("3_cg5qn")
+look_at_aiming_controller_path = NodePath("BoneAttachment3D/Components/LookAtAimingController")
+
+[sub_resource type="BTAction" id="BTAction_vcsad"]
+script = ExtResource("5_6x4d5")
+look_at_aiming_controller_path = NodePath("BoneAttachment3D/Components/LookAtAimingController")
+
 [sub_resource type="BTSequence" id="BTSequence_phrv8"]
-children = [SubResource("BTComment_jngsw"), SubResource("BTCondition_augan")]
+children = [SubResource("BTComment_jngsw"), SubResource("BTCondition_augan"), SubResource("BTAction_1r5jm"), SubResource("BTAction_602mh"), SubResource("BTAction_vcsad")]
 
 [sub_resource type="BTComment" id="BTComment_cg5qn"]
 custom_name = "Melee Attack"
