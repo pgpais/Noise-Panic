@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 [GlobalClass]
@@ -10,6 +11,9 @@ public partial class CharacterController : Node
 	[Export] public float WalkingSpeed { get; private set; } = 5f;
 	[Export] public float JumpVelocity { get; private set; } = 10f;
 	[Export] public bool TurnToFaceMovement { get; set; } = true;
+
+	[ExportGroup("Navigation")]
+	[Export] NavigationAgent3D navigationAgent;
 
 	public bool MovementEnabled { get; set; } = true;
 	public Vector2 MovInput { get; set; } = Vector2.Zero;
@@ -24,6 +28,17 @@ public partial class CharacterController : Node
 	public override void _Ready()
 	{
 		_body = GetOwner<CharacterBody3D>(); // necessary because of Godot's bug
+
+		if (navigationAgent != null)
+		{
+			navigationAgent.VelocityComputed += OnNavigationVelocityComputed;
+		}
+	}
+
+	private void OnNavigationVelocityComputed(Vector3 safeVelocity)
+	{
+		_body.Velocity = safeVelocity;
+		_body.MoveAndSlide();
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -101,8 +116,16 @@ public partial class CharacterController : Node
 			velocity.Y = JumpVelocity;
 		}
 
-		_body.Velocity = velocity;
-		_body.MoveAndSlide();
+		if (navigationAgent != null && navigationAgent.AvoidanceEnabled)
+		{
+			navigationAgent.Velocity = velocity;
+		}
+		else
+		{
+			_body.Velocity = velocity;
+			_body.MoveAndSlide();
+		}
+
 
 		if (IsMultiplayerAuthority())
 		{

@@ -1,7 +1,8 @@
 [gd_resource type="BehaviorTree" format=3 uid="uid://dwqmbvjps6fvy"]
 
 [ext_resource type="Script" uid="uid://bb854u7j254lw" path="res://gameplay/ai/tasks/get_closest_in_group.gd" id="1_2yoq6"]
-[ext_resource type="Script" uid="uid://bb75dihgptqet" path="res://gameplay/ai/tasks/move_towards_target3D.gd" id="2_8lenu"]
+[ext_resource type="Script" uid="uid://dqj8sgq85itql" path="res://gameplay/ai/tasks/pathfind_towards_target3D.gd" id="2_2yoq6"]
+[ext_resource type="Script" uid="uid://ds8byc24hu4d5" path="res://gameplay/ai/tasks/set_pathfinding_target3D.gd" id="2_8lenu"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_ce0to"]
 
@@ -20,20 +21,24 @@ animation_name = &"Idle"
 
 [sub_resource type="BTSequence" id="BTSequence_bo35b"]
 children = [SubResource("BTPlayAnimation_8lenu")]
-
-[sub_resource type="BTAction" id="BTAction_b4qqg"]
-script = ExtResource("2_8lenu")
-character_controller_path = NodePath("BoneAttachment3D/Components/CharacterController")
-
-[sub_resource type="BTSequence" id="BTSequence_5ecey"]
-children = [SubResource("BTAction_b4qqg")]
+_enabled = false
 
 [sub_resource type="BTTimeLimit" id="BTTimeLimit_mxbsk"]
-time_limit = 0.5
-children = [SubResource("BTSequence_5ecey")]
+time_limit = 2.0
+_enabled = false
+
+[sub_resource type="BTAction" id="BTAction_bo35b"]
+script = ExtResource("2_8lenu")
+character_controller_path = NodePath("BoneAttachment3D/Components/CharacterController")
+nav_agent_path = NodePath("BoneAttachment3D/Components/NavigationAgent3D")
+
+[sub_resource type="BTAction" id="BTAction_8lenu"]
+script = ExtResource("2_2yoq6")
+character_controller_path = NodePath("BoneAttachment3D/Components/CharacterController")
+nav_agent_path = NodePath("BoneAttachment3D/Components/NavigationAgent3D")
 
 [sub_resource type="BTSequence" id="BTSequence_syh22"]
-children = [SubResource("BTAction_xfin4"), SubResource("BTSequence_bo35b"), SubResource("BTTimeLimit_mxbsk")]
+children = [SubResource("BTAction_xfin4"), SubResource("BTSequence_bo35b"), SubResource("BTTimeLimit_mxbsk"), SubResource("BTAction_bo35b"), SubResource("BTAction_8lenu")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_ce0to")
