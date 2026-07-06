@@ -14,6 +14,7 @@ saved_value = NodePath("slime/AnimationPlayer")
 resource_name = "slime/AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_8lenu"]
+await_completion = 0.5
 animation_player = SubResource("BBNode_2yoq6")
 animation_name = &"Idle"
 

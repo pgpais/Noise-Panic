@@ -6,7 +6,7 @@
 [ext_resource type="AnimationNodeStateMachine" uid="uid://bp4wc5fyixqar" path="res://gameplay/actors/enemies/generic_animation_node_state_machine.tres" id="3_oryfs"]
 [ext_resource type="BehaviorTree" uid="uid://dwqmbvjps6fvy" path="res://gameplay/actors/enemies/Slime/slime_behavior_tree.tres" id="5_ew6ba"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_upk56"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_ew6ba"]
 viewport_path = NodePath("BoneAttachment3D/Sprite3D/SubViewport")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gtwec"]
@@ -29,7 +29,7 @@ external_skeleton = NodePath("../slime/Armature/Skeleton3D")
 
 [node name="Sprite3D" parent="BoneAttachment3D" index="0" unique_id=1325557530]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.6750689)
-texture = SubResource("ViewportTexture_upk56")
+texture = SubResource("ViewportTexture_ew6ba")
 
 [node name="HealthBar" parent="BoneAttachment3D/Sprite3D/SubViewport" parent_id_path=PackedInt32Array(1048474995) index="0" unique_id=1176962998]
 visible = false
