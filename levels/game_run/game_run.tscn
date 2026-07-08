@@ -32,8 +32,8 @@
 [ext_resource type="Script" uid="uid://0ml1o8gn0q1u" path="res://gameplay/goals/ObjectiveProgressBar.cs" id="27_uwean"]
 [ext_resource type="Script" uid="uid://bcuxyjal2x5n" path="res://gameplay/hud/RunEndUI.cs" id="28_h4q3c"]
 [ext_resource type="Environment" uid="uid://c8bycmkvq3a8d" path="res://core/camera/default_environment.tres" id="28_ywhi4"]
-[ext_resource type="PackedScene" uid="uid://3lxx3tw2iouf" path="res://levels/albacore.tscn" id="33_kmbd1"]
 [ext_resource type="PackedScene" uid="uid://c2bwl705pmb5l" path="res://levels/buildings/watch_tower.tscn" id="34_5q4qy"]
+[ext_resource type="PackedScene" uid="uid://djwt5l353iixd" path="res://levels/Albacore/Albacore_with_nav.tscn" id="34_stu00"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_sy2v3"]
 viewport_path = NodePath("Ship/SpaceshipModel/OverviewScreen/SubViewport")
@@ -231,8 +231,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 28)
 script = ExtResource("5_3s4pm")
 spawnPath = NodePath("../Enemies")
 Spawners = [NodePath("EnemySpawner"), NodePath("EnemySpawner2"), NodePath("EnemySpawner3"), NodePath("EnemySpawner4"), NodePath("EnemySpawner5")]
-spawnTimer = 5.0
-spawnStartInterval = 20.0
+spawnTimer = 1.0
+spawnStartInterval = 0.0
 
 [node name="EnemySpawner" type="MeshInstance3D" parent="SpawnController" unique_id=756112243]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0.120987654, -14)
@@ -440,10 +440,13 @@ text = "Close"
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=250441152]
 environment = ExtResource("28_ywhi4")
 
-[node name="Map_01" parent="." unique_id=120095929 instance=ExtResource("33_kmbd1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.998304, 0)
-
 [node name="WatchTower" parent="." unique_id=1152642652 instance=ExtResource("34_5q4qy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5203576, 0.0570516, -11.032647)
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="WatchTower" unique_id=1679829210]
+radius = 1.0
+
+[node name="Node3D" parent="." unique_id=1717285807 instance=ExtResource("34_stu00")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, 0)
 
 [connection signal="Pressed" from="Ship/StandingButton" to="Ship/PlayerPodLauncher" method="TryLaunchPlayer"]

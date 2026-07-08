@@ -107,7 +107,6 @@ shape = SubResource("CapsuleShape3D_gtwec")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="3" unique_id=747159489]
 path_height_offset = 0.5
-avoidance_enabled = true
 radius = 1.0
 max_speed = 2.5
 debug_enabled = true
