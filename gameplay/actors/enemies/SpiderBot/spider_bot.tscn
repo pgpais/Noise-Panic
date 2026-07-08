@@ -33,7 +33,7 @@ parameters/conditions/is_not_moving = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.025, -2.8353095)
 
 [node name="GunBoneAttachment3D" type="BoneAttachment3D" parent="." index="3" unique_id=795940720]
-transform = Transform3D(-1, 1.8608324e-06, -3.4895634e-06, 1.8905251e-06, 0.99996364, -0.008528424, 3.4735667e-06, -0.008528424, -0.99996364, -4.5448536e-07, 1.0491816, 2.6866893e-09)
+transform = Transform3D(-1, 1.86997e-06, -3.4801726e-06, 1.8905251e-06, 0.9999825, -0.0059156897, 3.4690495e-06, -0.0059156897, -0.9999825, -4.5448536e-07, 1.0417731, 2.6866893e-09)
 bone_name = "Head.Main"
 bone_idx = 15
 use_external_skeleton = true
@@ -46,7 +46,7 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.6
 visible = false
 
 [node name="BoneAttachment3D" parent="." index="5" unique_id=1831147750]
-transform = Transform3D(-1, 1.8608324e-06, -3.4895634e-06, 1.8905251e-06, 0.99996364, -0.008528424, 3.4735667e-06, -0.008528424, -0.99996364, -4.5448536e-07, 1.0491816, 2.6866893e-09)
+transform = Transform3D(-1, 1.86997e-06, -3.4801726e-06, 1.8905251e-06, 0.9999825, -0.0059156897, 3.4690495e-06, -0.0059156897, -0.9999825, -4.5448536e-07, 1.0417731, 2.6866893e-09)
 bone_name = "Head.Main"
 bone_idx = 15
 external_skeleton = NodePath("../Model/Armature/Skeleton3D")
@@ -86,6 +86,10 @@ script = ExtResource("6_inj8g")
 lookAt = NodePath("../../../LookAt")
 gun = NodePath("../Gun")
 metadata/_custom_type_script = "uid://cwv6qdacbv2d5"
+
+[node name="NavigationAgent3D" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="6" unique_id=747159489]
+path_height_offset = 1.0
+debug_enabled = true
 
 [node name="CollisionShape3D" parent="." index="6" unique_id=518336157]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72038126, 0)

@@ -22,7 +22,6 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="16_a31k0"]
 [ext_resource type="Script" uid="uid://c2r0p8u5tkq16" path="res://core/PlayerSpawner.cs" id="16_la0x0"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="17_2khdt"]
-[ext_resource type="PackedScene" uid="uid://2oypgw4dyts" path="res://gameplay/actors/enemies/Slime/slime.tscn" id="18_mbg5y"]
 [ext_resource type="PackedScene" uid="uid://die5g2cgg7rwl" path="res://gameplay/crafting/CraftingMachine.tscn" id="19_bhs2y"]
 [ext_resource type="PackedScene" uid="uid://ca57l0j31l3qw" path="res://gameplay/actors/enemies/SpiderBot/spider_bot.tscn" id="19_mbg5y"]
 [ext_resource type="Script" uid="uid://cetikanhij36g" path="res://gameplay/crafting/recipes/CraftingRecipeData.cs" id="20_kmbd1"]
@@ -91,6 +90,13 @@ storage = NodePath("Ship/Storage")
 countdownTimer = NodePath("RunTimer")
 itemExtractsRequired = 10
 itemRequired = ExtResource("2_itlwr")
+
+[node name="PlayerSpawner" type="Marker3D" parent="." unique_id=1896400735]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.99999994, -14.1793, 4.044642, 72.37699)
+script = ExtResource("16_la0x0")
+playerScene = ExtResource("2_0uhwm")
+spawnNewPlayers = false
+metadata/_custom_type_script = "uid://c2r0p8u5tkq16"
 
 [node name="RunTimer" type="Timer" parent="." unique_id=1970086283]
 wait_time = 99999.0
@@ -190,13 +196,6 @@ tween_resource = SubResource("Resource_8bpfs")
 camera_3d_resource = SubResource("Resource_7w4il")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
-[node name="PlayerSpawner" type="Marker3D" parent="Ship" unique_id=1896400735]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2738428, 2.2904358, 2.861524)
-script = ExtResource("16_la0x0")
-playerScene = ExtResource("2_0uhwm")
-spawnNewPlayers = false
-metadata/_custom_type_script = "uid://c2r0p8u5tkq16"
-
 [node name="CraftingMachine2" parent="Ship" unique_id=1856535216 node_paths=PackedStringArray("_resultSpawnPosition") instance=ExtResource("19_bhs2y")]
 transform = Transform3D(0.032887805, 0.051513456, 0.9981306, 0, 0.9986709, -0.051541336, -0.9994591, 0.0016950814, 0.032844093, -5.4858027, -5.3252106, -16.475494)
 _resultSpawnPosition = NodePath("Marker3D")
@@ -227,28 +226,28 @@ script = ExtResource("3_0uhwm")
 script = ExtResource("4_wajde")
 
 [node name="SpawnController" type="Node3D" parent="." unique_id=1934995528 node_paths=PackedStringArray("spawnPath", "Spawners")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 28)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 1, 28)
 script = ExtResource("5_3s4pm")
 spawnPath = NodePath("../Enemies")
 Spawners = [NodePath("EnemySpawner"), NodePath("EnemySpawner2"), NodePath("EnemySpawner3"), NodePath("EnemySpawner4"), NodePath("EnemySpawner5")]
-spawnTimer = 1.0
-spawnStartInterval = 0.0
+spawnTimer = 20.0
+spawnStartInterval = 2.0
 
 [node name="EnemySpawner" type="MeshInstance3D" parent="SpawnController" unique_id=756112243]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0.120987654, -14)
 mesh = SubResource("BoxMesh_5h46i")
 script = ExtResource("6_oei0w")
-poolName = "slimes"
+poolName = "spiders"
 automaticSpawn = true
-enemyScene = ExtResource("18_mbg5y")
+enemyScene = ExtResource("19_mbg5y")
 
 [node name="EnemySpawner2" type="MeshInstance3D" parent="SpawnController" unique_id=1870685914]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.42098767, -12)
 mesh = SubResource("BoxMesh_5h46i")
 script = ExtResource("6_oei0w")
-poolName = "slimes"
+poolName = "spiders"
 automaticSpawn = true
-enemyScene = ExtResource("18_mbg5y")
+enemyScene = ExtResource("19_mbg5y")
 
 [node name="EnemySpawner3" type="MeshInstance3D" parent="SpawnController" unique_id=1830065108]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 0.120987654, -19)

@@ -20,7 +20,7 @@ group = &"players"
 [sub_resource type="BTCondition" id="BTCondition_6a56p"]
 script = ExtResource("2_cg5qn")
 distance_min = 20.0
-distance_max = 40.0
+distance_max = 80.0
 
 [sub_resource type="BTCondition" id="BTCondition_1t3wk"]
 script = ExtResource("3_iwrhe")

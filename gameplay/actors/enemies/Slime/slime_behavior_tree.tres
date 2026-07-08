@@ -34,7 +34,7 @@ _enabled = false
 [sub_resource type="BTCondition" id="BTCondition_syh22"]
 script = ExtResource("2_b4qqg")
 distance_min = 20.0
-distance_max = 40.0
+distance_max = 80.0
 
 [sub_resource type="BTCondition" id="BTCondition_fsqwm"]
 script = ExtResource("3_5ecey")

@@ -52,6 +52,9 @@ metadata/_custom_type_script = "uid://b3s5mo3k2nfjg"
 transform = Transform3D(-4.3711392e-08, -1, 0, 1, -4.3711392e-08, 0, 4.2351647e-22, 0, 1, 0, 0.7236307, 0)
 shape = SubResource("CapsuleShape3D_gtwec")
 
+[node name="NavigationAgent3D" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="4" unique_id=747159489]
+path_desired_distance = 2.0
+
 [node name="CollisionShape3D" parent="." index="2" unique_id=518336157]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_ew6ba")
@@ -60,8 +63,8 @@ shape = SubResource("ConvexPolygonShape3D_ew6ba")
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="Skeleton3D" parent="slime/Armature" parent_id_path=PackedInt32Array(1038293839, 1423410360) index="0" unique_id=1724438625]
-bones/1/position = Vector3(0, 0, 1.4989703)
-bones/2/scale = Vector3(0.9878203, 1.0248222, 0.9878203)
+bones/1/position = Vector3(0, 0, 1.5231475)
+bones/2/scale = Vector3(0.9799447, 1.0413519, 0.9799447)
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="4" unique_id=244467060]
 root_node = NodePath("../slime")

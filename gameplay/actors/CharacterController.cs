@@ -116,7 +116,7 @@ public partial class CharacterController : Node
 			velocity.Y = JumpVelocity;
 		}
 
-		if (navigationAgent != null && navigationAgent.AvoidanceEnabled)
+		if (navigationAgent != null && navigationAgent.AvoidanceEnabled && !navigationAgent.IsNavigationFinished())
 		{
 			navigationAgent.Velocity = velocity;
 		}
