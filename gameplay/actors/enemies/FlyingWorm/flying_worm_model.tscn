@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://b5oujvj0raskj"]
+
+[ext_resource type="PackedScene" uid="uid://bpsseno18i1k7" path="res://gameplay/actors/enemies/FlyingWorm/FlyingWorm.blend" id="1_5e0ee"]
+
+[node name="FlyingWormModel" unique_id=1689548585 instance=ExtResource("1_5e0ee")]

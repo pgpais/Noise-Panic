@@ -1,0 +1,197 @@
+[gd_scene format=3 uid="uid://bjvvlwrm4wf42"]
+
+[ext_resource type="PackedScene" uid="uid://ds4f3k4yc0ma6" path="res://gameplay/actors/enemies/enemy.tscn" id="1_hx4u4"]
+[ext_resource type="PackedScene" uid="uid://b5oujvj0raskj" path="res://gameplay/actors/enemies/FlyingWorm/flying_worm_model.tscn" id="2_iuy47"]
+[ext_resource type="Script" uid="uid://b7jxwrfbru6kn" path="res://gameplay/actors/FlyingCharacterController.cs" id="3_ayt5g"]
+[ext_resource type="Script" uid="uid://b7v2utjmtge0x" path="res://gameplay/ai/tasks/in_range3D.gd" id="4_5vdqo"]
+[ext_resource type="Script" uid="uid://wsr2b8wxl7wp" path="res://gameplay/ai/tasks/sine_flying_movement3D.gd" id="4_6sjp5"]
+[ext_resource type="Script" uid="uid://bb854u7j254lw" path="res://gameplay/ai/tasks/get_closest_in_group.gd" id="4_se2hp"]
+[ext_resource type="Script" uid="uid://c7myj0jwgrkvw" path="res://gameplay/ai/tasks/set_animation_tree_variable.gd" id="5_e3jyf"]
+[ext_resource type="Script" uid="uid://by5yqltsltepi" path="res://gameplay/ai/tasks/face_target3D.gd" id="6_qlskx"]
+[ext_resource type="Script" uid="uid://orynrynt0rxc" path="res://gameplay/ai/tasks/stop_movement.gd" id="6_reu77"]
+[ext_resource type="Script" uid="uid://y7ebk8m5nk3w" path="res://gameplay/ai/tasks/dash.gd" id="7_qlskx"]
+[ext_resource type="Script" uid="uid://bbexedqa2ip5h" path="res://gameplay/ai/tasks/wait_for_hit.gd" id="8_gcgph"]
+[ext_resource type="Script" uid="uid://b3s5mo3k2nfjg" path="res://gameplay/combat/Hurtbox.cs" id="9_bc2ie"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_gxmly"]
+viewport_path = NodePath("BoneAttachment3D/Sprite3D/SubViewport")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ayt5g"]
+radius = 0.18164063
+height = 1.6507969
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6sjp5"]
+radius = 0.18164063
+height = 1.6507969
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_ayt5g"]
+
+[sub_resource type="BTAction" id="BTAction_reu77"]
+script = ExtResource("4_se2hp")
+group = &"players"
+
+[sub_resource type="BTCondition" id="BTCondition_bc2ie"]
+script = ExtResource("4_5vdqo")
+distance_max = 10.0
+
+[sub_resource type="BTAction" id="BTAction_gu5p6"]
+script = ExtResource("6_reu77")
+
+[sub_resource type="BTAction" id="BTAction_gcgph"]
+script = ExtResource("6_qlskx")
+ignore_vertical_position = false
+
+[sub_resource type="BTComment" id="BTComment_5vdqo"]
+custom_name = "Dash in Forward Direction"
+
+[sub_resource type="BTAction" id="BTAction_5vdqo"]
+script = ExtResource("5_e3jyf")
+animation_tree_path = NodePath("AnimationTree")
+variable_name = "parameters/conditions/is_attacking"
+variable_value = true
+
+[sub_resource type="BTAction" id="BTAction_bc2ie"]
+script = ExtResource("7_qlskx")
+character_controller_path = NodePath("BoneAttachment3D/Components/CharacterController")
+
+[sub_resource type="BTAction" id="BTAction_se2hp"]
+script = ExtResource("8_gcgph")
+hurtbox_path = NodePath("StingerBoneAttachment/Hurtbox")
+
+[sub_resource type="BTSequence" id="BTSequence_bc2ie"]
+children = [SubResource("BTComment_5vdqo"), SubResource("BTAction_5vdqo"), SubResource("BTAction_bc2ie"), SubResource("BTAction_se2hp")]
+
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_qlskx"]
+children = [SubResource("BTSequence_bc2ie")]
+
+[sub_resource type="BTDelay" id="BTDelay_gcgph"]
+children = [SubResource("BTTimeLimit_qlskx")]
+
+[sub_resource type="BTSequence" id="BTSequence_se2hp"]
+children = [SubResource("BTCondition_bc2ie"), SubResource("BTAction_gu5p6"), SubResource("BTAction_gcgph"), SubResource("BTDelay_gcgph")]
+
+[sub_resource type="BTAction" id="BTAction_e3jyf"]
+script = ExtResource("4_6sjp5")
+pattern_speed = 0.01
+pattern_radius = 10.0
+character_controller_path = NodePath("BoneAttachment3D/Components/CharacterController")
+
+[sub_resource type="BTSequence" id="BTSequence_reu77"]
+children = [SubResource("BTAction_e3jyf")]
+
+[sub_resource type="BTSelector" id="BTSelector_e3jyf"]
+children = [SubResource("BTSequence_se2hp"), SubResource("BTSequence_reu77")]
+
+[sub_resource type="BTSequence" id="BTSequence_6sjp5"]
+children = [SubResource("BTAction_reu77"), SubResource("BTSelector_e3jyf")]
+
+[sub_resource type="BehaviorTree" id="BehaviorTree_6ovp4"]
+blackboard_plan = SubResource("BlackboardPlan_ayt5g")
+root_task = SubResource("BTSequence_6sjp5")
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_e3jyf"]
+animation = &"Death"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gxmly"]
+animation = &"StingAttack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6sjp5"]
+animation = &"Walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6sjp5"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5vdqo"]
+xfade_time = 0.1
+advance_mode = 2
+advance_condition = &"is_attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qlskx"]
+xfade_time = 1.0
+advance_mode = 2
+advance_condition = &"is_dead"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bc2ie"]
+xfade_time = 1.0
+advance_mode = 2
+advance_condition = &"is_dead"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gcgph"]
+xfade_time = 0.1
+advance_mode = 2
+advance_condition = &"is_not_attacking"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_tfbxm"]
+states/Death/node = SubResource("AnimationNodeAnimation_e3jyf")
+states/Death/position = Vector2(551, 269)
+states/StingAttack/node = SubResource("AnimationNodeAnimation_gxmly")
+states/StingAttack/position = Vector2(670, 99)
+states/Walk/node = SubResource("AnimationNodeAnimation_6sjp5")
+states/Walk/position = Vector2(363, 101)
+transitions = ["Start", "Walk", SubResource("AnimationNodeStateMachineTransition_6sjp5"), "Walk", "StingAttack", SubResource("AnimationNodeStateMachineTransition_5vdqo"), "Walk", "Death", SubResource("AnimationNodeStateMachineTransition_qlskx"), "StingAttack", "Death", SubResource("AnimationNodeStateMachineTransition_bc2ie"), "StingAttack", "Walk", SubResource("AnimationNodeStateMachineTransition_gcgph")]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tfbxm"]
+radius = 0.020019531
+height = 0.38867188
+
+[node name="FlyingWorm" unique_id=1748184085 instance=ExtResource("1_hx4u4")]
+
+[node name="FlyingWormModel" parent="." index="0" unique_id=1689548585 instance=ExtResource("2_iuy47")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="." index="1" unique_id=41721404]
+visible = false
+
+[node name="BoneAttachment3D" parent="." index="2" unique_id=1831147750]
+bone_idx = -1
+
+[node name="Sprite3D" parent="BoneAttachment3D" index="0" unique_id=1325557530]
+texture = SubResource("ViewportTexture_gxmly")
+
+[node name="CharacterController" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="0" unique_id=2102656381 node_paths=PackedStringArray("body")]
+script = ExtResource("3_ayt5g")
+defaultSpeed = 2.5
+faceMovement = true
+movementDamping = 1.0
+body = NodePath("../../..")
+
+[node name="Hitbox" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="2" unique_id=653123947]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.8)
+
+[node name="CollisionShape3D" parent="BoneAttachment3D/Components/Hitbox" index="0" unique_id=891479098]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -0.044784367, -0.4585721)
+shape = SubResource("CapsuleShape3D_ayt5g")
+
+[node name="CollisionShape3D" parent="." index="3" unique_id=518336157]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -0.05601266, 0.34775275)
+shape = SubResource("CapsuleShape3D_6sjp5")
+
+[node name="BTPlayer" parent="." index="4" unique_id=406492328]
+behavior_tree = SubResource("BehaviorTree_6ovp4")
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="5" unique_id=1556755039]
+root_node = NodePath("../FlyingWormModel")
+tree_root = SubResource("AnimationNodeStateMachine_tfbxm")
+anim_player = NodePath("../FlyingWormModel/AnimationPlayer")
+parameters/conditions/is_attacking = false
+parameters/conditions/is_dead = false
+parameters/conditions/is_not_attacking = false
+
+[node name="StingerBoneAttachment" type="BoneAttachment3D" parent="." index="6" unique_id=1405420568]
+transform = Transform3D(-1, 8.742276e-08, 6.5135044e-16, 0, -7.450581e-09, 0.99999976, 8.742278e-08, 0.9999998, 7.450581e-09, 7.9081346e-08, -0.0472595, 0.9045851)
+bone_name = "Stinger"
+bone_idx = 6
+use_external_skeleton = true
+external_skeleton = NodePath("../FlyingWormModel/FlyingWormArmature/Skeleton3D")
+
+[node name="Hurtbox" type="Area3D" parent="StingerBoneAttachment" index="0" unique_id=1832498065]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("9_bc2ie")
+metadata/_custom_type_script = "uid://b3s5mo3k2nfjg"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StingerBoneAttachment/Hurtbox" index="0" unique_id=2073574090]
+transform = Transform3D(1, 1.9255708e-12, 1.434662e-20, 0, 1, 0, 0, 0, 1, -7.1054274e-15, 0.2049123, 0)
+shape = SubResource("CapsuleShape3D_tfbxm")
+
+[editable path="FlyingWormModel"]
