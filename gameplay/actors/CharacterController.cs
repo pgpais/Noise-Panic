@@ -1,14 +1,19 @@
+using System;
 using Godot;
 
 [GlobalClass]
 public partial class CharacterController : Node
 {
+	//@entega_: 1. Cozer o bacalhau e fritar as batatasColoque o bacalhau num tacho, cubra com água e leve a ferver.Coza por 5 minutos, retire o peixe e reserve o leite ou a água da cozedura para o molho.Limpe o bacalhau de peles e espinhas e desfie-o em lascas.Frite as batatas em cubos numa fritadeira convencional ou na air fryer até dourarem levemente (sem ficarem demasiado duras). Reserve.2. Fazer o refogadoNum tacho largo, aqueça um fio generoso de azeite.Adicione as cebolas, os alhos e a folha de louro.
 	[Export] AnimationTree animationTree;
 	[Export] Node3D cameraAnchor;
 	[Export] public float RunningSpeed { get; private set; } = 10f;
 	[Export] public float WalkingSpeed { get; private set; } = 5f;
 	[Export] public float JumpVelocity { get; private set; } = 10f;
 	[Export] public bool TurnToFaceMovement { get; set; } = true;
+
+	[ExportGroup("Navigation")]
+	[Export] NavigationAgent3D navigationAgent;
 
 	public bool MovementEnabled { get; set; } = true;
 	public Vector2 MovInput { get; set; } = Vector2.Zero;
@@ -23,6 +28,17 @@ public partial class CharacterController : Node
 	public override void _Ready()
 	{
 		_body = GetOwner<CharacterBody3D>(); // necessary because of Godot's bug
+
+		if (navigationAgent != null)
+		{
+			navigationAgent.VelocityComputed += OnNavigationVelocityComputed;
+		}
+	}
+
+	private void OnNavigationVelocityComputed(Vector3 safeVelocity)
+	{
+		_body.Velocity = safeVelocity;
+		_body.MoveAndSlide();
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -56,10 +72,15 @@ public partial class CharacterController : Node
 		MovInput = inputDir;
 	}
 
+	public void LookAt(Vector3 lookAtPos)
+	{
+		_body.LookAt(lookAtPos, Vector3.Up);
+	}
+
 	private void HandleMovement(double delta)
 	{
 		Vector3 velocity = _body.Velocity;
-		var speed = WantsToRun? RunningSpeed : WalkingSpeed;
+		var speed = WantsToRun ? RunningSpeed : WalkingSpeed;
 
 
 		// Get the input direction and handle the movement/deceleration.
@@ -81,7 +102,7 @@ public partial class CharacterController : Node
 		if (TurnToFaceMovement && direction != Vector3.Zero)
 		{
 			Vector3 lookAtPos = _body.GlobalPosition + direction;
-			_body.LookAt(lookAtPos, Vector3.Up);
+			LookAt(lookAtPos);
 		}
 
 
@@ -95,8 +116,16 @@ public partial class CharacterController : Node
 			velocity.Y = JumpVelocity;
 		}
 
-		_body.Velocity = velocity;
-		_body.MoveAndSlide();
+		if (navigationAgent != null && navigationAgent.AvoidanceEnabled && !navigationAgent.IsNavigationFinished())
+		{
+			navigationAgent.Velocity = velocity;
+		}
+		else
+		{
+			_body.Velocity = velocity;
+			_body.MoveAndSlide();
+		}
+
 
 		if (IsMultiplayerAuthority())
 		{

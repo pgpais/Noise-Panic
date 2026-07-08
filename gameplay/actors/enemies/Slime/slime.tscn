@@ -4,21 +4,20 @@
 [ext_resource type="Script" uid="uid://b3s5mo3k2nfjg" path="res://gameplay/combat/Hurtbox.cs" id="2_ce0to"]
 [ext_resource type="PackedScene" uid="uid://c7puyq5j6v233" path="res://gameplay/actors/enemies/Slime/slime.blend" id="2_env81"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://bp4wc5fyixqar" path="res://gameplay/actors/enemies/generic_animation_node_state_machine.tres" id="3_oryfs"]
+[ext_resource type="BehaviorTree" uid="uid://dwqmbvjps6fvy" path="res://gameplay/actors/enemies/Slime/slime_behavior_tree.tres" id="5_ew6ba"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_ce0to"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_ew6ba"]
 viewport_path = NodePath("BoneAttachment3D/Sprite3D/SubViewport")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gtwec"]
 radius = 0.74121094
 height = 1.9560547
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ce0to"]
-radius = 0.35546875
-height = 1.0327148
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ew6ba"]
+points = PackedVector3Array(0.3510204, 0.48703414, 0.32046828, -0.12452834, 0.162372, -0.49837983, -0.20142192, 0.14802222, -0.48019978, -0.09166234, 0.7319039, -0.10695803, -0.37069413, 0.07148446, 0.3552331, 0.43244985, 0.056042522, -0.2316224, 0.33778897, 0.48773882, -0.3378334, -0.36758795, 0.5487739, 0.22971995, 0.23267297, 0.08562953, 0.449829, -0.46459532, 0.31848308, -0.24767703, -0.3086969, 0.009939139, -0.24684837, -0.09213826, 0.4878788, 0.4455502, -0.22979517, 0.5487934, -0.36755425, 0.37163565, 0.02426276, 0.24771856, 0.1069698, 0.7319083, 0.09163839, 0.48033786, 0.41128078, 0.0928879, 0.24725462, 0.04026358, -0.4018641, -0.49818793, 0.14695178, 0.09331876, 0.10759839, 0.45711252, -0.46117315, 0.24544823, 0.6410886, -0.245413, -0.38237178, 0.5791246, -0.10702336, 0.46512577, 0.13235746, 0.24806619, -0.24699138, 0.0099487575, 0.3086248, -0.24813275, 0.13234438, 0.46507657, -0.10707371, 0.68651444, 0.24488185, 0.24773936, 0.31847724, 0.46455362, -0.43245983, 0.056047916, -0.23161845, -0.43279034, 0.44212264, 0.24719042, 0.24544823, 0.6410886, 0.245413, 0.27948692, 0.14744188, -0.45040172, 0.47960347, 0.3030924, -0.2010948, 0.30863175, 0.009924288, -0.24681015)
 
 [node name="Slime" unique_id=1748184085 node_paths=PackedStringArray("hurtbox") instance=ExtResource("1_qg3hk")]
 hurtbox = NodePath("BoneAttachment3D/Components/Hurtbox")
-attackDamage = 5
 
 [node name="MeshInstance3D" parent="." index="0" unique_id=41721404]
 visible = false
@@ -29,10 +28,12 @@ external_skeleton = NodePath("../slime/Armature/Skeleton3D")
 
 [node name="Sprite3D" parent="BoneAttachment3D" index="0" unique_id=1325557530]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.6750689)
-texture = SubResource("ViewportTexture_ce0to")
+texture = SubResource("ViewportTexture_ew6ba")
 
 [node name="CharacterController" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="0" unique_id=2102656381 node_paths=PackedStringArray("animationTree")]
 animationTree = NodePath("../../../AnimationTree")
+RunningSpeed = 5.0
+WalkingSpeed = 2.5
 
 [node name="HealthComponent" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="1" unique_id=1095575229]
 MaxHealth = 15
@@ -51,15 +52,27 @@ metadata/_custom_type_script = "uid://b3s5mo3k2nfjg"
 transform = Transform3D(-4.3711392e-08, -1, 0, 1, -4.3711392e-08, 0, 4.2351647e-22, 0, 1, 0, 0.7236307, 0)
 shape = SubResource("CapsuleShape3D_gtwec")
 
+[node name="NavigationAgent3D" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="4" unique_id=747159489]
+path_desired_distance = 2.0
+
 [node name="CollisionShape3D" parent="." index="2" unique_id=518336157]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.0056152344, 0.3607352, 0)
-shape = SubResource("CapsuleShape3D_ce0to")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_ew6ba")
 
 [node name="slime" parent="." index="3" unique_id=1038293839 instance=ExtResource("2_env81")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="Skeleton3D" parent="slime/Armature" parent_id_path=PackedInt32Array(1038293839, 1423410360) index="0" unique_id=1724438625]
+bones/1/position = Vector3(0, 0, 1.5231475)
+bones/2/scale = Vector3(0.9799447, 1.0413519, 0.9799447)
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="4" unique_id=244467060]
 root_node = NodePath("../slime")
 tree_root = ExtResource("3_oryfs")
 anim_player = NodePath("../slime/AnimationPlayer")
 parameters/conditions/is_moving = false
+
+[node name="BTPlayer" parent="." index="5" unique_id=406492328]
+behavior_tree = ExtResource("5_ew6ba")
+
+[editable path="slime"]
