@@ -15,7 +15,6 @@ extends BTAction
 ## Returns [code]SUCCESS[/code] if the elapsed time exceeds [member duration]. [br]
 ## Returns [code]RUNNING[/code] if the elapsed time does not exceed [member duration]. [br]
 
-@export var target_var: StringName = &"target"
 @export var character_controller_path: NodePath
 @export var nav_agent_path: NodePath
 
@@ -43,5 +42,4 @@ func _tick(_delta: float) -> Status:
 	var dir = agent.global_position.direction_to(next_path_position)
 	var normalized_dir = Vector2(dir.x, dir.z).normalized()
 	character_controller.SetAbsoluteMovementInput(normalized_dir)
-	
 	return SUCCESS

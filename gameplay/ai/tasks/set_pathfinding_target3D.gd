@@ -37,5 +37,5 @@ func _tick(_delta: float) -> Status:
 	# nav_agent.set_target_position(target.global_position)
 
 	nav_agent.target_position = target.global_position
-	
+	print(agent.name, " calculated path to ", target.name)
 	return SUCCESS

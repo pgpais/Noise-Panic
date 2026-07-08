@@ -1,0 +1,28 @@
+[gd_resource type="BehaviorTree" format=3 uid="uid://2yvjc2d5nw4o"]
+
+[ext_resource type="Script" uid="uid://b7v2utjmtge0x" path="res://gameplay/ai/tasks/in_range3D.gd" id="1_44c23"]
+[ext_resource type="Script" uid="uid://ds8byc24hu4d5" path="res://gameplay/ai/tasks/set_pathfinding_target3D.gd" id="2_6ovp4"]
+[ext_resource type="Script" uid="uid://dqj8sgq85itql" path="res://gameplay/ai/tasks/pathfind_towards_target3D.gd" id="3_btu6h"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_44c23"]
+
+[sub_resource type="BTCondition" id="BTCondition_rhlcn"]
+script = ExtResource("1_44c23")
+distance_min = 20.0
+
+[sub_resource type="BTAction" id="BTAction_niudn"]
+script = ExtResource("2_6ovp4")
+character_controller_path = NodePath("BoneAttachment3D/Components/CharacterController")
+nav_agent_path = NodePath("BoneAttachment3D/Components/NavigationAgent3D")
+
+[sub_resource type="BTAction" id="BTAction_if1jc"]
+script = ExtResource("3_btu6h")
+character_controller_path = NodePath("BoneAttachment3D/Components/CharacterController")
+nav_agent_path = NodePath("BoneAttachment3D/Components/NavigationAgent3D")
+
+[sub_resource type="BTSequence" id="BTSequence_r7nsw"]
+children = [SubResource("BTCondition_rhlcn"), SubResource("BTAction_niudn"), SubResource("BTAction_if1jc")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_44c23")
+root_task = SubResource("BTSequence_r7nsw")

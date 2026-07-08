@@ -33,7 +33,7 @@ parameters/conditions/is_not_moving = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.025, -2.8353095)
 
 [node name="GunBoneAttachment3D" type="BoneAttachment3D" parent="." index="3" unique_id=795940720]
-transform = Transform3D(-1, 1.8522919e-06, -3.498284e-06, 1.8905247e-06, 0.9999399, -0.010960856, 3.4777713e-06, -0.010960856, -0.9999399, -4.5448536e-07, 1.0560793, 2.686689e-09)
+transform = Transform3D(-1, 1.8608324e-06, -3.4895634e-06, 1.8905251e-06, 0.99996364, -0.008528424, 3.4735667e-06, -0.008528424, -0.99996364, -4.5448536e-07, 1.0491816, 2.6866893e-09)
 bone_name = "Head.Main"
 bone_idx = 15
 use_external_skeleton = true
@@ -46,7 +46,7 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.6
 visible = false
 
 [node name="BoneAttachment3D" parent="." index="5" unique_id=1831147750]
-transform = Transform3D(-1, 1.8522919e-06, -3.498284e-06, 1.8905247e-06, 0.9999399, -0.010960856, 3.4777713e-06, -0.010960856, -0.9999399, -4.5448536e-07, 1.0560793, 2.686689e-09)
+transform = Transform3D(-1, 1.8608324e-06, -3.4895634e-06, 1.8905251e-06, 0.99996364, -0.008528424, 3.4735667e-06, -0.008528424, -0.99996364, -4.5448536e-07, 1.0491816, 2.6866893e-09)
 bone_name = "Head.Main"
 bone_idx = 15
 external_skeleton = NodePath("../Model/Armature/Skeleton3D")

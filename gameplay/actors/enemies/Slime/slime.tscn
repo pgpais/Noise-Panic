@@ -30,9 +30,6 @@ external_skeleton = NodePath("../slime/Armature/Skeleton3D")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.6750689)
 texture = SubResource("ViewportTexture_ew6ba")
 
-[node name="HealthBar" parent="BoneAttachment3D/Sprite3D/SubViewport" parent_id_path=PackedInt32Array(1048474995) index="0" unique_id=1176962998]
-visible = false
-
 [node name="CharacterController" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="0" unique_id=2102656381 node_paths=PackedStringArray("animationTree")]
 animationTree = NodePath("../../../AnimationTree")
 RunningSpeed = 5.0
@@ -63,8 +60,8 @@ shape = SubResource("ConvexPolygonShape3D_ew6ba")
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="Skeleton3D" parent="slime/Armature" parent_id_path=PackedInt32Array(1038293839, 1423410360) index="0" unique_id=1724438625]
-bones/1/position = Vector3(0, 0, 1.5252876)
-bones/2/scale = Vector3(0.97925645, 1.042815, 0.97925645)
+bones/1/position = Vector3(0, 0, 1.4989703)
+bones/2/scale = Vector3(0.9878203, 1.0248222, 0.9878203)
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="4" unique_id=244467060]
 root_node = NodePath("../slime")
