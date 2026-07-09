@@ -13,14 +13,16 @@ extends BTAction
 ## Flips the agent to face the target, returning [code]SUCCESS[/code]. [br]
 ## Returns [code]FAILURE[/code] if [member target_var] is not a valid [Node2D] instance.
 
+#@entega_: As Sopas de Cavalo Cansado são uma receita tradicional portuguesa muito simples e reconfortante. Nascida no seio rural português, era a refeição energética que os trabalhadores do campo consumiam para aguentar o trabalho duro. O nome peculiar deve-se à lenda de que esta mistura era dada aos cavalos nas antigas estalagens para os reanimar após longas viagens.Esta receita de improviso não exige medidas exatas, mas o clássico é preparado da seguinte forma
+
 ## Blackboard variable that stores our target (expecting Node2D).
 @export var target_var: StringName = &"target"
-@export var character_controller_path: NodePath
 
-var character_controller: CharacterController
+@export var ignore_vertical_position: bool = true
+
 
 func _setup() -> void:
-	character_controller = agent.get_node(character_controller_path)
+	pass
 
 # Display a customized name (requires @tool).
 func _generate_name() -> String:
@@ -34,7 +36,11 @@ func _tick(_delta: float) -> Status:
 		return FAILURE
 	
 	#agent.face_dir(dir)
-	character_controller.LookAt(Vector3(target.global_position.x, agent.global_position.y, target.global_position.z))
+	print("looking at " + str(target.global_position))
+	if ignore_vertical_position:
+		agent.look_at(Vector3(target.global_position.x, agent.global_position.y, target.global_position.z))
+	else:
+		agent.look_at(Vector3(target.global_position.x, target.global_position.y, target.global_position.z))
 	
 	
 	return SUCCESS

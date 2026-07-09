@@ -1,6 +1,6 @@
 [gd_resource type="VisualShader" format=3 uid="uid://b56a2n24q581i"]
 
-[ext_resource type="Texture2D" uid="uid://dykh5w44ckl38" path="res://assets/Textures/Gradient-Pallet.png" id="1_d6i0h"]
+[ext_resource type="Texture2D" uid="uid://dykh5w44ckl38" path="res://assets/textures/Gradient-Pallet.png" id="1_d6i0h"]
 
 [sub_resource type="Gradient" id="Gradient_d6i0h"]
 colors = PackedColorArray(0.2995475, 0.29954746, 0.29954726, 1, 1, 1, 1, 1)

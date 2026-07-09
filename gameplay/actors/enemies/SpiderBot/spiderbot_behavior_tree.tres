@@ -58,7 +58,7 @@ distance_max = 10.0
 
 [sub_resource type="BTAction" id="BTAction_1r5jm"]
 script = ExtResource("3_6x4d5")
-character_controller_path = NodePath("BoneAttachment3D/Components/CharacterController")
+ignore_vertical_position = null
 
 [sub_resource type="BTAction" id="BTAction_602mh"]
 script = ExtResource("3_cg5qn")

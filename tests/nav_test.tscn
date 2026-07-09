@@ -2,8 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://djwt5l353iixd" path="res://levels/Albacore/Albacore_with_nav.tscn" id="1_t3ten"]
 [ext_resource type="PackedScene" uid="uid://5wiwhftgaawa" path="res://gameplay/actors/player/player.tscn" id="2_4mtb5"]
-[ext_resource type="PackedScene" uid="uid://2oypgw4dyts" path="res://gameplay/actors/enemies/Slime/slime.tscn" id="3_4mtb5"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="4_m7b62"]
+[ext_resource type="PackedScene" uid="uid://bjvvlwrm4wf42" path="res://gameplay/actors/enemies/FlyingWorm/flying_worm.tscn" id="4_ogpse"]
+[ext_resource type="Environment" uid="uid://c8bycmkvq3a8d" path="res://core/camera/default_environment.tres" id="5_ogpse"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_t7uvb"]
 sky_top_color = Color(0, 0.023891695, 0.023891695, 1)
@@ -12,7 +13,7 @@ sky_horizon_color = Color(0.08252942, 0.18073538, 0.22336867, 1)
 [sub_resource type="Sky" id="Sky_jj140"]
 sky_material = SubResource("ProceduralSkyMaterial_t7uvb")
 
-[sub_resource type="Environment" id="Environment_m7b62"]
+[sub_resource type="Environment" id="Environment_ogpse"]
 background_mode = 2
 sky = SubResource("Sky_jj140")
 tonemap_mode = 4
@@ -47,29 +48,11 @@ adjustment_contrast = 1.13
 [node name="Player" parent="." unique_id=1748184085 instance=ExtResource("2_4mtb5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -620.0106, 47.979435, 1666.1365)
 
-[node name="Slime2" parent="." unique_id=744900765 instance=ExtResource("3_4mtb5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -611.6943, 48.040325, 1639.4089)
-
-[node name="Slime3" parent="." unique_id=2797561 instance=ExtResource("3_4mtb5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -614.9109, 48.040325, 1634.4089)
-
-[node name="Slime4" parent="." unique_id=878399492 instance=ExtResource("3_4mtb5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -622.15765, 48.040325, 1642.4089)
-
-[node name="Slime5" parent="." unique_id=666325127 instance=ExtResource("3_4mtb5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -621.15765, 48.040325, 1635.4816)
-
-[node name="Slime6" parent="." unique_id=1349742787 instance=ExtResource("3_4mtb5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -616.84515, 48.040325, 1631.4816)
-
-[node name="Slime7" parent="." unique_id=424518546 instance=ExtResource("3_4mtb5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -613.02344, 48.040325, 1633.4816)
-
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1052814626]
 physics_interpolation_mode = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -620.0106, 48.579433, 1666.1365)
 top_level = true
-environment = SubResource("Environment_m7b62")
+environment = SubResource("Environment_ogpse")
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D" unique_id=1870741888]
 process_priority = 300
@@ -78,3 +61,12 @@ script = ExtResource("4_m7b62")
 
 [node name="Marker3D" type="Marker3D" parent="." unique_id=25309400 groups=["nav_test"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -612.026, 51.744, 1831.137)
+
+[node name="FlyingWorm" parent="." unique_id=1246588725 instance=ExtResource("4_ogpse")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -633.6822, 52.43667, 1643.3401)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1150768193]
+environment = ExtResource("5_ogpse")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=805201634]
+transform = Transform3D(-0.99947596, -0.012334264, 0.02992867, 0.011071417, 0.73855156, 0.67410624, -0.030418465, 0.6740843, -0.7380278, -636.6744, 70.257034, 1607.6439)
