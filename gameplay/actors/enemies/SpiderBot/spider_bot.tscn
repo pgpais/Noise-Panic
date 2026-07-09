@@ -2,11 +2,16 @@
 
 [ext_resource type="PackedScene" uid="uid://ds4f3k4yc0ma6" path="res://gameplay/actors/enemies/enemy.tscn" id="1_sr8rv"]
 [ext_resource type="Script" uid="uid://b3s5mo3k2nfjg" path="res://gameplay/combat/Hurtbox.cs" id="2_e4ygu"]
-[ext_resource type="AnimationNodeStateMachine" uid="uid://cuscp6oxr7r81" path="res://gameplay/actors/enemies/SpiderBot/spider_animation_node_state_machine.tres" id="3_rxysk"]
 [ext_resource type="BehaviorTree" uid="uid://d1rsq75h5vgxm" path="res://gameplay/actors/enemies/SpiderBot/spiderbot_behavior_tree.tres" id="5_536ar"]
 [ext_resource type="Script" uid="uid://cwv6qdacbv2d5" path="res://gameplay/actors/LookAtAimingController.cs" id="6_inj8g"]
 [ext_resource type="PackedScene" uid="uid://dk5a4un6ibjq1" path="res://gameplay/actors/enemies/SpiderBot/spider_bot_model.tscn" id="7_dbxmr"]
+[ext_resource type="Animation" uid="uid://cf8i1bq3pl0e3" path="res://gameplay/actors/enemies/SpiderBot/animations/Spider-Attack.res" id="7_ton4b"]
+[ext_resource type="Animation" uid="uid://ddtp46kxaiqkc" path="res://gameplay/actors/enemies/SpiderBot/animations/Spider-Idle.res" id="8_dbxmr"]
 [ext_resource type="PackedScene" uid="uid://dw46qc0a7drf0" path="res://gameplay/combat/weapons/gun.tscn" id="9_5lk3h"]
+[ext_resource type="Animation" uid="uid://dalblalhfqk4e" path="res://gameplay/actors/enemies/SpiderBot/animations/Spider-Jump-Down.res" id="9_v57t6"]
+[ext_resource type="Animation" uid="uid://c2vjks1cbi30i" path="res://gameplay/actors/enemies/SpiderBot/animations/Spider-Jump-Up.res" id="10_g1bap"]
+[ext_resource type="Animation" uid="uid://dw20nh0xnmykn" path="res://gameplay/actors/enemies/SpiderBot/animations/Spider-MachineGun-Attack.res" id="11_qhhfa"]
+[ext_resource type="Animation" uid="uid://02pwtiuq8gf0" path="res://gameplay/actors/enemies/SpiderBot/animations/Spider-Walk.res" id="12_dktmy"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_jlnfr"]
 viewport_path = NodePath("BoneAttachment3D/Sprite3D/SubViewport")
@@ -17,23 +22,45 @@ size = Vector3(1, 1.0646851, 1.6)
 [sub_resource type="BoxShape3D" id="BoxShape3D_rxysk"]
 size = Vector3(1, 1.4, 1)
 
+[sub_resource type="Animation" id="Animation_ton4b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Hurtbox/CollisionShape3D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_63dgw"]
+_data = {
+&"RESET": SubResource("Animation_ton4b"),
+&"Spider-Attack": ExtResource("7_ton4b"),
+&"Spider-Idle": ExtResource("8_dbxmr"),
+&"Spider-Jump-Down": ExtResource("9_v57t6"),
+&"Spider-Jump-Up": ExtResource("10_g1bap"),
+&"Spider-MachineGun-Attack": ExtResource("11_qhhfa"),
+&"Spider-Walk": ExtResource("12_dktmy")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tfbxm"]
+size = Vector3(1, 1, 1.675293)
+
 [node name="SpiderBot" unique_id=1748184085 node_paths=PackedStringArray("hurtbox") instance=ExtResource("1_sr8rv")]
-hurtbox = NodePath("BoneAttachment3D/Components/Hurtbox")
+hurtbox = NodePath("Hurtbox")
 
 [node name="Model" parent="." index="0" unique_id=1727461906 instance=ExtResource("7_dbxmr")]
 
-[node name="AnimationTree" type="AnimationTree" parent="." index="1" unique_id=135382709]
-root_node = NodePath("../Model")
-tree_root = ExtResource("3_rxysk")
-anim_player = NodePath("../Model/AnimationPlayer")
-parameters/conditions/is_moving = false
-parameters/conditions/is_not_moving = true
+[node name="LookAt" type="Marker3D" parent="." index="1" unique_id=606319979]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1181977, 1.063566, 0.8010149)
 
-[node name="LookAt" type="Marker3D" parent="." index="2" unique_id=606319979]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.025, -2.8353095)
-
-[node name="GunBoneAttachment3D" type="BoneAttachment3D" parent="." index="3" unique_id=795940720]
-transform = Transform3D(-1, 1.86997e-06, -3.4801726e-06, 1.8905251e-06, 0.9999825, -0.0059156897, 3.4690495e-06, -0.0059156897, -0.9999825, -4.5448536e-07, 1.0417731, 2.6866893e-09)
+[node name="GunBoneAttachment3D" type="BoneAttachment3D" parent="." index="2" unique_id=795940720]
+transform = Transform3D(-1, 1.8905247e-06, -3.4694147e-06, 1.8905247e-06, 1, 6.8425265e-12, 3.4694147e-06, 2.82367e-13, -1, -4.5448536e-07, 1.1025736, 3.387433e-09)
 bone_name = "Head.Main"
 bone_idx = 15
 use_external_skeleton = true
@@ -42,11 +69,11 @@ external_skeleton = NodePath("../Model/Armature/Skeleton3D")
 [node name="ShootingPoint" type="Marker3D" parent="GunBoneAttachment3D" index="0" unique_id=749981373]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.6763806e-08, 0.060045566, 0.7077192)
 
-[node name="MeshInstance3D" parent="." index="4" unique_id=41721404]
+[node name="MeshInstance3D" parent="." index="3" unique_id=41721404]
 visible = false
 
-[node name="BoneAttachment3D" parent="." index="5" unique_id=1831147750]
-transform = Transform3D(-1, 1.86997e-06, -3.4801726e-06, 1.8905251e-06, 0.9999825, -0.0059156897, 3.4690495e-06, -0.0059156897, -0.9999825, -4.5448536e-07, 1.0417731, 2.6866893e-09)
+[node name="BoneAttachment3D" parent="." index="4" unique_id=1831147750]
+transform = Transform3D(-1, 1.8905247e-06, -3.4694147e-06, 1.8905247e-06, 1, 6.8425265e-12, 3.4694147e-06, 2.82367e-13, -1, -4.5448536e-07, 1.1025736, 3.387433e-09)
 bone_name = "Head.Main"
 bone_idx = 15
 external_skeleton = NodePath("../Model/Armature/Skeleton3D")
@@ -56,7 +83,7 @@ transform = Transform3D(-1, 0, 7.1054274e-15, -7.1054274e-15, 0, 1, 0, 1, 0, 1.7
 texture = SubResource("ViewportTexture_jlnfr")
 
 [node name="CharacterController" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="0" unique_id=2102656381 node_paths=PackedStringArray("animationTree")]
-animationTree = NodePath("../../../AnimationTree")
+animationTree = NodePath("../../../Model/Empty")
 
 [node name="HealthComponent" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="1" unique_id=1095575229]
 MaxHealth = 25
@@ -65,35 +92,40 @@ MaxHealth = 25
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_n6ams")
 
-[node name="Hurtbox" type="Area3D" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="3" unique_id=1068604676]
-transform = Transform3D(1, 0, -7.1054274e-15, 0, 1, 0, -7.1054274e-15, 0, 1, 5.671575e-07, 0.008304527, -0.29988515)
-collision_layer = 2
-collision_mask = 4
-script = ExtResource("2_e4ygu")
-metadata/_custom_type_script = "uid://b3s5mo3k2nfjg"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BoneAttachment3D/Components/Hurtbox" index="0" unique_id=1844856679]
-transform = Transform3D(1, 0, -7.1054274e-15, 0, 1, 0, -7.1054274e-15, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_n6ams")
-
-[node name="Gun" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="4" unique_id=1731575199 node_paths=PackedStringArray("shootingPoint") instance=ExtResource("9_5lk3h")]
+[node name="Gun" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="3" unique_id=1731575199 node_paths=PackedStringArray("shootingPoint") instance=ExtResource("9_5lk3h")]
 transform = Transform3D(0.9953866, 0.095339544, -0.010804151, -0.008537104, 0.20015717, 0.97972655, 0.09556925, -0.9751144, 0.20004761, 5.331592e-07, 0.00094264373, -0.041604042)
 poolName = "spider_gun_projectiles"
 shootingPoint = NodePath("../../../GunBoneAttachment3D/ShootingPoint")
 
-[node name="LookAtAimingController" type="Node" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="5" unique_id=805736730 node_paths=PackedStringArray("lookAt", "gun")]
+[node name="LookAtAimingController" type="Node" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="4" unique_id=805736730 node_paths=PackedStringArray("lookAt", "gun")]
 script = ExtResource("6_inj8g")
 lookAt = NodePath("../../../LookAt")
 gun = NodePath("../Gun")
 metadata/_custom_type_script = "uid://cwv6qdacbv2d5"
 
-[node name="NavigationAgent3D" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="6" unique_id=747159489]
+[node name="NavigationAgent3D" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="5" unique_id=747159489]
 path_height_offset = 1.0
 debug_enabled = true
 
-[node name="CollisionShape3D" parent="." index="6" unique_id=518336157]
+[node name="CollisionShape3D" parent="." index="5" unique_id=518336157]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72038126, 0)
 shape = SubResource("BoxShape3D_rxysk")
 
-[node name="BTPlayer" parent="." index="7" unique_id=406492328]
+[node name="BTPlayer" parent="." index="6" unique_id=406492328]
 behavior_tree = ExtResource("5_536ar")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7" unique_id=1305990289]
+root_node = NodePath("../Model")
+libraries/ = SubResource("AnimationLibrary_63dgw")
+
+[node name="Hurtbox" type="Area3D" parent="." index="8" unique_id=606221898]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 1, -5.138404e-07, 0.40389156, -1.5910342)
+collision_mask = 6
+script = ExtResource("2_e4ygu")
+metadata/_custom_type_script = "uid://b3s5mo3k2nfjg"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" index="0" unique_id=1354227466]
+transform = Transform3D(1, 2.2737368e-13, -4.5474735e-13, 0, 1, 0, 0, 0, 1, -1.7053026e-13, 0, 0.33764648)
+shape = SubResource("BoxShape3D_tfbxm")
+disabled = true
+debug_color = Color(1, 0, 0, 0.41960785)

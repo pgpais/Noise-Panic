@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://dx3hgnwkornl4" path="res://gameplay/ai/tasks/aim_lookat_at_target3D.gd" id="3_cg5qn"]
 [ext_resource type="Script" uid="uid://dy5dc0d30ifvi" path="res://gameplay/ai/tasks/has_target_moved3D.gd" id="3_iwrhe"]
 [ext_resource type="Script" uid="uid://c8tc3p6md1mwm" path="res://gameplay/ai/tasks/get_target_pos.gd" id="4_6a56p"]
-[ext_resource type="Script" uid="uid://bcn5rphbk4lej" path="res://gameplay/ai/tasks/shoot_at_target3D.gd" id="5_6x4d5"]
 [ext_resource type="Script" uid="uid://ds8byc24hu4d5" path="res://gameplay/ai/tasks/set_pathfinding_target3D.gd" id="6_1r5jm"]
 [ext_resource type="Script" uid="uid://dqj8sgq85itql" path="res://gameplay/ai/tasks/pathfind_towards_target3D.gd" id="7_vcsad"]
 [ext_resource type="Script" uid="uid://bb75dihgptqet" path="res://gameplay/ai/tasks/move_towards_target3D.gd" id="8_vcsad"]
@@ -21,6 +20,14 @@ group = &"players"
 script = ExtResource("2_cg5qn")
 distance_min = 20.0
 distance_max = 80.0
+
+[sub_resource type="BBNode" id="BBNode_iwrhe"]
+saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_6a56p"]
+animation_player = SubResource("BBNode_iwrhe")
+animation_name = &"Spider-Walk"
 
 [sub_resource type="BTCondition" id="BTCondition_1t3wk"]
 script = ExtResource("3_iwrhe")
@@ -37,16 +44,16 @@ nav_agent_path = NodePath("BoneAttachment3D/Components/NavigationAgent3D")
 [sub_resource type="BTSequence" id="BTSequence_ednda"]
 children = [SubResource("BTCondition_1t3wk"), SubResource("BTAction_ednda"), SubResource("BTAction_0ajox")]
 
+[sub_resource type="BTAlwaysSucceed" id="BTAlwaysSucceed_1t3wk"]
+children = [SubResource("BTSequence_ednda")]
+
 [sub_resource type="BTAction" id="BTAction_rddak"]
 script = ExtResource("7_vcsad")
 character_controller_path = NodePath("BoneAttachment3D/Components/CharacterController")
 nav_agent_path = NodePath("BoneAttachment3D/Components/NavigationAgent3D")
 
-[sub_resource type="BTSelector" id="BTSelector_6a56p"]
-children = [SubResource("BTSequence_ednda"), SubResource("BTAction_rddak")]
-
 [sub_resource type="BTSequence" id="BTSequence_k3tqs"]
-children = [SubResource("BTCondition_6a56p"), SubResource("BTSelector_6a56p")]
+children = [SubResource("BTCondition_6a56p"), SubResource("BTPlayAnimation_6a56p"), SubResource("BTAlwaysSucceed_1t3wk"), SubResource("BTAction_rddak")]
 
 [sub_resource type="BTComment" id="BTComment_jngsw"]
 custom_name = "Shoot at Target"
@@ -58,18 +65,21 @@ distance_max = 10.0
 
 [sub_resource type="BTAction" id="BTAction_1r5jm"]
 script = ExtResource("3_6x4d5")
-ignore_vertical_position = null
 
 [sub_resource type="BTAction" id="BTAction_602mh"]
 script = ExtResource("3_cg5qn")
 look_at_aiming_controller_path = NodePath("BoneAttachment3D/Components/LookAtAimingController")
 
-[sub_resource type="BTAction" id="BTAction_vcsad"]
-script = ExtResource("5_6x4d5")
-look_at_aiming_controller_path = NodePath("BoneAttachment3D/Components/LookAtAimingController")
+[sub_resource type="BBNode" id="BBNode_0ajox"]
+saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_ednda"]
+animation_player = SubResource("BBNode_0ajox")
+animation_name = &"Spider-MachineGun-Attack"
 
 [sub_resource type="BTSequence" id="BTSequence_phrv8"]
-children = [SubResource("BTComment_jngsw"), SubResource("BTCondition_augan"), SubResource("BTAction_1r5jm"), SubResource("BTAction_602mh"), SubResource("BTAction_vcsad")]
+children = [SubResource("BTComment_jngsw"), SubResource("BTCondition_augan"), SubResource("BTAction_1r5jm"), SubResource("BTAction_602mh"), SubResource("BTPlayAnimation_ednda")]
 
 [sub_resource type="BTComment" id="BTComment_cg5qn"]
 custom_name = "Melee Attack"
@@ -78,8 +88,16 @@ custom_name = "Melee Attack"
 script = ExtResource("2_cg5qn")
 distance_max = 5.0
 
+[sub_resource type="BBNode" id="BBNode_6a56p"]
+saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_1t3wk"]
+animation_player = SubResource("BBNode_6a56p")
+animation_name = &"Spider-Attack"
+
 [sub_resource type="BTSequence" id="BTSequence_6x4d5"]
-children = [SubResource("BTComment_cg5qn"), SubResource("BTCondition_602mh")]
+children = [SubResource("BTComment_cg5qn"), SubResource("BTCondition_602mh"), SubResource("BTPlayAnimation_1t3wk")]
 
 [sub_resource type="BTComment" id="BTComment_1r5jm"]
 custom_name = "Chase Target"
@@ -88,8 +106,16 @@ custom_name = "Chase Target"
 script = ExtResource("8_vcsad")
 character_controller_path = NodePath("BoneAttachment3D/Components/CharacterController")
 
+[sub_resource type="BBNode" id="BBNode_1t3wk"]
+saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_0ajox"]
+animation_player = SubResource("BBNode_1t3wk")
+animation_name = &"Spider-Walk"
+
 [sub_resource type="BTSequence" id="BTSequence_bameu"]
-children = [SubResource("BTComment_1r5jm"), SubResource("BTAction_1t3wk")]
+children = [SubResource("BTComment_1r5jm"), SubResource("BTAction_1t3wk"), SubResource("BTPlayAnimation_0ajox")]
 
 [sub_resource type="BTSelector" id="BTSelector_jngsw"]
 children = [SubResource("BTSequence_k3tqs"), SubResource("BTSequence_phrv8"), SubResource("BTSequence_6x4d5"), SubResource("BTSequence_bameu")]
