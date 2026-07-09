@@ -10,10 +10,9 @@
 [ext_resource type="Script" uid="uid://by5yqltsltepi" path="res://gameplay/ai/tasks/face_target3D.gd" id="6_qlskx"]
 [ext_resource type="Script" uid="uid://orynrynt0rxc" path="res://gameplay/ai/tasks/stop_movement.gd" id="6_reu77"]
 [ext_resource type="Script" uid="uid://y7ebk8m5nk3w" path="res://gameplay/ai/tasks/dash.gd" id="7_qlskx"]
-[ext_resource type="Script" uid="uid://bbexedqa2ip5h" path="res://gameplay/ai/tasks/wait_for_hit.gd" id="8_gcgph"]
 [ext_resource type="Script" uid="uid://b3s5mo3k2nfjg" path="res://gameplay/combat/Hurtbox.cs" id="9_bc2ie"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_gxmly"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_reu77"]
 viewport_path = NodePath("BoneAttachment3D/Sprite3D/SubViewport")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ayt5g"]
@@ -32,17 +31,16 @@ group = &"players"
 
 [sub_resource type="BTCondition" id="BTCondition_bc2ie"]
 script = ExtResource("4_5vdqo")
-distance_max = 10.0
+distance_max = 20.0
 
 [sub_resource type="BTAction" id="BTAction_gu5p6"]
 script = ExtResource("6_reu77")
 
-[sub_resource type="BTAction" id="BTAction_gcgph"]
-script = ExtResource("6_qlskx")
-ignore_vertical_position = false
-
-[sub_resource type="BTComment" id="BTComment_5vdqo"]
-custom_name = "Dash in Forward Direction"
+[sub_resource type="BTAction" id="BTAction_gfd7x"]
+script = ExtResource("5_e3jyf")
+animation_tree_path = NodePath("AnimationTree")
+variable_name = "parameters/conditions/is_not_attacking"
+variable_value = false
 
 [sub_resource type="BTAction" id="BTAction_5vdqo"]
 script = ExtResource("5_e3jyf")
@@ -50,25 +48,69 @@ animation_tree_path = NodePath("AnimationTree")
 variable_name = "parameters/conditions/is_attacking"
 variable_value = true
 
+[sub_resource type="BTAction" id="BTAction_gcgph"]
+script = ExtResource("6_qlskx")
+ignore_vertical_position = false
+
+[sub_resource type="BTRepeat" id="BTRepeat_gu5p6"]
+forever = true
+children = [SubResource("BTAction_gcgph")]
+
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_reu77"]
+time_limit = 1.5
+children = [SubResource("BTRepeat_gu5p6")]
+
+[sub_resource type="BTAlwaysSucceed" id="BTAlwaysSucceed_gu5p6"]
+children = [SubResource("BTTimeLimit_reu77")]
+
+[sub_resource type="BTParallel" id="BTParallel_gu5p6"]
+repeat = true
+children = [SubResource("BTAlwaysSucceed_gu5p6")]
+
+[sub_resource type="BTComment" id="BTComment_5vdqo"]
+custom_name = "Dash in Forward Direction"
+
 [sub_resource type="BTAction" id="BTAction_bc2ie"]
 script = ExtResource("7_qlskx")
+dash_time = 1.0
 character_controller_path = NodePath("BoneAttachment3D/Components/CharacterController")
-
-[sub_resource type="BTAction" id="BTAction_se2hp"]
-script = ExtResource("8_gcgph")
 hurtbox_path = NodePath("StingerBoneAttachment/Hurtbox")
 
-[sub_resource type="BTSequence" id="BTSequence_bc2ie"]
-children = [SubResource("BTComment_5vdqo"), SubResource("BTAction_5vdqo"), SubResource("BTAction_bc2ie"), SubResource("BTAction_se2hp")]
-
 [sub_resource type="BTTimeLimit" id="BTTimeLimit_qlskx"]
-children = [SubResource("BTSequence_bc2ie")]
+time_limit = 1.0
+children = [SubResource("BTAction_bc2ie")]
+
+[sub_resource type="BTParallel" id="BTParallel_reu77"]
+children = [SubResource("BTComment_5vdqo"), SubResource("BTTimeLimit_qlskx")]
+
+[sub_resource type="BTAlwaysSucceed" id="BTAlwaysSucceed_gfd7x"]
+children = [SubResource("BTParallel_reu77")]
 
 [sub_resource type="BTDelay" id="BTDelay_gcgph"]
-children = [SubResource("BTTimeLimit_qlskx")]
+seconds = 0.5
+children = [SubResource("BTAlwaysSucceed_gfd7x")]
+
+[sub_resource type="BTAction" id="BTAction_kgoqs"]
+script = ExtResource("5_e3jyf")
+animation_tree_path = NodePath("AnimationTree")
+variable_name = "parameters/conditions/is_attacking"
+variable_value = false
+
+[sub_resource type="BTAction" id="BTAction_bpref"]
+script = ExtResource("5_e3jyf")
+animation_tree_path = NodePath("AnimationTree")
+variable_name = "parameters/conditions/is_not_attacking"
+variable_value = true
+
+[sub_resource type="BTAction" id="BTAction_gpk5b"]
+script = ExtResource("6_reu77")
 
 [sub_resource type="BTSequence" id="BTSequence_se2hp"]
-children = [SubResource("BTCondition_bc2ie"), SubResource("BTAction_gu5p6"), SubResource("BTAction_gcgph"), SubResource("BTDelay_gcgph")]
+children = [SubResource("BTCondition_bc2ie"), SubResource("BTAction_gu5p6"), SubResource("BTAction_gfd7x"), SubResource("BTAction_5vdqo"), SubResource("BTParallel_gu5p6"), SubResource("BTDelay_gcgph"), SubResource("BTAction_kgoqs"), SubResource("BTAction_bpref"), SubResource("BTAction_gpk5b")]
+
+[sub_resource type="BTCooldown" id="BTCooldown_gpk5b"]
+duration = 2.0
+children = [SubResource("BTSequence_se2hp")]
 
 [sub_resource type="BTAction" id="BTAction_e3jyf"]
 script = ExtResource("4_6sjp5")
@@ -80,7 +122,7 @@ character_controller_path = NodePath("BoneAttachment3D/Components/CharacterContr
 children = [SubResource("BTAction_e3jyf")]
 
 [sub_resource type="BTSelector" id="BTSelector_e3jyf"]
-children = [SubResource("BTSequence_se2hp"), SubResource("BTSequence_reu77")]
+children = [SubResource("BTCooldown_gpk5b"), SubResource("BTSequence_reu77")]
 
 [sub_resource type="BTSequence" id="BTSequence_6sjp5"]
 children = [SubResource("BTAction_reu77"), SubResource("BTSelector_e3jyf")]
@@ -134,7 +176,8 @@ transitions = ["Start", "Walk", SubResource("AnimationNodeStateMachineTransition
 radius = 0.020019531
 height = 0.38867188
 
-[node name="FlyingWorm" unique_id=1748184085 instance=ExtResource("1_hx4u4")]
+[node name="FlyingWorm" unique_id=1748184085 node_paths=PackedStringArray("hurtbox") instance=ExtResource("1_hx4u4")]
+hurtbox = NodePath("StingerBoneAttachment/Hurtbox")
 
 [node name="FlyingWormModel" parent="." index="0" unique_id=1689548585 instance=ExtResource("2_iuy47")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
@@ -146,12 +189,14 @@ visible = false
 bone_idx = -1
 
 [node name="Sprite3D" parent="BoneAttachment3D" index="0" unique_id=1325557530]
-texture = SubResource("ViewportTexture_gxmly")
+texture = SubResource("ViewportTexture_reu77")
 
 [node name="CharacterController" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="0" unique_id=2102656381 node_paths=PackedStringArray("body")]
 script = ExtResource("3_ayt5g")
 defaultSpeed = 2.5
 faceMovement = true
+flyHeight = 4.0
+heightFixVelocity = 2.5
 movementDamping = 1.0
 body = NodePath("../../..")
 
@@ -178,7 +223,7 @@ parameters/conditions/is_dead = false
 parameters/conditions/is_not_attacking = false
 
 [node name="StingerBoneAttachment" type="BoneAttachment3D" parent="." index="6" unique_id=1405420568]
-transform = Transform3D(-1, 8.742276e-08, 6.5135044e-16, 0, -7.450581e-09, 0.99999976, 8.742278e-08, 0.9999998, 7.450581e-09, 7.9081346e-08, -0.0472595, 0.9045851)
+transform = Transform3D(-0.8658406, 0.13558772, 0.48159733, 0.5000087, 0.20055692, 0.8424771, 0.017641874, 0.97025394, -0.24144532, 0.023335256, 0.38719904, 0.8842732)
 bone_name = "Stinger"
 bone_idx = 6
 use_external_skeleton = true
@@ -193,5 +238,3 @@ metadata/_custom_type_script = "uid://b3s5mo3k2nfjg"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StingerBoneAttachment/Hurtbox" index="0" unique_id=2073574090]
 transform = Transform3D(1, 1.9255708e-12, 1.434662e-20, 0, 1, 0, 0, 0, 1, -7.1054274e-15, 0.2049123, 0)
 shape = SubResource("CapsuleShape3D_tfbxm")
-
-[editable path="FlyingWormModel"]

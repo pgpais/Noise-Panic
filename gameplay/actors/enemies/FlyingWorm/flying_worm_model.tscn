@@ -2,4 +2,13 @@
 
 [ext_resource type="PackedScene" uid="uid://bpsseno18i1k7" path="res://gameplay/actors/enemies/FlyingWorm/FlyingWorm.blend" id="1_5e0ee"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mxbsk"]
+albedo_color = Color(0.44965684, 0.2909868, 0.18175277, 1)
+emission_enabled = true
+emission = Color(0.44965684, 0.2909868, 0.18175277, 1)
+emission_energy_multiplier = 0.6
+
 [node name="FlyingWormModel" unique_id=1689548585 instance=ExtResource("1_5e0ee")]
+
+[node name="FlyingWorm" parent="FlyingWormArmature/Skeleton3D" parent_id_path=PackedInt32Array(391218287) index="0" unique_id=978368400]
+surface_material_override/0 = SubResource("StandardMaterial3D_mxbsk")
