@@ -1,0 +1,80 @@
+[gd_resource type="BehaviorTree" format=3 uid="uid://dwqmbvjps6fvy"]
+
+[ext_resource type="Script" uid="uid://bb854u7j254lw" path="res://gameplay/ai/tasks/get_closest_in_group.gd" id="1_2yoq6"]
+[ext_resource type="Script" uid="uid://dqj8sgq85itql" path="res://gameplay/ai/tasks/pathfind_towards_target3D.gd" id="2_2yoq6"]
+[ext_resource type="Script" uid="uid://ds8byc24hu4d5" path="res://gameplay/ai/tasks/set_pathfinding_target3D.gd" id="2_8lenu"]
+[ext_resource type="Script" uid="uid://b7v2utjmtge0x" path="res://gameplay/ai/tasks/in_range3D.gd" id="2_b4qqg"]
+[ext_resource type="Script" uid="uid://dy5dc0d30ifvi" path="res://gameplay/ai/tasks/has_target_moved3D.gd" id="3_5ecey"]
+[ext_resource type="Script" uid="uid://c8tc3p6md1mwm" path="res://gameplay/ai/tasks/get_target_pos.gd" id="4_mxbsk"]
+[ext_resource type="Script" uid="uid://bb75dihgptqet" path="res://gameplay/ai/tasks/move_towards_target3D.gd" id="7_5ecey"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_ce0to"]
+
+[sub_resource type="BTAction" id="BTAction_xfin4"]
+script = ExtResource("1_2yoq6")
+group = &"players"
+
+[sub_resource type="BBNode" id="BBNode_2yoq6"]
+saved_value = NodePath("slime/AnimationPlayer")
+resource_name = "slime/AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_8lenu"]
+await_completion = 0.5
+animation_player = SubResource("BBNode_2yoq6")
+animation_name = &"Idle"
+
+[sub_resource type="BTSequence" id="BTSequence_bo35b"]
+children = [SubResource("BTPlayAnimation_8lenu")]
+_enabled = false
+
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_mxbsk"]
+time_limit = 2.0
+_enabled = false
+
+[sub_resource type="BTCondition" id="BTCondition_syh22"]
+script = ExtResource("2_b4qqg")
+distance_min = 20.0
+distance_max = 80.0
+
+[sub_resource type="BTCondition" id="BTCondition_fsqwm"]
+script = ExtResource("3_5ecey")
+position_change_min = 5.0
+
+[sub_resource type="BTAction" id="BTAction_35i04"]
+script = ExtResource("4_mxbsk")
+
+[sub_resource type="BTAction" id="BTAction_gtdhm"]
+script = ExtResource("2_8lenu")
+character_controller_path = NodePath("BoneAttachment3D/Components/CharacterController")
+nav_agent_path = NodePath("BoneAttachment3D/Components/NavigationAgent3D")
+
+[sub_resource type="BTSequence" id="BTSequence_phfgl"]
+children = [SubResource("BTCondition_fsqwm"), SubResource("BTAction_35i04"), SubResource("BTAction_gtdhm")]
+
+[sub_resource type="BTAction" id="BTAction_noshp"]
+script = ExtResource("2_2yoq6")
+character_controller_path = NodePath("BoneAttachment3D/Components/CharacterController")
+nav_agent_path = NodePath("BoneAttachment3D/Components/NavigationAgent3D")
+
+[sub_resource type="BTSelector" id="BTSelector_ri7v0"]
+children = [SubResource("BTSequence_phfgl"), SubResource("BTAction_noshp")]
+
+[sub_resource type="BTSequence" id="BTSequence_7b0ja"]
+children = [SubResource("BTCondition_syh22"), SubResource("BTSelector_ri7v0")]
+
+[sub_resource type="BTAction" id="BTAction_mxbsk"]
+script = ExtResource("7_5ecey")
+character_controller_path = NodePath("BoneAttachment3D/Components/CharacterController")
+
+[sub_resource type="BTSequence" id="BTSequence_360ys"]
+children = [SubResource("BTAction_mxbsk")]
+
+[sub_resource type="BTSelector" id="BTSelector_x1ju4"]
+children = [SubResource("BTSequence_7b0ja"), SubResource("BTSequence_360ys")]
+
+[sub_resource type="BTSequence" id="BTSequence_syh22"]
+children = [SubResource("BTAction_xfin4"), SubResource("BTSequence_bo35b"), SubResource("BTTimeLimit_mxbsk"), SubResource("BTSelector_x1ju4")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_ce0to")
+root_task = SubResource("BTSequence_syh22")

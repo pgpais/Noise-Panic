@@ -8,17 +8,17 @@ public partial class Gun : Node3D
 {
 	[Signal] public delegate void ReloadStartedEventHandler();
 	[Signal] public delegate void ReloadFinishedEventHandler();
-	
+
 	[Export] string poolName = "gun_projectiles";
-	
+
 	[ExportGroup("Shooting Parameters")]
 	[Export] float shootingForce = 20f;
 	[Export] float shootingCooldown = 0.2f;
-	[ExportSubgroup("Magazine")] 
+	[ExportSubgroup("Magazine")]
 	[Export] float reloadTime = 2f;
 	[Export] int maxAmmo = 12;
 	private int _currentAmmo;
-	
+
 	[ExportGroup("References")]
 	[Export] Node3D shootingPoint;
 	[Export] PackedScene bulletPrefab;
@@ -26,7 +26,7 @@ public partial class Gun : Node3D
 	private Timer _shootingTimer;
 	private bool _canShoot = true;
 	private bool _isReloading = false;
-	
+
 	public override void _Ready()
 	{
 		base._Ready();
@@ -38,9 +38,9 @@ public partial class Gun : Node3D
 		};
 		_shootingTimer.Timeout += OnShootingCooldownTimeout;
 		AddChild(_shootingTimer);
-		
+
 		ObjectPooler.Instance.CreatePool<Projectile>(poolName, bulletPrefab);
-		
+
 		_currentAmmo = maxAmmo;
 	}
 
@@ -52,31 +52,31 @@ public partial class Gun : Node3D
 			Reload();
 			return;
 		}
-		
+
 		if (rotation == default) rotation = shootingPoint.GlobalRotation;
-		
+
 		SpawnBullet(shootingPoint.GlobalPosition, rotation);
-		
+
 		_currentAmmo--;
 		Rpc(MethodName.SyncAmmo, _currentAmmo);
-		
+
 		StartShootingCooldown();
 
-		Rpc(MethodName.SyncShoot, shootingPoint.GlobalPosition, shootingPoint.GlobalRotation);
+		Rpc(MethodName.SyncShoot, shootingPoint.GlobalPosition, rotation);
 	}
 
 	public void Reload()
 	{
-		if(_isReloading) return;
+		if (_isReloading) return;
 		_isReloading = true;
-		
+
 		_currentAmmo = 0;
 		Rpc(MethodName.SyncAmmo, _currentAmmo);
-		
+
 		//TODO: play animation
 		//TODO: listen to animation finished signal
 		GetTree().CreateTimer(reloadTime).Timeout += OnReloadFinished; // Until we have animations
-		
+
 
 		GD.Print($"[Gun] {Multiplayer.GetUniqueId()}:  Reloading...");
 		EmitSignal(SignalName.ReloadStarted);
@@ -89,7 +89,7 @@ public partial class Gun : Node3D
 		_isReloading = false;
 
 		Rpc(MethodName.SyncAmmo, _currentAmmo);
-		
+
 		GD.Print($"[Gun] {Multiplayer.GetUniqueId()}:  Reload Finished!");
 		EmitSignal(SignalName.ReloadFinished);
 	}
@@ -103,10 +103,10 @@ public partial class Gun : Node3D
 	private void OnShootingCooldownTimeout()
 	{
 		_canShoot = true;
-		
+
 		//TODO: possible visual feedback?
 	}
-	
+
 	[Rpc(MultiplayerApi.RpcMode.Authority)]
 	private void SyncShoot(Vector3 position, Vector3 rotation)
 	{

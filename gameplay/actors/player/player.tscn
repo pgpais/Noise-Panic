@@ -21,7 +21,7 @@
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="14_h7rbu"]
 [ext_resource type="Texture2D" uid="uid://ck3aaxwyckl48" path="res://assets/textures/kenney_crosshairs/crosshair007.png" id="16_e471u"]
 [ext_resource type="Texture2D" uid="uid://d3qhnj4b4ju5o" path="res://gameplay/communication/voice/speak-icon.png" id="18_43e4c"]
-[ext_resource type="PackedScene" uid="uid://dp3xoeclf4kns" path="res://gameplay/actors/player/model/player_model.tscn" id="18_pseu4"]
+[ext_resource type="PackedScene" uid="uid://e34atjemiv2t" path="res://gameplay/actors/player/model/player_model.tscn" id="18_pseu4"]
 [ext_resource type="PackedScene" uid="uid://chcxfkf54biko" path="res://gameplay/communication/beep/beep.tscn" id="19_jnrca"]
 [ext_resource type="Script" uid="uid://lsi30cj5e2rk" path="res://gameplay/communication/voice/NetworkedVoiceOutput.cs" id="20_44y0u"]
 [ext_resource type="PackedScene" uid="uid://cpetvmxskelxq" path="res://gameplay/combat/health/ui/health_bar.tscn" id="20_adh2p"]
@@ -131,6 +131,7 @@ healthComponent = NodePath("BoneAttachment3D/Components/HealthComponent")
 playerHud = NodePath("CanvasLayer")
 
 [node name="MeshInstance3D" parent="." index="0" unique_id=41721404]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.90000004, 0)
 visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D" index="0" unique_id=1070607480]
@@ -139,7 +140,7 @@ mesh = SubResource("BoxMesh_3canv")
 surface_material_override/0 = SubResource("StandardMaterial3D_5myso")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1" unique_id=1544916881]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0015403, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10154027, 0)
 shape = SubResource("CapsuleShape3D_f0w7x")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." index="2" unique_id=1759074887]
@@ -180,7 +181,7 @@ script = ExtResource("6_adh2p")
 voiceInput = NodePath("../../BoneAttachment3D/Components/NetworkedVoiceInput")
 
 [node name="BoneAttachment3D" parent="." index="3" unique_id=1831147750]
-transform = Transform3D(1, -8.742278e-08, 0, 0, 0, 1, -8.742278e-08, -1, 0, 0, 0, 0)
+transform = Transform3D(1, -8.742278e-08, 0, 0, 0, 1, -8.742278e-08, -1, 0, 0, -0.90000004, 0)
 external_skeleton = NodePath("../AimPivot/PlayerModel/Armature/Skeleton3D")
 
 [node name="Sprite3D" parent="BoneAttachment3D" index="0" unique_id=1325557530]
@@ -303,6 +304,7 @@ metadata/_custom_type_script = "uid://bhsoqgg220w7f"
 [node name="Beep" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="10" unique_id=923369463 instance=ExtResource("19_jnrca")]
 
 [node name="AimPivot" type="Node3D" parent="." index="4" unique_id=1085734815]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.90000004, 0)
 
 [node name="PlayerModel" parent="AimPivot" index="0" unique_id=1979854718 instance=ExtResource("18_pseu4")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
@@ -346,7 +348,7 @@ parameters/conditions/is_on_floor = false
 parameters/MovementBlendSpace/blend_position = Vector2(0, 0)
 
 [node name="GunBoneAttachment3D" type="BoneAttachment3D" parent="." index="6" unique_id=1686055260]
-transform = Transform3D(-0.12459782, 0.2051476, 0.9707678, -0.019881919, -0.9787118, 0.20427455, 0.9920081, 0.0061513227, 0.12602416, 0.22745381, 0.73147273, 0.04086922)
+transform = Transform3D(-0.124495104, 0.20407213, 0.9710075, -0.019830488, -0.97893727, 0.20319621, 0.99202204, 0.0060412856, 0.1259198, 0.22758594, -0.16866773, 0.0403193)
 bone_name = "Weapon"
 bone_idx = 32
 use_external_skeleton = true
@@ -355,14 +357,10 @@ external_skeleton = NodePath("../AimPivot/PlayerModel/Armature/Skeleton3D")
 [node name="Gun" parent="GunBoneAttachment3D" index="0" unique_id=1731575199 node_paths=PackedStringArray("shootingPoint") instance=ExtResource("13_nt81s")]
 transform = Transform3D(0.9953868, 0.09533713, -0.0108073065, 0.0083337575, -0.19811824, -0.9801427, -0.095585115, 0.97553104, -0.19799863, -0.073206544, 0.33629757, 0.009788841)
 visible = false
-shootingForce = 40.0
-shootingCooldown = 0.1
-reloadTime = 1.0
-maxAmmo = 100
 shootingPoint = NodePath("../../AimPivot/SpringArm3D2/CameraAnchor/ShootingPoint")
 
 [node name="BackpackBoneAttachment3D" type="BoneAttachment3D" parent="." index="7" unique_id=1421805177]
-transform = Transform3D(-0.99644744, -0.024038617, -0.08071434, 0.003620908, -0.9697409, 0.24410939, -0.084140174, 0.24295008, 0.96638125, -0.012550975, 1.083995, 0.16704315)
+transform = Transform3D(-0.99645334, -0.025074324, -0.080324605, 0.00472373, -0.9697348, 0.24411461, -0.0840147, 0.24286962, 0.9664124, -0.012015243, 0.18410736, 0.16655372)
 bone_name = "backpack"
 bone_idx = 31
 use_external_skeleton = true

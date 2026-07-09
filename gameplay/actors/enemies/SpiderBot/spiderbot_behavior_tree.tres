@@ -1,0 +1,102 @@
+[gd_resource type="BehaviorTree" format=3 uid="uid://d1rsq75h5vgxm"]
+
+[ext_resource type="Script" uid="uid://bb854u7j254lw" path="res://gameplay/ai/tasks/get_closest_in_group.gd" id="1_jngsw"]
+[ext_resource type="Script" uid="uid://b7v2utjmtge0x" path="res://gameplay/ai/tasks/in_range3D.gd" id="2_cg5qn"]
+[ext_resource type="Script" uid="uid://by5yqltsltepi" path="res://gameplay/ai/tasks/face_target3D.gd" id="3_6x4d5"]
+[ext_resource type="Script" uid="uid://dx3hgnwkornl4" path="res://gameplay/ai/tasks/aim_lookat_at_target3D.gd" id="3_cg5qn"]
+[ext_resource type="Script" uid="uid://dy5dc0d30ifvi" path="res://gameplay/ai/tasks/has_target_moved3D.gd" id="3_iwrhe"]
+[ext_resource type="Script" uid="uid://c8tc3p6md1mwm" path="res://gameplay/ai/tasks/get_target_pos.gd" id="4_6a56p"]
+[ext_resource type="Script" uid="uid://bcn5rphbk4lej" path="res://gameplay/ai/tasks/shoot_at_target3D.gd" id="5_6x4d5"]
+[ext_resource type="Script" uid="uid://ds8byc24hu4d5" path="res://gameplay/ai/tasks/set_pathfinding_target3D.gd" id="6_1r5jm"]
+[ext_resource type="Script" uid="uid://dqj8sgq85itql" path="res://gameplay/ai/tasks/pathfind_towards_target3D.gd" id="7_vcsad"]
+[ext_resource type="Script" uid="uid://bb75dihgptqet" path="res://gameplay/ai/tasks/move_towards_target3D.gd" id="8_vcsad"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_ew6ba"]
+
+[sub_resource type="BTAction" id="BTAction_y68ex"]
+script = ExtResource("1_jngsw")
+group = &"players"
+
+[sub_resource type="BTCondition" id="BTCondition_6a56p"]
+script = ExtResource("2_cg5qn")
+distance_min = 20.0
+distance_max = 80.0
+
+[sub_resource type="BTCondition" id="BTCondition_1t3wk"]
+script = ExtResource("3_iwrhe")
+position_change_min = 5.0
+
+[sub_resource type="BTAction" id="BTAction_ednda"]
+script = ExtResource("4_6a56p")
+
+[sub_resource type="BTAction" id="BTAction_0ajox"]
+script = ExtResource("6_1r5jm")
+character_controller_path = NodePath("BoneAttachment3D/Components/CharacterController")
+nav_agent_path = NodePath("BoneAttachment3D/Components/NavigationAgent3D")
+
+[sub_resource type="BTSequence" id="BTSequence_ednda"]
+children = [SubResource("BTCondition_1t3wk"), SubResource("BTAction_ednda"), SubResource("BTAction_0ajox")]
+
+[sub_resource type="BTAction" id="BTAction_rddak"]
+script = ExtResource("7_vcsad")
+character_controller_path = NodePath("BoneAttachment3D/Components/CharacterController")
+nav_agent_path = NodePath("BoneAttachment3D/Components/NavigationAgent3D")
+
+[sub_resource type="BTSelector" id="BTSelector_6a56p"]
+children = [SubResource("BTSequence_ednda"), SubResource("BTAction_rddak")]
+
+[sub_resource type="BTSequence" id="BTSequence_k3tqs"]
+children = [SubResource("BTCondition_6a56p"), SubResource("BTSelector_6a56p")]
+
+[sub_resource type="BTComment" id="BTComment_jngsw"]
+custom_name = "Shoot at Target"
+
+[sub_resource type="BTCondition" id="BTCondition_augan"]
+script = ExtResource("2_cg5qn")
+distance_min = 5.0
+distance_max = 10.0
+
+[sub_resource type="BTAction" id="BTAction_1r5jm"]
+script = ExtResource("3_6x4d5")
+character_controller_path = NodePath("BoneAttachment3D/Components/CharacterController")
+
+[sub_resource type="BTAction" id="BTAction_602mh"]
+script = ExtResource("3_cg5qn")
+look_at_aiming_controller_path = NodePath("BoneAttachment3D/Components/LookAtAimingController")
+
+[sub_resource type="BTAction" id="BTAction_vcsad"]
+script = ExtResource("5_6x4d5")
+look_at_aiming_controller_path = NodePath("BoneAttachment3D/Components/LookAtAimingController")
+
+[sub_resource type="BTSequence" id="BTSequence_phrv8"]
+children = [SubResource("BTComment_jngsw"), SubResource("BTCondition_augan"), SubResource("BTAction_1r5jm"), SubResource("BTAction_602mh"), SubResource("BTAction_vcsad")]
+
+[sub_resource type="BTComment" id="BTComment_cg5qn"]
+custom_name = "Melee Attack"
+
+[sub_resource type="BTCondition" id="BTCondition_602mh"]
+script = ExtResource("2_cg5qn")
+distance_max = 5.0
+
+[sub_resource type="BTSequence" id="BTSequence_6x4d5"]
+children = [SubResource("BTComment_cg5qn"), SubResource("BTCondition_602mh")]
+
+[sub_resource type="BTComment" id="BTComment_1r5jm"]
+custom_name = "Chase Target"
+
+[sub_resource type="BTAction" id="BTAction_1t3wk"]
+script = ExtResource("8_vcsad")
+character_controller_path = NodePath("BoneAttachment3D/Components/CharacterController")
+
+[sub_resource type="BTSequence" id="BTSequence_bameu"]
+children = [SubResource("BTComment_1r5jm"), SubResource("BTAction_1t3wk")]
+
+[sub_resource type="BTSelector" id="BTSelector_jngsw"]
+children = [SubResource("BTSequence_k3tqs"), SubResource("BTSequence_phrv8"), SubResource("BTSequence_6x4d5"), SubResource("BTSequence_bameu")]
+
+[sub_resource type="BTSequence" id="BTSequence_upk56"]
+children = [SubResource("BTAction_y68ex"), SubResource("BTSelector_jngsw")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_ew6ba")
+root_task = SubResource("BTSequence_upk56")

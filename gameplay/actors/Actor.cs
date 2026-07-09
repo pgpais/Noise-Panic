@@ -17,4 +17,16 @@ public partial class Actor : CharacterBody3D
         }
         return null;
     }
+
+    public Node GetComponent(string name)
+    {
+        foreach (Node child in componentsParent.GetChildren())
+        {
+            if (child.Name == name)
+            {
+                return child;
+            }
+        }
+        return null;
+    }
 }
