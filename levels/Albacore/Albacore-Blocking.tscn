@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://bx4b6qe1m135y"]
+
+[ext_resource type="PackedScene" uid="uid://5wiwhftgaawa" path="res://gameplay/actors/player/player.tscn" id="1_23qco"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_mug3u"]
+[ext_resource type="Environment" uid="uid://c8bycmkvq3a8d" path="res://core/camera/default_environment.tres" id="3_et6fl"]
+[ext_resource type="PackedScene" uid="uid://dly4oohfeagxb" path="res://menus/pause_menu/pause_menu.tscn" id="5_egs4f"]
+[ext_resource type="Script" uid="uid://dote0e123yk63" path="res://gameplay/enemy_spawning/EnemySpawner.cs" id="5_ln1ns"]
+[ext_resource type="PackedScene" uid="uid://ca57l0j31l3qw" path="res://gameplay/actors/enemies/SpiderBot/spider_bot.tscn" id="6_muqgp"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_t7uvb"]
+sky_top_color = Color(0, 0.023891695, 0.023891695, 1)
+sky_horizon_color = Color(0.08252942, 0.18073538, 0.22336867, 1)
+
+[sub_resource type="Sky" id="Sky_jj140"]
+sky_material = SubResource("ProceduralSkyMaterial_t7uvb")
+
+[sub_resource type="Environment" id="Environment_ln1ns"]
+background_mode = 2
+sky = SubResource("Sky_jj140")
+tonemap_mode = 4
+tonemap_exposure = 1.54
+tonemap_agx_white = 2.0
+tonemap_agx_contrast = 1.0
+ssao_enabled = true
+ssil_enabled = true
+glow_enabled = true
+glow_levels/1 = 11.43
+glow_levels/2 = 16.0
+glow_levels/3 = 0.0
+glow_levels/4 = 0.0
+glow_levels/5 = 2.99
+glow_levels/6 = 0.53
+glow_normalized = true
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0, 0, 0, 1)
+fog_sun_scatter = 0.01
+fog_density = 1.0
+fog_aerial_perspective = 0.959
+fog_depth_begin = 111.7
+fog_depth_end = 247.3
+adjustment_enabled = true
+adjustment_contrast = 1.13
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ohsu"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8y1ba"]
+material = SubResource("StandardMaterial3D_3ohsu")
+size = Vector3(0.2, 0.2, 0.2)
+
+[node name="Node3D" type="Node3D" unique_id=1835386951]
+
+[node name="Player" parent="." unique_id=1748184085 instance=ExtResource("1_23qco")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0174897, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Player" unique_id=30542319]
+physics_interpolation_mode = 1
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6174896, 0)
+top_level = true
+environment = SubResource("Environment_ln1ns")
+
+[node name="PhantomCameraHost" type="Node" parent="Player/Camera3D" unique_id=780743734]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("2_mug3u")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=2018934281]
+use_collision = true
+size = Vector3(13.613037, 0.18188477, 43.868164)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=877676864]
+environment = ExtResource("3_et6fl")
+
+[node name="PauseMenu" parent="." unique_id=167560632 instance=ExtResource("5_egs4f")]
+mouse_filter = 1
+
+[node name="EnemySpawner5" type="MeshInstance3D" parent="." unique_id=2094843588]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.77121544, 0.23285556, -6.581177)
+mesh = SubResource("BoxMesh_8y1ba")
+script = ExtResource("5_ln1ns")
+poolName = "spiders"
+automaticSpawn = true
+enemyScene = ExtResource("6_muqgp")
