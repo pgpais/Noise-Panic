@@ -15,23 +15,24 @@ public partial class NetworkedVoiceInput : Node3D, IInput
 	Array<byte[]> incomingVoiceData;
 
 	bool isEnabled = true;
+	bool isRecording = false;
 
 	public override void _Process(double delta)
 	{
 		if (!IsMultiplayerAuthority()) return;
 		if (!isEnabled) return;
 
-		if (Input.IsActionPressed("voice"))
+		if (Input.IsActionJustPressed("voice"))
 		{
-			Rpc(MethodName.SyncVoiceRecordingState, true);
+			isRecording = !isRecording;
+			Rpc(MethodName.SyncVoiceRecordingState, isRecording);
+		}
+
+		if (isRecording)
+		{
 			voiceInput.Call("process_record");
 			var buffer = GetVoiceDataBuffer();
 			Rpc(MethodName.SyncVoiceBuffer, buffer);
-		}
-
-		if (Input.IsActionJustReleased("voice"))
-		{
-			Rpc(MethodName.SyncVoiceRecordingState, false);
 		}
 	}
 
