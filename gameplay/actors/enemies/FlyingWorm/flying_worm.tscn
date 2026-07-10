@@ -5,17 +5,18 @@
 [ext_resource type="Script" uid="uid://b7jxwrfbru6kn" path="res://gameplay/actors/FlyingCharacterController.cs" id="3_ayt5g"]
 [ext_resource type="Script" uid="uid://b7v2utjmtge0x" path="res://gameplay/ai/tasks/in_range3D.gd" id="4_5vdqo"]
 [ext_resource type="Script" uid="uid://wsr2b8wxl7wp" path="res://gameplay/ai/tasks/sine_flying_movement3D.gd" id="4_6sjp5"]
+[ext_resource type="Script" uid="uid://bk855jwvjcyuj" path="res://gameplay/ai/tasks/is_multiplayer_authority.gd" id="4_kgoqs"]
 [ext_resource type="Script" uid="uid://bb854u7j254lw" path="res://gameplay/ai/tasks/get_closest_in_group.gd" id="4_se2hp"]
 [ext_resource type="Script" uid="uid://by5yqltsltepi" path="res://gameplay/ai/tasks/face_target3D.gd" id="6_qlskx"]
 [ext_resource type="Script" uid="uid://orynrynt0rxc" path="res://gameplay/ai/tasks/stop_movement.gd" id="6_reu77"]
 [ext_resource type="Script" uid="uid://y7ebk8m5nk3w" path="res://gameplay/ai/tasks/dash.gd" id="7_qlskx"]
 [ext_resource type="Script" uid="uid://b3s5mo3k2nfjg" path="res://gameplay/combat/Hurtbox.cs" id="9_bc2ie"]
-[ext_resource type="Animation" uid="uid://bb34jqj1g2fu7" path="res://gameplay/actors/enemies/FlyingWorm/animations/Aiming.res" id="11_gfd7x"]
+[ext_resource type="Animation" uid="uid://bayo6o345fkmy" path="res://gameplay/actors/enemies/FlyingWorm/animations/Aiming.res" id="11_gfd7x"]
 [ext_resource type="Animation" uid="uid://5jwvo05sab54" path="res://gameplay/actors/enemies/FlyingWorm/animations/Death.res" id="12_gfd7x"]
 [ext_resource type="Animation" uid="uid://bmfm58q0a8jhi" path="res://gameplay/actors/enemies/FlyingWorm/animations/StingAttack.res" id="13_kgoqs"]
 [ext_resource type="Animation" uid="uid://bg6rgb0mmw7r8" path="res://gameplay/actors/enemies/FlyingWorm/animations/Walk.res" id="14_bpref"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_kgoqs"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_bpref"]
 viewport_path = NodePath("BoneAttachment3D/Sprite3D/SubViewport")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ayt5g"]
@@ -27,6 +28,9 @@ radius = 0.18164063
 height = 1.6507969
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_ayt5g"]
+
+[sub_resource type="BTCondition" id="BTCondition_gpk5b"]
+script = ExtResource("4_kgoqs")
 
 [sub_resource type="BTAction" id="BTAction_reu77"]
 script = ExtResource("4_se2hp")
@@ -131,7 +135,7 @@ children = [SubResource("BTPlayAnimation_cuq4l"), SubResource("BTAction_e3jyf")]
 children = [SubResource("BTCooldown_gpk5b"), SubResource("BTSequence_reu77")]
 
 [sub_resource type="BTSequence" id="BTSequence_6sjp5"]
-children = [SubResource("BTAction_reu77"), SubResource("BTSelector_e3jyf")]
+children = [SubResource("BTCondition_gpk5b"), SubResource("BTAction_reu77"), SubResource("BTSelector_e3jyf")]
 
 [sub_resource type="BehaviorTree" id="BehaviorTree_6ovp4"]
 blackboard_plan = SubResource("BlackboardPlan_ayt5g")
@@ -178,7 +182,7 @@ visible = false
 bone_idx = -1
 
 [node name="Sprite3D" parent="BoneAttachment3D" index="0" unique_id=1325557530]
-texture = SubResource("ViewportTexture_kgoqs")
+texture = SubResource("ViewportTexture_bpref")
 
 [node name="CharacterController" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="0" unique_id=2102656381 node_paths=PackedStringArray("body")]
 script = ExtResource("3_ayt5g")
@@ -204,7 +208,7 @@ shape = SubResource("CapsuleShape3D_6sjp5")
 behavior_tree = SubResource("BehaviorTree_6ovp4")
 
 [node name="StingerBoneAttachment" type="BoneAttachment3D" parent="." index="5" unique_id=1405420568]
-transform = Transform3D(-0.85694903, 0.11586976, 0.50220776, 0.51496106, 0.23275293, 0.82500964, -0.021296628, 0.96560866, -0.25912574, 0.03196187, -0.39191085, 0.8930411)
+transform = Transform3D(-1, 8.742276e-08, 6.5135044e-16, 0, -7.450581e-09, 0.99999976, 8.742278e-08, 0.9999998, 7.450581e-09, 7.9081346e-08, -0.0472595, 0.9045851)
 bone_name = "Stinger"
 bone_idx = 6
 use_external_skeleton = true

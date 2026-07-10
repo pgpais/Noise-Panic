@@ -1,6 +1,7 @@
 [gd_resource type="BehaviorTree" format=3 uid="uid://dwqmbvjps6fvy"]
 
 [ext_resource type="Script" uid="uid://bb854u7j254lw" path="res://gameplay/ai/tasks/get_closest_in_group.gd" id="1_2yoq6"]
+[ext_resource type="Script" uid="uid://bk855jwvjcyuj" path="res://gameplay/ai/tasks/is_multiplayer_authority.gd" id="1_mxbsk"]
 [ext_resource type="Script" uid="uid://dqj8sgq85itql" path="res://gameplay/ai/tasks/pathfind_towards_target3D.gd" id="2_2yoq6"]
 [ext_resource type="Script" uid="uid://ds8byc24hu4d5" path="res://gameplay/ai/tasks/set_pathfinding_target3D.gd" id="2_8lenu"]
 [ext_resource type="Script" uid="uid://b7v2utjmtge0x" path="res://gameplay/ai/tasks/in_range3D.gd" id="2_b4qqg"]
@@ -9,6 +10,9 @@
 [ext_resource type="Script" uid="uid://bb75dihgptqet" path="res://gameplay/ai/tasks/move_towards_target3D.gd" id="7_5ecey"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_ce0to"]
+
+[sub_resource type="BTCondition" id="BTCondition_35i04"]
+script = ExtResource("1_mxbsk")
 
 [sub_resource type="BTAction" id="BTAction_xfin4"]
 script = ExtResource("1_2yoq6")
@@ -73,7 +77,7 @@ children = [SubResource("BTAction_mxbsk")]
 children = [SubResource("BTSequence_7b0ja"), SubResource("BTSequence_360ys")]
 
 [sub_resource type="BTSequence" id="BTSequence_syh22"]
-children = [SubResource("BTAction_xfin4"), SubResource("BTSequence_bo35b"), SubResource("BTTimeLimit_mxbsk"), SubResource("BTSelector_x1ju4")]
+children = [SubResource("BTCondition_35i04"), SubResource("BTAction_xfin4"), SubResource("BTSequence_bo35b"), SubResource("BTTimeLimit_mxbsk"), SubResource("BTSelector_x1ju4")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_ce0to")

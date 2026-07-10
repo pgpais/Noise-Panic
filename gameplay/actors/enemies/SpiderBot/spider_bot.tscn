@@ -5,15 +5,15 @@
 [ext_resource type="BehaviorTree" uid="uid://d1rsq75h5vgxm" path="res://gameplay/actors/enemies/SpiderBot/spiderbot_behavior_tree.tres" id="5_536ar"]
 [ext_resource type="Script" uid="uid://cwv6qdacbv2d5" path="res://gameplay/actors/LookAtAimingController.cs" id="6_inj8g"]
 [ext_resource type="PackedScene" uid="uid://dk5a4un6ibjq1" path="res://gameplay/actors/enemies/SpiderBot/spider_bot_model.tscn" id="7_dbxmr"]
-[ext_resource type="Animation" uid="uid://cf8i1bq3pl0e3" path="res://gameplay/actors/enemies/SpiderBot/animations/Spider-Attack.res" id="7_ton4b"]
-[ext_resource type="Animation" uid="uid://ddtp46kxaiqkc" path="res://gameplay/actors/enemies/SpiderBot/animations/Spider-Idle.res" id="8_dbxmr"]
+[ext_resource type="Animation" uid="uid://do3cjr5fv32em" path="res://gameplay/actors/enemies/SpiderBot/animations/Spider-Attack.res" id="7_ton4b"]
+[ext_resource type="Animation" uid="uid://pqrds3spt7de" path="res://gameplay/actors/enemies/SpiderBot/animations/Spider-Idle.res" id="8_dbxmr"]
 [ext_resource type="PackedScene" uid="uid://dw46qc0a7drf0" path="res://gameplay/combat/weapons/gun.tscn" id="9_5lk3h"]
-[ext_resource type="Animation" uid="uid://dalblalhfqk4e" path="res://gameplay/actors/enemies/SpiderBot/animations/Spider-Jump-Down.res" id="9_v57t6"]
-[ext_resource type="Animation" uid="uid://c2vjks1cbi30i" path="res://gameplay/actors/enemies/SpiderBot/animations/Spider-Jump-Up.res" id="10_g1bap"]
-[ext_resource type="Animation" uid="uid://dw20nh0xnmykn" path="res://gameplay/actors/enemies/SpiderBot/animations/Spider-MachineGun-Attack.res" id="11_qhhfa"]
-[ext_resource type="Animation" uid="uid://02pwtiuq8gf0" path="res://gameplay/actors/enemies/SpiderBot/animations/Spider-Walk.res" id="12_dktmy"]
+[ext_resource type="Animation" uid="uid://b4nlihvtejqds" path="res://gameplay/actors/enemies/SpiderBot/animations/Spider-Jump-Down.res" id="9_v57t6"]
+[ext_resource type="Animation" uid="uid://cvlfy0g6p7ex1" path="res://gameplay/actors/enemies/SpiderBot/animations/Spider-Jump-Up.res" id="10_g1bap"]
+[ext_resource type="Animation" uid="uid://cgi6mbnygfkrl" path="res://gameplay/actors/enemies/SpiderBot/animations/Spider-MachineGun-Attack.res" id="11_qhhfa"]
+[ext_resource type="Animation" uid="uid://bqlr4rvn6ywff" path="res://gameplay/actors/enemies/SpiderBot/animations/Spider-Walk.res" id="12_dktmy"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_jlnfr"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_ton4b"]
 viewport_path = NodePath("BoneAttachment3D/Sprite3D/SubViewport")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_n6ams"]
@@ -60,7 +60,7 @@ hurtbox = NodePath("Hurtbox")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1181977, 1.063566, 0.8010149)
 
 [node name="GunBoneAttachment3D" type="BoneAttachment3D" parent="." index="2" unique_id=795940720]
-transform = Transform3D(-1, 1.8905247e-06, -3.4694147e-06, 1.8905247e-06, 1, 6.8425265e-12, 3.4694147e-06, 2.82367e-13, -1, -4.5448536e-07, 1.1025736, 3.387433e-09)
+transform = Transform3D(-0.99895275, -0.036178224, 0.028010333, -0.036236636, 0.99934196, -0.0015802681, -0.027934732, -0.0025936035, -0.9996064, -5.105647e-07, 0.92377776, -0.64239764)
 bone_name = "Head.Main"
 bone_idx = 15
 use_external_skeleton = true
@@ -73,14 +73,14 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.6
 visible = false
 
 [node name="BoneAttachment3D" parent="." index="4" unique_id=1831147750]
-transform = Transform3D(-1, 1.8905247e-06, -3.4694147e-06, 1.8905247e-06, 1, 6.8425265e-12, 3.4694147e-06, 2.82367e-13, -1, -4.5448536e-07, 1.1025736, 3.387433e-09)
+transform = Transform3D(-0.99895275, -0.036178224, 0.028010333, -0.036236636, 0.99934196, -0.0015802681, -0.027934732, -0.0025936035, -0.9996064, -5.105647e-07, 0.92377776, -0.64239764)
 bone_name = "Head.Main"
 bone_idx = 15
 external_skeleton = NodePath("../Model/Armature/Skeleton3D")
 
 [node name="Sprite3D" parent="BoneAttachment3D" index="0" unique_id=1325557530]
 transform = Transform3D(-1, 0, 7.1054274e-15, -7.1054274e-15, 0, 1, 0, 1, 0, 1.7229172e-07, 0.5370995, -0.0025227591)
-texture = SubResource("ViewportTexture_jlnfr")
+texture = SubResource("ViewportTexture_ton4b")
 
 [node name="CharacterController" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="0" unique_id=2102656381 node_paths=PackedStringArray("animationTree")]
 animationTree = NodePath("../../../Model/Empty")
@@ -95,6 +95,7 @@ shape = SubResource("BoxShape3D_n6ams")
 [node name="Gun" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="3" unique_id=1731575199 node_paths=PackedStringArray("shootingPoint") instance=ExtResource("9_5lk3h")]
 transform = Transform3D(0.9953866, 0.095339544, -0.010804151, -0.008537104, 0.20015717, 0.97972655, 0.09556925, -0.9751144, 0.20004761, 5.331592e-07, 0.00094264373, -0.041604042)
 poolName = "spider_gun_projectiles"
+shootingCooldown = 0.0
 shootingPoint = NodePath("../../../GunBoneAttachment3D/ShootingPoint")
 
 [node name="LookAtAimingController" type="Node" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="4" unique_id=805736730 node_paths=PackedStringArray("lookAt", "gun")]

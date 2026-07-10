@@ -31,13 +31,16 @@ public partial class Gun : Node3D
 	{
 		base._Ready();
 
-		_shootingTimer = new Timer
+		if (shootingCooldown > 0)
 		{
-			WaitTime = shootingCooldown,
-			OneShot = true
-		};
-		_shootingTimer.Timeout += OnShootingCooldownTimeout;
-		AddChild(_shootingTimer);
+			_shootingTimer = new Timer
+			{
+				WaitTime = shootingCooldown,
+				OneShot = true
+			};
+			_shootingTimer.Timeout += OnShootingCooldownTimeout;
+			AddChild(_shootingTimer);
+		}
 
 		ObjectPooler.Instance.CreatePool<Projectile>(poolName, bulletPrefab);
 
@@ -60,7 +63,10 @@ public partial class Gun : Node3D
 		_currentAmmo--;
 		Rpc(MethodName.SyncAmmo, _currentAmmo);
 
-		StartShootingCooldown();
+		if (shootingCooldown > 0)
+		{
+			StartShootingCooldown();
+		}
 
 		Rpc(MethodName.SyncShoot, shootingPoint.GlobalPosition, rotation);
 	}

@@ -26,12 +26,13 @@
 [ext_resource type="PackedScene" uid="uid://ca57l0j31l3qw" path="res://gameplay/actors/enemies/SpiderBot/spider_bot.tscn" id="19_mbg5y"]
 [ext_resource type="Script" uid="uid://cetikanhij36g" path="res://gameplay/crafting/recipes/CraftingRecipeData.cs" id="20_kmbd1"]
 [ext_resource type="PackedScene" uid="uid://dly4oohfeagxb" path="res://menus/pause_menu/pause_menu.tscn" id="23_7w4il"]
+[ext_resource type="PackedScene" uid="uid://bjvvlwrm4wf42" path="res://gameplay/actors/enemies/FlyingWorm/flying_worm.tscn" id="24_5q4qy"]
 [ext_resource type="Script" uid="uid://0u5x4n5nxnuk" path="res://gameplay/time_limit/ui/TimerLabel.cs" id="24_yxbgd"]
 [ext_resource type="Script" uid="uid://c4hfosbn77e3e" path="res://gameplay/hud/GameHud.cs" id="26_6xvwy"]
 [ext_resource type="Script" uid="uid://0ml1o8gn0q1u" path="res://gameplay/goals/ObjectiveProgressBar.cs" id="27_uwean"]
 [ext_resource type="Script" uid="uid://bcuxyjal2x5n" path="res://gameplay/hud/RunEndUI.cs" id="28_h4q3c"]
 [ext_resource type="Environment" uid="uid://c8bycmkvq3a8d" path="res://core/camera/default_environment.tres" id="28_ywhi4"]
-[ext_resource type="PackedScene" uid="uid://c2bwl705pmb5l" path="res://levels/buildings/watch_tower.tscn" id="34_5q4qy"]
+[ext_resource type="PackedScene" uid="uid://bgqwgxm7n34yh" path="res://levels/buildings/watch_tower.tscn" id="34_5q4qy"]
 [ext_resource type="PackedScene" uid="uid://djwt5l353iixd" path="res://levels/Albacore/Albacore_with_nav.tscn" id="34_stu00"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_sy2v3"]
@@ -230,8 +231,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 1, 28)
 script = ExtResource("5_3s4pm")
 spawnPath = NodePath("../Enemies")
 Spawners = [NodePath("EnemySpawner"), NodePath("EnemySpawner2"), NodePath("EnemySpawner3"), NodePath("EnemySpawner4"), NodePath("EnemySpawner5")]
-spawnTimer = 20.0
-spawnStartInterval = 2.0
+spawnTimer = 5.0
+spawnStartInterval = 0.0
 
 [node name="EnemySpawner" type="MeshInstance3D" parent="SpawnController" unique_id=756112243]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0.120987654, -14)
@@ -269,9 +270,9 @@ enemyScene = ExtResource("19_mbg5y")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0.120987654, -10)
 mesh = SubResource("BoxMesh_5h46i")
 script = ExtResource("6_oei0w")
-poolName = "spiders"
+poolName = "flying_worm"
 automaticSpawn = true
-enemyScene = ExtResource("19_mbg5y")
+enemyScene = ExtResource("24_5q4qy")
 
 [node name="ResourceNode" parent="." unique_id=1238149726 node_paths=PackedStringArray("dropPoint") instance=ExtResource("8_sy2v3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0.38650274, 12)

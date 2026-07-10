@@ -63,8 +63,8 @@ shape = SubResource("ConvexPolygonShape3D_ew6ba")
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="Skeleton3D" parent="slime/Armature" parent_id_path=PackedInt32Array(1038293839, 1423410360) index="0" unique_id=1724438625]
-bones/1/position = Vector3(0, 0, 1.5231475)
-bones/2/scale = Vector3(0.9799447, 1.0413519, 0.9799447)
+bones/1/position = Vector3(0, 0, 1.4810524)
+bones/2/scale = Vector3(0.99377507, 1.0125722, 0.99377507)
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="4" unique_id=244467060]
 root_node = NodePath("../slime")

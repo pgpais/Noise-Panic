@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://djwt5l353iixd" path="res://levels/Albacore/Albacore_with_nav.tscn" id="1_t3ten"]
 [ext_resource type="PackedScene" uid="uid://5wiwhftgaawa" path="res://gameplay/actors/player/player.tscn" id="2_4mtb5"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="4_m7b62"]
-[ext_resource type="PackedScene" uid="uid://bjvvlwrm4wf42" path="res://gameplay/actors/enemies/FlyingWorm/flying_worm.tscn" id="4_ogpse"]
 [ext_resource type="Environment" uid="uid://c8bycmkvq3a8d" path="res://core/camera/default_environment.tres" id="5_ogpse"]
+[ext_resource type="PackedScene" uid="uid://ca57l0j31l3qw" path="res://gameplay/actors/enemies/SpiderBot/spider_bot.tscn" id="5_yowqr"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_t7uvb"]
 sky_top_color = Color(0, 0.023891695, 0.023891695, 1)
@@ -62,11 +62,11 @@ script = ExtResource("4_m7b62")
 [node name="Marker3D" type="Marker3D" parent="." unique_id=25309400 groups=["nav_test"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -612.026, 51.744, 1831.137)
 
-[node name="FlyingWorm" parent="." unique_id=1246588725 instance=ExtResource("4_ogpse")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -633.6822, 52.43667, 1643.3401)
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1150768193]
 environment = ExtResource("5_ogpse")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=805201634]
 transform = Transform3D(-0.99947596, -0.012334264, 0.02992867, 0.011071417, 0.73855156, 0.67410624, -0.030418465, 0.6740843, -0.7380278, -636.6744, 70.257034, 1607.6439)
+
+[node name="SpiderBot" parent="." unique_id=493781001 instance=ExtResource("5_yowqr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -622, 48, 1641)
