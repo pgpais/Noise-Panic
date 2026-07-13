@@ -51,6 +51,11 @@ _data = {
 [sub_resource type="BoxShape3D" id="BoxShape3D_tfbxm"]
 size = Vector3(1, 1, 1.675293)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_dbxmr"]
+properties/0/path = NodePath("AnimationPlayer:current_animation")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+
 [node name="SpiderBot" unique_id=1748184085 node_paths=PackedStringArray("hurtbox") instance=ExtResource("1_sr8rv")]
 hurtbox = NodePath("Hurtbox")
 
@@ -60,7 +65,7 @@ hurtbox = NodePath("Hurtbox")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1181977, 1.063566, 0.8010149)
 
 [node name="GunBoneAttachment3D" type="BoneAttachment3D" parent="." index="2" unique_id=795940720]
-transform = Transform3D(-0.99895275, -0.036178224, 0.028010333, -0.036236636, 0.99934196, -0.0015802681, -0.027934732, -0.0025936035, -0.9996064, -5.105647e-07, 0.92377776, -0.64239764)
+transform = Transform3D(-1, 1.8905247e-06, -1.9143745e-06, 1.8905247e-06, 1, -1.11722125e-08, 1.9143745e-06, -1.1175832e-08, -1, -4.5448536e-07, 1.1025736, 2.6866893e-09)
 bone_name = "Head.Main"
 bone_idx = 15
 use_external_skeleton = true
@@ -73,7 +78,7 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.6
 visible = false
 
 [node name="BoneAttachment3D" parent="." index="4" unique_id=1831147750]
-transform = Transform3D(-0.99895275, -0.036178224, 0.028010333, -0.036236636, 0.99934196, -0.0015802681, -0.027934732, -0.0025936035, -0.9996064, -5.105647e-07, 0.92377776, -0.64239764)
+transform = Transform3D(-1, 1.8905247e-06, -1.9143745e-06, 1.8905247e-06, 1, -1.11722125e-08, 1.9143745e-06, -1.1175832e-08, -1, -4.5448536e-07, 1.1025736, 2.6866893e-09)
 bone_name = "Head.Main"
 bone_idx = 15
 external_skeleton = NodePath("../Model/Armature/Skeleton3D")
@@ -81,9 +86,6 @@ external_skeleton = NodePath("../Model/Armature/Skeleton3D")
 [node name="Sprite3D" parent="BoneAttachment3D" index="0" unique_id=1325557530]
 transform = Transform3D(-1, 0, 7.1054274e-15, -7.1054274e-15, 0, 1, 0, 1, 0, 1.7229172e-07, 0.5370995, -0.0025227591)
 texture = SubResource("ViewportTexture_ton4b")
-
-[node name="CharacterController" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="0" unique_id=2102656381 node_paths=PackedStringArray("animationTree")]
-animationTree = NodePath("../../../Model/Empty")
 
 [node name="HealthComponent" parent="BoneAttachment3D/Components" parent_id_path=PackedInt32Array(2104275166) index="1" unique_id=1095575229]
 MaxHealth = 25
@@ -130,3 +132,6 @@ transform = Transform3D(1, 2.2737368e-13, -4.5474735e-13, 0, 1, 0, 0, 0, 1, -1.7
 shape = SubResource("BoxShape3D_tfbxm")
 disabled = true
 debug_color = Color(1, 0, 0, 0.41960785)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." index="9" unique_id=1379059722]
+replication_config = SubResource("SceneReplicationConfig_dbxmr")

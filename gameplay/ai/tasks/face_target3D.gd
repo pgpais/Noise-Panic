@@ -20,9 +20,12 @@ extends BTAction
 
 @export var ignore_vertical_position: bool = true
 
+@export var character_controller_path: NodePath
+
+var character_controller
 
 func _setup() -> void:
-	pass
+	character_controller = agent.get_node(character_controller_path)
 
 # Display a customized name (requires @tool).
 func _generate_name() -> String:
@@ -38,9 +41,9 @@ func _tick(_delta: float) -> Status:
 	#agent.face_dir(dir)
 	print("looking at " + str(target.global_position))
 	if ignore_vertical_position:
-		agent.look_at(Vector3(target.global_position.x, agent.global_position.y, target.global_position.z))
+		character_controller.LookAt(Vector3(target.global_position.x, agent.global_position.y, target.global_position.z))
 	else:
-		agent.look_at(Vector3(target.global_position.x, target.global_position.y, target.global_position.z))
+		character_controller.LookAt(Vector3(target.global_position.x, target.global_position.y, target.global_position.z))
 	
 	
 	return SUCCESS

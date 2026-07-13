@@ -10,7 +10,6 @@ public partial class Enemy : Actor, IPooledObject
 	public static List<Enemy> enemies = new List<Enemy>();
 
 	[Export] HealthComponent health;
-	[Export] CharacterController controller;
 
 	[ExportGroup("Attack")]
 	[Export] Hurtbox hurtbox;
@@ -43,13 +42,6 @@ public partial class Enemy : Actor, IPooledObject
 	{
 		//TODO:
 		ObjectPooler.Instance.ReturnObject(pool.Name, this);
-	}
-
-	public void MoveTowards(Vector2 position2D)
-	{
-		Vector2 thisPos2D = new(GlobalPosition.X, GlobalPosition.Z);
-		Vector2 dir = thisPos2D.DirectionTo(position2D);
-		controller.SetAbsoluteMovementInput(dir);
 	}
 
 	public void SetPool(ObjectPool pool)

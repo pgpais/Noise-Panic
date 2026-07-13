@@ -49,6 +49,7 @@ public partial class Gun : Node3D
 
 	public void Shoot(Vector3 rotation = default)
 	{
+		if (!IsMultiplayerAuthority()) return;
 		if (!_canShoot) return;
 		if (_currentAmmo == 0)
 		{
@@ -73,6 +74,7 @@ public partial class Gun : Node3D
 
 	public void Reload()
 	{
+		if (!IsMultiplayerAuthority()) return;
 		if (_isReloading) return;
 		_isReloading = true;
 

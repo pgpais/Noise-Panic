@@ -68,10 +68,20 @@ namespace Gameplay.Actors
             if (faceMovement)
             {
                 if (MovInput != Vector3.Zero)
-                    body.LookAt(body.GlobalPosition + body.Velocity, Vector3.Up);
+                    LookAt(body.GlobalPosition + body.Velocity);
             }
 
             MovInput = Vector3.Zero;
+
+            Rpc(MethodName.SyncMovement, body.GlobalPosition, velocity);
+        }
+
+        public void LookAt(Vector3 lookAtPos)
+        {
+            if (!IsMultiplayerAuthority()) return;
+
+            body.LookAt(lookAtPos, Vector3.Up);
+            Rpc(MethodName.SyncLookAt, lookAtPos);
         }
 
         public void SetAbsoluteMovementInput(Vector3 inputDir)
@@ -101,7 +111,18 @@ namespace Gameplay.Actors
         private void PerformDash()
         {
             var dir = -body.Transform.Basis.Z;
-            body.Velocity = dir * _speed;
+            var velocity = dir * _speed;
+            body.Velocity = velocity;
+            body.MoveAndSlide();
+
+            Rpc(MethodName.SyncPerformDash, body.GlobalPosition, velocity);
+        }
+
+        [Rpc()]
+        private void SyncPerformDash(Vector3 position, Vector3 velocity)
+        {
+            body.GlobalPosition = position;
+            body.Velocity = velocity;
             body.MoveAndSlide();
         }
 
@@ -110,5 +131,21 @@ namespace Gameplay.Actors
             isDashing = false;
             _speed = defaultSpeed;
         }
+
+        [Rpc()]
+        private void SyncMovement(Vector3 position, Vector3 velocity)
+        {
+            body.GlobalPosition = position;
+            body.Velocity = velocity;
+
+            if (faceMovement && velocity != Vector3.Zero)
+            {
+                Vector3 lookAtPos = body.GlobalPosition + velocity.Normalized();
+                body.LookAt(lookAtPos, Vector3.Up);
+            }
+        }
+
+        [Rpc()]
+        private void SyncLookAt(Vector3 lookAtPos) => body.LookAt(lookAtPos, Vector3.Up);
     }
 }

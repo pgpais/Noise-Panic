@@ -74,8 +74,14 @@ public partial class CharacterController : Node
 
 	public void LookAt(Vector3 lookAtPos)
 	{
+		if (!IsMultiplayerAuthority()) return;
+
 		_body.LookAt(lookAtPos, Vector3.Up);
+		Rpc(MethodName.SyncLookAt, lookAtPos);
 	}
+
+	[Rpc(MultiplayerApi.RpcMode.Authority)]
+	private void SyncLookAt(Vector3 lookAtPos) => _body.LookAt(lookAtPos, Vector3.Up);
 
 	private void HandleMovement(double delta)
 	{
@@ -141,6 +147,13 @@ public partial class CharacterController : Node
 	{
 		_body.GlobalPosition = position;
 		_body.Velocity = velocity;
+
+		if (TurnToFaceMovement && velocity != Vector3.Zero)
+		{
+			Vector3 lookAtPos = _body.GlobalPosition + velocity.Normalized();
+			LookAt(lookAtPos);
+		}
+
 		HandleAnimations(velocity);
 	}
 
