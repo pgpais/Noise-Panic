@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EnemySpawnData" format=3 uid="uid://eyefqavun53h"]
+
+[ext_resource type="PackedScene" uid="uid://2oypgw4dyts" path="res://gameplay/actors/enemies/Slime/slime.tscn" id="1_jxmmj"]
+[ext_resource type="Script" uid="uid://b6e1visqmrd65" path="res://gameplay/enemy_spawning/EnemySpawnData.cs" id="2_xccu2"]
+
+[resource]
+script = ExtResource("2_xccu2")
+PoolName = "slime"
+Scene = ExtResource("1_jxmmj")
+metadata/_custom_type_script = "uid://b6e1visqmrd65"

@@ -5,7 +5,6 @@
 [ext_resource type="Resource" uid="uid://cprfup0nq3d6w" path="res://gameplay/resources/data/proto_resource.tres" id="2_itlwr"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="3_0uhwm"]
 [ext_resource type="PackedScene" uid="uid://07g7f8nyxjox" path="res://gameplay/ship/player_pod_launcher.tscn" id="4_0uhwm"]
-[ext_resource type="Script" uid="uid://usjo7r6fhi6r" path="res://gameplay/enemy_spawning/EnemySpawnController.cs" id="5_3s4pm"]
 [ext_resource type="PackedScene" uid="uid://bbuu50ref7c45" path="res://gameplay/ship/Model/spaceship_model.tscn" id="5_uwean"]
 [ext_resource type="PackedScene" uid="uid://cdn5pxq8t3btd" path="res://gameplay/interaction/standing_button.tscn" id="5_wajde"]
 [ext_resource type="Script" uid="uid://dy7d28cmkxxrm" path="res://gameplay/storage/ResourceStorage.cs" id="6_3s4pm"]
@@ -24,10 +23,17 @@
 [ext_resource type="PackedScene" uid="uid://die5g2cgg7rwl" path="res://gameplay/crafting/CraftingMachine.tscn" id="19_bhs2y"]
 [ext_resource type="PackedScene" uid="uid://ca57l0j31l3qw" path="res://gameplay/actors/enemies/SpiderBot/spider_bot.tscn" id="19_mbg5y"]
 [ext_resource type="Script" uid="uid://cetikanhij36g" path="res://gameplay/crafting/recipes/CraftingRecipeData.cs" id="20_kmbd1"]
+[ext_resource type="Script" uid="uid://b0ph8fltnwhqr" path="res://gameplay/enemy_spawning/WaveEnemySpawnController.cs" id="20_lgnbh"]
+[ext_resource type="Script" uid="uid://dbrqlwidik6ba" path="res://gameplay/enemy_spawning/WaveSpawnData.cs" id="21_kqajh"]
+[ext_resource type="Script" uid="uid://b6e1visqmrd65" path="res://gameplay/enemy_spawning/EnemySpawnData.cs" id="22_amhp5"]
 [ext_resource type="PackedScene" uid="uid://dly4oohfeagxb" path="res://menus/pause_menu/pause_menu.tscn" id="23_7w4il"]
+[ext_resource type="Resource" uid="uid://be4xkdp4nig14" path="res://gameplay/enemy_spawning/data/enemies/spider_bot_spawn_data.tres" id="23_qdaom"]
 [ext_resource type="PackedScene" uid="uid://bjvvlwrm4wf42" path="res://gameplay/actors/enemies/FlyingWorm/flying_worm.tscn" id="24_5q4qy"]
+[ext_resource type="Resource" uid="uid://eyefqavun53h" path="res://gameplay/enemy_spawning/data/enemies/slime_spawn_data.tres" id="24_8ouiw"]
 [ext_resource type="Script" uid="uid://0u5x4n5nxnuk" path="res://gameplay/time_limit/ui/TimerLabel.cs" id="24_yxbgd"]
+[ext_resource type="Resource" uid="uid://bcgytvf3b7jqm" path="res://gameplay/enemy_spawning/data/enemies/flying_worm_spawn_data.tres" id="25_seakr"]
 [ext_resource type="Script" uid="uid://c4hfosbn77e3e" path="res://gameplay/hud/GameHud.cs" id="26_6xvwy"]
+[ext_resource type="Script" uid="uid://lth0hl5effx6" path="res://gameplay/enemy_spawning/WaveData.cs" id="26_bb24g"]
 [ext_resource type="Script" uid="uid://0ml1o8gn0q1u" path="res://gameplay/goals/ObjectiveProgressBar.cs" id="27_uwean"]
 [ext_resource type="Script" uid="uid://bcuxyjal2x5n" path="res://gameplay/hud/RunEndUI.cs" id="28_h4q3c"]
 [ext_resource type="Environment" uid="uid://c8bycmkvq3a8d" path="res://core/camera/default_environment.tres" id="28_ywhi4"]
@@ -63,6 +69,28 @@ Name = "asdasd"
 RecipeTime = 2.0
 Result = ExtResource("2_itlwr")
 metadata/_custom_type_script = "uid://cetikanhij36g"
+
+[sub_resource type="Resource" id="Resource_72va1"]
+script = ExtResource("21_kqajh")
+SpawnerPath = NodePath("EnemySpawner")
+EnemySpawns = Array[ExtResource("22_amhp5")]([ExtResource("23_qdaom"), ExtResource("24_8ouiw"), ExtResource("25_seakr")])
+metadata/_custom_type_script = "uid://dbrqlwidik6ba"
+
+[sub_resource type="Resource" id="Resource_2vrqj"]
+script = ExtResource("26_bb24g")
+WaveSpawns = Array[ExtResource("21_kqajh")]([SubResource("Resource_72va1")])
+metadata/_custom_type_script = "uid://lth0hl5effx6"
+
+[sub_resource type="Resource" id="Resource_p1i1v"]
+script = ExtResource("21_kqajh")
+SpawnerPath = NodePath("EnemySpawner3")
+EnemySpawns = Array[ExtResource("22_amhp5")]([ExtResource("25_seakr"), ExtResource("23_qdaom")])
+metadata/_custom_type_script = "uid://dbrqlwidik6ba"
+
+[sub_resource type="Resource" id="Resource_mxbsk"]
+script = ExtResource("26_bb24g")
+WaveSpawns = Array[ExtResource("21_kqajh")]([SubResource("Resource_p1i1v")])
+metadata/_custom_type_script = "uid://lth0hl5effx6"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ohsu"]
 albedo_color = Color(1, 0, 0, 1)
@@ -121,6 +149,7 @@ size = Vector2i(964, 463)
 [node name="OverviewCamera" type="Camera3D" parent="Ship/SpaceshipModel/OverviewScreen/SubViewport" unique_id=626315657]
 physics_interpolation_mode = 1
 transform = Transform3D(1, 0, 0, 0, -0.167285, 0.98590845, 0, -0.98590845, -0.167285, 8.163737, 195.11371, -13.993748)
+top_level = true
 fov = 10.0
 size = 10.0
 
@@ -211,8 +240,8 @@ directional_shadow_fade_start = 0.2
 directional_shadow_max_distance = 250.0
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1138672703]
-physics_interpolation_mode = 1
-transform = Transform3D(-0.99856895, 0.014782068, -0.051396936, 0, 0.9610423, 0.27640152, 0.053480413, 0.27600598, -0.9596669, 8.693587, 108.89046, -6.302533)
+transform = Transform3D(-0.99856895, 0.014782067, -0.051396936, 0, 0.9610423, 0.27640155, 0.053480413, 0.27600598, -0.9596669, 8.693587, 108.89046, -6.302533)
+top_level = true
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D" unique_id=1054332899]
 process_priority = 300
@@ -221,52 +250,54 @@ script = ExtResource("3_0uhwm")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=61211832]
 
-[node name="SpawnController" type="Node3D" parent="." unique_id=1934995528 node_paths=PackedStringArray("spawnPath", "Spawners")]
+[node name="SpawnController" type="Node3D" parent="." unique_id=1934995528]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 1, 28)
-script = ExtResource("5_3s4pm")
-spawnPath = NodePath("../Enemies")
-Spawners = [NodePath("EnemySpawner"), NodePath("EnemySpawner2"), NodePath("EnemySpawner3"), NodePath("EnemySpawner4"), NodePath("EnemySpawner5")]
-spawnTimer = 5.0
-spawnStartInterval = 0.0
+script = ExtResource("20_lgnbh")
+waveSpawns = Array[Object]([SubResource("Resource_2vrqj"), SubResource("Resource_mxbsk")])
 
 [node name="EnemySpawner" type="MeshInstance3D" parent="SpawnController" unique_id=756112243]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0.120987654, -14)
 mesh = SubResource("BoxMesh_5h46i")
 script = ExtResource("6_oei0w")
+startSpawning = false
+automaticSpawn = false
 poolName = "spiders"
-automaticSpawn = true
 enemyScene = ExtResource("19_mbg5y")
 
 [node name="EnemySpawner2" type="MeshInstance3D" parent="SpawnController" unique_id=1870685914]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.42098767, -12)
 mesh = SubResource("BoxMesh_5h46i")
 script = ExtResource("6_oei0w")
+startSpawning = false
+automaticSpawn = false
 poolName = "spiders"
-automaticSpawn = true
 enemyScene = ExtResource("19_mbg5y")
 
 [node name="EnemySpawner3" type="MeshInstance3D" parent="SpawnController" unique_id=1830065108]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 0.120987654, -19)
 mesh = SubResource("BoxMesh_5h46i")
 script = ExtResource("6_oei0w")
+startSpawning = false
+automaticSpawn = false
 poolName = "spiders"
-automaticSpawn = true
 enemyScene = ExtResource("19_mbg5y")
 
 [node name="EnemySpawner4" type="MeshInstance3D" parent="SpawnController" unique_id=68489295]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0.120987654, -18)
 mesh = SubResource("BoxMesh_5h46i")
 script = ExtResource("6_oei0w")
+startSpawning = false
+automaticSpawn = false
 poolName = "spiders"
-automaticSpawn = true
 enemyScene = ExtResource("19_mbg5y")
 
 [node name="EnemySpawner5" type="MeshInstance3D" parent="SpawnController" unique_id=566864949]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0.120987654, -10)
 mesh = SubResource("BoxMesh_5h46i")
 script = ExtResource("6_oei0w")
+startSpawning = false
+automaticSpawn = false
 poolName = "flying_worm"
-automaticSpawn = true
 enemyScene = ExtResource("24_5q4qy")
 
 [node name="ResourceNode" parent="." unique_id=1238149726 node_paths=PackedStringArray("dropPoint") instance=ExtResource("8_sy2v3")]

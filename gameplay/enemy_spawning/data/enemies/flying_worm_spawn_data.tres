@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EnemySpawnData" format=3 uid="uid://bcgytvf3b7jqm"]
+
+[ext_resource type="PackedScene" uid="uid://bjvvlwrm4wf42" path="res://gameplay/actors/enemies/FlyingWorm/flying_worm.tscn" id="1_yk4ay"]
+[ext_resource type="Script" uid="uid://b6e1visqmrd65" path="res://gameplay/enemy_spawning/EnemySpawnData.cs" id="2_mdc20"]
+
+[resource]
+script = ExtResource("2_mdc20")
+PoolName = "flying_worm"
+Scene = ExtResource("1_yk4ay")
+metadata/_custom_type_script = "uid://b6e1visqmrd65"

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EnemySpawnData" format=3 uid="uid://be4xkdp4nig14"]
+
+[ext_resource type="PackedScene" uid="uid://ca57l0j31l3qw" path="res://gameplay/actors/enemies/SpiderBot/spider_bot.tscn" id="1_beokn"]
+[ext_resource type="Script" uid="uid://b6e1visqmrd65" path="res://gameplay/enemy_spawning/EnemySpawnData.cs" id="2_xwoap"]
+
+[resource]
+script = ExtResource("2_xwoap")
+PoolName = "spider_bot"
+Scene = ExtResource("1_beokn")
+metadata/_custom_type_script = "uid://b6e1visqmrd65"

@@ -9,6 +9,8 @@ public partial class Enemy : Actor, IPooledObject
 {
 	public static List<Enemy> enemies = new List<Enemy>();
 
+	[Signal] public delegate void EnemyDiedEventHandler();
+
 	[Export] HealthComponent health;
 
 	[ExportGroup("Attack")]
