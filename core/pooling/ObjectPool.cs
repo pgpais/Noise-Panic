@@ -15,6 +15,7 @@ public abstract class ObjectPool
     protected Node pooledObjectsParent;
 
     public abstract Node RetrieveObject();
+    public abstract Node RetrieveSpecificObject(Node instance);
     public abstract void ReturnObject(Node instance);
 }
 
@@ -72,7 +73,35 @@ public class ObjectPool<T> : ObjectPool where T : Node, IPooledObject
 
         var instance = InactiveObjects[0];
 
-        InactiveObjects.RemoveAt(0);
+        return RetrieveSpecificTypedObject(instance);
+    }
+
+    public override Node RetrieveSpecificObject(Node instance)
+    {
+        if (instance is not T typed)
+        {
+            GD.PushError($"Returned object is not of type {typeof(T).Name} for pool {Name}");
+            return null;
+        }
+
+        return RetrieveSpecificTypedObject(typed);
+    }
+
+    public T RetrieveSpecificTypedObject(T instance)
+    {
+        bool hasInactiveObject = InactiveObjects.Count > 0;
+        if (!hasInactiveObject)
+        {
+            return null;
+        }
+
+        if (!InactiveObjects.Contains(instance))
+        {
+            GD.PushError($"Returned object is not in the pool for pool {Name}");
+            return null;
+        }
+
+        InactiveObjects.Remove(instance);
         ActiveObjects.Add(instance);
 
         instance.OnSpawn();

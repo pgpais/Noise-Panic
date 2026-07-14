@@ -9,6 +9,8 @@ public partial class Enemy : Actor, IPooledObject
 {
 	public static List<Enemy> enemies = new List<Enemy>();
 
+	[Signal] public delegate void EnemyDiedEventHandler();
+
 	[Export] HealthComponent health;
 
 	[ExportGroup("Attack")]
@@ -35,7 +37,7 @@ public partial class Enemy : Actor, IPooledObject
 	{
 		if (!IsMultiplayerAuthority()) return;
 
-		Rpc(MethodName.Die);
+		Rpc(MethodName.OnDied);
 	}
 
 	private void Despawn()
@@ -55,10 +57,11 @@ public partial class Enemy : Actor, IPooledObject
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = true)]
-	private void Die()
+	private void OnDied()
 	{
-		CallDeferred(MethodName.Despawn);
+		EmitSignal(SignalName.EnemyDied);
 		EventBus.Instance.EmitSignal(EventBus.SignalName.EnemyDied, this);
+		CallDeferred(MethodName.Despawn);
 	}
 
 	public void OnSpawn()

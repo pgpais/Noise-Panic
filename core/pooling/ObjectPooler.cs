@@ -36,6 +36,15 @@ public partial class ObjectPooler : Node
 	{
 		if (Pools.TryGetValue(poolName, out var pool))
 			return pool.RetrieveObject() as T;
+		GD.PrintErr("Pool " + poolName + " does not exist");
+		return null;
+	}
+
+	public T RequestSpecificObject<T>(T instance, string poolName) where T : Node, IPooledObject
+	{
+		if (Pools.TryGetValue(poolName, out var pool))
+			return pool.RetrieveSpecificObject(instance) as T;
+		GD.PrintErr("Pool " + poolName + " does not exist");
 		return null;
 	}
 
@@ -47,9 +56,18 @@ public partial class ObjectPooler : Node
 		}
 	}
 
-	public void CreatePool<T>(string poolName, PackedScene scene, int size = 10, bool autoExpand = true) where T : Node, IPooledObject
+	public ObjectPool CreatePool<T>(string poolName, PackedScene scene, int size = 10, bool autoExpand = true) where T : Node, IPooledObject
 	{
-		if (Pools.ContainsKey(poolName)) return;
+		if (Pools.ContainsKey(poolName)) return Pools[poolName];
 		Pools[poolName] = new ObjectPool<T>(poolName, scene, pooledObjectsParent, size, autoExpand);
+
+		return Pools[poolName];
+	}
+
+	public ObjectPool GetPool(string poolName)
+	{
+		if (!Pools.ContainsKey(poolName))
+			return null;
+		return Pools[poolName];
 	}
 }
