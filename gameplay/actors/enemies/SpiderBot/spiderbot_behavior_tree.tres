@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://bk855jwvjcyuj" path="res://gameplay/ai/tasks/is_multiplayer_authority.gd" id="1_6a56p"]
 [ext_resource type="Script" uid="uid://bb854u7j254lw" path="res://gameplay/ai/tasks/get_closest_in_group.gd" id="1_jngsw"]
 [ext_resource type="Script" uid="uid://b7v2utjmtge0x" path="res://gameplay/ai/tasks/in_range3D.gd" id="2_cg5qn"]
-[ext_resource type="Script" uid="uid://by5yqltsltepi" path="res://gameplay/ai/tasks/face_target3D.gd" id="3_6x4d5"]
 [ext_resource type="Script" uid="uid://dx3hgnwkornl4" path="res://gameplay/ai/tasks/aim_lookat_at_target3D.gd" id="3_cg5qn"]
 [ext_resource type="Script" uid="uid://dy5dc0d30ifvi" path="res://gameplay/ai/tasks/has_target_moved3D.gd" id="3_iwrhe"]
 [ext_resource type="Script" uid="uid://c8tc3p6md1mwm" path="res://gameplay/ai/tasks/get_target_pos.gd" id="4_6a56p"]
@@ -19,6 +18,10 @@ script = ExtResource("1_6a56p")
 [sub_resource type="BTAction" id="BTAction_y68ex"]
 script = ExtResource("1_jngsw")
 group = &"players"
+
+[sub_resource type="BTAction" id="BTAction_6a56p"]
+script = ExtResource("3_cg5qn")
+look_at_aiming_controller_path = NodePath("BoneAttachment3D/Components/LookAtAimingController")
 
 [sub_resource type="BTCondition" id="BTCondition_6a56p"]
 script = ExtResource("2_cg5qn")
@@ -67,14 +70,6 @@ script = ExtResource("2_cg5qn")
 distance_min = 5.0
 distance_max = 10.0
 
-[sub_resource type="BTAction" id="BTAction_1r5jm"]
-script = ExtResource("3_6x4d5")
-character_controller_path = NodePath("BoneAttachment3D/Components/CharacterController")
-
-[sub_resource type="BTAction" id="BTAction_602mh"]
-script = ExtResource("3_cg5qn")
-look_at_aiming_controller_path = NodePath("BoneAttachment3D/Components/LookAtAimingController")
-
 [sub_resource type="BBNode" id="BBNode_0ajox"]
 saved_value = NodePath("AnimationPlayer")
 resource_name = "AnimationPlayer"
@@ -84,7 +79,7 @@ animation_player = SubResource("BBNode_0ajox")
 animation_name = &"Spider-MachineGun-Attack"
 
 [sub_resource type="BTSequence" id="BTSequence_phrv8"]
-children = [SubResource("BTComment_jngsw"), SubResource("BTCondition_augan"), SubResource("BTAction_1r5jm"), SubResource("BTAction_602mh"), SubResource("BTPlayAnimation_ednda")]
+children = [SubResource("BTComment_jngsw"), SubResource("BTCondition_augan"), SubResource("BTPlayAnimation_ednda")]
 
 [sub_resource type="BTComment" id="BTComment_cg5qn"]
 custom_name = "Melee Attack"
@@ -126,7 +121,7 @@ children = [SubResource("BTComment_1r5jm"), SubResource("BTAction_1t3wk"), SubRe
 children = [SubResource("BTSequence_k3tqs"), SubResource("BTSequence_phrv8"), SubResource("BTSequence_6x4d5"), SubResource("BTSequence_bameu")]
 
 [sub_resource type="BTSequence" id="BTSequence_upk56"]
-children = [SubResource("BTCondition_0ajox"), SubResource("BTAction_y68ex"), SubResource("BTSelector_jngsw")]
+children = [SubResource("BTCondition_0ajox"), SubResource("BTAction_y68ex"), SubResource("BTAction_6a56p"), SubResource("BTSelector_jngsw")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_ew6ba")
