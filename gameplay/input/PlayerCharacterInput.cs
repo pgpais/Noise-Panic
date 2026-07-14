@@ -52,13 +52,14 @@ public partial class PlayerCharacterInput : Node, IInput
 			controller.WantsToJump = true;
 		}
 
-		if (Input.IsActionJustPressed("run"))
+		if (Input.IsActionPressed("run"))
 		{
 			controller.WantsToRun = true;
 		}
-		else if (Input.IsActionJustReleased("run"))
+
+		if (Input.IsActionJustPressed("dash"))
 		{
-			controller.WantsToRun = false;
+			controller.WantsToDash = true;
 		}
 	}
 
