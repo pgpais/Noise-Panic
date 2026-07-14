@@ -16,6 +16,7 @@ public partial class CharacterController : Node
 	[ExportGroup("Dashing Parameters")]
 	[Export] public float DashSpeed { get; private set; } = 30f;
 	[Export] public float DashDuration { get; private set; } = 0.2f;
+	[Export] public float DashCooldown { get; private set; } = 0.5f;
 
 	[ExportGroup("Navigation")]
 	[Export] NavigationAgent3D navigationAgent;
@@ -29,6 +30,7 @@ public partial class CharacterController : Node
 	float targetYRotation;
 	float currentSpeed;
 	bool isDashing = false;
+	bool _canDash = true;
 
 	CharacterBody3D _body;
 
@@ -109,7 +111,7 @@ public partial class CharacterController : Node
 		}
 		else
 		{
-			if (WantsToDash && !isDashing)
+			if (WantsToDash && _canDash && !isDashing)
 			{
 				StartDash();
 			}
@@ -197,8 +199,10 @@ public partial class CharacterController : Node
 	public void StartDash()
 	{
 		isDashing = true;
+		_canDash = false;
 		currentSpeed = DashSpeed;
 
+		GetTree().CreateTimer(DashCooldown).Timeout += () => _canDash = true;
 		GetTree().CreateTimer(DashDuration).Timeout += StopDash;
 	}
 
