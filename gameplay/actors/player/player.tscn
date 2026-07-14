@@ -348,7 +348,7 @@ parameters/conditions/is_on_floor = false
 parameters/MovementBlendSpace/blend_position = Vector2(0, 0)
 
 [node name="GunBoneAttachment3D" type="BoneAttachment3D" parent="." index="6" unique_id=1686055260]
-transform = Transform3D(-0.124495104, 0.20407213, 0.9710075, -0.019830488, -0.97893727, 0.20319621, 0.99202204, 0.0060412856, 0.1259198, 0.22758594, -0.16866773, 0.0403193)
+transform = Transform3D(-0.12414391, 0.20039524, 0.971818, -0.019631915, -0.9796986, 0.19951247, 0.9920701, 0.005689581, 0.12555782, 0.22803357, -0.16891783, 0.038448412)
 bone_name = "Weapon"
 bone_idx = 32
 use_external_skeleton = true
@@ -360,7 +360,7 @@ visible = false
 shootingPoint = NodePath("../../AimPivot/SpringArm3D2/CameraAnchor/ShootingPoint")
 
 [node name="BackpackBoneAttachment3D" type="BoneAttachment3D" parent="." index="7" unique_id=1421805177]
-transform = Transform3D(-0.99645334, -0.025074324, -0.080324605, 0.00472373, -0.9697348, 0.24411461, -0.0840147, 0.24286962, 0.9664124, -0.012015243, 0.18410736, 0.16655372)
+transform = Transform3D(-0.9964645, -0.028613603, -0.078993015, 0.008490232, -0.96969956, 0.2441523, -0.083585694, 0.24261874, 0.9665127, -0.010186425, 0.1847207, 0.16488084)
 bone_name = "backpack"
 bone_idx = 31
 use_external_skeleton = true
