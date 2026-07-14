@@ -254,6 +254,7 @@ script = ExtResource("3_0uhwm")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 1, 28)
 script = ExtResource("20_lgnbh")
 waveSpawns = Array[Object]([SubResource("Resource_2vrqj"), SubResource("Resource_mxbsk")])
+spawnWhenWaveDefeated = true
 
 [node name="EnemySpawner" type="MeshInstance3D" parent="SpawnController" unique_id=756112243]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0.120987654, -14)
@@ -306,8 +307,8 @@ one_shot = true
 autostart = true
 
 [node name="SpawnTimer" type="Timer" parent="SpawnController" unique_id=1557583980]
+process_mode = 4
 wait_time = 5.0
-one_shot = true
 
 [node name="ResourceNode" parent="." unique_id=1238149726 node_paths=PackedStringArray("dropPoint") instance=ExtResource("8_sy2v3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0.38650274, 12)

@@ -9,6 +9,10 @@ namespace WeWereDumb.Gameplay.EnemySpawning
     {
         [Export] Array<WaveData> waveSpawns;
 
+        [Export] bool spawnWhenWaveDefeated = false;
+        [ExportGroup("Wave Defeated Spawn Parameters")]
+        [Export] int waveDefeatedSpawnDelay = 0;
+
         Dictionary<Enemy, bool> currentWaveEnemiesKilled;
         int currentWave = 0;
 
@@ -58,11 +62,9 @@ namespace WeWereDumb.Gameplay.EnemySpawning
 
         private void SpawnEnemy(EnemySpawner spawner, EnemySpawnData enemySpawnData)
         {
-            GD.Print("Spawning enemy");
             var enemy = ObjectPooler.Instance.RequestObject<Enemy>(enemySpawnData.PoolName);
 
             spawner.Spawn(enemy);
-            GD.Print("Syncing spawn");
             Rpc(MethodName.SyncSpawn, spawner.GetPath(), enemySpawnData.PoolName, enemy.GetPath(), enemy.GlobalPosition);
 
             currentWaveEnemiesKilled.Add(enemy, false);
@@ -72,7 +74,6 @@ namespace WeWereDumb.Gameplay.EnemySpawning
         [Rpc()]
         private void SyncSpawn(NodePath spawnerPath, string poolName, NodePath enemyPath, Vector3 position)
         {
-            GD.Print("Received spawn");
             var enemy = GetNode<Enemy>(enemyPath);
             var spawner = GetNode<EnemySpawner>(spawnerPath);
 
@@ -84,9 +85,12 @@ namespace WeWereDumb.Gameplay.EnemySpawning
 
         private void OnEnemyDied(Enemy enemy)
         {
+            GD.Print("Enemy " + enemy.Name + " died");
+
             enemy.EnemyDied -= () => OnEnemyDied(enemy);
 
             currentWaveEnemiesKilled[enemy] = true;
+
             bool allEnemiesKilled = true;
             foreach (var waveEnemy in currentWaveEnemiesKilled)
             {
@@ -101,6 +105,19 @@ namespace WeWereDumb.Gameplay.EnemySpawning
             {
                 GD.Print("Wave completed");
                 EventBus.Instance.EmitSignal(EventBus.SignalName.WaveDefeated);
+
+                if (spawnWhenWaveDefeated)
+                {
+                    GD.Print("Spawning next wave in " + waveDefeatedSpawnDelay + " seconds");
+                    if (waveDefeatedSpawnDelay > 0)
+                    {
+                        GetTree().CreateTimer(waveDefeatedSpawnDelay).Timeout += SpawnWave;
+                    }
+                    else
+                    {
+                        SpawnWave();
+                    }
+                }
             }
         }
 
