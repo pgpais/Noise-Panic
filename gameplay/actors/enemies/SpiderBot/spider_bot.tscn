@@ -62,10 +62,10 @@ hurtbox = NodePath("Hurtbox")
 [node name="Model" parent="." index="0" unique_id=1727461906 instance=ExtResource("7_dbxmr")]
 
 [node name="LookAt" type="Marker3D" parent="." index="1" unique_id=606319979]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1181977, 1.063566, 0.8010149)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, -3)
 
 [node name="GunBoneAttachment3D" type="BoneAttachment3D" parent="." index="2" unique_id=795940720]
-transform = Transform3D(-1, 1.8905247e-06, -1.9143745e-06, 1.8905247e-06, 1, -1.11722125e-08, 1.9143745e-06, -1.1175832e-08, -1, -4.5448536e-07, 1.1025736, 2.6866893e-09)
+transform = Transform3D(-1, 1.4144949e-06, 1.2493894e-06, 1.5036883e-06, 0.9972182, 0.0745385, -1.1404801e-06, 0.0745385, -0.9972182, -5.106455e-07, 0.92377776, -0.64239764)
 bone_name = "Head.Main"
 bone_idx = 15
 use_external_skeleton = true
@@ -78,7 +78,7 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.6
 visible = false
 
 [node name="BoneAttachment3D" parent="." index="4" unique_id=1831147750]
-transform = Transform3D(-1, 1.8905247e-06, -1.9143745e-06, 1.8905247e-06, 1, -1.11722125e-08, 1.9143745e-06, -1.1175832e-08, -1, -4.5448536e-07, 1.1025736, 2.6866893e-09)
+transform = Transform3D(-1, 1.4144949e-06, 1.2493894e-06, 1.5036883e-06, 0.9972182, 0.0745385, -1.1404801e-06, 0.0745385, -0.9972182, -5.106455e-07, 0.92377776, -0.64239764)
 bone_name = "Head.Main"
 bone_idx = 15
 external_skeleton = NodePath("../Model/Armature/Skeleton3D")

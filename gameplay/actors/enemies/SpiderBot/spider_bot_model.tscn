@@ -4,3 +4,16 @@
 
 [node name="SpiderBot" unique_id=1727461906 instance=ExtResource("1_o24pt")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="ConnectorsLookAtModifier3D" type="LookAtModifier3D" parent="Armature/Skeleton3D" index="18" unique_id=1434164179]
+target_node = NodePath("../../../../LookAt")
+bone_name = "Head.Connectors"
+bone = 14
+use_secondary_rotation = false
+
+[node name="HeadMainLookAtModifier3D" type="LookAtModifier3D" parent="Armature/Skeleton3D" index="19" unique_id=852707465]
+target_node = NodePath("../../../../LookAt")
+bone_name = "Head.Main"
+bone = 15
+primary_rotation_axis = 0
+use_secondary_rotation = false
