@@ -36,6 +36,15 @@ public partial class ObjectPooler : Node
 	{
 		if (Pools.TryGetValue(poolName, out var pool))
 			return pool.RetrieveObject() as T;
+		GD.PrintErr("Pool " + poolName + " does not exist");
+		return null;
+	}
+
+	public T RequestSpecificObject<T>(T instance, string poolName) where T : Node, IPooledObject
+	{
+		if (Pools.TryGetValue(poolName, out var pool))
+			return pool.RetrieveSpecificObject(instance) as T;
+		GD.PrintErr("Pool " + poolName + " does not exist");
 		return null;
 	}
 

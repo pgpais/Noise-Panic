@@ -300,6 +300,15 @@ automaticSpawn = false
 poolName = "flying_worm"
 enemyScene = ExtResource("24_5q4qy")
 
+[node name="StartTimer" type="Timer" parent="SpawnController" unique_id=1012275447]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="SpawnTimer" type="Timer" parent="SpawnController" unique_id=1557583980]
+wait_time = 5.0
+one_shot = true
+
 [node name="ResourceNode" parent="." unique_id=1238149726 node_paths=PackedStringArray("dropPoint") instance=ExtResource("8_sy2v3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0.38650274, 12)
 dropPoint = NodePath("Marker3D")
@@ -476,3 +485,6 @@ radius = 1.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, 0)
 
 [connection signal="Pressed" from="Ship/StandingButton" to="Ship/PlayerPodLauncher" method="TryLaunchPlayer"]
+[connection signal="timeout" from="SpawnController/StartTimer" to="SpawnController" method="SpawnWave"]
+[connection signal="timeout" from="SpawnController/StartTimer" to="SpawnController/SpawnTimer" method="start" binds= [0.0]]
+[connection signal="timeout" from="SpawnController/SpawnTimer" to="SpawnController" method="SpawnWave"]

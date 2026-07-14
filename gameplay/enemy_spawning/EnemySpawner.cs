@@ -65,6 +65,7 @@ public partial class EnemySpawner : Node3D
 	public Enemy Spawn(string name = null, Node parent = null)
 	{
 		var enemy = ObjectPooler.Instance.RequestObject<Enemy>(poolName);
+
 		enemy.GlobalPosition = GlobalPosition;
 
 		if (name != null)
@@ -73,6 +74,12 @@ public partial class EnemySpawner : Node3D
 		}
 
 		return enemy;
+	}
+
+	public void Spawn(Enemy enemy, Vector3? position = default)
+	{
+		Vector3 spawnPos = position.HasValue ? position.Value : GetRandomSpawnPosition();
+		enemy.GlobalPosition = spawnPos;
 	}
 
 	public Vector3 GetRandomSpawnPosition()
