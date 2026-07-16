@@ -8,6 +8,7 @@ public partial class Gun : Node3D
 {
 	[Signal] public delegate void ReloadStartedEventHandler();
 	[Signal] public delegate void ReloadFinishedEventHandler();
+	[Signal] public delegate void ShotEventHandler(Projectile projectile);
 
 	[Export] string poolName = "gun_projectiles";
 
@@ -59,7 +60,8 @@ public partial class Gun : Node3D
 
 		if (rotation == default) rotation = shootingPoint.GlobalRotation;
 
-		SpawnBullet(shootingPoint.GlobalPosition, rotation);
+		var projectile = SpawnBullet(shootingPoint.GlobalPosition, rotation);
+		EmitSignal(SignalName.Shot, projectile);
 
 		_currentAmmo--;
 		Rpc(MethodName.SyncAmmo, _currentAmmo);
@@ -118,7 +120,8 @@ public partial class Gun : Node3D
 	[Rpc(MultiplayerApi.RpcMode.Authority)]
 	private void SyncShoot(Vector3 position, Vector3 rotation)
 	{
-		SpawnBullet(position, rotation);
+		var projectile = SpawnBullet(position, rotation);
+		EmitSignal(SignalName.Shot, projectile);
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.Authority)]
@@ -127,10 +130,12 @@ public partial class Gun : Node3D
 		_currentAmmo = currentAmmo;
 	}
 
-	private void SpawnBullet(Vector3 position, Vector3 rotation)
+	private Projectile SpawnBullet(Vector3 position, Vector3 rotation)
 	{
 		var bullet = ObjectPooler.Instance.RequestObject<Projectile>(poolName);
 		CallDeferred(MethodName.InitBullet, bullet, position, rotation);
+
+		return bullet;
 	}
 
 	private void InitBullet(Projectile bullet, Vector3 position, Vector3 rotation)
@@ -138,7 +143,6 @@ public partial class Gun : Node3D
 		bullet.SetShooter(Owner);
 		bullet.GlobalPosition = position;
 		bullet.GlobalRotation = rotation;
-		bullet.SetVelocity(-bullet.GlobalTransform.Basis.Z * shootingForce);
 	}
 
 }

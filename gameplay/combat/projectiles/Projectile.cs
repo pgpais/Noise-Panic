@@ -6,10 +6,14 @@ namespace WeWereDumb.Gameplay.Combat.Projectiles
 {
     public partial class Projectile : Node3D, IPooledObject
     {
+        [Signal] public delegate void HitEventHandler();
+        [Signal] public delegate void HitboxHitEventHandler(Hitbox hitbox);
+
         public Node Shooter { get; private set; }
 
         [Export] int damage = 2;
         [Export] float timeToLive = 2f;
+        [Export] float speed = 10f;
 
         [Export] Node3D visuals;
         [Export] Hurtbox hurtbox;
@@ -17,7 +21,7 @@ namespace WeWereDumb.Gameplay.Combat.Projectiles
 
         private ObjectPool pool;
         Timer timer;
-        
+
         private Vector3 _velocity;
 
         public Projectile()
@@ -44,22 +48,22 @@ namespace WeWereDumb.Gameplay.Combat.Projectiles
         public override void _Process(double delta)
         {
             base._Process(delta);
-            
+
             // Apply velocity
-            Position += _velocity * (float)delta;
+            var dir = -GlobalTransform.Basis.Z;
+            Position += dir * speed * (float)delta;
         }
 
         public void SetShooter(Node shooter)
         {
             Shooter = shooter;
         }
-        
-        
+
         public void OnSpawn()
         {
             ProcessMode = ProcessModeEnum.Inherit;
             Show();
-            
+
             visuals.Show();
             CallDeferred(MethodName.MonitorContacts, true);
 
@@ -80,22 +84,38 @@ namespace WeWereDumb.Gameplay.Combat.Projectiles
 
             CallDeferred(MethodName.ResetPhysics);
         }
-        
-        private void OnHit()
+
+        public void SetPool(ObjectPool pool)
         {
-            CallDeferred(MethodName.MonitorContacts, false);
-            
-            ResetPhysics();
-            visuals.Hide();
-            EmitParticles();
+            this.pool = pool;
         }
-        
-        private void OnHitboxHit(Hitbox hitbox)
+
+        public ObjectPool GetPool()
         {
-            if (hitbox.Owner == Shooter) return;
-            DealDamage(hitbox);
+            return pool;
         }
-        
+
+        public void AddSpeed(float speed)
+        {
+            this.speed += speed;
+        }
+
+        public void AddDamage(int damage)
+        {
+            this.damage += damage;
+        }
+
+        private void ResetPhysics()
+        {
+            _velocity = Vector3.Zero;
+        }
+
+        private void MonitorContacts(bool enabled)
+        {
+            hurtbox.Monitoring = enabled;
+            hurtbox.Monitorable = enabled;
+        }
+
         private void EmitParticles()
         {
             particles.Restart();
@@ -111,30 +131,23 @@ namespace WeWereDumb.Gameplay.Combat.Projectiles
             ObjectPooler.Instance.CallDeferred(ObjectPooler.MethodName.ReturnObject, pool.Name, this);
         }
 
-        public void SetPool(ObjectPool pool)
+        private void OnHit()
         {
-            this.pool = pool;
+            CallDeferred(MethodName.MonitorContacts, false);
+
+            ResetPhysics();
+            visuals.Hide();
+            EmitParticles();
+
+            EmitSignal(SignalName.Hit);
         }
 
-        public ObjectPool GetPool()
+        private void OnHitboxHit(Hitbox hitbox)
         {
-            return pool;
-        }
+            if (hitbox.Owner == Shooter) return;
+            DealDamage(hitbox);
 
-        public void SetVelocity(Vector3 velocity)
-        {
-            _velocity = velocity;
-        }
-
-        private void ResetPhysics()
-        {
-            _velocity = Vector3.Zero;
-        }
-
-        private void MonitorContacts(bool enabled)
-        {
-            hurtbox.Monitoring = enabled;
-            hurtbox.Monitorable = enabled;
+            EmitSignal(SignalName.HitboxHit, hitbox);
         }
     }
 }
