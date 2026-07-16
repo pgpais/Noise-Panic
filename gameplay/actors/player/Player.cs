@@ -46,12 +46,6 @@ public partial class Player : Actor
 		SetCameraPriority();
 	}
 
-	private void OnHealthDepleted()
-	{
-		GD.Print($"[Player] {Multiplayer.GetUniqueId()}: Health depleted!");
-		EventBus.Instance.EmitSignal(EventBus.SignalName.PlayerDied);
-	}
-
 	public override void _ExitTree()
 	{
 		秃.Remove(this);
@@ -115,5 +109,11 @@ public partial class Player : Actor
 		{
 			EnableInput();
 		}
+	}
+
+	private void OnHealthDepleted()
+	{
+		GD.Print($"[Player] {Multiplayer.GetUniqueId()}: Health depleted!");
+		EventBus.Instance.EmitSignal(EventBus.SignalName.PlayerDied);
 	}
 }
