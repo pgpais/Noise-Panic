@@ -59,6 +59,11 @@ public partial class Player : Actor
 		RemoveFromGroup("players");
 	}
 
+	public void PickupPerk()
+	{
+		throw new NotImplementedException();
+	}
+
 	public void EnableInput()
 	{
 		foreach (var input in inputs)

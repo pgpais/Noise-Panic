@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://cil1gop87fcgb"]
+
+[ext_resource type="Script" uid="uid://nu1gnqpgm6e0" path="res://gameplay/perks/views/PerkView.cs" id="1_7li8v"]
+
+[node name="PerkView" type="PanelContainer" unique_id=365577200]
+custom_minimum_size = Vector2(0, 300)
+custom_maximum_size = Vector2(400, -1)
+propagate_maximum_size = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7li8v")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1840675313]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1098742820]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer" unique_id=1069283885]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer" unique_id=1825547658]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Perk Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/VBoxContainer" unique_id=2107278933]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/PanelContainer2" unique_id=1202550251]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer2/MarginContainer" unique_id=830049789]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 16
+text = "LOREM IOA SND IHASD BN IASJK DNASIUDJ ŨIO ASJDn uopaNDM ASd uoj asndas d  a sdia sndp iasmd pa"
+autowrap_mode = 3

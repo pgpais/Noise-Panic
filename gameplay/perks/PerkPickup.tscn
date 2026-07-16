@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://d4ctlh6j15ls"]
+
+[ext_resource type="Script" uid="uid://c8jn62thh1ksx" path="res://gameplay/perks/PerkPickup.cs" id="1_736ge"]
+[ext_resource type="PackedScene" uid="uid://cil1gop87fcgb" path="res://gameplay/perks/views/PerkView.tscn" id="2_bqs5l"]
+[ext_resource type="PackedScene" uid="uid://5wiwhftgaawa" path="res://gameplay/actors/player/player.tscn" id="3_xj1h6"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_tfbxm"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_paqtl"]
+viewport_path = NodePath("Sprite3D/SubViewport")
+
+[node name="PerkPickup" type="Area3D" unique_id=1108885097]
+script = ExtResource("1_736ge")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1724583773]
+shape = SubResource("SphereShape3D_tfbxm")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1981921549]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.663255, 0)
+pixel_size = 0.005
+billboard = 2
+double_sided = false
+texture = SubResource("ViewportTexture_paqtl")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite3D" unique_id=1556565546]
+transparent_bg = true
+size = Vector2i(300, 400)
+
+[node name="PerkView" parent="Sprite3D/SubViewport" unique_id=558992223 instance=ExtResource("2_bqs5l")]
+
+[node name="Player" parent="." unique_id=1748184085 instance=ExtResource("3_xj1h6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 3.8321824)
