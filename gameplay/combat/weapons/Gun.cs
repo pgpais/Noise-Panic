@@ -13,8 +13,11 @@ public partial class Gun : Node3D
 	[Export] string poolName = "gun_projectiles";
 
 	[ExportGroup("Shooting Parameters")]
-	[Export] float shootingForce = 20f;
 	[Export] float shootingCooldown = 0.2f;
+	[Export] int bulletsPerShot = 3;
+	[Export] float shotArc = 45f;
+
+
 	[ExportSubgroup("Magazine")]
 	[Export] float reloadTime = 2f;
 	[Export] int maxAmmo = 12;
@@ -48,7 +51,7 @@ public partial class Gun : Node3D
 		_currentAmmo = maxAmmo;
 	}
 
-	public void Shoot(Vector3 rotation = default)
+	public void Shoot(Transform3D transform = default)
 	{
 		if (!IsMultiplayerAuthority()) return;
 		if (!_canShoot) return;
@@ -58,10 +61,22 @@ public partial class Gun : Node3D
 			return;
 		}
 
-		if (rotation == default) rotation = shootingPoint.GlobalRotation;
+		if (transform == default) transform = shootingPoint.GlobalTransform;
 
-		var projectile = SpawnBullet(shootingPoint.GlobalPosition, rotation);
-		EmitSignal(SignalName.Shot, projectile);
+		var shotArcRads = Mathf.DegToRad(shotArc);
+		var increment = shotArcRads / (bulletsPerShot - 1);
+
+		for (int i = 0; i < bulletsPerShot; i++)
+		{
+			var angleOffset = increment * i - (shotArcRads / 2);
+
+			var bulletTransform = transform.RotatedLocal(Vector3.Up, angleOffset);
+
+			var projectile = SpawnBullet(bulletTransform);
+
+			Rpc(MethodName.SpawnBullet, bulletTransform);
+			EmitSignal(SignalName.Shot, projectile);
+		}
 
 		_currentAmmo--;
 		Rpc(MethodName.SyncAmmo, _currentAmmo);
@@ -71,7 +86,6 @@ public partial class Gun : Node3D
 			StartShootingCooldown();
 		}
 
-		Rpc(MethodName.SyncShoot, shootingPoint.GlobalPosition, rotation);
 	}
 
 	public void Reload()
@@ -118,31 +132,25 @@ public partial class Gun : Node3D
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.Authority)]
-	private void SyncShoot(Vector3 position, Vector3 rotation)
-	{
-		var projectile = SpawnBullet(position, rotation);
-		EmitSignal(SignalName.Shot, projectile);
-	}
-
-	[Rpc(MultiplayerApi.RpcMode.Authority)]
 	private void SyncAmmo(int currentAmmo)
 	{
 		_currentAmmo = currentAmmo;
 	}
 
-	private Projectile SpawnBullet(Vector3 position, Vector3 rotation)
+	[Rpc(MultiplayerApi.RpcMode.Authority)]
+	private Projectile SpawnBullet(Transform3D transform)
 	{
 		var bullet = ObjectPooler.Instance.RequestObject<Projectile>(poolName);
-		CallDeferred(MethodName.InitBullet, bullet, position, rotation);
+		EmitSignal(SignalName.Shot, bullet);
+		CallDeferred(MethodName.InitBullet, bullet, transform);
 
 		return bullet;
 	}
 
-	private void InitBullet(Projectile bullet, Vector3 position, Vector3 rotation)
+	private void InitBullet(Projectile bullet, Transform3D transform)
 	{
 		bullet.SetShooter(Owner);
-		bullet.GlobalPosition = position;
-		bullet.GlobalRotation = rotation;
+		bullet.GlobalTransform = transform;
 	}
 
 }
