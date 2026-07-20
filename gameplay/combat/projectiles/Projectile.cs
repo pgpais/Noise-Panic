@@ -2,7 +2,6 @@ using System.Linq;
 using Godot;
 using Godot.Collections;
 using WeWereDumb.Core.Pooling;
-using WeWereDumb.Gameplay.Combat.Projectiles.Components;
 using WeWereDumb.Gameplay.Combat.Projectiles.Modifiers;
 
 namespace WeWereDumb.Gameplay.Combat.Projectiles
@@ -25,9 +24,6 @@ namespace WeWereDumb.Gameplay.Combat.Projectiles
         [ExportGroup("Modifiers")]
         [Export] Node modifiersNode;
         private Array<ProjectileModifier> baseModifiers;
-
-        [ExportGroup("Components")]
-        [Export] VelocityComponent velocityComponent;
 
         private ObjectPool pool;
         Timer timer;
