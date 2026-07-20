@@ -1,6 +1,9 @@
-using System;
+using System.Linq;
 using Godot;
+using Godot.Collections;
 using WeWereDumb.Core.Pooling;
+using WeWereDumb.Gameplay.Combat.Projectiles.Components;
+using WeWereDumb.Gameplay.Combat.Projectiles.Modifiers;
 
 namespace WeWereDumb.Gameplay.Combat.Projectiles
 {
@@ -18,6 +21,13 @@ namespace WeWereDumb.Gameplay.Combat.Projectiles
         [Export] Node3D visuals;
         [Export] Hurtbox hurtbox;
         [Export] GpuParticles3D particles;
+
+        [ExportGroup("Modifiers")]
+        [Export] Node modifiersNode;
+        private Array<ProjectileModifier> baseModifiers;
+
+        [ExportGroup("Components")]
+        [Export] VelocityComponent velocityComponent;
 
         private ObjectPool pool;
         Timer timer;
@@ -45,13 +55,22 @@ namespace WeWereDumb.Gameplay.Combat.Projectiles
             particles.Finished += Despawn;
         }
 
-        public override void _Process(double delta)
+        public override void _PhysicsProcess(double delta)
         {
             base._Process(delta);
 
-            // Apply velocity
-            var dir = -GlobalTransform.Basis.Z;
-            Position += dir * speed * (float)delta;
+
+            _velocity = Vector3.Zero;
+
+            var movementModifiers = baseModifiers.OfType<ProjectileMovementModifier>();
+            var timeRatio = (timeToLive - timer.TimeLeft) / timeToLive;
+            foreach (var movementModifier in movementModifiers)
+            {
+                _velocity += movementModifier.CalculateVelocity(this, _velocity, (float)timeRatio);
+            }
+
+
+            DoMovement(delta);
         }
 
         public void SetShooter(Node shooter)
@@ -64,10 +83,12 @@ namespace WeWereDumb.Gameplay.Combat.Projectiles
             ProcessMode = ProcessModeEnum.Inherit;
             Show();
 
+            GetModifiers();
+
             visuals.Show();
             CallDeferred(MethodName.MonitorContacts, true);
 
-            timer.Autostart = true;
+            timer.Start();
             timer.Timeout += Despawn;
         }
 
@@ -105,6 +126,23 @@ namespace WeWereDumb.Gameplay.Combat.Projectiles
             this.damage += damage;
         }
 
+        private void GetModifiers()
+        {
+            baseModifiers = new Array<ProjectileModifier>();
+            foreach (Node child in modifiersNode.GetChildren())
+            {
+                if (child is ProjectileModifier modifier)
+                {
+                    baseModifiers.Add(modifier);
+                }
+            }
+        }
+
+        private void DoMovement(double delta)
+        {
+            Position += _velocity * (float)delta;
+        }
+
         private void ResetPhysics()
         {
             _velocity = Vector3.Zero;
@@ -128,6 +166,7 @@ namespace WeWereDumb.Gameplay.Combat.Projectiles
 
         private void Despawn()
         {
+            GD.Print("Despawning projectile");
             ObjectPooler.Instance.CallDeferred(ObjectPooler.MethodName.ReturnObject, pool.Name, this);
         }
 
